@@ -3,7 +3,6 @@ import { Canvas } from "@react-three/fiber";
 import {
   Decal,
   Float,
-  OrbitControls,
   Preload,
   useTexture,
 } from "@react-three/drei";
@@ -12,14 +11,14 @@ import CanvasLoader from "../Loader";
 
 import * as THREE from 'three';
 
-const Ball = ({ icon, position, rotation }) => {
+const Ball = ({ icon, position, }) => {
   const decal = useMemo(() => new THREE.TextureLoader().load(icon), [icon]);
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
       <ambientLight intensity={0.03} />
       <directionalLight position={[10, 5, -5]} />
-      <mesh castShadow receiveShadow scale={1} position={position}>
+      <mesh castShadow receiveShadow scale={1.5} position={position}>
         <icosahedronGeometry args={[1, 10]} />
         <meshStandardMaterial
           color='#fff8eb'
@@ -45,14 +44,14 @@ const BallCanvas = ({ icons }) => {
     camera={{ position: [0, 0, 5], fov: 75 }}
     gl={{ preserveDrawingBuffer: true }}>
       <Suspense fallback={<CanvasLoader />}>
-        <OrbitControls enableZoom={false} />
         <group>
-          {icons.map((icon, index) => {
-            const row = Math.floor(index / 3);
+        {icons.map((icon, index) => {
             const col = index % 3;
-            return (
-              <Ball key={icon} icon={icon} position={[col * 3 - 4, row * 3 + -2, -9]} />
-            );
+            const row = Math.floor(index / 3);
+            const spacing = 4; // Adjust this value to control the spacing between balls
+            const position = [col * spacing - 4, row * spacing - 7, -9];
+
+            return <Ball key={icon} icon={icon} position={position} />;
           })}
         </group>
       </Suspense>

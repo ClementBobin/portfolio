@@ -6,6 +6,7 @@ import web from "./web.png";
 import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
+import send from "./send.svg";
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -20,6 +21,12 @@ import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
+import sql from "./tech/sql.png";
+import php from "./tech/php.png";
+import python from "./tech/python.png";
+import arduino from "./tech/arduino.png";
+import vmware from "./tech/vmware.png";
+import virtualbox from "./tech/Virtualbox.png";
 
 import meta from "./company/meta.png";
 import shopify from "./company/shopify.png";
@@ -39,6 +46,7 @@ export {
   github,
   menu,
   close,
+  send,
   css,
   docker,
   figma,
@@ -59,4 +67,10 @@ export {
   carrent,
   jobit,
   tripguide,
+  sql,
+  php,
+  python,
+  arduino,
+  vmware,
+  virtualbox,
 };

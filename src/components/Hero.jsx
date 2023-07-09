@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { TypeAnimation } from 'react-type-animation';
 
 import { styles } from '../styles';
 import { ComputersCanvas } from './canvas';
@@ -13,7 +14,38 @@ const Hero = () => {
         </div>
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>Hi, I'm <span className='text-[#915eff]'>Clément</span></h1>
-          <p className={`${styles.heroSubText} mt-2 text-white-100`}>I am a student, but <br className='sm:block hidden' />in my left hover time im trying to learn new [animation: desing, style, animation, coding language] while trying to upgrade my [animation: syntax reading, protocole of coding]</p>
+          <p className={`${styles.heroSubText} mt-2 text-white-100`}>I am a student, but <br className='sm:block hidden' />in my left hover time im trying to learn new
+            <TypeAnimation
+              cursor={false} // omit the default css typing animation class, otherwise we won't be able to manipulate it manually
+
+              className={"text-[#915eff]"} // pass custom cursor className that will be manipulated (defaults below)
+              sequence={[
+                ' desing',
+                1000,
+                ' style',
+                1000,
+                ' animation',
+                1000,
+                ' coding language',
+                1000,
+              ]}
+              repeat={5000}
+            />
+            &nbsp; while trying to upgrade my
+            <TypeAnimation
+                cursor={false} // omit the default css typing animation class, otherwise we won't be able to manipulate it manually
+
+                className={"text-[#915eff]"} // pass custom cursor className that will be manipulated (defaults below)
+                sequence={[
+                  ' syntax reading',
+                  1000,
+                  ' protocole of coding',
+                  1000,
+                ]}
+                repeat={5000}
+                delay={300}
+            />
+        </p>
         </div>
       </div>
       <ComputersCanvas />
