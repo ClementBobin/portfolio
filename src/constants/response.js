@@ -121,138 +121,183 @@ const Responses = [
 const Prompt = [
   {
     question:"About yourself?",
+    type:"Personnal",
   },
   {
     question:"What motivated you?",
+    type:"Personnal",
   },
   {
     question:"Describe a challenging situation or project?",
+    type:"Situation",
   },
   {
     question:"What is your approach for continous learning, profession et developement?",
+    type:"Education",
   },
   {
     question:"What is this portfolio?",
+    type:"Other",
   },
   {
     question:"What experience do you have?",
+    type:"Work",
   },
   {
     question:"Is there more about your project?",
+    type:"Education",
   },  
   {
     question:"What are your strength and weakness?",
+    type:"Personnal",
   },
   {
     question:"Can you share a succes?",
+    type:"Personnal",
   },
   {
     question:"About your education?",
+    type:"Education",
   },
   {
     question:"What inspire you?",
+    type:"Personnal",
   },
   {
     question:"What are the skill you use to make your project succesfull?",
+    type:"Personnal",
   },
   {
     question:"What is your problem-solving approach?",
+    type:"Personnal",
   },
   {
     question:"What are your communication skill?",
+    type:"Personnal",
   },
   {
     question:"What is for you a good leadership?",
+    type:"Personnal",
   },
   {
     question:"What is your preferred programming languages?",
+    type:"Personnal",
   },
   {
     question:"What is your project management?",
+    type:"Personnal",
   },
   {
     question:"Does you work with data and do you analyse this data?",
+    type:"Work",
   },
   {
     question:"Does you have a customer philosophy?",
+    type:"Work",
   },
   {
     question:"Does you have some goals in your life?",
+    type:"Personnal",
   },
   {
     question:"Can you accept teamwork in your life?",
+    type:"Work",
   },
   {
     question:"What is your approach to learning new technologies?",
+    type:"Education",
   },
   {
     question:"Can you work on tight deadlines?",
+    type:"Work",
   },
   {
     question:"How did you resolve a conflict with your team?",
+    type:"Work",
   },
   {
     question:"How do you stay motivated or productive?",
+    type:"Personnal",
   },  
   {
     question:"Describe a time where you have solve problem?",
+    type:"Work",
   },
   {
     question:"How do you manage your work schedule?",
+    type:"Personnal",
   },
   {
     question:"How do you handle difficult clients?",
+    type:"Work",
   },
   {
     question:"What is your work ethic?",
+    type:"Work",
   },
   {
     question:"What are your time management skills?",
+    type:"Personnal",
   },
   {
     question:"How do you handle stressfull situations?",
+    type:"Personnal",
   },
   {
     question:"What is your preferred method of communication?",
+    type:"Personnal",
   },
   {
     question:"What is your approach to creativity?",
+    type:"Personnal",
   },
   {
     question:"How do you handle feedback and criticism?",
+    type:"Personnal",
   },
   {
     question:"How do you balance between multiple projects?",
+    type:"Personnal",
   },
   {
     question:"How do you overcome challenges in your career?",
+    type:"Personnal",
   },
   {
     question:"What is your favorite hobbies?",
+    type:"Personnal",
   },
   {
     question:"What have you learn at school?",
+    type:"Education",
   },
   {
     question:"What are your skill?",
+    type:"Personnal",
   },
   {
     question:"What are your core values?",
+    type:"Personnal",
   },
   {
     question:"Tell me a time when you have adapt to a unexpected circumstances?",
+    type:"Personnal",
   },
   {
     question:"What is your preferred method of collaboration?",
+    type:"Personnal",
   },
   {
     question:"Describe a difficult client situation?",
+    type:"Work",
   },
   {
     question:"How does you maintain the balance of your work-life to prevent burnout?",
+    type:"Personnal",
   },
   {
     question:"What steps does you take to improve quality and accuracy of your work?",
+    type:"Personnal",
   },
 ]
 

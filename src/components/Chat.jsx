@@ -78,7 +78,7 @@ const Chat = () => {
 
     if (lowerCaseInput.includes("help")) {
       response = "Here some question you can ask me."
-      setShowChathelp(true);
+      setShowChathelp((prevShowChathelp) => !prevShowChathelp);
       return response;
     } if (questionResponse) {
       response = questionResponse;

@@ -4,7 +4,7 @@ import { About, Contact, Experience, Feedbacks, Hero, Navbar, Tech, Works, Stars
 const Portfolio = () => {
   return (
     <div className="relative z-0 bg-primary overflow-x-hidden">
-      <audio src="Ark Patrol - Let go (Slowed - Instrumental - 8D)" loop autoPlay />
+      <audio src="Ark Patrol - Let go (Slowed - Instrumental - 8D).mp3" loop autoPlay />
       <Chat />
       <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
         <Navbar />
