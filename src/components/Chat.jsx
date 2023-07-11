@@ -38,11 +38,18 @@ const findQuestionResponse = (userInput) => {
 const Chat = () => {
   const [showChatbox, setShowChatbox] = useState(false);
   const [showChathelp, setShowChathelp] = useState(false);
+  const [showSelector, setShowSelector] = useState(false);
   const [TextPrompt, setTextPrompt] = useState("");
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
+  const [query, setQuery] = useState("");
 
   const chatBodyRef = useRef(null);
+
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setQuery(value);
+  };
 
   const renderUserMessage = () => {
     if (userInput.trim() === "") return;
@@ -102,10 +109,34 @@ const Chat = () => {
     setShowChatbox(!showChatbox);
   };
 
-  const PromptDisplay = (prompt) => {
-    setTextPrompt(prompt.question);
-    setUserInput(TextPrompt);
+  const PromptDisplay = (question) => {
+    setTextPrompt(question);
+    setUserInput(question);
   };
+
+  const showCategory = (type) => {
+    document.getElementById(type + "-question").style.display = "block";
+    setShowSelector(true);
+
+  };
+
+    // Create an object with unique type values as keys and question in their corresponding type
+    const promptsByType = Prompt.reduce((acc, prompt) => {
+      if (!acc[prompt.type]) {
+        acc[prompt.type] = [];
+      }
+      acc[prompt.type].push(prompt.question);
+      return acc;
+    }, {});
+
+      const uniquePrompts = Prompt.reduce((acc, prompt) => {
+        if (!acc[prompt.type]) {
+          acc[prompt.type] = prompt;
+        }
+        return acc;
+      }, {});
+  
+
 
   return (
     <>
@@ -146,10 +177,29 @@ const Chat = () => {
                   </div>
                 </div>
                 {showChathelp && (
-                  <div className='w-auto backdrop-blur max-h-[420px] overflow-y-auto'>
-                  {Prompt.map((prompt, index) => (
-                    <div key={index} onClick={() => PromptDisplay(prompt)} className="cursor-pointer">{prompt.question}</div>
-                  ))}
+                  <div className='w-auto backdrop-blur max-h-[420px] overflow-y-auto flex flex-wrap'>
+                    <input type="search" onChange={handleSearch} value={query} placeholder="Search" />
+                    {Object.entries(uniquePrompts).map(([type], index) => (
+                      <div
+                      id={type}
+                      key={index}
+                      className={`w-[340px] h-[50px] rounded-md bg-slate-600 items-center justify-center flex ${showSelector || query ? "hidden" : ""}`}
+                      onClick={() => showCategory(type)}
+                      >
+                    
+                        <img src={logo} alt='logo' className='w-9 h-9 object-contain relative top-7' />
+                        <small className="relative top-4">{type}</small>
+                      </div>
+                    ))}
+                    {Object.entries(promptsByType).map(([type, questions], index) => (
+                      <div id={type + "-question"} key={index} className={`${query ? "" : "hidden"}`}>
+                        {questions
+                          .filter(question => question.toLowerCase().includes(query.toString().toLowerCase()))
+                          .map((question, idx) => (
+                            <p key={idx} onClick={() => PromptDisplay(question)} className="cursor-pointer">{question}</p>
+                          ))}
+                      </div>
+                    ))}
                   </div>
                 )}
                 </div>
