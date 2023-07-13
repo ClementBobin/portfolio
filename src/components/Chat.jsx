@@ -115,9 +115,13 @@ const Chat = () => {
   };
 
   const showCategory = (type) => {
+    if (showSelector === false) {
     document.getElementById(type + "-question").style.display = "block";
     setShowSelector(true);
-
+    } else {
+      document.getElementById(type + "-question").style.display = "";
+      setShowSelector(false);
+    }
   };
 
     // Create an object with unique type values as keys and question in their corresponding type
@@ -177,27 +181,33 @@ const Chat = () => {
                   </div>
                 </div>
                 {showChathelp && (
-                  <div className='w-auto backdrop-blur max-h-[420px] overflow-y-auto flex flex-wrap'>
-                    <input type="search" onChange={handleSearch} value={query} placeholder="Search" />
-                    {Object.entries(uniquePrompts).map(([type], index) => (
-                      <div
-                      id={type}
-                      key={index}
-                      className={`w-[340px] h-[50px] rounded-md bg-slate-600 items-center justify-center flex ${showSelector || query ? "hidden" : ""}`}
-                      onClick={() => showCategory(type)}
-                      >
-                    
-                        <img src={logo} alt='logo' className='w-9 h-9 object-contain relative top-7' />
-                        <small className="relative top-4">{type}</small>
-                      </div>
-                    ))}
+                  <div className={`h-[420px] ${showSelector || query ? "w-auto" : "w-[250px]"}`}>
+                    <input type="search" onChange={handleSearch} value={query} placeholder="Search" className="w-full h-[30px]" />
+                    <div className='w-auto backdrop-blur flex flex-wrap content-around overflow-y-auto'>
+                      {Object.entries(uniquePrompts).map(([type], index) => (
+                        <div
+                        id={type}
+                        key={index}
+                        className={`w-[250px] h-[50px] rounded-md bg-slate-600 items-center justify-center cursor-pointer flex ${showSelector || query ? "hidden" : ""}`}
+                        onClick={() => showCategory(type)}
+                        >
+                      
+                          <img src={logo} alt='logo' className='w- h-full object-contain' />
+                          <small className="absolute">{type}</small>
+                        </div>
+                      ))}
+                    </div>
                     {Object.entries(promptsByType).map(([type, questions], index) => (
-                      <div id={type + "-question"} key={index} className={`${query ? "" : "hidden"}`}>
+                      <div id={type + "-question"} key={index} className={`${query ? "" : "hidden"} max-h-[390px] overflow-y-auto bg-purple-950 border-solid border-8 border-purple-950`}>
+                        <h1>{type}</h1>
+                        <img src={close} alt="close" className="position relative bottom-5 left-[95%] cursor-pointer" onClick={() => showCategory(type)} />
+                        <div className="bg-purple-600">
                         {questions
                           .filter(question => question.toLowerCase().includes(query.toString().toLowerCase()))
                           .map((question, idx) => (
                             <p key={idx} onClick={() => PromptDisplay(question)} className="cursor-pointer">{question}</p>
                           ))}
+                        </div>
                       </div>
                     ))}
                   </div>
