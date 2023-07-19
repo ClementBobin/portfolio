@@ -1,4 +1,5 @@
 import Portfolio from './Portfolio.jsx';
 import Cv from './cv';
+import Test from './test.jsx'
 
-export { Portfolio, Cv };
+export { Portfolio, Cv, Test };
