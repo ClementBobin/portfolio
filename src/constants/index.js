@@ -18,7 +18,7 @@ import {
   meta,
   starbucks,
   tesla,
-  shopify,
+  Saint_bénigne,
   carrent,
   jobit,
   tripguide,
@@ -29,6 +29,7 @@ import {
   arduino,
   virtualbox,
   vmware,
+  anonym,
 } from "../assets";
 
 export const navLinks = [
@@ -60,7 +61,7 @@ const Hero =[
     ],
     Animation2: [
       " syntax reading",
-      "' protocole of coding",
+      " protocole of coding",
     ],
   }
 ];
@@ -118,15 +119,15 @@ const technologies = [
     icon: threejs,
   },
   {
-    name: "git",
+    name: "Git",
     icon: git,
   },
   {
-    name: "figma",
+    name: "Figma",
     icon: figma,
   },
   {
-    name: "docker",
+    name: "Docker",
     icon: docker,
   },
   {
@@ -146,7 +147,7 @@ const technologies = [
     icon: arduino,
   },
   {
-    name: "Vmware",
+    name: "VMware",
     icon: vmware,
   },
   {
@@ -163,10 +164,7 @@ const experiences = [
     iconBg: "#383E56",
     date: "September 2015 - June 2019",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Dicovery of a passion about technologie",
     ],
   },
   {
@@ -177,21 +175,32 @@ const experiences = [
     date: "September 2019 - June 2023",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Collaborating with cross-functional teams including designers, management, and other developers to create high-quality products.",
       "Implementing responsive design and ensuring cross-browser compatibility.",
       "Participating in code reviews and providing constructive feedback to other developers.",
+      "Dicover of my love for code"
     ],
   },
+  {
+    title: "Student",
+    company_name: "Groupe Saint-bénigne",
+    icon: Saint_bénigne,
+    iconBg: "#45e862",
+    date: "September 2023 - currently",
+    points: [
+      "",
+    ]
+  }
 ];
 
 const testimonials = [
   {
     testimonial:
-      "I thought it was  to make a website as beautiful as our product, but Rick proved me wrong.",
-    name: "Sara Lee",
-    designation: "CFO",
-    company: "Acme Co",
-    image: "https://randomuser.me/api/portraits/women/4.jpg",
+      "Clément was already much more experienced in code and error then me",
+    name: "François Meunier",
+    designation: "Prof",
+    company: "Clos Maire",
+    image: anonym,
   },
 ];
 

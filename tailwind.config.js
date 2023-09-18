@@ -4,6 +4,9 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
+      animation: {
+        'pingNoLoop': 'one_ping 1s cubic-bezier(0, 0, 0.2, 1) 3',
+      },
       colors: {
         primary: "#050816",
         secondary: "#aaa6c3",
@@ -20,6 +23,14 @@ module.exports = {
       },
       backgroundImage: {
         "hero-pattern": "url('/src/assets/herobg.png')",
+      },
+      keyframes: {
+        one_ping: {
+          '75%, 100%': {
+            transform: 'scale(2)',
+            opacity: '0'
+          }
+        }
       },
     },
   },

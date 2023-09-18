@@ -17,7 +17,7 @@ const Tech = () => {
           <h2 className={styles.sectionHeadText}>Technologies.</h2>
         </motion.div>
       </div>
-      <div className='relative w-[100vw] h-[100vh] mx-auto z-[5] top-[-25vh]'>
+      <div className='relative w-[100vw] h-[100vh] z-[5] top-[-247px]'>
           <BallCanvas icons={icons} />
       </div>
     </div>

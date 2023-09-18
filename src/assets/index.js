@@ -29,13 +29,15 @@ import vmware from "./tech/vmware.png";
 import virtualbox from "./tech/Virtualbox.png";
 
 import meta from "./company/meta.png";
-import shopify from "./company/shopify.png";
+import Saint_bénigne from "./company/Saint-bénigne.png";
 import starbucks from "./company/starbucks.png";
 import tesla from "./company/tesla.png";
 
 import carrent from "./carrent.png";
 import jobit from "./jobit.png";
 import tripguide from "./tripguide.png";
+
+import anonym from "./People/anonym.webp";
 
 export {
   logo,
@@ -61,7 +63,7 @@ export {
   typescript,
   threejs,
   meta,
-  shopify,
+  Saint_bénigne,
   starbucks,
   tesla,
   carrent,
@@ -73,4 +75,5 @@ export {
   arduino,
   vmware,
   virtualbox,
+  anonym,
 };
