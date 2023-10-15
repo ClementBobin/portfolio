@@ -224,7 +224,7 @@ const Chat = () => {
         className={`z-[50] fixed right-0 bottom-0 flex flex-row-reverse min-w-max`}
         onClick={toggleChatbox}
       >
-        <img src={logo} alt="" className={`${showChatAnimation ? "animate-pingNoLoop" : ""} hover:animate-bounce h-[35px] w-[35px] relative rounded-lg bg-secondary`} />
+        <img src={logo} alt="" className={`${showChatAnimation ? "animate-pingNoLoop" : ""} hover:animate-bounce max-h-[35px] max-w-[35px] relative rounded-lg bg-secondary`} />
         <p className="w-[10px] h-[10px] rotate-45 bg-tertiary relative top-[12px] right-[4px]"></p>
         <small className="bg-tertiary text-white px-4 py-2 rounded-md relative flex flex-row">
           Your Bubble Content
