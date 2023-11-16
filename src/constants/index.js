@@ -47,25 +47,6 @@ export const navLinks = [
   },
 ];
 
-const Hero =[
-  {
-    text: [
-      "I am a student, but in my left hover time im trying to learn new",
-      "while trying to upgrade my",
-    ],
-    Animation1: [
-      " desing",
-      " style",
-      " animation",
-      " coding language",
-    ],
-    Animation2: [
-      " syntax reading",
-      " protocole of coding",
-    ],
-  }
-];
-
 const services = [
   {
     title: "Web Developer",
