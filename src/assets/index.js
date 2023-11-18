@@ -18,7 +18,6 @@ import javascript from "./tech/javascript.avif";
 import mongodb from "./tech/mongodb.avif";
 import nodejs from "./tech/nodejs.avif";
 import reactjs from "./tech/reactjs.avif";
-import redux from "./tech/redux.png";
 import tailwind from "./tech/tailwind.avif";
 import typescript from "./tech/typescript.avif";
 import threejs from "./tech/threejs.svg";
@@ -28,6 +27,7 @@ import python from "./tech/python.avif";
 import arduino from "./tech/arduino.png";
 import vmware from "./tech/vmware.avif";
 import virtualbox from "./tech/Virtualbox.avif";
+import framer from "./tech/framer.png";
 
 import meta from "./company/meta.avif";
 import Saint_bénigne from "./company/Saint-bénigne.avif";
@@ -39,6 +39,8 @@ import jobit from "./jobit.avif";
 import tripguide from "./tripguide.avif";
 
 import anonym from "./People/anonym.webp";
+
+import avatar from "./avatar.png";
 
 export {
   logo,
@@ -59,7 +61,6 @@ export {
   mongodb,
   nodejs,
   reactjs,
-  redux,
   tailwind,
   typescript,
   threejs,
@@ -68,6 +69,7 @@ export {
   starbucks,
   tesla,
   carrent,
+  framer,
   jobit,
   tripguide,
   sql,
@@ -78,4 +80,5 @@ export {
   virtualbox,
   anonym,
   command,
+  avatar,
 };

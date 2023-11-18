@@ -2,13 +2,13 @@ import {
   mobile,
   backend,
   creator,
+  framer,
   web,
   javascript,
   typescript,
   html,
   css,
   reactjs,
-  redux,
   tailwind,
   nodejs,
   mongodb,
@@ -62,78 +62,202 @@ const services = [
   },
 ];
 
-const technologies = [
+const Skill_data = [
   {
-    name: "HTML 5",
-    icon: html,
+    skill_name: "Html 5",
+    Image: html,
+    width: 80,
+    height: 80,
   },
   {
-    name: "CSS 3",
-    icon: css,
+    skill_name: "Css",
+    Image: css,
+    width: 80,
+    height: 80,
   },
   {
-    name: "JavaScript",
-    icon: javascript,
+    skill_name: "Java Script",
+    Image: javascript,
+    width: 65,
+    height: 65,
   },
   {
-    name: "TypeScript",
-    icon: typescript,
+    skill_name: "Tailwind Css",
+    Image: tailwind,
+    width: 80,
+    height: 80,
   },
   {
-    name: "React JS",
-    icon: reactjs,
+    skill_name: "React",
+    Image: reactjs,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Tailwind CSS",
-    icon: tailwind,
+    skill_name: "NodeJs",
+    Image: nodejs,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Node JS",
-    icon: nodejs,
+    skill_name: "Type Script",
+    Image: typescript,
+    width: 80,
+    height: 80,
   },
   {
-    name: "MongoDB",
-    icon: mongodb,
+    skill_name: "Framer Motion",
+    Image: framer,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Three JS",
-    icon: threejs,
+    skill_name: "Three JS",
+    Image: threejs,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Git",
-    icon: git,
+    skill_name: "Mongo db",
+    Image: mongodb,
+    width: 40,
+    height: 40,
+  },
+
+];
+
+const Socials = [
+  {
+    name: "Discord",
+    src: "/instagram.svg",
   },
   {
-    name: "Figma",
-    icon: figma,
+    name: "Facebook",
+    src: "/facebook.svg",
   },
   {
-    name: "Docker",
-    icon: docker,
+    name: "Instagram",
+    src: "/discord.svg",
+  },
+];
+
+
+
+const Frontend_skill = [
+  {
+    skill_name: "Html 5",
+    Image: html,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Sql",
-    icon: sql,
+    skill_name: "Css",
+    Image: css,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Php",
-    icon: php,
+    skill_name: "Tailwind Css",
+    Image: tailwind,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Python",
-    icon: python,
+    skill_name: "React",
+    Image: reactjs,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Arduino",
-    icon: arduino,
+    skill_name: "Type Script",
+    Image: typescript,
+    width: 80,
+    height: 80,
   },
   {
-    name: "VMware",
-    icon: vmware,
+    skill_name: "Java Script",
+    Image: javascript,
+    width: 80,
+    height: 80,
+  },
+];
+
+const Backend_skill = [
+  {
+    skill_name: "Node js",
+    Image: nodejs,
+    width: 80,
+    height: 80,
   },
   {
-    name: "Virtualbox",
-    icon: virtualbox,
+    skill_name: "PHP",
+    Image: php,
+    width: 80,
+    height: 80,
+  },
+  {
+    skill_name: "Mongo db",
+    Image: mongodb,
+    width: 40,
+    height: 40,
+  },
+  {
+    skill_name: "Python",
+    Image: python,
+    width: 40,
+    height: 40,
+  },
+  {
+    skill_name: "My SQL",
+    Image: sql,
+    width: 70,
+    height: 70,
+  },
+];
+
+const Full_stack = [
+  {
+    skill_name: "React Native",
+    Image: reactjs,
+    width: 70,
+    height: 70,
+  },
+  {
+    skill_name: "Docker",
+    Image: docker,
+    width: 70,
+    height: 70,
+  },
+
+  {
+    skill_name: "Figma",
+    Image: figma,
+    width: 50,
+    height: 50,
+  },
+
+];
+
+
+
+const Other_skill = [
+  {
+    skill_name: "Virtualbox",
+    Image: virtualbox,
+    width: 40,
+    height: 40,
+  },
+  {
+    skill_name: "VMware",
+    Image: vmware,
+    width: 40,
+    height: 40,
+  },
+  {
+    skill_name: "Git",
+    Image: git,
+    width: 80,
+    height: 80,
   },
 ];
 
@@ -251,4 +375,4 @@ const projects = [
   },
 ];
 
-export { services, technologies, experiences, testimonials, projects };
+export { services, Backend_skill, Frontend_skill, Full_stack, Other_skill, Skill_data, experiences, testimonials, projects };

@@ -1,11 +1,15 @@
-import Hero from './Hero';
-import Navbar from './Navbar';
-import About from './About';
-import Tech from './Tech';
-import Experience from './Experience';
-import Works from './Works';
-import Feedbacks from './Feedbacks';
-import Contact from './Contact';
+import Hero from './main/Hero';
+import Navbar from './main/Navbar';
+import About from './main/About';
+import Tech from './main/Tech';
+import Experience from './main/Experience';
+import Works from './main/Works';
+import Feedbacks from './main/Feedbacks';
+import Contact from './main/Contact';
+import Transition from './main/transition';
+import Transition2 from './main/transition2';
+import StarBackground from './canvas/StarBackground';
+import Encryption from './main/Encryption';
 
 export {
   Hero,
@@ -16,4 +20,8 @@ export {
   Works,
   Feedbacks,
   Contact,
+  Transition,
+  Transition2,
+  StarBackground,
+  Encryption,
 }
