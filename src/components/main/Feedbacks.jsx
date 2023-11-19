@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 import { styles } from "../../styles";
 import { SectionWrapper } from "../../hoc";
@@ -44,13 +45,15 @@ const FeedbackCard = ({
 );
 
 const Feedbacks = () => {
+  const { t } = useTranslation();
+
   return (
     <section className={`mt-12 bg-black-100 rounded-[20px]`}>
       <div
         className={`bg-tertiary rounded-2xl ${styles.padding} min-h-[300px]`}
       >
         <motion.div variants={textVariant()}>
-          <p className={styles.sectionSubText}>What others say</p>
+          <p className={styles.sectionSubText}>{t('testimonialsSectionSubText')}</p>
           <h2 className={styles.sectionHeadText}>Testimonials.</h2>
         </motion.div>
       </div>

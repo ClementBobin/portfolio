@@ -2,7 +2,7 @@ import Toast from './Toast';
 import React, { useRef, useState, forwardRef, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion';
 import useDarkMode from './useDarkMode';
-import useLang from './english';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import {
     KBarPortal,
@@ -129,7 +129,7 @@ const KBar = () => {
   const darkRef = useRef()
   const [showToast, setShowToast] = useState(false)
   const [darkMode, setDarkMode] = useDarkMode();
-  const [lang, setLang] = useLang();
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
 
   const copyLink = () => {
@@ -146,6 +146,10 @@ const KBar = () => {
       // Use direct link for external navigation
       window.location.href = path;
     }
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   const actions = [
@@ -310,7 +314,7 @@ const KBar = () => {
       shortcut: ['g', 'r'],
       keywords: 'English lang',
       section: 'lang',
-      perform: () => setLang('en'),
+      perform: () => changeLanguage('en'),
       icon: <Lottie lottieRef={darkRef} className='w-6 h-6' animationData={darkIcons} loop={false} autoplay={false} />,
     },
     {
@@ -319,7 +323,7 @@ const KBar = () => {
       shortcut: ['g', 'r'],
       keywords: 'French lang',
       section: 'lang',
-      perform: () => setLang('fr'),
+      perform: () => changeLanguage('fr'),
       icon: <Lottie lottieRef={lightRef} className='w-6 h-6' animationData={lightIcons} loop={false} autoplay={false} />,
     },
   ];

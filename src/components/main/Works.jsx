@@ -1,6 +1,7 @@
 import React from "react";
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 import { styles } from "../../styles";
 import { github } from "../../assets";
@@ -68,6 +69,8 @@ const ProjectCard = ({
 };
 
 const Works = () => {
+  const { t } = useTranslation();
+
   return (
     <section>
       <motion.div variants={textVariant()}>
@@ -80,11 +83,7 @@ const Works = () => {
           variants={fadeIn("", "", 0.1, 1)}
           className='mt-3 dark:text-secondary text-textColor text-[17px] max-w-3xl leading-[30px]'
         >
-          Following projects showcases my skills and experience through
-          real-world examples of my work. Each project is briefly described with
-          links to code repositories and live demos in it. It reflects my
-          ability to solve complex problems, work with different technologies,
-          and manage projects effectively.
+          {t('projectDescription')}
         </motion.p>
       </div>
 

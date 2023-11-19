@@ -2,12 +2,12 @@ import ParticlesContainer from '../sub/ParticlesContainer';
 import Avatar from '../sub/Avatar';
 
 import {motion} from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 import { fadeIn } from '../../utils/motion';
-import useLang from '../sub/english';
 
 function Hero() {
-  const { lang, toggleLang } = useLang();
+  const { t } = useTranslation();
   
   return (
     <div className='bg-primary h-[100vh]'>
@@ -20,8 +20,8 @@ function Hero() {
             exit='hidden'
             className='text-[35px] leading-tight md:text-[60px] md:leading-[1.3] mb-8 font-semibold'
           >
-            Transforming Ideas <br /> Into{''}
-            <span className='text-acentuation'>{lang ? 'Digital Reality':'hello'}</span>
+            {t('heroTitle')}<br />{t('heroLiason')}
+            <span className='text-acentuation'>{t('heroAccentuation')}</span>
           </motion.h1>
           <motion.p
            variants={fadeIn('down', 0.3)}
@@ -30,7 +30,7 @@ function Hero() {
            exit='hidden'
            className='max-w-sm xl:max-w-xl mx-auto xl:mx-0 mb-10 xl:mb-16 leading-[1.8] text-white/60 font-light'
           >
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vitae hic odio quos possimus dolorum esse aperiam, enim iure temporibus? Minima dolore deserunt quam veritatis eveniet facilis neque adipisci officia dignissimos!
+            {t('heroContent')}
           </motion.p>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 import {
   slideInFromLeft,
   slideInFromRight,
@@ -7,6 +8,8 @@ import {
 } from "../../utils/motion";
 
 const TransitionContent = () => {
+  const { t } = useTranslation();
+
   return (
     <motion.div
       initial="hidden"
@@ -28,12 +31,12 @@ const TransitionContent = () => {
           className="flex flex-col gap-6 mt-6 text-6xl font-bold text-white max-w-[600px] w-auto h-auto"
         >
           <span>
-            Providing
+            {t('transitionTitle')}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
               {" "}
-              the best{" "}
+              {t('transitionAccentuation')}{" "}
             </span>
-            project experience
+            {t('transitionTitleFollow')}
           </span>
         </motion.div>
 
@@ -41,8 +44,7 @@ const TransitionContent = () => {
           variants={slideInFromLeft(0.8)}
           className="text-lg text-gray-400 my-5 max-w-[600px]"
         >
-          I&apos;m a Full Stack Software Engineer with experience in Website,
-          Mobile, and Software development. Check out my projects and skills.
+          {t('transitionSubtitle')}
         </motion.p>
       </div>
 
