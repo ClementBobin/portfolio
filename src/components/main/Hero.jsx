@@ -4,8 +4,11 @@ import Avatar from '../sub/Avatar';
 import {motion} from 'framer-motion';
 
 import { fadeIn } from '../../utils/motion';
+import useLang from '../sub/english';
 
 function Hero() {
+  const { lang, toggleLang } = useLang();
+  
   return (
     <div className='bg-primary h-[100vh]'>
       <div className='w-full h-full bg-gradient-to-r from-primary via-black/30 to-black/10 invert dark:invert-0'>
@@ -18,7 +21,7 @@ function Hero() {
             className='text-[35px] leading-tight md:text-[60px] md:leading-[1.3] mb-8 font-semibold'
           >
             Transforming Ideas <br /> Into{''}
-            <span className='text-acentuation'> Digital Reality</span>
+            <span className='text-acentuation'>{lang ? 'Digital Reality':'hello'}</span>
           </motion.h1>
           <motion.p
            variants={fadeIn('down', 0.3)}

@@ -2,6 +2,7 @@ import Toast from './Toast';
 import React, { useRef, useState, forwardRef, useEffect } from 'react'
 import { motion, useAnimation } from 'framer-motion';
 import useDarkMode from './useDarkMode';
+import useLang from './english';
 import { useNavigate } from 'react-router-dom';
 import {
     KBarPortal,
@@ -128,6 +129,7 @@ const KBar = () => {
   const darkRef = useRef()
   const [showToast, setShowToast] = useState(false)
   const [darkMode, setDarkMode] = useDarkMode();
+  const [lang, setLang] = useLang();
   const navigate = useNavigate();
 
   const copyLink = () => {
@@ -300,6 +302,24 @@ const KBar = () => {
       keywords: 'LightTheme',
       section: 'light',
       perform: () => setDarkMode(false),
+      icon: <Lottie lottieRef={lightRef} className='w-6 h-6' animationData={lightIcons} loop={false} autoplay={false} />,
+    },
+    {
+      id: 'English',
+      name: 'English',
+      shortcut: ['g', 'r'],
+      keywords: 'English lang',
+      section: 'lang',
+      perform: () => setLang('en'),
+      icon: <Lottie lottieRef={darkRef} className='w-6 h-6' animationData={darkIcons} loop={false} autoplay={false} />,
+    },
+    {
+      id: 'french',
+      name: 'French',
+      shortcut: ['g', 'r'],
+      keywords: 'French lang',
+      section: 'lang',
+      perform: () => setLang('fr'),
       icon: <Lottie lottieRef={lightRef} className='w-6 h-6' animationData={lightIcons} loop={false} autoplay={false} />,
     },
   ];
