@@ -1,36 +1,28 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Portfolio, Cv, Test } from "./page";
-import KBar from './components/sub/KBar'
+import { Portfolio, Cv, Test, Default } from "./page";
+import { Uses, Projects, Reminder, Articles } from './components/index';
+import KBar from './components/portfolio/sub/KBar';
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
-      <KBar />
+        {/* Include the KBar component for navigation */}
+        <KBar />
+
+        {/* Define routes for different pages */}
         <Routes>
-          <Route path='/' element={<Portfolio />}/>
-          <Route path='/cv' element={<Cv />}/>
-          <Route path='/test' element={<Test />}/>
+          <Route path='/' element={<Default />} />
+          <Route path='/portfolio' element={<Portfolio />}/>
+            <Route path='/portfolio/uses' element={<Uses />}/>
+            <Route path='/portfolio/projects' element={<Projects />}/>
+            <Route path='/portfolio/reminder' element={<Reminder />}/>
+            <Route path='/portfolio/articles' element={<Articles />}/>
+            <Route path='/portfolio/cv' element={<Cv />} />
+          <Route path='/test' element={<Test />} />
         </Routes>
       </BrowserRouter>
     </>
-  )
-}
-
-function MyApp({ Component, pageProps }) {
-  // Get the location from react-router-dom's useLocation
-  const location = useLocation();
-
-  return (
-      <Layout>
-          <AnimatePresence>
-              {/* Use location.pathname instead of router.route */}
-              <motion.div key={location.pathname} className='h-full'>
-                  <Transition />
-                  <Component {...pageProps} />
-              </motion.div>
-          </AnimatePresence>
-      </Layout>
   )
 }
 

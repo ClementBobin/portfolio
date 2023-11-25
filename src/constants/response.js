@@ -1,4 +1,4 @@
-const Question = [
+/* const Question = [
   ["combine", "how", "you", "are"],
   ["combine","what", "you", "name"],
   ["combine", "today", "time"],
@@ -116,9 +116,9 @@ const Responses = [
   "I handled a difficult client situation by actively listening, understanding their concerns, and finding a mutually beneficial solution to their problems.",
   "I maintain my work-life balance by setting boundaries, prioritizing self-care, and managing time efficiently.",
   "I ensure quality and accuracy in my work by double-checking information, seeking feedback, and following established processes and guidelines.",
-];
+]; */
 
-const Prompt = [
+/* const Prompt = [
   {
     question:"About yourself?",
     type:"Personnal",
@@ -301,4 +301,4 @@ const Prompt = [
   },
 ]
 
-export { Question, Responses, Prompt };
+export { Question, Responses, Prompt }; */

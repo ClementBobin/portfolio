@@ -1,7 +1,7 @@
 import React from 'react'
 import { logo } from '../assets';
 
-
+// The cv component for rendering the CV page
 function Cv() {
   return (
       <section className='bg-white text-black flex flex-col items-center min-h-screen'>

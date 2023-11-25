@@ -3,46 +3,75 @@
 @tailwind utilities;
 
 :root{
-  --primary-dark: #030014; /* #050816 */
+  /* Primary and Secondary colors for light and dark modes */
+  --primary-dark: #030014;
   --primary-light: #F8F8FF;
   --secondary-dark: #aaa6c3;
   --secondary-light: #F0FFFF;
+ 
+  /* Tertiary and Black/White colors for light and dark modes */
   --tertiary-dark: #151030;
   --tertiary-light: #f4efff;
   --black-100-pre: #100d25;
   --black-200-pre: #090325;
   --white-100-pre: #fcfcfc;
   --white-200-pre: #f1f1f1;
+ 
+  /* Text colors for light and dark modes */
   --textColor-dark: #ffffff;
   --textColor-light: #000000;
+ 
+  /* Acentuation color */
   --acentuation: #915eff;
+ 
+  /* Time line colors for light and dark modes */
   --time-line-dark: #1d1836;
   --time-line-light: #e9ecfa;
-}
+ }
 
-html{
+ html{
+  /* set color to light variant */
+
+  /* set primary */
   --primary: var(--primary-light);
+  /* set secondary */
   --secondary: var(--secondary-light);
+  /* set tertiary */
   --tertiary: var(--tertiary-light);
+  /* invert black color */
   --black-100: var(--white-100-pre);
   --black-200: var(--white-200-pre);
+  /* revert white color */
   --white-100: var(--black-100-pre);
+  /* set text */
   --textColor: var(--textColor-light);
+  /* set hero background image */
   --hero-bg: url('/src/assets/bg-explosion.png');
+  /* set timeline */
   --time-line: var(--time-line-light);
 }
 
 html.dark{
+  /* set color to dark variant */
+
+  /* set primary */
   --primary: var(--primary-dark);
+  /* set secondary */
   --secondary: var(--secondary-dark);
+  /* set tertiary */
   --tertiary: var(--tertiary-dark);
+  /* black color */
   --black-100: var(--black-100-pre);
   --black-200: var(--black-200-pre);
+  /* white color */
   --white-100: var(--white-100-pre);
+  /* set text */
   --textColor: var(--textColor-dark);
+  /* set timeline */
   --time-line: var(--time-line-dark);
 }
 
+/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -50,6 +79,8 @@ html.dark{
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+
+  /* Hide scrollbar */
   /* For Webkit browsers like Chrome and Safari */
   ::-webkit-scrollbar {
     display: none;
@@ -62,22 +93,14 @@ html.dark{
   -ms-overflow-style: none;
 }
 
-.snap{
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  overflow-y: scroll;
-}
-
-.section {
-  scroll-snap-align: start;
-}
-
+/* Hash Span Style */
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;
   display: block;
 }
 
+/* Gradients */
 .black-gradient {
   background: #000000; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -173,7 +196,7 @@ html.dark{
   -webkit-text-fill-color: transparent;
 }
 
-/* canvas- styles */
+/* Canvas Loader Styles */
 .canvas-loader {
   font-size: 10px;
   width: 1em;
@@ -185,6 +208,7 @@ html.dark{
   transform: translateZ(0);
 }
 
+/* Keyframes for the loader animation */
 @keyframes mulShdSpin {
   0%,
   100% {
@@ -262,7 +286,7 @@ html.dark{
   }
 }
 
-
+/* Style for toggle btn dark/light <Nav />*/
 #hide-checkbox {
   opacity: 0;
   height: 0;
@@ -425,6 +449,7 @@ html.dark{
   animation-delay: -1s;
 }
 
+/* Toggle Animation on Checkbox State Change */
 @keyframes travel {
   0% {
     transform: rotate(-45deg) translateX(17.5px);
@@ -555,13 +580,103 @@ html.dark{
   }
 }
 
-p.night {
-  text-align: center;
-  letter-spacing: 3.75px;
-  background: #34495e;
-  color: #FFF;
+/* Card Layout Styles for <Default /> */
+ul {
+  list-style: none;
 }
 
-p.morning {
-  background: #e67e22;
+.main {
+  max-width: 100vw;
+  padding: 3em 1.5em;
+}
+
+.main__heading {
+  font-weight: 600;
+  font-size: 2.25em;
+  margin-bottom: 0.75em;
+  text-align: center;
+  color: #eceff1;
+}
+
+.cards {
+  position: relative;
+}
+
+.cards__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5em;
+}
+
+.card {
+  --flow-space: 0.5em;
+  --hsl: var(--hue), var(--saturation), var(--lightness);
+  flex: 1 1 14rem;
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+  gap: 1.25em;
+  color: #eceff1;
+  background-color: #2b2b2b;
+  border: 1px solid #eceff133;
+  border-radius: 15px;
+  max-height: 75vh;
+}
+
+.card:nth-child(1) {
+  --hue: 165;
+  --saturation: 82.26%;
+  --lightness: 51.37%;
+}
+
+.card:nth-child(2) {
+  --hue: 291.34;
+  --saturation: 95.9%;
+  --lightness: 61.76%;
+}
+
+.card:nth-child(3) {
+  --hue: 338.69;
+  --saturation: 100%;
+  --lightness: 48.04%;
+}
+
+.card__bullets {
+  line-height: 1.4;
+}
+
+.card__bullets li::before {
+  display: inline-block;
+  transform: translatey(0.25ch);
+  margin-right: 1ch;
+}
+
+.card__heading {
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.card__price {
+  font-size: 1.75em;
+  font-weight: 700;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, 1.25em);
+}
+
+.cta {
+  display: block;
+  width: 100%;
+  align-self: end;
+  margin: 1em 0 0.5em 0;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #0d0d0d;
+  padding: 0.7em;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
 }

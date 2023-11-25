@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { styles } from '../styles';
 import { staggerContainer } from '../utils/motion';
 
+// Higher-Order Component (HOC) that wraps a section with motion effects
 const SectionWrapper = (Component, idName) => 
 function HOC() {
     return (
+        // Motion section with staggered container animation
         <motion.section
             variants={staggerContainer()}
             initial="hidden"

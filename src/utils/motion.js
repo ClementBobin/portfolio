@@ -1,3 +1,4 @@
+// Animation variant for simple text animation
 export const textVariant = (delay) => {
     return {
       hidden: {
@@ -16,6 +17,8 @@ export const textVariant = (delay) => {
     };
   };
   
+  // frammer-motion custom animation
+  // Generic fade-in animation
   export const fadeIn = (direction, type, delay, duration) => {
     return {
       hidden: {
@@ -37,6 +40,7 @@ export const textVariant = (delay) => {
     };
   };
   
+  // Zoom-in animation
   export const zoomIn = (delay, duration) => {
     return {
       hidden: {
@@ -56,6 +60,7 @@ export const textVariant = (delay) => {
     };
   };
   
+  // Slide-in animation general
   export const slideIn = (direction, type, delay, duration) => {
     return {
       hidden: {
@@ -75,6 +80,7 @@ export const textVariant = (delay) => {
     };
   };
   
+  // Staggered container animation
   export const staggerContainer = (staggerChildren, delayChildren) => {
     return {
       hidden: {},
@@ -86,6 +92,8 @@ export const textVariant = (delay) => {
       },
     };
   };
+  
+  // Slide-in animation from the left
   export function slideInFromLeft(delay) {
     return {
       hidden: { x: -100, opacity: 0 },
@@ -100,6 +108,7 @@ export const textVariant = (delay) => {
     };
   }
   
+  // Slide-in animation from the right
   export function slideInFromRight(delay) {
     return {
       hidden: { x: 100, opacity: 0 },
@@ -114,8 +123,22 @@ export const textVariant = (delay) => {
     };
   }
   
+  // Slide-in animation from the top
   export const slideInFromTop = {
     hidden: { y: -100, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: 0.5,
+        duration: 0.5,
+      },
+    },
+  };
+
+  // Slide-in animation from the bottom
+  export const slideInFromBottom = {
+    hidden: { y: 200, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
