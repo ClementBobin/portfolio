@@ -1,5 +1,5 @@
 // Importing necessary React components and utilities
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { useTranslation } from 'react-i18next';
@@ -58,7 +58,7 @@ const Contact = () => {
         () => {
           setLoading(false);
           // Showing success message and resetting the form
-          alert("Thank you. I will get back to you as soon as possible.");
+          alert("I will get back to you as soon as possible. Also, thanks for stopping by, and I hope you enjoy exploring my digital space as much as I enjoy creating it! Let's code the future together. Happy coding! ✨");
 
           setForm({
             name: "",
@@ -88,6 +88,11 @@ const Contact = () => {
       >
         <p className={styles.sectionSubText}>{t('contactSectionSubText')}</p>
         <h3 className={styles.sectionHeadText}>Contact.</h3>
+        <p
+          className='mt-3 dark:text-secondary text-textColor text-[17px] max-w-3xl leading-[30px]'
+        >
+          {t('contactSectionDescription')}
+      </p>
 
         {/* Contact form */}
         <form
@@ -143,7 +148,6 @@ const Contact = () => {
           </button>
         </form>
       </motion.div>
-
       {/* Right side of the section with EarthCanvas component */}
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}

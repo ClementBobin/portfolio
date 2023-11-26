@@ -1,5 +1,4 @@
 // Importing React library and the TransitionContent component
-import React from "react";
 import TransitionContent from "../sub/TransitionContent";
 
 // Functional component for the Transition section

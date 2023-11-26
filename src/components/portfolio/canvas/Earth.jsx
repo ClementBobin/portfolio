@@ -11,7 +11,7 @@ const Earth = () => {
 
   // Render the Earth model as a primitive with specified scale, position, and rotation
   return (
-    <primitive object={earth.scene} scale={2.5} position-y={0} rotation-y={0} />
+    <primitive object={earth.scene} scale={2.1} position-y={0} rotation-y={0} />
   );
 };
 

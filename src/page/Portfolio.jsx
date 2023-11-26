@@ -21,7 +21,6 @@ const Portfolio = () => {
       <div className="relative z-0 section">
         <Contact />
       </div>
-      <Anchor />
     </div>
   );
 }

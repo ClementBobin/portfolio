@@ -9,7 +9,6 @@
  * @param {ReactNode} props.children - Child elements to be rendered inside the floating window.
  * @returns {JSX.Element} - Rendered component.
  */
-
 export default function FloatingWindow({ title, additionalInfo, showWindow, setShowWindow, children }) {
 
   return (

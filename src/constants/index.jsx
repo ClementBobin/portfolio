@@ -289,7 +289,7 @@ const generateData = () => {
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [
-        <p>bts SIO -{'>'} <button onClick={() => setShowWindow(true)}>Référentiel</button> / <button>Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo="" showWindow={showWindow} setShowWindow={setShowWindow}/></p>,
+        <p>bts SIO -{'>'} <button onClick={() => setShowWindow(true)}>Référentiel</button> / <button>Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Tableau-Référentiel-SLAM-_2_.html"/><a href="assets/Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindow} setShowWindow={setShowWindow}/></p>,
       ]
     }
   ];
