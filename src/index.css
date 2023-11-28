@@ -716,13 +716,13 @@ ul {
     margin: 0 0 20px;
     color: white;
 }
-.sec .blockCustom .tile div ul li{
-  display: list-item;
+.sec .blockCustom .tile div ul{
+  list-style-type: circle;
 }
 .sec .blockCustom .tile div ul li a {
   text-decoration:underline;
 }
-.sec .blockCustom .tile h2{
+.sec .blockCustom .tile h2, .sec .blockCustom .tile h3{
   font-size: x-large;
   font-weight: bolder;
 }
@@ -731,4 +731,13 @@ ul {
 }
 .sec .blockCustom .tile .reminder, .sec .blockCustom .tile .project{
   background-image: linear-gradient( 135deg, cyan 0%, green 100% );
+}
+strong{
+  color: #f2f2f2;
+}
+
+a {
+  color: #f2f2f2;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
 }

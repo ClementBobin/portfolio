@@ -1,12 +1,18 @@
-/* eslint-disable react-refresh/only-export-components */
-/* eslint-disable react/prop-types */
-/* import ListItem from '../components/ListItem'
-import FeaturedArticle from '../components/FeaturedArticle'
-import FeaturedArticles from '../..'
-import { ListGroup } from '../components/ListGroup'
+import ListItem from './ListItem.jsx'
+import FeaturedArticle from './FeaturedArticle'
 import { AnimateSharedLayout } from 'framer-motion'
 
-function Articles() {
+export async function getStaticProps() {
+
+  return {
+    props: {
+      featuredPosts,
+      allPosts,
+    },
+  }
+}
+
+function Articles(props) {
   const renderFeatured = () => {
     return props.featuredPosts.map((post, index) => {
       return (
@@ -43,25 +49,16 @@ function Articles() {
   return (
     <>
       <AnimateSharedLayout>
-        <p>Here you can find all the <strong>${props.allPosts.length} articles</strong> I wrote. You can read about web development, software engineering, and tech career in both English and Portuguese.</p>
+        <p>Here you can find all the <strong>{props.allPosts.length} articles</strong> I wrote. You can read about web development, software engineering, and tech career in both English and Portuguese.</p>
 
-        <h2>Featured Articles</h2>
-        <FeaturedArticles>{renderFeatured()}</FeaturedArticles>
+        <h2 className="text-2xl font-bold">Featured Articles</h2>
+        <div className="space-y-4 md:flex md:space-x-4 md:space-y-0">{renderFeatured()}</div>
 
-        <h2>All Articles</h2>
-        <ListGroup>{renderAll()}</ListGroup>
+        <h2 className="text-2xl font-bold mt-8">All Articles</h2>
+        <div className="space-y-4">{renderAll()}</div>
       </AnimateSharedLayout>
     </>
   )
 }
 
-export default Articles */
-import React from 'react'
-
-function articles() {
-  return (
-    <div>articles</div>
-  )
-}
-
-export default articles
+export default Articles

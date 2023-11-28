@@ -5,7 +5,7 @@ function Uses() {
     return categories.map((category, index) => (
       <div className='block' key={index}>
         <h2 className='my-6'>{category.name}</h2>
-        <ul className='ml-4'>
+        <ul className='ml-12'>
           {category.items.map((item, iIndex) => (
             <li key={iIndex}>
               <a href={item.url} target="_blank" rel="noopener noreferrer" className='text-[#f2f2f2]'>

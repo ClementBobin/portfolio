@@ -25,15 +25,13 @@ import threejs from "./tech/threejs.svg";
 import sql from "./tech/sql.avif";
 import php from "./tech/php.avif";
 import python from "./tech/python.avif";
-import arduino from "./tech/arduino.png";
 import vmware from "./tech/vmware.avif";
 import virtualbox from "./tech/Virtualbox.avif";
 import framer from "./tech/framer.png";
 
-import meta from "./company/meta.avif";
-import Saint_bénigne from "./company/Saint-bénigne.avif";
-import starbucks from "./company/starbucks.avif";
-import tesla from "./company/tesla.avif";
+const saint_bénigne = "http://www.sb-lycee.fr/wp-content/uploads/2021/07/logo_sb.png";
+const closMaire = "https://imgs.search.brave.com/EVVmtSOCfFmosAEJsScPD0xB_oAE9EjZ0yhAzrXB1j0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wb2lh/c3NldHMubWFwcHku/bmV0L2Fzc2V0cy8y/MDIzMTExNjE1MTkv/bWlzYy9zdmcvY2hh/cGVhdV9iYWNoZWxp/ZXIuc3Zn.svg";
+const monge = "https://imgs.search.brave.com/EVVmtSOCfFmosAEJsScPD0xB_oAE9EjZ0yhAzrXB1j0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wb2lh/c3NldHMubWFwcHku/bmV0L2Fzc2V0cy8y/MDIzMTExNjE1MTkv/bWlzYy9zdmcvY2hh/cGVhdV9iYWNoZWxp/ZXIuc3Zn.svg";
 
 import carrent from "./carrent.avif";
 import jobit from "./jobit.avif";
@@ -65,10 +63,8 @@ export {
   tailwind,
   typescript,
   threejs,
-  meta,
-  Saint_bénigne,
-  starbucks,
-  tesla,
+  saint_bénigne,
+  monge,
   carrent,
   framer,
   jobit,
@@ -76,11 +72,11 @@ export {
   sql,
   php,
   python,
-  arduino,
   vmware,
   virtualbox,
   anonym,
   command,
   avatar,
   linkedIn,
+  closMaire,
 };

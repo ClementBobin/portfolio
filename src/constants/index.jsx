@@ -1,7 +1,6 @@
 import {
   mobile,
   backend,
-  creator,
   framer,
   web,
   javascript,
@@ -15,10 +14,8 @@ import {
   git,
   figma,
   docker,
-  meta,
-  starbucks,
-  tesla,
-  Saint_bénigne,
+  monge,
+  saint_bénigne,
   carrent,
   jobit,
   tripguide,
@@ -26,10 +23,10 @@ import {
   sql,
   php,
   python,
-  arduino,
   virtualbox,
   vmware,
   anonym,
+  closMaire,
 } from "../assets";
 import { useTranslation } from 'react-i18next';
 import Anchor from '../components/libStyleCompo/anchor';
@@ -305,7 +302,7 @@ const generateData = () => {
     {
       title: t('experienceElement1Title'),
       company_name: "Monge",
-      icon: starbucks,
+      icon: monge,
       iconBg: "#383E56",
       date: t('experienceElement1Date'),
       points: [
@@ -315,7 +312,7 @@ const generateData = () => {
     {
       title: t('experienceElement2Title'),
       company_name: "Clos Maire",
-      icon: tesla,
+      icon: closMaire,
       iconBg: "#E6DEDD",
       date: t('experienceElement2Date'),
       points: [
@@ -329,7 +326,7 @@ const generateData = () => {
     {
       title: t('experienceElement3Title'),
       company_name: "Groupe Saint-bénigne",
-      icon: Saint_bénigne,
+      icon: saint_bénigne,
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [

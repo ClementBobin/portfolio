@@ -3,7 +3,7 @@ const items = [
     year: '2023',
     projects: [
       {
-        title: 'Resend',
+        title: 'coffe',
         description: 'New email API for developers',
         url: 'https://resend.com',
         active: true,
@@ -16,7 +16,7 @@ const items = [
     year: '2022',
     projects: [
       {
-        title: 'React Email',
+        title: 'dark',
         description: 'Next generation of writing emails',
         url: 'https://react.email',
         active: true,

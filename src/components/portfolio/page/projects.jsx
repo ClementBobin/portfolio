@@ -1,10 +1,9 @@
-import { AnimateSharedLayout } from 'framer-motion'
 import FeaturedProject from './featuredProject'
 import items from '../../../constants/projects data'
 
 function Projects() {
   const renderFeatured = () => {
-    const featured = ['Dracula PRO', 'Clipboard.js', 'Resend', 'React Email']
+    const featured = ['coffe','dark']
 
     return items
       .map(item => {
@@ -24,9 +23,9 @@ function Projects() {
   const renderAll = () => {
     return items.map((item, index) => {
       return (
-        <div key={index}>
+        <div className='block mt-5' key={index}>
           <h3>{item.year}</h3>
-          <ul>
+          <ul className='ml-12'>
             {item.projects.map((project, pIndex) => {
               return <ProjectItem key={pIndex} project={project} />
             })}
@@ -47,19 +46,17 @@ function Projects() {
   }
 
   return (
-    <main>
-      <div>
-        <div>
-          <AnimateSharedLayout>
+    <main className='sec'>
+      <div className='blockCustom'>
+        <div className='tile'>
             <h1 className='project'>What i created</h1>
-            <p>I'm obsessed with side projects and <strong>building in public</strong>. Here you can navigate to <strong>${getTotalProjects()} different</strong> websites, apps, and libraries I built. Some projects are still active, others have been discontinued.</p>
+            <p className='text-[#8f9ba8]'>I'm obsessed with side projects and <strong>building in public</strong>. Here you can navigate to <strong>{getTotalProjects()} different</strong> websites, apps, and libraries I built. Some projects are still active, others have been discontinued.</p>
 
-            <h2>Featured Projects</h2>
-            <div>{renderFeatured()}</div>
+            <h2 className='mt-14'>Featured Projects</h2>
+            <div className='flex-row'>{renderFeatured()}</div>
 
-            <h2>All Projects</h2>
+            <h2 className='mt-14'>All Projects</h2>
             {renderAll()}
-          </AnimateSharedLayout>
         </div>
       </div>
     </main>
