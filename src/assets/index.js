@@ -37,7 +37,7 @@ import carrent from "./carrent.avif";
 import jobit from "./jobit.avif";
 import tripguide from "./tripguide.avif";
 
-import anonym from "./People/anonym.webp";
+import anonym from "./people/anonym.webp";
 
 import avatar from "./avatar.png";
 

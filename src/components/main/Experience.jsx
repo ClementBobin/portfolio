@@ -5,10 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 // Importing styles, components, and motion-related utility functions
 import 'react-vertical-timeline-component/style.min.css';
-import { styles } from '../../../styles';
-import generateData from '../../../constants';
-import { SectionWrapper } from "../../../hoc";
-import { textVariant, fadeIn } from "../../../utils/motion";
+import { styles } from '../../styles';
+import generateData from '../../constants';
+import { SectionWrapper } from "../../hoc";
+import { textVariant, fadeIn } from "../../utils/motion";
 
 // Functional component for each work experience card in the timeline
 const ExperienceCard = ({ experience }) => {

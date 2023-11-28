@@ -3,11 +3,11 @@ import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 
-import { styles } from "../../../styles"; // Importing styles
-import { github } from "../../../assets"; // Importing GitHub icon
-import { SectionWrapper } from "../../../hoc"; // Importing a section wrapper HOC
-import generateData from "../../../constants"; // Importing data (projects)
-import { fadeIn, textVariant } from "../../../utils/motion"; // Importing motion-related utilities
+import { styles } from "../../styles"; // Importing styles
+import { github } from "../../assets"; // Importing GitHub icon
+import { SectionWrapper } from "../../hoc"; // Importing a section wrapper HOC
+import generateData from "../../constants"; // Importing data (projects)
+import { fadeIn, textVariant } from "../../utils/motion"; // Importing motion-related utilities
 
 // ProjectCard component for displaying individual project cards
 const ProjectCard = ({

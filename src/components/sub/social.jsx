@@ -1,4 +1,4 @@
-import { github, linkedIn } from "../../../assets"; // Importing GitHub icon
+import { github, linkedIn } from "../../assets"; // Importing GitHub icon
 
 export default function social() {
     const socialLinks = [

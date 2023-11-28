@@ -1,7 +1,7 @@
 import React from 'react'
 import {motion} from 'framer-motion'
 import { useTranslation } from 'react-i18next';
-import { slideInFromLeft, slideInFromRight, slideInFromTop } from '../../../utils/motion'
+import { slideInFromLeft, slideInFromRight, slideInFromTop } from '../../utils/motion'
 
 // SkillText component with Framer Motion animations
 const SkillText = () => {

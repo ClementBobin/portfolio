@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
 // Importing fadeIn motion utility
-import { fadeIn } from '../../../utils/motion';
+import { fadeIn } from '../../utils/motion';
 
 // Functional component for the "Hero" section
 function Hero() {

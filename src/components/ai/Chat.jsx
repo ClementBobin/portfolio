@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { logo, menu, close } from '../../../assets';
-import { Prompt } from '../../../constants/response';
-import { send } from '../../../assets';
-import { Question, Responses } from '../../../constants/response';
+import { logo, menu, close } from '../../assets';
+import { Prompt } from '../../constants/response';
+import { send } from '../../assets';
+import { Question, Responses } from '../../constants/response';
 
 const findQuestionResponse = (userInput) => {
   for (let i = 0; i < Question.length; i++) {

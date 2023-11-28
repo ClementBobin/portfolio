@@ -1,4 +1,3 @@
-import React from 'react'
 import { logo } from '../assets';
 
 // The cv component for rendering the CV page

@@ -5,7 +5,7 @@ import {
   slideInFromLeft,
   slideInFromRight,
   slideInFromTop,
-} from "../../../utils/motion";
+} from "../../utils/motion";
 
 const TransitionContent = () => {
   const { t } = useTranslation();

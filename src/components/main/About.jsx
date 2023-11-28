@@ -4,14 +4,14 @@ import { Tilt } from 'react-tilt';
 import { motion } from 'framer-motion';
 
 // Importing styles and data generation functions
-import { styles } from '../../../styles';
-import generateData from '../../../constants';
+import { styles } from '../../styles';
+import generateData from '../../constants';
 
 // Importing motion-related utility functions
-import { fadeIn, textVariant } from '../../../utils/motion';
+import { fadeIn, textVariant } from '../../utils/motion';
 
 // Importing a higher-order component for section styling
-import { SectionWrapper } from '../../../hoc';
+import { SectionWrapper } from '../../hoc';
 
 // Individual service card component
 const ServiceCard = ({ index, title, icon }) => {

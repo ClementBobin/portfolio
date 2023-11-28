@@ -5,10 +5,10 @@ import emailjs from "@emailjs/browser";
 import { useTranslation } from 'react-i18next';
 
 // Importing styles, components, and motion-related utility functions
-import { styles } from "../../../styles";
+import { styles } from "../../styles";
 import EarthCanvas from "../canvas/Earth";
-import { SectionWrapper } from "../../../hoc";
-import { slideIn, fadeIn } from "../../../utils/motion";
+import { SectionWrapper } from "../../hoc";
+import { slideIn, fadeIn } from "../../utils/motion";
 
 // Functional component for the "Contact" section
 const Contact = () => {

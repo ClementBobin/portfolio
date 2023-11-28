@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Portfolio, Cv, Test, Default } from "./page";
-import { Uses, Projects, Reminder, Articles, TechNews } from './components/index';
-import KBar from './components/portfolio/sub/KBar';
+import { Portfolio, Cv, Test, Default, Uses, Projects, Reminder, Articles, TechNews } from "./pages";
+import KBar from './components/sub/KBar';
 
 const App = () => {
   return (

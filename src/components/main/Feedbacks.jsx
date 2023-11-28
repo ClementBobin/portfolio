@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 
 // Importing styles, constants, and higher-order component
-import { styles } from "../../../styles";
-import { SectionWrapper } from "../../../hoc";
-import { fadeIn, textVariant } from "../../../utils/motion";
-import generateData from "../../../constants";
+import { styles } from "../../styles";
+import { SectionWrapper } from "../../hoc";
+import { fadeIn, textVariant } from "../../utils/motion";
+import generateData from "../../constants";
 
 // Functional component for rendering an individual feedback card
 const FeedbackCard = ({

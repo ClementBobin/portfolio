@@ -1,8 +1,8 @@
 // Importing necessary dependencies and assets
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
-import generateData from '../../../constants';
-import { logo, menu, close } from '../../../assets';
+import generateData from '../../constants';
+import { logo, menu, close } from '../../assets';
 import useDarkMode from '../sub/useDarkMode';
 
 // Navbar component for the website header

@@ -29,52 +29,52 @@ import Lottie from 'lottie-react';
 
 // Import Lottie animation files
 // Copy link animation
-import copyLinkIcon from '../../../icons/copy-link.json';
+import copyLinkIcon from '../../assets/icons/copy-link.json';
 
 // Email animation
-import emailIcon from '../../../icons/email.json';
+import emailIcon from '../../assets/icons/email.json';
 
 // View source animation
-import sourceIcon from '../../../icons/source.json';
+import sourceIcon from '../../assets/icons/source.json';
 
 // Home icon animation
-import homeIcon from '../../../icons/home.json';
+import homeIcon from '../../assets/icons/home.json';
 
 // Avatar icons for personal section
-import avatarIcons from '../../../icons/account.json';
+import avatarIcons from '../../assets/icons/account.json';
 
 // Work icons for portfolio section
-import workIcons from '../../../icons/work.json';
+import workIcons from '../../assets/icons/work.json';
 
 // Bug icons for test section
-import bugIcons from '../../../icons/bug.json';
+import bugIcons from '../../assets/icons/bug.json';
 
 // Dark mode icon
-import darkIcons from '../../../icons/dark.json';
+import darkIcons from '../../assets/icons/dark.json';
 
 // Light mode icon
-import lightIcons from '../../../icons/light.json';
+import lightIcons from '../../assets/icons/light.json';
 
 // articles icons for portfolio section
-import articlesIcon from '../../../icons/articles.json';
+import articlesIcon from '../../assets/icons/articles.json';
 
 // projects icons for portfolio section
-import projectsIcon from '../../../icons/projects.json';
+import projectsIcon from '../../assets/icons/projects.json';
 
 // Materials icons for portfolio section
-import usesIcon from '../../../icons/uses.json';
+import usesIcon from '../../assets/icons/uses.json';
 
 // Reminder icons for portfolio section
-import reminderIcon from '../../../icons/reminder.json';
+import reminderIcon from '../../assets/icons/reminder.json';
 
 // language icons for portfolio section
-import langIcon from '../../../icons/globe.json';
+import langIcon from '../../assets/icons/globe.json';
 
 // social icons for portfolio section
-import githubIcons from '../../../icons/github.json';
-import linkedInIcons from '../../../icons/linkedIn.json';
-import codewarsIcons from '../../../icons/codeWar.json';
-import coffeIcons from '../../../icons/coffe.json';
+import githubIcons from '../../assets/icons/github.json';
+import linkedInIcons from '../../assets/icons/linkedIn.json';
+import codewarsIcons from '../../assets/icons/codeWar.json';
+import coffeIcons from '../../assets/icons/coffe.json';
 
 
 // Import Toast component for notifications

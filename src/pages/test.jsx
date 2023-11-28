@@ -1,8 +1,8 @@
 import React from 'react'
-import Encryption from '../components/portfolio/main/Encryption'
-import Transition from '../components/portfolio/main/transition'
-import Transition2 from '../components/portfolio/main/transition2'
-import Hero from '../components/portfolio/main/Hero'
+import Encryption from '../components/main/Encryption'
+import Transition from '../components/main/transition'
+import Transition2 from '../components/main/transition2'
+import Hero from '../components/main/Hero'
 
 // The Test component for rendering a test page
 function Test() {

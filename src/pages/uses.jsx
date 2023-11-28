@@ -1,4 +1,4 @@
-import categories from '../../../constants/uses data';
+import categories from '../constants/uses data';
 
 function Uses() {
   const renderAll = () => {

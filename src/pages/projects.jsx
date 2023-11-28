@@ -1,5 +1,5 @@
 import FeaturedProject from './featuredProject'
-import items from '../../../constants/projects data'
+import items from '../constants/projects data'
 
 function Projects() {
   const renderFeatured = () => {

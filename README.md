@@ -6,7 +6,8 @@
 
 ## Technology stack
 
-- **Front-end:** [Vite](https://reactjs.org/)
+- **Framework** [Vite](https://https://vitejs.dev/)
+- **Front-end:** [React](https://reactjs.org/)
 - **Animation:** [Framer](https://www.framer.com/docs/animation/)
 - **Deployment:** [Vercel](https://vercel.com/)
 
@@ -42,42 +43,48 @@ The basic file structure for the project is organized in the following way:
 
 ```
 .
-|-- articles
-|-- components
-|-- data
-|-- layouts
-|-- lib
-|-- pages
+|-- src
+|    |-- assets
+|    |    |-- tech
+|    |    |-- People
+|    |    `-- company
+|    |-- components
+|    |    |-- libStyleCompo
+|    |    |-- ai
+|    |    |-- canvas
+|    |    |-- main
+|    |    |-- sub
+|    |    `-- page
+|    |-- hoc
+|    |-- icons
+|    |-- pages
+|    `-- utils
 `-- public
+    `-- planet
 ```
-
-### [articles](https://github.com/zenorocha/zenorocha.com/tree/master/articles)
-
-Here you'll find a list of markdown files for each post.
-
-### [components](https://github.com/ClementBobin/portfolio/tree/main/components)
+### [components](https://github.com/ClementBobin/portfolio/tree/main/src/components)
 
 Here you'll find reusable blocks of React components.
 
-### [data](https://github.com/ClementBobin/portfolio/tree/main/data)
-
-Here you'll find JSON files that populates each section.
-
-### [layouts](https://github.com/ClementBobin/portfolio/tree/maij/layouts)
+### [data](https://github.com/ClementBobin/portfolio/tree/main/src/constants)
 
 Here you'll find default templates for different pages.
 
-### [lib](https://github.com/ClementBobin/portfolio/tree/main/lib)
+### [lib](https://github.com/ClementBobin/portfolio/tree/main/src/components/libStyleCompo)
 
 Here you'll find a set of utilities.
 
-### [pages](https://github.com/ClementBobin/portfolio/tree/main/pages)
+### [pages](https://github.com/ClementBobin/portfolio/tree/main/src/pages)
 
 Here you'll find all the main pages of the site.
 
 ### [public](https://github.com/ClementBobin/portfolio/tree/main/public)
 
-Here you'll find all the CSS, images, and font files.
+Here you'll find some of the CSS, images, and font files.
+
+### [assets](https://github.com/ClementBobin/portfolio/tree/main/src/assets)
+
+Here you'll find the other part of the CSS, images, and font files.
 
 ## License
 

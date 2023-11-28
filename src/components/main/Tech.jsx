@@ -1,8 +1,8 @@
 // Importing necessary modules and components
-import generateData from "../../../constants/index";
+import generateData from "../../constants/index";
 import SkillDataProvider from "../sub/SkillDataProvider.jsx";
 import SkillText from "../sub/SkillText.jsx";
-import Tooltip from '../../libStyleCompo/tooltips';
+import Tooltip from '../libStyleCompo/tooltips';
 
 // Functional component for the "Skills" section
 const Skills = () => {
