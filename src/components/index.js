@@ -9,11 +9,13 @@ import Contact from './portfolio/main/Contact';
 import Transition from './portfolio/main/transition';
 import Transition2 from './portfolio/main/transition2';
 import Encryption from './portfolio/main/Encryption';
-import Uses from './uses';
-import Projects from './projects';
-import Articles from './articles';
-import Reminder from './reminder';
-import Anchor from './anchor';
+import Uses from './portfolio/page/uses';
+import Projects from './portfolio/page/projects';
+import Articles from './portfolio/page/articles';
+import Reminder from './portfolio/page/reminder';
+import Anchor from './libStyleCompo/anchor';
+import Social from './portfolio/sub/social';
+import TechNews from './portfolio/page/TechNews';
 
 export {
   Hero,
@@ -32,4 +34,6 @@ export {
   Articles,
   Reminder,
   Anchor,
+  Social,
+  TechNews,
 }

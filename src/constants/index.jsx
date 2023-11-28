@@ -32,28 +32,41 @@ import {
   anonym,
 } from "../assets";
 import { useTranslation } from 'react-i18next';
-import Anchor from '../components/anchor';
+import Anchor from '../components/libStyleCompo/anchor';
 import { useState } from "react";
 
 // Function to generate data for the portfolio
 const generateData = () => {
   // Hook to access translation function
   const { t } = useTranslation();
-  const [showWindow, setShowWindow] = useState(false);
+  const [showWindowRef, setShowWindowRef] = useState(false);
+  const [showWindowBts, setShowWindowBts] = useState(false);
 
   // Navigation links
   const navLinks = [
     {
-      id: "about",
-      title: "about",
+      id: "uses",
+      title: "Uses",
     },
     {
-      id: "work",
-      title: "work",
+      id: "projects",
+      title: "Projects",
     },
     {
-      id: "contact",
-      title: "contact",
+      id: "reminder",
+      title: "Reminder",
+    },
+    {
+      id: "articles",
+      title: "Articles",
+    },
+    {
+      id: "cv",
+      title: "Cv",
+    },
+    {
+      id: "technews",
+      title: "TechNews",
     },
   ];
 
@@ -241,18 +254,49 @@ const generateData = () => {
       Image: virtualbox,
       width: 40,
       height: 40,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox}/><img src={vmware}/><img src={docker}/></div><p>I can use hypervisor</p></div>,
     },
     {
-      skill_name: "VMware",
-      Image: vmware,
-      width: 40,
-      height: 40,
-    },
-    {
-      skill_name: "Git",
+      skill_name: "Dev tools",
       Image: git,
       width: 80,
       height: 80,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox}/><img src={vmware}/><img src={docker}/></div><p>I use dev tools</p></div>,
+    },
+    {
+      skill_name: "Os",
+      Image: git,
+      width: 80,
+      height: 80,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox}/><img src={vmware}/><img src={docker}/></div><p>I have experimented with linux, windows</p></div>,
+    },
+    {
+      skill_name: "Ouvert to the world",
+      Image: git,
+      width: 80,
+      height: 80,
+      description: "Ouverture au monde",
+    },
+    {
+      skill_name: "Fast learner",
+      Image: git,
+      width: 80,
+      height: 80,
+      description: "📚 Constant Learner: In the fast-evolving tech landscape, I believe in the power of continuous learning. My curiosity drives me to explore new technologies, frameworks, and methodologies, ensuring that I stay ahead of the curve and deliver cutting-edge solutions. Quand j'aime se que je fais je vais tout donner pour apprendre vite et rattraper le niveau de se qui m'apprenne, j'ai toujours réussi a apprendre plus vite que les autres.",
+    },
+    {
+      skill_name: "Sens pratique",
+      Image: git,
+      width: 80,
+      height: 80,
+      description: "J'aime quand les choses sont ordonnées et je fais tout pour que mon travail le soit, pour avoir un gain de temps et ne pas en perdre.",
+    },
+    {
+      skill_name: "Travail d'équipe",
+      Image: git,
+      width: 80,
+      height: 80,
+      description: "J'aime jouer a des sports d'équipe comme le basketball ou le football, j'aime la compétition et tout faire pour être meilleur et travailler peut créer un espris de compétition.",
     },
   ];
 
@@ -289,7 +333,7 @@ const generateData = () => {
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [
-        <p>bts SIO -{'>'} <button onClick={() => setShowWindow(true)}>Référentiel</button> / <button>Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Tableau-Référentiel-SLAM-_2_.html"/><a href="assets/Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindow} setShowWindow={setShowWindow}/></p>,
+        <div><button className="underline" onClick={() => setShowWindowBts(true)}>bts SIO SLAM</button>-{'>'} <button onClick={() => setShowWindowRef(true)} className="underline">Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Tableau-Référentiel-SLAM-_2_.html"/><a href="assets/Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindowRef} setShowWindow={setShowWindowRef}/><Anchor title="Bts SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Referentielle SIO.html"/></>} showWindow={showWindowBts} setShowWindow={setShowWindowBts}/></div>,
       ]
     }
   ];

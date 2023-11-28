@@ -1,5 +1,4 @@
-import React from 'react';
-import { About, Contact, Experience, Feedbacks, Hero, Navbar, Works, Tech, Transition, Transition2, Anchor } from '../components';
+import { About, Contact, Social, Experience, Feedbacks, Hero, Navbar, Works, Tech, Transition, Transition2 } from '../components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
@@ -21,6 +20,7 @@ const Portfolio = () => {
       <div className="relative z-0 section">
         <Contact />
       </div>
+      <Social />
     </div>
   );
 }

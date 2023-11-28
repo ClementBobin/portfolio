@@ -1,8 +1,8 @@
 // Import necessary dependencies and styles
 
 // React hooks and animation library
-import React, { useRef, useState, forwardRef, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useRef, useState, forwardRef, useEffect } from 'react';
+import { useAnimation } from 'framer-motion';
 
 // Custom hook for managing dark mode
 import useDarkMode from './useDarkMode';
@@ -66,6 +66,16 @@ import usesIcon from '../../../icons/uses.json';
 
 // Reminder icons for portfolio section
 import reminderIcon from '../../../icons/reminder.json';
+
+// language icons for portfolio section
+import langIcon from '../../../icons/globe.json';
+
+// social icons for portfolio section
+import githubIcons from '../../../icons/github.json';
+import linkedInIcons from '../../../icons/linkedIn.json';
+import codewarsIcons from '../../../icons/codeWar.json';
+import coffeIcons from '../../../icons/coffe.json';
+
 
 // Import Toast component for notifications
 import Toast from './Toast';
@@ -191,6 +201,11 @@ const KBar = () => {
   const avatarRef = useRef()
   const lightRef = useRef()
   const darkRef = useRef()
+  const langRef = useRef()
+  const codewarsRef = useRef()
+  const githubRef = useRef()
+  const linkedInRef = useRef()
+  const coffeRef = useRef()
   // State for displaying toast notification
   const [showToast, setShowToast] = useState(false);
 
@@ -198,7 +213,7 @@ const KBar = () => {
   const [darkMode, setDarkMode] = useDarkMode();
 
   // Translation hook
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   // Navigation hook
   const navigate = useNavigate();
@@ -233,7 +248,7 @@ const KBar = () => {
     // Copy Link action
     {
       id: 'copy',
-      name: 'Copy Link',
+      name: t('KBarElement1'),
       shortcut: ['l'],
       keywords: 'copy-link',
       section: 'General',
@@ -264,7 +279,7 @@ const KBar = () => {
     // Test Zone action
     {
         id: "Test",
-        name: "Test Zone",
+        name: t('KBarElement2'),
         shortcut: ['t'],
         keywords: "test",
         section: 'Test',
@@ -274,7 +289,7 @@ const KBar = () => {
     // Send Email action
     {
       id: '#contact',
-      name: 'Send Email',
+      name: t('KBarElement3'),
       shortcut: ['e'],
       keywords: 'send-email',
       section: 'General',
@@ -284,7 +299,7 @@ const KBar = () => {
     // View Source action
     {
       id: 'source',
-      name: 'View Source',
+      name: t('KBarElement4'),
       shortcut: ['s'],
       keywords: 'view-source',
       section: 'General',
@@ -324,7 +339,7 @@ const KBar = () => {
     // Materials tabs
     {
       id: 'uses',
-      name: 'Uses',
+      name: t('KBarElement5'),
       shortcut: ['g', 'u'],
       keywords: 'go-uses',
       section: 'Go To',
@@ -334,17 +349,26 @@ const KBar = () => {
     // reminder tabs
     {
       id: 'reminder',
-      name: 'Reminder',
+      name: t('KBarElement6'),
       shortcut: ['g', 'r'],
       keywords: 'go-reminder',
       section: 'Go To',
       perform: () => (window.location.pathname = 'portfolio/reminder'),
       icon: <Lottie lottieRef={reminderRef} className='w-6 h-6 invert' animationData={reminderIcon} loop={false} autoplay={false} />,
     },
+    {
+      id: 'technews',
+      name: "TechNews",
+      shortcut: ['g', 't'],
+      keywords: 'go-tech',
+      section: 'Go To',
+      perform: () => (window.location.pathname = 'portfolio/technews'),
+      icon: <Lottie lottieRef={usesRef} className='w-6 h-6 invert' animationData={usesIcon} loop={false} autoplay={false} />,
+    },
     // Dark Theme action
     {
       id: 'Dark',
-      name: 'DarkTheme',
+      name: t('KBarElementTheme1'),
       shortcut: ['d', 't'],
       keywords: 'DarkTheme',
       section: 'Theme',
@@ -354,7 +378,7 @@ const KBar = () => {
     // Light Theme action
     {
       id: 'Light',
-      name: 'LightTheme',
+      name: t('KBarElementTheme2'),
       shortcut: ['l', 't'],
       keywords: 'LightTheme',
       section: 'Theme',
@@ -369,17 +393,54 @@ const KBar = () => {
       keywords: 'English lang',
       section: 'lang',
       perform: () => changeLanguage('en'),
-      icon: <Lottie lottieRef={darkRef} className='w-6 h-6' animationData={darkIcons} loop={false} autoplay={false} />,
+      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
     },
     // French language action
     {
       id: 'french',
-      name: 'French',
+      name: 'Français',
       shortcut: ['f', 'r'],
       keywords: 'French lang',
       section: 'lang',
       perform: () => changeLanguage('fr'),
-      icon: <Lottie lottieRef={lightRef} className='w-6 h-6' animationData={lightIcons} loop={false} autoplay={false} />,
+      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
+    },
+    // Social section
+    {
+      id: 'github',
+      name: 'Github',
+      shortcut: ['g', 'i', 't'],
+      keywords: 'Github link social',
+      section: 'Social',
+      perform: () => window.open('https://github.com/ClementBobin', '_blank'),
+      icon: <Lottie lottieRef={githubRef} className='w-6 h-6 dark:invert scale-[2.5]' animationData={githubIcons} loop={false} autoplay={false} />,
+    },
+    {
+      id: 'linkedIn',
+      name: 'LinkedIn',
+      shortcut: ['l', 'i'],
+      keywords: 'LinkedIn link social',
+      section: 'Social',
+      perform: () => window.open('https://www.linkedin.com/in/cl%C3%A9ment-bobin-958559293/', '_blank'),
+      icon: <Lottie lottieRef={linkedInRef} className='w-6 h-6 dark:invert scale-150' animationData={linkedInIcons} loop={false} autoplay={false} />,
+    },
+    {
+      id: 'codewars',
+      name: 'Codewars',
+      shortcut: ['c', 'w'],
+      keywords: 'Codewars link social',
+      section: 'Social',
+      perform: () => window.open('https://www.codewars.com/users/ClementBobin', '_blank'),
+      icon: <Lottie lottieRef={codewarsRef} className='w-6 h-6 dark:invert scale-[2]' animationData={codewarsIcons} loop={false} autoplay={false} />,
+    },
+    {
+      id: 'buymeacoffee',
+      name: 'Buy me a coffee',
+      shortcut: ['c', 'f'],
+      keywords: 'Coffe donation link social',
+      section: 'Social',
+      perform: () => window.open('https://www.buymeacoffee.com/clementbobin', '_blank'),
+      icon: <Lottie lottieRef={coffeRef} className='w-6 h-6 dark:invert scale[2.5]' animationData={coffeIcons} loop={false} autoplay={false} />,
     },
   ];
 

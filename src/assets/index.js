@@ -8,6 +8,7 @@ import menu from "./menu.svg";
 import close from "./close.svg";
 import send from "./send.svg";
 import command from "./command.png";
+import linkedIn from "./linkedIn.png";
 
 import css from "./tech/css.avif";
 import docker from "./tech/docker.avif";
@@ -81,4 +82,5 @@ export {
   anonym,
   command,
   avatar,
+  linkedIn,
 };

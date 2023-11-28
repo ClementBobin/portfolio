@@ -1,5 +1,5 @@
 // Importing necessary dependencies and assets
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import generateData from '../../../constants';
 import { logo, menu, close } from '../../../assets';
@@ -27,7 +27,7 @@ export default function Navbar() {
       <div className="w-full h-full flex flex-row items-center justify-between m-auto px-[10px]">
         {/* Logo linking to the home page */}
         <Link 
-          to="/"
+          to="/portfolio"
           className='h-auto w-auto flex flex-row items-center'
           onClick={() => {
             setActive("");
@@ -51,9 +51,9 @@ export default function Navbar() {
                   setActive(link.title);
                 }}
               >
-                <a href={`#${link.id}`}>
+                <Link to={`/portfolio/${link.id}`}>
                   {link.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -108,9 +108,9 @@ export default function Navbar() {
                       setActive(link.title);
                     }}
                   >
-                    <a href={`#${link.id}`}>
+                    <Link href={`/portfolio/${link.id}`}>
                       {link.title}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

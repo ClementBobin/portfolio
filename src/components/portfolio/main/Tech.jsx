@@ -1,8 +1,8 @@
 // Importing necessary modules and components
 import generateData from "../../../constants/index";
-import React from "react";
 import SkillDataProvider from "../sub/SkillDataProvider.jsx";
 import SkillText from "../sub/SkillText.jsx";
+import Tooltip from '../../libStyleCompo/tooltips';
 
 // Functional component for the "Skills" section
 const Skills = () => {
@@ -23,13 +23,15 @@ const Skills = () => {
       <h4>General Skill</h4>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Skill_data.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
+          <Tooltip text={image.skill_name} content={image.content} key={index}>
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          </Tooltip>
         ))}
       </div>
 
@@ -37,13 +39,15 @@ const Skills = () => {
       <h4>Frontend Skill</h4>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Frontend_skill.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
+          <Tooltip text={image.skill_name} content={image.content} key={index}>
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          </Tooltip>
         ))}
       </div>
 
@@ -51,13 +55,15 @@ const Skills = () => {
       <h4>Backend Skill</h4>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Backend_skill.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
+          <Tooltip text={image.skill_name} content={image.content} key={index}>
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          </Tooltip>
         ))}
       </div>
 
@@ -65,33 +71,37 @@ const Skills = () => {
       <h4>FullStack</h4>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Full_stack.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
+          <Tooltip text={image.skill_name} content={image.content} key={index}>
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          </Tooltip>
         ))}
       </div>
 
       {/* Other Skill section */}
-      <h4>Other Skill</h4>
+      <h4>Other Skill & Competence</h4>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Other_skill.map((image, index) => (
-          <SkillDataProvider
-            key={index}
-            src={image.Image}
-            width={image.width}
-            height={image.height}
-            index={index}
-          />
+          <Tooltip text={image.description} content={image.content} key={index}>
+            <SkillDataProvider
+              key={index}
+              src={image.Image}
+              width={image.width}
+              height={image.height}
+              index={index}
+            />
+          </Tooltip>
         ))}
       </div>
 
       {/* Background video element */}
-      <div className="w-full h-full absolute">
-        <div className="w-full h-full z-[-10] opacity-30 absolute flex items-center justify-center bg-cover">
+      <div className="w-full h-full absolute z-[-10]">
+        <div className="w-full h-full opacity-30 absolute flex items-center justify-center bg-cover">
           <video
             className="w-full h-auto"
             preload="false"

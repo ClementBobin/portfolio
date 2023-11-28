@@ -1,9 +1,34 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { slideInFromTop, slideInFromBottom } from '../utils/motion.js';
 // Internationalization hook
 import { useTranslation } from 'react-i18next';
-import Anchor from '../components/anchor.jsx';
+import Anchor from '../components/libStyleCompo/anchor.jsx';
+
+function ShortcutHome() {
+    const isMac = /(Mac)/i.test(navigator.userAgent)
+    const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent)
+
+    if (isMobile) {
+      return (
+        <button>
+          Tap to start →
+        </button>
+      )
+    } else if (isMac) {
+      return (
+        <button>
+          Press <kbd>⌘</kbd> <kbd>K</kbd> to start →
+        </button>
+      )
+    } else {
+      return (
+        <button>
+          Press <kbd>ctrl</kbd> <kbd>K</kbd> to start →
+        </button>
+      )
+    }
+}
 
 function Default() {
   // Translation hook
@@ -62,6 +87,7 @@ function Default() {
               </li>
               <li>
                 {t('defaultCard2Description')}
+                <ShortcutHome/>
               </li>
             </ul>
           </motion.div>
