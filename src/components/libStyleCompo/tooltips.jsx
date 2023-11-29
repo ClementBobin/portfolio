@@ -32,7 +32,6 @@ const Tooltip = ({ text, children, content }) => {
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
             color: '#fff',
             padding: '5px',
-            borderRadius: '3px',
             whiteSpace: 'normal',
             overflowWrap: 'break-word',
             maxWidth: '300px',
