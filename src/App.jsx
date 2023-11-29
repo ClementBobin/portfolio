@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Portfolio, Cv, Test, Default, Uses, Projects, Reminder, Articles, TechNews } from "./pages";
 import KBar from './components/sub/KBar';
-import { Analytics } from '@vercel/analytics/*';
+import { Analytics } from '@vercel/analytics/react';
 
 const App = () => {
   return (
