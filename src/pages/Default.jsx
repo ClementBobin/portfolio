@@ -121,7 +121,13 @@ function Default() {
                     {t('defaultCard3Choix2Description')}
                   </li>
                   <li>
-                    <video src="/src/assets/portfolioAvance.webm" className='h-28 w-full cursor-pointer' onClick={() => setShowWindowPortfolioAdvance(true)} />
+                    <video
+                      autoPlay  // Automatically starts playing the video
+                      className="h-28 w-full cursor-pointer"
+                      onClick={() => setShowWindowPortfolioAdvance(true)} 
+                    >
+                      <source src="/portfolioAvance.webm" type="video/webm" />  {/* Source of the video file */}
+                    </video>
                   </li>
                   <li>
                     <button onClick={() => (window.location.pathname = "portfolio")} className="card__cta cta">
@@ -134,8 +140,8 @@ function Default() {
           </motion.div>
         </motion.div>
       </div>
-      <Anchor title="Portfolio Advanced" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/src/assets/portfolioAvance.webm" type="video/mp4" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioAdvance} setShowWindow={setShowWindowPortfolioAdvance} />
-      <Anchor title="Portfolio Basic" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/src/assets/portfolio.webm" type="video/mp4" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioBasic} setShowWindow={setShowWindowPortfolioBasic} />
+      <Anchor title="Portfolio Advanced" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolioAvance.webm" type="video/webm" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioAdvance} setShowWindow={setShowWindowPortfolioAdvance} />
+      <Anchor title="Portfolio Basic" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolio.webm" type="video/mp4" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioBasic} setShowWindow={setShowWindowPortfolioBasic} />
       <Anchor title="Kbar" additionalInfo={<img src='https://user-images.githubusercontent.com/12195101/143491194-1d3ad5d6-24ac-4e6e-8867-65f643ac2d24.gif' className='min-w-[80vw] h-[75vh]' />} showWindow={showWindowKbar} setShowWindow={setShowWindowKbar} />
     </main>
   );
