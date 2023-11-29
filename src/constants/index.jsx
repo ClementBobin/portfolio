@@ -330,7 +330,7 @@ const generateData = () => {
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [
-        <div><button className="underline" onClick={() => setShowWindowBts(true)}>bts SIO SLAM</button>-{'>'} <button onClick={() => setShowWindowRef(true)} className="underline">Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Tableau-Référentiel-SLAM-_2_.html"/><a href="src/assets/Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindowRef} setShowWindow={setShowWindowRef}/><Anchor title="Bts SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Referentielle_SIO.html"/></>} showWindow={showWindowBts} setShowWindow={setShowWindowBts}/></div>,
+        <div><button className="underline" onClick={() => setShowWindowBts(true)}>bts SIO SLAM</button>-{'>'} <button onClick={() => setShowWindowRef(true)} className="underline">Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/Tableau-Référentiel-SLAM-_2_.html"/><a href="src/assets/Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindowRef} setShowWindow={setShowWindowRef}/><Anchor title="Bts SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="src/assets/referentielle_SIO.html"/></>} showWindow={showWindowBts} setShowWindow={setShowWindowBts}/></div>,
       ]
     }
   ];
