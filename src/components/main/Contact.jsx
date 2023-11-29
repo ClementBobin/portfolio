@@ -8,12 +8,17 @@ import { useTranslation } from 'react-i18next';
 import { styles } from "../../styles";
 import EarthCanvas from "../canvas/Earth";
 import { SectionWrapper } from "../../hoc";
-import { slideIn, fadeIn } from "../../utils/motion";
+import { slideIn } from "../../utils/motion";
 
 // Functional component for the "Contact" section
 const Contact = () => {
   // Accessing translation function from i18next
   const { t } = useTranslation();
+  
+  const templateKey = process.env.REACT_APP_EMAILJS_TEMPLATE_KEY || 'defaultTemplateKey';
+  const serviceKey = process.env.REACT_APP_EMAILJS_SERVICE_KEY || 'defaultServiceKey';
+  const userKey = process.env.REACT_APP_EMAILJS_USER_KEY || 'defaultUserKey';  
+
   
   // Ref for the form and state for form data and loading status
   const formRef = useRef();
@@ -43,8 +48,8 @@ const Contact = () => {
     // Sending email using emailjs
     emailjs
       .send(
-          'service_srjcg7w',
-          'template_mlgtzwx',
+          serviceKey,
+          templateKey,
         {
           from_name: form.name,
           to_name: "Clement Bobin",
@@ -52,7 +57,7 @@ const Contact = () => {
           to_email: "clementbobin21@gmail.com",
           message: form.message,
         },
-        'nBWa3mLxHaVdr64CV',
+        userKey,
       )
       .then(
         () => {
