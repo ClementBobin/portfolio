@@ -53,8 +53,7 @@ The basic file structure for the project is organized in the following way:
 |    |    |-- ai
 |    |    |-- canvas
 |    |    |-- main
-|    |    |-- sub
-|    |    `-- page
+|    |    `-- sub
 |    |-- hoc
 |    |-- icons
 |    |-- pages
