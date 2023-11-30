@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Portfolio, Cv, Test, Default, Uses, Projects, Reminder, Articles, TechNews } from "./pages";
 import KBar from './components/sub/KBar';
 import { Analytics } from '@vercel/analytics/react';
+import { Navbar } from './components';
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
         {/* Include the KBar component for navigation */}
         <KBar />
         <Analytics />
+        <Navbar />
 
         {/* Define routes for different pages */}
         <Routes>

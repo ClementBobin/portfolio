@@ -16,12 +16,29 @@ const categories = [
     ],
   },
   {
+    name: 'OS',
+    items: [
+      {
+        title: 'Windows',
+        description:
+          'Basic!',
+        url: 'https://www.microsoft.com/fr-fr/windows?r=1',
+      },
+      {
+        title: 'NixOS',
+        description:
+          'My favorite linux distribution',
+        url: 'https://nixos.org/',
+      },
+    ],
+  },
+  {
     name: 'Coding',
     items: [
       {
         title: 'VSCode',
         description:
-          'After using Sublime for many years, I moved to VSCode like everybody else.',
+          'I moved to VSCode like everybody else.',
         url: 'https://code.visualstudio.com',
       },
       {

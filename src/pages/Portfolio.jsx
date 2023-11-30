@@ -1,4 +1,4 @@
-import { About, Contact, Social, Experience, Feedbacks, Hero, Navbar, Works, Tech, Transition, Transition2 } from '../components';
+import { About, Contact, Social, Experience, Feedbacks, Hero, Works, Tech, Transition, Transition2 } from '../components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 
@@ -8,7 +8,6 @@ const Portfolio = () => {
     // Main container with default background and off overflow-width
     <div className="z-0 bg-primary overflow-x-hidden">
       <Hero />
-      <Navbar />
       <Transition />
       <About />
       <Tech />

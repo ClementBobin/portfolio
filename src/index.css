@@ -593,6 +593,7 @@ ul {
 .main__heading {
   font-weight: 600;
   font-size: 2.25em;
+  margin-top: 1rem;
   margin-bottom: 0.75em;
   text-align: center;
   color: #eceff1;
@@ -682,6 +683,7 @@ ul {
 }
 
 .sec{
+  margin-top: 5rem;
   padding: var(--space-navHeightMobile) 0;
   overflow: hidden;
   flex: 1 1 0%;
