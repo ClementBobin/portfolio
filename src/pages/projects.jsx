@@ -68,7 +68,7 @@ function ProjectItem(props) {
 
   return (
     <li>
-      <a href={project.url} target="_blank" noreferrer noopener>
+      <a href={project.url} target="_blank" rel="noopener noreferrer">
         {project.title}
       </a>
     </li>
