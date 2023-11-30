@@ -33,6 +33,7 @@ export default function FeaturedProject(props) {
       onMouseLeave={() => iconRef.current?.stop()}
       className="flex transition-opacity border-none rounded-lg hover:opacity-100"
       noreferrer
+      noopener
     >
       <Animation index={props.index}>
           {icon && (
