@@ -60,6 +60,7 @@ const TransitionContent = () => {
           src="/mainIconsdark.svg"
           alt="work icons"
           style={{ height: "650px", width: "650px" }}
+          loading="lazy"
         />
       </motion.div>
     </motion.div>

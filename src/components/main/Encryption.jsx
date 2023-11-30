@@ -27,6 +27,7 @@ const Encryption = () => {
             width={50}
             height={50}
             className="w-[50px] translate-y-5 transition-all duration-200 group-hover:translate-y-11"
+            loading="lazy"
           />
           <img
             src="/LockMain.png"
@@ -34,6 +35,7 @@ const Encryption = () => {
             width={70}
             height={70}
             className=" z-10"
+            loading="lazy"
           />
         </div>
 

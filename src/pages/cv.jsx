@@ -4,7 +4,7 @@ import { logo } from '../assets';
 function Cv() {
   return (
       <section className='bg-white text-black flex flex-col items-center min-h-screen'>
-          <img src={logo} alt="Profile photo" className='rounded-full w-100 h-100 m-[0_auto_5px]' />
+          <img src={logo} alt="Profile photo" className='rounded-full w-100 h-100 m-[0_auto_5px]' loading="lazy" />
           <div className='w-10'>Clément Bobin</div>
           <span className='inline-block text-[#697c8e]'></span>
           <button className='block bg-[#5558c9] text-white p-[10px_15px] w-[125px] m-[10px auto] rounded-sm hover:bg-[#7377ff]'>

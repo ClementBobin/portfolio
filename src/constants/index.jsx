@@ -14,8 +14,6 @@ import {
   git,
   figma,
   docker,
-  monge,
-  saint_bénigne,
   carrent,
   jobit,
   tripguide,
@@ -26,7 +24,6 @@ import {
   virtualbox,
   vmware,
   anonym,
-  closMaire,
 } from "../assets";
 import { useTranslation } from 'react-i18next';
 import Anchor from '../components/libStyleCompo/anchor';
@@ -56,10 +53,6 @@ const generateData = () => {
     {
       id: "articles",
       title: "Articles",
-    },
-    {
-      id: "cv",
-      title: "Cv",
     },
     {
       id: "technews",
@@ -251,21 +244,21 @@ const generateData = () => {
       Image: virtualbox,
       width: 40,
       height: 40,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox}/><img src={vmware}/><img src={docker}/></div><p>I can use hypervisor</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>I can use hypervisor</p></div>,
     },
     {
       skill_name: "Dev tools",
       Image: git,
       width: 80,
       height: 80,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox}/><img src={vmware}/><img src={docker}/></div><p>I use dev tools</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>I use dev tools</p></div>,
     },
     {
       skill_name: "Os",
       Image: git,
       width: 80,
       height: 80,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox}/><img src={vmware}/><img src={docker}/></div><p>I have experimented with linux, windows</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>I have experimented with linux, windows</p></div>,
     },
     {
       skill_name: "Ouvert to the world",
@@ -302,7 +295,7 @@ const generateData = () => {
     {
       title: t('experienceElement1Title'),
       company_name: "Monge",
-      icon: monge,
+      icon: "./company/school.svg",
       iconBg: "#383E56",
       date: t('experienceElement1Date'),
       points: [
@@ -312,7 +305,7 @@ const generateData = () => {
     {
       title: t('experienceElement2Title'),
       company_name: "Clos Maire",
-      icon: closMaire,
+      icon: "./company/school.svg",
       iconBg: "#E6DEDD",
       date: t('experienceElement2Date'),
       points: [
@@ -326,7 +319,7 @@ const generateData = () => {
     {
       title: t('experienceElement3Title'),
       company_name: "Groupe Saint-bénigne",
-      icon: saint_bénigne,
+      icon: "./company/logo_sb.png",
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [

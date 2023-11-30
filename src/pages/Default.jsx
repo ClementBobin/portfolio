@@ -45,7 +45,7 @@ function Default() {
   };
 
   return (
-    <main className="main flow overflow-hidden w-[100vw] h-[100vh]">
+    <main className="main flow md:overflow-hidden w-[100vw] h-[100vh]">
       <h1 className="main__heading">Welcome To My Webside</h1>
       <div className="main__cards cards">
         <motion.div className="cards__inner">
@@ -58,7 +58,7 @@ function Default() {
             <h2 className="card__heading">Language</h2>
             <ul role="list" className="card__bullets flow">
               <li>
-                <img src='/language-tree.webp' />    
+                <img src='/language-tree.webp' loading="lazy" />    
               </li>
               <li>
                 <button className="card__cta cta" onClick={() => changeLanguage('fr')}>
@@ -83,7 +83,7 @@ function Default() {
             <ul role="list" className="card__bullets flow">
               <li>{t('defaultCard2SubTitle')}</li>
               <li>
-                <img src="https://user-images.githubusercontent.com/12195101/143491194-1d3ad5d6-24ac-4e6e-8867-65f643ac2d24.gif" className='cursor-pointer' onClick={() => setShowWindowKbar(true)} />
+                <img src="/kbar.gif" className='cursor-pointer' onClick={() => setShowWindowKbar(true)} loading="lazy" />
               </li>
               <li>
                 {t('defaultCard2Description')}
@@ -106,7 +106,7 @@ function Default() {
                     {t('defaultCard3Choix1Description')}
                   </li>
                   <li>
-                    <video src="/src/assets/portfolio.webm" className='h-28 w-full cursor-pointer' onClick={() => setShowWindowPortfolioBasic(true)} />
+                    <video src="/portfolio.webm" className='h-28 w-full cursor-pointer' onClick={() => setShowWindowPortfolioBasic(true)} />
                   </li>
                   <li>
                     <button onClick={() => (window.location.pathname = "portfolio2")} className="card__cta cta">
@@ -142,7 +142,7 @@ function Default() {
       </div>
       <Anchor title="Portfolio Advanced" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolioAvance.webm" type="video/webm" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioAdvance} setShowWindow={setShowWindowPortfolioAdvance} />
       <Anchor title="Portfolio Basic" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolio.webm" type="video/mp4" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioBasic} setShowWindow={setShowWindowPortfolioBasic} />
-      <Anchor title="Kbar" additionalInfo={<img src='https://user-images.githubusercontent.com/12195101/143491194-1d3ad5d6-24ac-4e6e-8867-65f643ac2d24.gif' className='min-w-[80vw] h-[75vh]' />} showWindow={showWindowKbar} setShowWindow={setShowWindowKbar} />
+      <Anchor title="Kbar" additionalInfo={<img src='/kbar.gif' className='min-w-[80vw] h-[75vh]' loading="lazy" />} showWindow={showWindowKbar} setShowWindow={setShowWindowKbar} />
     </main>
   );
 }
