@@ -316,6 +316,16 @@ const KBar = () => {
       perform: () => (window.location.pathname = ''),
       icon: <Lottie lottieRef={homeRef} className='w-6 h-6 invert' animationData={homeIcon} loop={false} autoplay={false} />,
     },
+    // go to Note
+    {
+      id: 'note',
+      name: t('KBarElement7'),
+      shortcut: ['w', 'n'],
+      keywords: 'view-note',
+      section: 'General',
+      perform: () => window.open('https://note-clement.vercel.app/', '_blank'),
+      icon: <Lottie lottieRef={sourceRef} className='w-6 h-6 invert' animationData={sourceIcon} loop={false} autoplay={false} />,
+    },
     // Articles Tabs
     {
       id: 'articles',

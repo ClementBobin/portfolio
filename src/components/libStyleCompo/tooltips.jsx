@@ -23,7 +23,7 @@ const Tooltip = ({ text, children, content }) => {
         <div
           style={{
             position: 'absolute',
-            borderRadius: '50%',
+            borderRadius: '3px',
             borderTop: '5px solid white',
             top: '100%',
             left: '50%',

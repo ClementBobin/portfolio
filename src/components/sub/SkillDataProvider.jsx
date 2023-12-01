@@ -33,6 +33,7 @@ const SkillDataProvider = ({ src, width, height, index }) => {
         height={height}
         alt="skill image"
         style={{ maxWidth: '100%', height: 'auto' }}
+        loading="lazy"
       />
     </motion.div>
   );

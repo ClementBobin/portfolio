@@ -19,10 +19,11 @@ export default function transition2() {
           height={300}
           width={300}
           className="absolute right-55 top-40"
+          loading="lazy"
         />
 
         {/* Cliff image positioned absolutely at the bottom right */}
-        <img src="/cliff.webp" alt="cliff" width={480} height={480} />
+        <img src="/cliff.webp" alt="cliff" width={480} height={480} loading="lazy" />
       </div>
 
       {/* Absolute positioning of a large trees image at the bottom */}
@@ -32,7 +33,8 @@ export default function transition2() {
           alt="trees"
           width={2000}
           height={2000}
-          className="w-full h-full"
+          className="w-full h-full" 
+          loading="lazy"
         />
       </div>
 
@@ -43,6 +45,7 @@ export default function transition2() {
         height={300}
         width={300}
         className="absolute top-0 left-0 z-[10]"
+        loading="lazy"
       />
     </section>
   );
