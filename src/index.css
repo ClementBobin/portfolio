@@ -93,6 +93,17 @@ html.dark{
   -ms-overflow-style: none;
 }
 
+/* balise style */
+strong{
+  color: #f2f2f2;
+}
+
+a {
+  color: #f2f2f2;
+  text-decoration: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
 /* Hash Span Style */
 .hash-span {
   margin-top: -100px;
@@ -682,6 +693,7 @@ ul {
   font-weight: 600;
 }
 
+/* layout for other page like TechNews, Articles, Uses, Reminder, Project */
 .sec{
   margin-top: 5rem;
   padding: var(--space-navHeightMobile) 0;
@@ -718,6 +730,14 @@ ul {
     margin: 0 0 20px;
     color: white;
 }
+.sec .blockCustom .tile p {
+  color: #8f9ba8;
+}
+
+.sec .blockCustom .tile a {
+  color: #f2f2f2;
+}
+
 .sec .blockCustom .tile div ul{
   list-style-type: circle;
 }
@@ -733,13 +753,4 @@ ul {
 }
 .sec .blockCustom .tile .reminder, .sec .blockCustom .tile .project{
   background-image: linear-gradient( 135deg, cyan 0%, green 100% );
-}
-strong{
-  color: #f2f2f2;
-}
-
-a {
-  color: #f2f2f2;
-  text-decoration: none;
-  transition: opacity 0.2s ease-in-out;
 }

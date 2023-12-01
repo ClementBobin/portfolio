@@ -61,6 +61,7 @@ const resources = {
       KBarElement4: 'voir le code source',
       KBarElement5: 'Matériel',
       KBarElement6: 'rappel',
+      KBarElement7: 'Note',
       KBarElementTheme1: 'DarkTheme',
       KBarElementTheme2: 'LightTheme',
     },
@@ -127,6 +128,7 @@ const resources = {
       KBarElementTheme2: 'LightTheme',
     },
   },
+  // Tunisien translations
   tn: {
     translation: {
         heroTitle: 'تحويل الأفكار',
@@ -188,6 +190,7 @@ const resources = {
         KBarElementTheme2: 'نمط النور',
     },
   },
+  // Japonais
   ja: {
     translation: {
         heroTitle: 'アイデアを変革する',
@@ -249,6 +252,7 @@ const resources = {
         KBarElementTheme2: 'ライトテーマ',
     },
   },
+  // Russe
   ru: {
     translation: {
         heroTitle: 'Преобразование идей',
@@ -310,6 +314,7 @@ const resources = {
         KBarElementTheme2: 'Светлая тема',
     },
   },
+  // Korean
   ko: {
     translation: {
         heroTitle: '아이디어를 변화로',
@@ -371,6 +376,7 @@ const resources = {
         KBarElementTheme2: '라이트 테마',
     },
   },
+  // Allemand
   de: {
     translation: {
         heroTitle: 'Ideen verwandeln',
@@ -432,6 +438,7 @@ const resources = {
         KBarElementTheme2: 'Helles Thema',
     },
   },
+  // Portugeais
   pt: {
     translation: {
         heroTitle: 'Transformando Ideias',
@@ -493,6 +500,7 @@ const resources = {
         KBarElementTheme2: 'Tema Claro',
     },
   },
+  // arabic
   ar: {
     translation: {
         heroTitle: 'تحويل الأفكار',
@@ -554,6 +562,7 @@ const resources = {
         KBarElementTheme2: 'الوضع الفاتح',
     },
   },
+  // chinese
   zh: {
     translation: {
         heroTitle: '转化思想',
@@ -615,6 +624,7 @@ const resources = {
         KBarElementTheme2: '浅色主题',
     },
   },
+  // spanish
   es: {
     translation: {
         heroTitle: 'Transformando Ideas',

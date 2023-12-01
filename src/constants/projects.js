@@ -13,6 +13,8 @@ const items = [
         description: 'A website to be able to create, edit and remove markdown note',
         url: 'https://github.com/ClementBobin/noteMarkdown',
         active: true,
+        icon: 'dark',
+        stats: '15k user',
       },
       {
         title: 'Obsidian repo',
@@ -25,6 +27,8 @@ const items = [
         description: 'My portfolio',
         url: 'https://github.com/ClementBobin/portfolio',
         active: true,
+        icon: 'bug',
+        stats: '',
       },
       {
         title: 'Ai image website',
@@ -41,6 +45,8 @@ const items = [
         title: 'RobotCarriste',
         description: 'My final project for college and first project ever',
         url: 'https://github.com/ClementBobin/RobotCarriste',
+        icon: 'OS',
+        stats: '',
       },
     ],
   },
