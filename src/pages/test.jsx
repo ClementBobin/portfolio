@@ -1,4 +1,4 @@
-import Encryption from '../components/main/Encryption'
+import Encryption from '../components/testing/Encryption'
 
 // The Test component for rendering a test page
 function Test() {

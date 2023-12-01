@@ -1,7 +1,9 @@
+// Array of items representing projects organized by year
 const items = [
   {
     year: '2023',
     projects: [
+      // Project details for the year 2023
       {
         title: 'Snippets repo',
         description: 'My custom repo snippets for vscode',
@@ -41,6 +43,7 @@ const items = [
   {
     year: '2022',
     projects: [
+      // Project details for the year 2022
       {
         title: 'RobotCarriste',
         description: 'My final project for college and first project ever',

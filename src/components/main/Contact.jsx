@@ -15,6 +15,7 @@ const Contact = () => {
   // Accessing translation function from i18next
   const { t } = useTranslation();
   
+  // Accessing env key
   const templateKey = process.env.REACT_APP_EMAILJS_TEMPLATE_KEY || 'defaultTemplateKey';
   const serviceKey = process.env.REACT_APP_EMAILJS_SERVICE_KEY || 'defaultServiceKey';
   const userKey = process.env.REACT_APP_EMAILJS_USER_KEY || 'defaultUserKey';  

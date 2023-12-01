@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
+// FeaturedArticle component responsible for displaying individual featured articles
 export default function FeaturedArticle(props) {
-
+  // Render a link containing the Animation component with article details
   return (
     <a href={props.href} className="border-0 w-64 md:w-full mx-4 md:mx-0 no-underline hover:opacity-100 first:ml-0">
       <Animation index={props.index} image={props.image} title={props.title} description={props.description} />
@@ -10,15 +11,19 @@ export default function FeaturedArticle(props) {
   );
 }
 
-function Animation({ index, image, title, description }) {
+// Animation component to handle hover effects and display article details
+function Animation({ image, title, description }) {
+  // State to track hover status
   const [hovered, setHovered] = useState(false);
 
+  // Render the Animation component with motion effects and article details
   return (
     <div
       className="relative w-full p-5 transition-all duration-300"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
+      {/* Display background overlay on hover */}
       {hovered && (
         <motion.div
           layoutId="featuredArticles"
@@ -29,6 +34,7 @@ function Animation({ index, image, title, description }) {
         />
       )}
 
+      {/* Render article details */}
       <div className="flex flex-col">
         <div
           className="w-full h-40 mb-5 bg-cover bg-center rounded-md filter grayscale-100"

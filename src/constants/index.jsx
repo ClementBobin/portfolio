@@ -33,6 +33,7 @@ import { useState } from "react";
 const generateData = () => {
   // Hook to access translation function
   const { t } = useTranslation();
+  // State variables for controlling window visibility
   const [showWindowRef, setShowWindowRef] = useState(false);
   const [showWindowBts, setShowWindowBts] = useState(false);
 
@@ -76,7 +77,7 @@ const generateData = () => {
     },
   ];
 
-  // Skill const
+  // Skill categories data
   const Skill_data = [
     {
       skill_name: "Html 5",
