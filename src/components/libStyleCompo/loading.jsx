@@ -8,7 +8,7 @@ const ChangingTextWrapper = styled.div`
 `;
 
 const ChangingText = () => {
-  const texts = ["We are getting your content", "Changing Text", "Another Text", "More Text"];
+  const texts = ["Brace yourself! Entering the internet's fun zone. Don't forget your virtual popcorn!", "Hold onto your pixels! This website is about to blow your mind, or at least tickle your funny bone.", "Welcome to the virtual circus! Prepare for a wild ride of laughter and web wonders.", "Caution: Puns ahead! Brace yourself for a pun-derful experience as you navigate this site."];
   const [index, setIndex] = useState(0);
   const [text, setText] = useState(texts[0]);
   const [isVisible, setIsVisible] = useState(true);
