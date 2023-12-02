@@ -1,5 +1,7 @@
 export default {
   plugins: {
+    'postcss-import': {},
+    
      // We're using the postcss-nesting plugin to allow for nested CSS syntax, like what's provided by the tailwindcss plugin
      'tailwindcss/nesting': 'postcss-nesting',
      

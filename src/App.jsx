@@ -1,13 +1,33 @@
 // Import necessary libraries and components
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { Portfolio, Test, Default, Uses, Projects, Reminder, Articles, TechNews } from "./pages";
 import MyTransition from './components/sub/InterPage';
 import KBar from './components/sub/KBar';
 import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components';
+import Loading from './components/libStyleCompo/loading.jsx';
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate an asynchronous operation (e.g., fetching data)
+    const fetchData = async () => {
+      // Your asynchronous logic here
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulating a delay
+
+      // Once the data is loaded, set isLoading to false
+      setIsLoading(false);
+    };
+    
+    fetchData();
+  }, []); // Empty dependency array means this effect runs once when the component mounts
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
