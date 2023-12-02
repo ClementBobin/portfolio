@@ -15,7 +15,6 @@ const App = () => {
   useEffect(() => {
     // Simulate an asynchronous operation (e.g., fetching data)
     const fetchData = async () => {
-      // Your asynchronous logic here
       await new Promise(resolve => setTimeout(resolve, 2000)); // Simulating a delay
 
       // Once the data is loaded, set isLoading to false

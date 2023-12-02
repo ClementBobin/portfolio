@@ -82,6 +82,14 @@ const resources = {
       ArticlesSecDescription2: "article/podcast/note",
       ArticlesSecDescription3: ". Les contenus les plus récents seront affichés ici.",
       TechNewSecTitle: "Veille technologique",
+      OtherSkillTooltip1: "Je peux utiliser un hyperviseur",
+      OtherSkillTooltip2: "Je peux utiliser des outils de développement",
+      OtherSkillTooltip3: "J'ai expérimenté avec Linux, Windows",
+      OtherSkillTooltip4: "Ouvert sur le monde",
+      OtherSkillTooltip5: "📚 Apprenant constant : Dans le paysage technologique en évolution rapide, je crois en la puissance de l'apprentissage continu. Ma curiosité me pousse à explorer de nouvelles technologies, frameworks et méthodologies, m'assurant de rester en avance sur la courbe et de fournir des solutions de pointe. Quand j'aime ce que je fais, je donne tout pour apprendre rapidement et rattraper le niveau de ce que j'apprends. J'ai toujours réussi à apprendre plus rapidement que les autres.",
+      OtherSkillTooltip6: "J'aime penser à des solutions que d'autres ne comprennent pas immédiatement",
+      OtherSkillTooltip7: "J'aime jouer à des sports d'équipe comme le basketball ou le football, j'aime la compétition et je fais tout pour m'améliorer. Le travail peut créer une compétition.",
+      OtherSkillTooltip8: "Professionnel enthousiaste et axé sur les résultats avec un dossier éprouvé dans la promotion de la collaboration au sein d'équipes diverses. Reconnu pour la capacité à s'intégrer parfaitement aux membres de l'équipe et contribuer à un environnement de travail positif. Capable de tirer parti des forces individuelles, de promouvoir la communication ouverte et de diriger les projets vers des résultats réussis grâce aux efforts collectifs."
     },
   },
   // English translations
@@ -163,6 +171,14 @@ const resources = {
       ArticlesSecDescription2: "article/podcast/note",
       ArticlesSecDescription3: ". It will display the most recent content here.",
       TechNewSecTitle: "Veille technologique",
+      OtherSkillTooltip1: "I can use hypervisor",
+      OtherSkillTooltip2: "I can use dev tools",
+      OtherSkillTooltip3: "I have experimented with linux, windows",
+      OtherSkillTooltip4: "Open to the world",
+      OtherSkillTooltip5: "📚 Constant Learner: In the fast-evolving tech landscape, I believe in the power of continuous learning. My curiosity drives me to explore new technologies, frameworks, and methodologies, ensuring that I stay ahead of the curve and deliver cutting-edge solutions. When I like what I do I will give everything to learn quickly and catch up with the level of what I learn, I always managed to learn faster than others.",
+      OtherSkillTooltip6: "I like to think of solutions that others do not get immediately",
+      OtherSkillTooltip7: "I like to play team sports like basketball or football, I like competition and do everything to be better and work can create competition.",
+      OtherSkillTooltip8: "Enthusiastic and results-driven professional with a proven track record in fostering collaboration within diverse teams. Recognized for the ability to seamlessly integrate with team members and contribute to a positive working environment. Adept at leveraging individual strengths, promoting open communication, and steering projects towards successful outcomes through collective efforts.",
     },
   },
   // Allemand
@@ -243,7 +259,15 @@ const resources = {
         ArticlesSecDescription1: "Hier wird mein Inhalt angezeigt, nachdem ich eine Website für ",
         ArticlesSecDescription2: "Artikel/Podcast/Notiz",
         ArticlesSecDescription3: "implementiert habe. Die neuesten Inhalte werden hier angezeigt.",
-        TechNewSecTitle: "Technologieüberwachung"
+        TechNewSecTitle: "Technologieüberwachung",
+        OtherSkillTooltip1: "Ich kann einen Hypervisor verwenden",
+        OtherSkillTooltip2: "Ich kann Entwicklertools verwenden",
+        OtherSkillTooltip3: "Ich habe mit Linux und Windows experimentiert",
+        OtherSkillTooltip4: "Offen für die Welt",
+        OtherSkillTooltip5: "📚 Konstanter Lernender: In der schnelllebigen Tech-Welt glaube ich an die Kraft des kontinuierlichen Lernens. Meine Neugier treibt mich dazu an, neue Technologien, Frameworks und Methoden zu erkunden, um sicherzustellen, dass ich auf dem neuesten Stand bleibe und innovative Lösungen liefere. Wenn mir etwas gefällt, gebe ich alles, um schnell zu lernen und mit dem Niveau dessen, was ich lerne, Schritt zu halten. Es ist mir immer gelungen, schneller zu lernen als andere.",
+        OtherSkillTooltip6: "Ich denke gerne an Lösungen, die andere nicht sofort verstehen",
+        OtherSkillTooltip7: "Ich spiele gerne Mannschaftssportarten wie Basketball oder Fußball, ich mag Wettbewerb und gebe alles, um besser zu sein. Arbeit kann Wettbewerb schaffen.",
+        OtherSkillTooltip8: "Begeisterter und ergebnisorientierter Profi mit nachgewiesener Erfolgsbilanz bei der Förderung der Zusammenarbeit in vielfältigen Teams. Anerkannt für die Fähigkeit, sich nahtlos in das Team einzufügen und zu einem positiven Arbeitsumfeld beizutragen. Geschickt im Einsatz individueller Stärken, Förderung offener Kommunikation und Lenkung von Projekten hin zu erfolgreichen Ergebnissen durch gemeinsame Anstrengungen."
     },
   },
   // spanish
@@ -324,7 +348,15 @@ const resources = {
         ArticlesSecDescription1: "Aquí es donde se mostrará mi contenido después de implementar un sitio web para ",
         ArticlesSecDescription2: "artículo/podcast/nota",
         ArticlesSecDescription3: ". Mostrará el contenido más reciente aquí.",
-        TechNewSecTitle: "Vigilancia tecnológica"
+        TechNewSecTitle: "Vigilancia tecnológica",
+        OtherSkillTooltip1: "Puedo usar un hipervisor",
+        OtherSkillTooltip2: "Puedo usar herramientas de desarrollo",
+        OtherSkillTooltip3: "He experimentado con Linux y Windows",
+        OtherSkillTooltip4: "Abierto al mundo",
+        OtherSkillTooltip5: "📚 Aprendiz constante: En el rápido y cambiante panorama tecnológico, creo en el poder del aprendizaje continuo. Mi curiosidad me impulsa a explorar nuevas tecnologías, marcos de trabajo y metodologías, asegurando que me mantengo al tanto y ofrezco soluciones de vanguardia. Cuando me gusta lo que hago, doy todo para aprender rápidamente y ponerme al día con el nivel de lo que aprendo. Siempre he logrado aprender más rápido que los demás.",
+        OtherSkillTooltip6: "Me gusta pensar en soluciones que otros no comprenden de inmediato",
+        OtherSkillTooltip7: "Me gusta jugar deportes de equipo como baloncesto o fútbol, me gusta la competencia y hago todo para mejorar. El trabajo puede crear competencia.",
+        OtherSkillTooltip8: "Profesional entusiasta y orientado a resultados con un historial comprobado en fomentar la colaboración dentro de equipos diversos. Reconocido por la capacidad para integrarse sin problemas con los miembros del equipo y contribuir a un entorno de trabajo positivo. Experto en aprovechar las fortalezas individuales, promover la comunicación abierta y dirigir proyectos hacia resultados exitosos a través de esfuerzos colectivos."
     },
   },
 };
