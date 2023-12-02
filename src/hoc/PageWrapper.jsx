@@ -3,7 +3,7 @@ const PageWrapper = (Component) =>
 function HOC() {
   // Render a section with a specific layout for the wrapped component
   return (
-    <section className='sec'>
+    <section className='sec invert dark:invert-0'>
       <div className='blockCustom'>
         <div className='tile'>
           {/* Render the wrapped component */}

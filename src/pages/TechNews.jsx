@@ -1,10 +1,12 @@
+import PageWrapper from '../hoc/PageWrapper';
+import { useTranslation } from 'react-i18next';
+
 function TechNews() {
+  const { t } = useTranslation()
   return (
-    <main className="sec">
-      <div className="blockCustom">
-        <div className="tile">
+        <div>
           {/* Title for the technology news section */}
-          <h1 className="reminder">Veille technologique</h1>
+          <h1 className="reminder">{t('TechNewSecTitle')}</h1>
 
           {/* Embed Wakelet iframe for displaying technology news */}
           <iframe
@@ -15,9 +17,7 @@ function TechNews() {
             title="Technology News Wakelet Embed"
           />
         </div>
-      </div>
-    </main>
   );
 }
 
-export default TechNews;
+export default PageWrapper(TechNews);

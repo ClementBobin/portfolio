@@ -1,11 +1,13 @@
 import FeaturedProject from './featuredProject';
 import items from '../constants/projects';
 import PageWrapper from '../hoc/PageWrapper';
+import { useTranslation } from 'react-i18next';
 
 // Component to display the projects section
 function Projects() {
+  const { t } = useTranslation()
   // Function to render featured projects 
-  // experimental not working right now
+  // experimental not working as etended right now (lottieIcon)
   const renderFeatured = () => {
     // Titles of featured projects
     const featured = ['noteMarkdown', 'Portfolio', 'RobotCarriste'];
@@ -43,21 +45,21 @@ function Projects() {
   return (
     <div>
       {/* Title and introductory text */}
-      <h1 className='project'>What I Created</h1>
+      <h1 className='project'>{t('ProjectSecTitle')}</h1>
       <p>
         {/* Explanation of the creator's interest and variety of projects */}
-        I'm obsessed with side projects and <strong>building in public</strong>.
-        Here you can navigate to <strong>{getTotalProjects()} different</strong> websites,
-        apps, and libraries I built. Some projects are still active, others have been discontinued.
+        {t('ProjectSecDescription1')}<strong>{t('ProjectSecDescription2')}</strong>.
+        {t('ProjectSecDescription3')}<strong>{getTotalProjects()}{t('ProjectSecDescription4')}</strong>
+        {t('ProjectSecDescription5')}
       </p>
 
       {/* Featured Projects section */}
-      <h2 className='mt-14'>Featured Projects</h2>
+      <h2 className='mt-14'>{t('ProjectSecSubTitle1')}</h2>
       {/* Render featured projects */}
       <div className='flex-row flex flex-wrap'>{renderFeatured()}</div>
 
       {/* All Projects section */}
-      <h2 className='mt-14'>All Projects</h2>
+      <h2 className='mt-14'>{t('ProjectSecSubTitle2')}</h2>
       {/* Render all projects by year */}
       {renderAll()}
     </div>

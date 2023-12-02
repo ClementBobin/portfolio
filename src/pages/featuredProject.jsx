@@ -57,8 +57,8 @@ export default function FeaturedProject(props) {
         )}
         {/* Render project details */}
         <div style={{ flex: '1 1 auto' }}>
-          <div className="text-lg font-semibold text-textColor">{project.title}</div>
-          <p className="text-secondary leading-6">{project.description}</p>
+          <div className="text-lg font-semibold">{project.title}</div>
+          <p className="leading-6">{project.description}</p>
           {/* Render project statistics if available */}
           {project.stats && (
             <div className="mt-1 uppercase font-medium tracking-wide text-xs">
