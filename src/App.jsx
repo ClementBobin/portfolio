@@ -1,11 +1,14 @@
 // Import necessary libraries and components
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { Portfolio, Test, Default, Uses, Projects, Reminder, Articles, TechNews } from "./pages";
+import MyTransition from './components/sub/InterPage';
 import KBar from './components/sub/KBar';
 import { Analytics } from '@vercel/analytics/react';
 import { Navbar } from './components';
 
 const App = () => {
+
   return (
     <>
       {/* Set up BrowserRouter for client-side routing */}
@@ -19,22 +22,26 @@ const App = () => {
         {/* Include the Navbar component for navigation links */}
         <Navbar />
 
-        {/* Define routes for different pages using React Router */}
-        <Routes>
-          {/* Home route */}
-          <Route path='/' element={<Default />} />
+        <AnimatePresence mode="wait">
 
-          {/* Portfolio routes */}
-          <Route path='/portfolio' element={<Portfolio />} />
-            <Route path='/portfolio/uses' element={<Uses />} />
-            <Route path='/portfolio/projects' element={<Projects />} />
-            <Route path='/portfolio/reminder' element={<Reminder />} />
-            <Route path='/portfolio/articles' element={<Articles />} />
-            <Route path='/portfolio/technews' element={<TechNews />} />
+            {/* Define routes for different pages using React Router */}
+            <Routes>
+              
+              {/* Home route */}
+              <Route path='/' element={<><MyTransition /><Default /></>} />
 
-          {/* Test route */}
-          <Route path='/test' element={<Test />} />
-        </Routes>
+              {/* Portfolio routes */}
+              <Route path='/portfolio' element={<><MyTransition /><Portfolio /></>} />
+                <Route path='/portfolio/uses' element={<><MyTransition /><Uses /></>} />
+                <Route path='/portfolio/projects' element={<><MyTransition /><Projects /></>} />
+                <Route path='/portfolio/reminder' element={<><MyTransition /><Reminder /></>} />
+                <Route path='/portfolio/articles' element={<><MyTransition /><Articles /></>} />
+                <Route path='/portfolio/technews' element={<><MyTransition /><TechNews /></>} />
+
+              {/* Test route */}
+              <Route path='/test' element={<Test />} />
+            </Routes>
+        </AnimatePresence>
       </BrowserRouter>
     </>
   );
