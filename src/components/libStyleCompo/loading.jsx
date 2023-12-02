@@ -35,44 +35,44 @@ const ChangingText = () => {
 
 const Loading = () => {
   return (
-    <section>
-      <div class="container">
-          <div class="baton-0"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-1"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-2"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-3"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-4"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-5"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-6"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-7"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-8"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-9"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-10"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-11"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-12"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-13"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-14"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-15"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-16"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-17"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-18"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-19"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-20"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-21"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-22"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-23"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-24"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-25"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-26"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-27"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-28"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-29"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-30"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-31"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-32"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-33"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-34"><div class="metronome"><div class="baton"></div></div></div>
-          <div class="baton-35"><div class="metronome"><div class="baton"></div></div></div>
+    <section className='loader'>
+      <div className="container">
+          <div className="baton-0"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-1"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-2"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-3"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-4"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-5"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-6"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-7"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-8"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-9"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-10"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-11"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-12"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-13"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-14"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-15"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-16"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-17"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-18"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-19"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-20"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-21"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-22"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-23"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-24"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-25"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-26"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-27"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-28"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-29"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-30"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-31"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-32"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-33"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-34"><div className="metronome"><div className="baton"></div></div></div>
+          <div className="baton-35"><div className="metronome"><div className="baton"></div></div></div>
       </div>
       <div>
         <ChangingText />
