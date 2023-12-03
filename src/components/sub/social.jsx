@@ -17,9 +17,9 @@ export default function social() {
         <aside className="fixed z-50 bottom-1 right-1 w-[4.25rem] h-[6.75rem]"> 
             <div className="flex flex-wrap gap-1">
                 {/* Map through social links and display icons with links */}
-                {socialLinks.map((social, index) => (
-                    <a key={index} href={social.link} target="_blank" rel="noopener noreferrer" className="w-8 h-8">
-                        <img src={social.icon} loading="lazy" />
+                {socialLinks.map((social) => (
+                    <a key={social.link} href={social.link} target="_blank" rel="noopener noreferrer" className={`w-8 h-8 ${social.icon === github ? 'invert dark:invert-0' : ''}`}>
+                        <img src={social.icon} alt={`${social.link} icon`} loading="lazy" />
                     </a>
                 ))}
             </div>
