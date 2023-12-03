@@ -695,20 +695,18 @@ ul {
 
 /* layout for other page like TechNews, Articles, Uses, Reminder, Project */
 .sec{
-  margin-top: 5rem;
-  padding: var(--space-navHeightMobile) 0;
+  padding: 0;
   overflow: hidden;
-  flex: 1 1 0%;
   min-height: 100vh;
   position: absolute;
   z-index: -1;
   width: 100vw;
+  background-color: #1c1b22;
 }
 .sec .blockCustom{
+  margin-top: 5rem;
   font-size: 16px;
   line-height: 32px;
-  color: var(--colors-secondary);
-  background: var(--colors-background);
   position: relative;
   z-index: 1;
   min-height: 100vh;
@@ -754,3 +752,5 @@ ul {
 .sec .blockCustom .tile .reminder, .sec .blockCustom .tile .project{
   background-image: linear-gradient( 135deg, cyan 0%, green 100% );
 }
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------------- */

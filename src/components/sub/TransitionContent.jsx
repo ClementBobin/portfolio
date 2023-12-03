@@ -11,13 +11,15 @@ const TransitionContent = () => {
   const { t } = useTranslation();
 
   return (
+    // Container for the animated transition content
     <motion.div
       initial="hidden"
       animate="visible"
       className="flex flex-row items-center relative justify-center px-20 top-10 w-full z-[20]"
     >
+      {/* Main content container */}
       <div className="h-full w-full flex flex-col gap-5 justify-center m-auto text-start">
-        {/* Welcome box */}
+        {/* Welcome box with about me title */}
         <motion.div
           variants={slideInFromTop}
           className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
@@ -27,7 +29,7 @@ const TransitionContent = () => {
           </h1>
         </motion.div>
 
-        {/* Title */}
+        {/* Title with gradient accentuation */}
         <motion.div
           variants={slideInFromLeft(0.5)}
           className="flex flex-col gap-6 mt-6 text-6xl font-bold text-white max-w-[600px] w-auto h-auto"
@@ -42,7 +44,7 @@ const TransitionContent = () => {
           </span>
         </motion.div>
 
-        {/* Subtitle */}  
+        {/* Subtitle with animation */}
         <motion.p
           variants={slideInFromLeft(0.8)}
           className="text-lg text-gray-400 my-5 max-w-[600px]"
@@ -51,7 +53,7 @@ const TransitionContent = () => {
         </motion.p>
       </div>
 
-      {/* Image */}
+      {/* Image with animation */}
       <motion.div
         variants={slideInFromRight(0.8)}
         className="w-full h-full flex justify-center items-center"

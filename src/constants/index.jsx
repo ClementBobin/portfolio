@@ -14,9 +14,6 @@ import {
   git,
   figma,
   docker,
-  carrent,
-  jobit,
-  tripguide,
   threejs,
   sql,
   php,
@@ -24,6 +21,19 @@ import {
   virtualbox,
   vmware,
   anonym,
+  devTools,
+  hypervisor,
+  os,
+  world,
+  learn,
+  logique,
+  competition,
+  team,
+  windows,
+  linux,
+  project1,
+  project2,
+  project3,
 } from "../assets";
 import { useTranslation } from 'react-i18next';
 import Anchor from '../components/libStyleCompo/anchor';
@@ -33,6 +43,7 @@ import { useState } from "react";
 const generateData = () => {
   // Hook to access translation function
   const { t } = useTranslation();
+  // State variables for controlling window visibility
   const [showWindowRef, setShowWindowRef] = useState(false);
   const [showWindowBts, setShowWindowBts] = useState(false);
 
@@ -76,7 +87,7 @@ const generateData = () => {
     },
   ];
 
-  // Skill const
+  // Skill categories data
   const Skill_data = [
     {
       skill_name: "Html 5",
@@ -240,53 +251,60 @@ const generateData = () => {
 
   const Other_skill = [
     {
-      skill_name: "Virtualbox",
-      Image: virtualbox,
+      skill_name: "hypervisor",
+      Image: hypervisor,
       width: 40,
       height: 40,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>I can use hypervisor</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>{t('OtherSkillTooltip1')}</p></div>,
     },
     {
       skill_name: "Dev tools",
-      Image: git,
+      Image: devTools,
       width: 80,
       height: 80,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>I use dev tools</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={git} loading="lazy"/></div><p>{t('OtherSkillTooltip2')}</p></div>,
     },
     {
       skill_name: "Os",
-      Image: git,
+      Image: os,
       width: 80,
       height: 80,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} loading="lazy"/><img src={vmware} loading="lazy"/><img src={docker} loading="lazy"/></div><p>I have experimented with linux, windows</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={windows} loading="lazy"/><img src={linux} loading="lazy"/></div><p>{t('OtherSkillTooltip3')}</p></div>,
     },
     {
       skill_name: "Ouvert to the world",
-      Image: git,
+      Image: world,
       width: 80,
       height: 80,
-      description: "Ouverture au monde",
+      description: t('OtherSkillTooltip4'),
     },
     {
       skill_name: "Fast learner",
-      Image: git,
+      Image: learn,
       width: 80,
       height: 80,
-      description: "📚 Constant Learner: In the fast-evolving tech landscape, I believe in the power of continuous learning. My curiosity drives me to explore new technologies, frameworks, and methodologies, ensuring that I stay ahead of the curve and deliver cutting-edge solutions. Quand j'aime se que je fais je vais tout donner pour apprendre vite et rattraper le niveau de se qui m'apprenne, j'ai toujours réussi a apprendre plus vite que les autres.",
+      description: t('OtherSkillTooltip5'),
     },
     {
       skill_name: "Sens pratique",
-      Image: git,
+      Image: logique,
       width: 80,
       height: 80,
-      description: "J'aime quand les choses sont ordonnées et je fais tout pour que mon travail le soit, pour avoir un gain de temps et ne pas en perdre.",
+      description: t('OtherSkillTooltip6'),
     },
     {
       skill_name: "Travail d'équipe",
-      Image: git,
+      Image: competition,
       width: 80,
       height: 80,
-      description: "J'aime jouer a des sports d'équipe comme le basketball ou le football, j'aime la compétition et tout faire pour être meilleur et travailler peut créer un espris de compétition.",
+      description: t('OtherSkillTooltip7'),
+    },
+    {
+      skill_name: "Travail d'équipe",
+      Image: team,
+      width: 80,
+      height: 80,
+      description: t('OtherSkillTooltip8'),
     },
   ];
 
@@ -350,7 +368,7 @@ const generateData = () => {
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "frammer",
           color: "green-text-gradient",
         },
         {
@@ -358,8 +376,8 @@ const generateData = () => {
           color: "pink-text-gradient",
         },
       ],
-      image: carrent,
-      source_code_link: "https://github.com/",
+      image: project1,
+      source_code_link: "https://github.com/ClementBobin/portfolio",
     },
     {
       name: t('projectsElement2Name'),
@@ -378,7 +396,7 @@ const generateData = () => {
           color: "pink-text-gradient",
         },
       ],
-      image: jobit,
+      image: project2,
       source_code_link: "https://github.com/",
     },
     {
@@ -398,7 +416,7 @@ const generateData = () => {
           color: "pink-text-gradient",
         },
       ],
-      image: tripguide,
+      image: project3,
       source_code_link: "https://github.com/",
     },
   ];

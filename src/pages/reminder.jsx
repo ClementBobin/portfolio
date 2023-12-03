@@ -1,8 +1,8 @@
+import PageWrapper from '../hoc/PageWrapper';
+
 function Reminder() {
   return (
-    <main className="sec">
-      <div className="blockCustom">
-        <div className="tile">
+        <div>
           {/* Title for the reminder section */}
           <h1 className="reminder">Reminder</h1>
 
@@ -48,9 +48,7 @@ function Reminder() {
             <em>- by Zeno & Carol</em>
           </p>
         </div>
-      </div>
-    </main>
   );
 }
 
-export default Reminder;
+export default PageWrapper(Reminder);

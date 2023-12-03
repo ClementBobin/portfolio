@@ -10,15 +10,21 @@
  * @returns {JSX.Element} - Rendered component.
  */
 export default function FloatingWindow({ title, additionalInfo, showWindow, setShowWindow, children }) {
+  // Conditional styling classes based on the visibility of the window
+  const windowClasses = `fixed top-1/2 left-1/2 transform mt-10 -translate-x-1/2 -translate-y-1/2 
+                        z-40 transition-all duration-200
+                        ${showWindow ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`;
 
   return (
-    <div className={`fixed top-1/2 left-1/2 transform mt-10 -translate-x-1/2 -translate-y-1/2 
-                    z-40 transition-all duration-200
-                    ${showWindow ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+    // Floating window container
+    <div className={windowClasses}>
+      {/* Inner content */}
       <div className="bg-white p-4 shadow-md rounded-md">
         {/* Title bar */}
         <div className="flex justify-between items-center mb-4">
+          {/* Window title */}
           <div className="text-lg font-semibold text-black">{title}</div>
+          {/* Close button */}
           <button
             className="text-gray-500 hover:text-gray-700 focus:outline-none"
             onClick={() => setShowWindow(false)}

@@ -16,7 +16,7 @@ function Hero() {
   return (
     <div className='bg-primary h-[100vh]'>
       <div className='w-full h-full bg-gradient-to-r from-primary via-black/30 to-black/10 invert dark:invert-0'>
-        <div className='text-center flex flex-col justify-center xl:pt-40 xl:text-left h-full container mx-auto'>
+        <div className='text-center flex flex-col xl:left-[-20vw] xl:pt-40 xl:text-left h-full container mx-auto'>
           {/* Animated heading with dynamic translation */}
           <motion.h1
             variants={fadeIn('down', 0.2)}

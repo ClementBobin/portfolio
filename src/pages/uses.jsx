@@ -1,8 +1,11 @@
 // libs needed
 import React from 'react';
 import categories from '../constants/uses';
+import { useTranslation } from 'react-i18next';
+import PageWrapper from '../hoc/PageWrapper';
 
 function Uses() {
+  const { t } = useTranslation()
   // Function to render all categories and their items
   const renderAll = () => {
     return categories.map((category, index) => (
@@ -28,24 +31,20 @@ function Uses() {
   };
 
   return (
-    <main className="sec">
-      <div className="blockCustom">
-        <div className="tile">
-          {/* Title and introductory text */}
-          <h1 className='uses'>What I Use</h1>
-          <p className="my-5">
-            I often get messages asking about specific pieces of{' '}
-            <strong>software or hardware I use</strong>.
-            This is not a static page; it's a <strong>living document </strong> 
-            with everything that I'm using nowadays.
-          </p>
+    <div>
+      {/* Title and introductory text */}
+      <h1 className='uses'>{t('UsesSecTitle')}</h1>
+      <p className="my-5">
+        {t('UsesSecDescription1')}{' '}
+        <strong>{t('UsesSecDescription2')}</strong>
+        {t('UsesSecDescription3')}<strong>{t('UsesSecDescription4')}</strong> 
+        {t('UsesSecDescription5')}
+      </p>
           
-          {/* Render categories and items */}
-          {renderAll()}
-        </div>
-      </div>
-    </main>
+      {/* Render categories and items */}
+      {renderAll()}
+    </div>
   );
 }
 
-export default Uses;
+export default PageWrapper(Uses);

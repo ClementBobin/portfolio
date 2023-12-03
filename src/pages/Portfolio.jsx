@@ -42,28 +42,4 @@ const Portfolio = () => {
   );
 }
 
-// Work in progress to replace with transition
-function MyApp({ Component, pageProps }) {
-  // Get the location from react-router-dom's useLocation
-  const location = useLocation();
-
-  return (
-    // Layout component wraps the entire application
-    <Layout>
-      {/* AnimatePresence for page transition animations */}
-      <AnimatePresence>
-        {/* Motion div for page transition animations */}
-        {/* Use location.pathname instead of router.route */}
-        <motion.div key={location.pathname} className='h-full'>
-          {/* Initial transition */}
-          <Transition />
-          
-          {/* Render the specific component based on the route */}
-          <Component {...pageProps} />
-        </motion.div>
-      </AnimatePresence>
-    </Layout>
-  );
-}
-
 export default Portfolio;

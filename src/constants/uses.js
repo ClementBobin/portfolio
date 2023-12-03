@@ -1,7 +1,9 @@
+// Array of categories with associated items
 const categories = [
   {
     name: 'Desk',
     items: [
+      // Items related to the desk category
       {
         title: 'Lenovo ThinkPad T560',
         description:
@@ -18,6 +20,7 @@ const categories = [
   {
     name: 'OS',
     items: [
+      // Items related to the OS category
       {
         title: 'Windows',
         description:
@@ -35,6 +38,7 @@ const categories = [
   {
     name: 'Coding',
     items: [
+      // Items related to the Coding category
       {
         title: 'VSCode',
         description:
@@ -52,6 +56,7 @@ const categories = [
   {
     name: 'Apps',
     items: [
+      // Items related to the Apps category
       {
         title: '1Password',
         description: 'The first thing I install on any new device.',
@@ -96,6 +101,7 @@ const categories = [
   {
     name: 'Services',
     items: [
+      // Items related to the Services category
       {
         title: 'Cloudflare',
         description:
@@ -124,6 +130,7 @@ const categories = [
   {
     name: 'Audio',
     items: [
+      // Items related to the Audio category
       {
         title: 'JBL Tune 230NC TWS',
         description: 'The best portable Headphones, immerse in crystal-clear audio, featuring powerful sound, active noise cancellation, and touch controls for seamless wireless experience.',
@@ -140,6 +147,7 @@ const categories = [
   {
     name: 'Finance',
     items: [
+      // Items related to the Finance category
       {
         title: 'Betterment',
         description:
@@ -163,6 +171,7 @@ const categories = [
   {
     name: 'Reading',
     items: [
+      // Items related to the Reading category
       {
         title: 'Audible',
         description:

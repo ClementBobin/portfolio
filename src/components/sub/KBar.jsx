@@ -40,9 +40,6 @@ import sourceIcon from '../../assets/icons/source.json';
 // Home icon animation
 import homeIcon from '../../assets/icons/home.json';
 
-// Avatar icons for personal section
-import avatarIcons from '../../assets/icons/account.json';
-
 // Work icons for portfolio section
 import workIcons from '../../assets/icons/work.json';
 
@@ -198,7 +195,6 @@ const KBar = () => {
   const reminderRef = useRef()
   const bugRef = useRef()
   const workRef = useRef()
-  const avatarRef = useRef()
   const lightRef = useRef()
   const darkRef = useRef()
   const langRef = useRef()
@@ -255,36 +251,15 @@ const KBar = () => {
       perform: copyLink,
       icon: <Lottie lottieRef={copyLinkRef} className='w-6 h-6 invert' animationData={copyLinkIcon} loop={false} autoplay={false} />,
     },
-    // Résumer action
-    {
-      id: "Résumer",
-      name: "Résumer",
-      shortcut: ['c','v'],
-      keywords: "cv",
-      section: 'Perso',
-      subtitle: 'MyPorfolio',
-      perform: () => (window.location.pathname = "portfolio/cv"),
-      icon: <Lottie lottieRef={avatarRef} className='w-6 h-6 invert' animationData={avatarIcons} loop={false} autoplay={false} />,
-    },
     // Portfolio action
     {
       id: "Porfolio",
       name: "portfolio",
       shortcut: ['p'],
       keywords: "about",
-      section: 'Perso',
+      section: 'Go To',
       perform: () => (window.location.pathname = "portfolio"),
       icon: <Lottie lottieRef={workRef} className='w-6 h-6 invert' animationData={workIcons} loop={false} autoplay={false} />,
-    },
-    // Test Zone action
-    {
-        id: "Test",
-        name: t('KBarElement2'),
-        shortcut: ['t'],
-        keywords: "test",
-        section: 'Test',
-        perform: () => (window.location.pathname = "test"),
-        icon: <Lottie lottieRef={bugRef} className='w-6 h-6 invert' animationData={bugIcons} loop={false} autoplay={false} />,
     },
     // Send Email action
     {
@@ -319,10 +294,10 @@ const KBar = () => {
     // go to Note
     {
       id: 'note',
-      name: t('KBarElement7'),
+      name: "MyNote",
       shortcut: ['w', 'n'],
       keywords: 'view-note',
-      section: 'General',
+      section: 'Project',
       perform: () => window.open('https://note-clement.vercel.app/', '_blank'),
       icon: <Lottie lottieRef={sourceRef} className='w-6 h-6 invert' animationData={sourceIcon} loop={false} autoplay={false} />,
     },
@@ -416,75 +391,12 @@ const KBar = () => {
       icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
     },
     {
-      id: 'Korean',
-      name: 'Korean',
-      shortcut: ['k', 'o'],
-      keywords: 'Korean lang',
-      section: 'lang',
-      perform: () => changeLanguage('ko'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
       id: 'German',
       name: 'German',
       shortcut: ['d', 'e'],
       keywords: 'German lang',
       section: 'lang',
       perform: () => changeLanguage('de'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
-      id: 'Portuguese',
-      name: 'Portuguese',
-      shortcut: ['p', 't'],
-      keywords: 'Portuguese lang',
-      section: 'lang',
-      perform: () => changeLanguage('pt'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
-      id: 'Arabic',
-      name: 'Arabic',
-      shortcut: ['a', 'r'],
-      keywords: 'Arabic lang',
-      section: 'lang',
-      perform: () => changeLanguage('ar'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
-      id: 'Russian',
-      name: 'Russian',
-      shortcut: ['r', 'u'],
-      keywords: 'Russian lang',
-      section: 'lang',
-      perform: () => changeLanguage('ru'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
-      id: 'Japanese',
-      name: 'Japanese',
-      shortcut: ['j', 'a'],
-      keywords: 'Japanese lang',
-      section: 'lang',
-      perform: () => changeLanguage('ja'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
-      id: 'Tunisian',
-      name: 'Tunisian',
-      shortcut: ['t', 'n'],
-      keywords: 'Tunisian lang',
-      section: 'lang',
-      perform: () => changeLanguage('tn'),
-      icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
-    },
-    {
-      id: 'Chinese',
-      name: 'Chinese',
-      shortcut: ['z', 'h'],
-      keywords: 'Chinese lang',
-      section: 'lang',
-      perform: () => changeLanguage('zh'),
       icon: <Lottie lottieRef={langRef} className='w-6 h-6 dark:invert scale-150' animationData={langIcon} loop={false} autoplay={false} />,
     },
     {
@@ -531,7 +443,17 @@ const KBar = () => {
       keywords: 'Coffe donation link social',
       section: 'Social',
       perform: () => window.open('https://www.buymeacoffee.com/clementbobin', '_blank'),
-      icon: <Lottie lottieRef={coffeRef} className='w-6 h-6 dark:invert scale[2.5]' animationData={coffeIcons} loop={false} autoplay={false} />,
+      icon: <Lottie lottieRef={coffeRef} className='w-6 h-6 dark:invert-0 scale-[2.25]' animationData={coffeIcons} loop={false} autoplay={false} />,
+    },
+    // Test Zone action
+    {
+      id: "Test",
+      name: t('KBarElement2'),
+      shortcut: ['t'],
+      keywords: "test",
+      section: 'Test',
+      perform: () => (window.location.pathname = "test"),
+      icon: <Lottie lottieRef={bugRef} className='w-6 h-6 invert' animationData={bugIcons} loop={false} autoplay={false} />,
     },
   ];
 

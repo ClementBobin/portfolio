@@ -1,3 +1,4 @@
+// Importing image assets
 import logo from "./c-logo.avif";
 
 import backend from "./backend.avif";
@@ -35,12 +36,25 @@ import vmware from "./tech/vmware.avif";
 import virtualbox from "./tech/Virtualbox.avif";
 import framer from "./tech/framer.png";
 
-import carrent from "./carrent.avif";
-import jobit from "./jobit.avif";
-import tripguide from "./tripguide.avif";
+import project1 from "./portfolio.png";
+import project2 from "./jobit.avif";
+import project3 from "./tripguide.avif";
 
 import anonym from "./people/anonym.webp";
 
+import devTools from "./devTools.png";
+import hypervisor from "./hypervisor.png";
+import os from "./OS.png";
+import world from "./world.png";
+import learn from "./learn.png";
+import logique from "./logique.png";
+import competition from "./competition.png";
+import team from "./team.png";
+
+import linux from "./linux.png";
+import windows from "./windows.png";
+
+// Exporting image assets
 export {
   logo,
   backend,
@@ -62,10 +76,7 @@ export {
   tailwind,
   typescript,
   threejs,
-  carrent,
   framer,
-  jobit,
-  tripguide,
   sql,
   php,
   python,
@@ -74,8 +85,21 @@ export {
   anonym,
   command,
   linkedIn,
-  codewars, 
-  stackoverflow, 
-  codepen, 
+  codewars,
+  stackoverflow,
+  codepen,
   reddit,
+  devTools,
+  hypervisor,
+  os,
+  world,
+  learn,
+  logique,
+  competition,
+  team,
+  linux,
+  windows,
+  project1,
+  project2,
+  project3,
 };
