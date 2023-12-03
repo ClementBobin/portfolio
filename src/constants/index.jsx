@@ -14,9 +14,6 @@ import {
   git,
   figma,
   docker,
-  carrent,
-  jobit,
-  tripguide,
   threejs,
   sql,
   php,
@@ -34,6 +31,9 @@ import {
   team,
   windows,
   linux,
+  project1,
+  project2,
+  project3,
 } from "../assets";
 import { useTranslation } from 'react-i18next';
 import Anchor from '../components/libStyleCompo/anchor';
@@ -368,7 +368,7 @@ const generateData = () => {
           color: "blue-text-gradient",
         },
         {
-          name: "mongodb",
+          name: "frammer",
           color: "green-text-gradient",
         },
         {
@@ -376,8 +376,8 @@ const generateData = () => {
           color: "pink-text-gradient",
         },
       ],
-      image: carrent,
-      source_code_link: "https://github.com/",
+      image: project1,
+      source_code_link: "https://github.com/ClementBobin/portfolio",
     },
     {
       name: t('projectsElement2Name'),
@@ -396,7 +396,7 @@ const generateData = () => {
           color: "pink-text-gradient",
         },
       ],
-      image: jobit,
+      image: project2,
       source_code_link: "https://github.com/",
     },
     {
@@ -416,7 +416,7 @@ const generateData = () => {
           color: "pink-text-gradient",
         },
       ],
-      image: tripguide,
+      image: project3,
       source_code_link: "https://github.com/",
     },
   ];

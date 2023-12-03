@@ -36,9 +36,9 @@ import vmware from "./tech/vmware.avif";
 import virtualbox from "./tech/Virtualbox.avif";
 import framer from "./tech/framer.png";
 
-import carrent from "./carrent.avif";
-import jobit from "./jobit.avif";
-import tripguide from "./tripguide.avif";
+import project1 from "./portfolio.png";
+import project2 from "./jobit.avif";
+import project3 from "./tripguide.avif";
 
 import anonym from "./people/anonym.webp";
 
@@ -76,10 +76,7 @@ export {
   tailwind,
   typescript,
   threejs,
-  carrent,
   framer,
-  jobit,
-  tripguide,
   sql,
   php,
   python,
@@ -102,4 +99,7 @@ export {
   team,
   linux,
   windows,
+  project1,
+  project2,
+  project3,
 };
