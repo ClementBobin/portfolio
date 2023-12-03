@@ -40,9 +40,6 @@ import sourceIcon from '../../assets/icons/source.json';
 // Home icon animation
 import homeIcon from '../../assets/icons/home.json';
 
-// Avatar icons for personal section
-import avatarIcons from '../../assets/icons/account.json';
-
 // Work icons for portfolio section
 import workIcons from '../../assets/icons/work.json';
 
@@ -198,7 +195,6 @@ const KBar = () => {
   const reminderRef = useRef()
   const bugRef = useRef()
   const workRef = useRef()
-  const avatarRef = useRef()
   const lightRef = useRef()
   const darkRef = useRef()
   const langRef = useRef()
@@ -255,36 +251,15 @@ const KBar = () => {
       perform: copyLink,
       icon: <Lottie lottieRef={copyLinkRef} className='w-6 h-6 invert' animationData={copyLinkIcon} loop={false} autoplay={false} />,
     },
-    // Résumer action
-    {
-      id: "Résumer",
-      name: "Résumer",
-      shortcut: ['c','v'],
-      keywords: "cv",
-      section: 'Perso',
-      subtitle: 'MyPorfolio',
-      perform: () => (window.location.pathname = "portfolio/cv"),
-      icon: <Lottie lottieRef={avatarRef} className='w-6 h-6 invert' animationData={avatarIcons} loop={false} autoplay={false} />,
-    },
     // Portfolio action
     {
       id: "Porfolio",
       name: "portfolio",
       shortcut: ['p'],
       keywords: "about",
-      section: 'Perso',
+      section: 'Go To',
       perform: () => (window.location.pathname = "portfolio"),
       icon: <Lottie lottieRef={workRef} className='w-6 h-6 invert' animationData={workIcons} loop={false} autoplay={false} />,
-    },
-    // Test Zone action
-    {
-        id: "Test",
-        name: t('KBarElement2'),
-        shortcut: ['t'],
-        keywords: "test",
-        section: 'Test',
-        perform: () => (window.location.pathname = "test"),
-        icon: <Lottie lottieRef={bugRef} className='w-6 h-6 invert' animationData={bugIcons} loop={false} autoplay={false} />,
     },
     // Send Email action
     {
@@ -468,7 +443,17 @@ const KBar = () => {
       keywords: 'Coffe donation link social',
       section: 'Social',
       perform: () => window.open('https://www.buymeacoffee.com/clementbobin', '_blank'),
-      icon: <Lottie lottieRef={coffeRef} className='w-6 h-6 dark:invert scale[2.5]' animationData={coffeIcons} loop={false} autoplay={false} />,
+      icon: <Lottie lottieRef={coffeRef} className='w-6 h-6 dark:invert-0 scale-[2.25]' animationData={coffeIcons} loop={false} autoplay={false} />,
+    },
+    // Test Zone action
+    {
+      id: "Test",
+      name: t('KBarElement2'),
+      shortcut: ['t'],
+      keywords: "test",
+      section: 'Test',
+      perform: () => (window.location.pathname = "test"),
+      icon: <Lottie lottieRef={bugRef} className='w-6 h-6 invert' animationData={bugIcons} loop={false} autoplay={false} />,
     },
   ];
 
