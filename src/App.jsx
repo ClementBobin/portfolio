@@ -1,7 +1,6 @@
 // Import necessary libraries and components
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
 import { Portfolio, Test, Default, Uses, Projects, Reminder, Articles, TechNews } from "./pages";
 import MyTransition from './components/sub/InterPage';
 import KBar from './components/sub/KBar';
@@ -41,8 +40,6 @@ const App = () => {
         {/* Include the Navbar component for navigation links */}
         <Navbar />
 
-        <AnimatePresence mode="wait">
-
             {/* Define routes for different pages using React Router */}
             <Routes>
               
@@ -59,8 +56,9 @@ const App = () => {
 
               {/* Test route */}
               <Route path='/test' element={<Test />} />
+              {/* Error page */}
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-        </AnimatePresence>
       </BrowserRouter>
     </>
   );

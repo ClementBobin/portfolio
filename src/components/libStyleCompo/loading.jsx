@@ -11,18 +11,18 @@ const ChangingText = () => {
   const texts = ["Brace yourself! Entering the internet's fun zone. Don't forget your virtual popcorn!", "Hold onto your pixels! This website is about to blow your mind, or at least tickle your funny bone.", "Welcome to the virtual circus! Prepare for a wild ride of laughter and web wonders.", "Caution: Puns ahead! Brace yourself for a pun-derful experience as you navigate this site."];
   const [index, setIndex] = useState(0);
   const [text, setText] = useState(texts[0]);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState("true");
 
   useEffect(() => {
     const interval = setInterval(() => {
       // Update the index and text from the array
       setIndex((prevIndex) => (prevIndex + 1) % texts.length);
-      setIsVisible(false);
+      setIsVisible("false");
 
       // Set a timeout to update the text and make it visible again after the transition
       setTimeout(() => {
         setText(texts[index]);
-        setIsVisible(true);
+        setIsVisible("true");
       }, 500); // Half of the transition duration (in milliseconds)
     }, 2000);
 
