@@ -64,7 +64,7 @@ export default function Navbar() {
           {/* Dark mode toggle */}
           <div className="groupbtn">
             <input type="checkbox" name='Theme' id="hide-checkbox" checked={!darkMode} onChange={handleDarkModeToggle} />
-            <label htmlFor="hide-checkbox" className="toggle">
+            <label htmlFor="hide-checkbox" className="toggle" aria-labelledby="toggle-label" aria-label="Toggle Checkbox">
               {/* Star and crater animation for the toggle */}
               <span className="toggle-button">
                 <span className="crater crater-1"></span>
