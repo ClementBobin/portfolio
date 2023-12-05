@@ -17,6 +17,7 @@ const FeedbackCard = ({
   designation,
   company,
   image,
+  imageFallback,
 }) => (
   <motion.div
     variants={fadeIn("", "spring", index * 0.5, 0.75)}
@@ -43,6 +44,7 @@ const FeedbackCard = ({
         {/* Image of the person providing the feedback */}
         <img
           src={image}
+          srcSet={imageFallback}
           alt={`feedback_by-${name}`}
           className='w-10 h-10 rounded-full object-cover'
           loading="lazy"

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 // SkillDataProvider component with intersection observer and motion animation
-const SkillDataProvider = ({ src, width, height, index }) => {
+const SkillDataProvider = ({ src, srcFallback, width, height, index }) => {
   // Intersection observer hook to determine if the component is in view
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -29,6 +29,7 @@ const SkillDataProvider = ({ src, width, height, index }) => {
     >
       <img
         src={src}
+        srcSet={srcFallback}
         width={width}
         height={height}
         alt="skill image"

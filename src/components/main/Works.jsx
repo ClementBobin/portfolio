@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 
 import { styles } from "../../styles"; // Importing styles
-import { github } from "../../assets"; // Importing GitHub icon
+import { github, githubFallback } from "../../assets"; // Importing GitHub icon
 import { SectionWrapper } from "../../hoc"; // Importing a section wrapper HOC
 import generateData from "../../constants"; // Importing data (projects)
 import { fadeIn, textVariant } from "../../utils/motion"; // Importing motion-related utilities
@@ -16,6 +16,7 @@ const ProjectCard = ({
   description,
   tags,
   image,
+  imageFallback,
   source_code_link,
 }) => {
   return (
@@ -34,6 +35,7 @@ const ProjectCard = ({
           {/* Project image */}
           <img
             src={image}
+            srcSet={imageFallback}
             alt='project_image'
             className='w-full h-full object-cover rounded-2xl'
             loading="lazy"
@@ -47,6 +49,7 @@ const ProjectCard = ({
             >
               <img
                 src={github}
+                srcSet={githubFallback}
                 alt='source code'
                 className='w-1/2 h-1/2 object-contain'
                 loading="lazy"

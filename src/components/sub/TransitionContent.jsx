@@ -59,7 +59,8 @@ const TransitionContent = () => {
         className="w-full h-full flex justify-center items-center"
       >
         <img
-          src="/mainIconsdark.svg"
+          src="/mainIconsdark.avif"
+          srcSet="/mainIconsdark.svg"
           alt="work icons"
           style={{ height: "650px", width: "650px" }}
           loading="lazy"

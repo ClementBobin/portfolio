@@ -14,7 +14,8 @@ export default function transition2() {
       <div className="absolute bottom-0 right-0 z-[10]">
         {/* Horse image positioned absolutely at the top right */}
         <img
-          src="/horse.png"
+          src="/horse.avif"
+          srcSet="/horse.png"
           alt="horse"
           height={300}
           width={300}
@@ -40,7 +41,8 @@ export default function transition2() {
 
       {/* Stars image positioned absolutely at the top left */}
       <img
-        src="/stars.png"
+        src="/stars.avif"
+        srcSet="/stars.png"
         alt="stars"
         height={300}
         width={300}
