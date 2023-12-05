@@ -35,7 +35,7 @@ const ProjectCard = ({
           {/* Project image */}
           <img
             src={image}
-            srcSet={imageFallback}
+            srcSet={`${image} 1x, ${imageFallback} 2x`}
             alt='project_image'
             className='w-full h-full object-cover rounded-2xl'
             loading="lazy"
@@ -49,7 +49,7 @@ const ProjectCard = ({
             >
               <img
                 src={github}
-                srcSet={githubFallback}
+                srcSet={`${github} 1x, ${githubFallback} 2x`}
                 alt='source code'
                 className='w-1/2 h-1/2 object-contain'
                 loading="lazy"
