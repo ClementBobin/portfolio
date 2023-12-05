@@ -316,7 +316,7 @@ const generateData = () => {
       ImageFallback: hypervisorFallback,
       width: 40,
       height: 40,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} srcSet={virtualboxFallback} loading="lazy"/><img src={vmware} srcSet={vmwareFallback} loading="lazy"/><img src={docker} srcSet={dockerFallback} loading="lazy"/></div><p>{t('OtherSkillTooltip1')}</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={virtualbox} srcSet={`${virtualbox} 1x, ${virtualboxFallback} 2x`} loading="lazy"/><img src={vmware} srcSet={`${vmware} 1x, ${vmwareFallback} 2x`} loading="lazy"/><img src={docker} srcSet={`${docker} 1x, ${dockerFallback} 2x`} loading="lazy"/></div><p>{t('OtherSkillTooltip1')}</p></div>,
     },
     {
       skill_name: "Dev tools",
@@ -324,7 +324,7 @@ const generateData = () => {
       ImageFallback: devToolsFallback,
       width: 80,
       height: 80,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={git} srcSet={gitFallback} loading="lazy"/></div><p>{t('OtherSkillTooltip2')}</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={git} srcSet={`${git} 1x, ${gitFallback} 2x`} loading="lazy"/></div><p>{t('OtherSkillTooltip2')}</p></div>,
     },
     {
       skill_name: "Os",
@@ -332,7 +332,7 @@ const generateData = () => {
       ImageFallback: osFallback,
       width: 80,
       height: 80,
-      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={windows} srcSet={windowsFallback} loading="lazy"/><img src={linux} srcSet={linuxFallback} loading="lazy"/></div><p>{t('OtherSkillTooltip3')}</p></div>,
+      content: <div><div className="h-6 w-[100%] flex flex-row gap-1 justify-center"><img src={windows} srcSet={`${windows} 1x, ${windowsFallback} 2x`} loading="lazy"/><img src={linux} srcSet={`${linux} 1x, ${linuxFallback} 2x`} loading="lazy"/></div><p>{t('OtherSkillTooltip3')}</p></div>,
     },
     {
       skill_name: "Ouvert to the world",

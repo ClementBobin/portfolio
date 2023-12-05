@@ -44,7 +44,7 @@ const FeedbackCard = ({
         {/* Image of the person providing the feedback */}
         <img
           src={image}
-          srcSet={imageFallback}
+          srcSet={`${image} 1x, ${imageFallback} 2x`}
           alt={`feedback_by-${name}`}
           className='w-10 h-10 rounded-full object-cover'
           loading="lazy"

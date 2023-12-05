@@ -35,7 +35,7 @@ const ProjectCard = ({
           {/* Project image */}
           <img
             src={image}
-            srcSet={imageFallback}
+            srcSet={`${image} 1x, ${imageFallback} 2x`}
             alt='project_image'
             className='w-full h-full object-cover rounded-2xl'
             loading="lazy"
@@ -49,7 +49,7 @@ const ProjectCard = ({
             >
               <img
                 src={github}
-                srcSet={githubFallback}
+                srcSet={`${github} 1x, ${githubFallback} 2x`}
                 alt='source code'
                 className='w-1/2 h-1/2 object-contain'
                 loading="lazy"
@@ -60,7 +60,7 @@ const ProjectCard = ({
 
         {/* Project details */}
         <div className='mt-5'>
-          <h3 className='text-textColor font-bold text-[24px]'>{name}</h3>
+          <h1 className='text-textColor font-bold text-[24px]'>{name}</h1>
           <p className='mt-2 dark:text-secondary text-textColor text-[14px]'>{description}</p>
         </div>
 

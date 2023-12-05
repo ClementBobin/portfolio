@@ -49,7 +49,7 @@ function Default() {
 
   // Render the main content with motion effects
   return (
-    <main className="main flow md:overflow-hidden w-[100vw] h-[100vh]">
+    <main className="main flow md:overflow-hidden w-[100vw] h-[100vh] bg-black">
       {/* Welcome heading */}
       <h1 className="main__heading">Welcome To My Website</h1>
 
@@ -67,7 +67,7 @@ function Default() {
             <h2 className="card__heading">Language</h2>
             <ul role="list" className="card__bullets flow">
               <li>
-                <img src='/language-tree.webp' loading="lazy" />    
+                <img src='/language-tree.webp' loading="lazy" alt='language image' />    
               </li>
               <li>
                 {/* Language change button for French */}
@@ -97,7 +97,7 @@ function Default() {
               <li>{t('defaultCard2SubTitle')}</li>
               <li>
                 {/* Clickable Kbar image */}
-                <img src="/kbar.gif" className='cursor-pointer' onClick={() => setShowWindowKbar(true)} loading="lazy" />
+                <img src="/kbar.gif" className='cursor-pointer' onClick={() => setShowWindowKbar(true)} loading="lazy" alt='kbar use' />
               </li>
               <li>
                 {/* Description and shortcut instructions */}
@@ -127,6 +127,7 @@ function Default() {
                   <li>
                     {/* Clickable video for the first portfolio option */}
                     <video src="/portfolio.webm" className='h-28 w-full cursor-pointer' onClick={() => setShowWindowPortfolioBasic(true)} />
+                    <track kind='captions' src='' srcLang='en' label='English'/>
                   </li>
                   <li>
                     {/* Button to navigate to the first portfolio option */}
@@ -151,6 +152,7 @@ function Default() {
                       onClick={() => setShowWindowPortfolioAdvance(true)} 
                     >
                       <source src="/portfolioAvance.webm" type="video/webm" />
+                      <track kind='captions' src='' srcLang='en' label='English'/>
                     </video>
                   </li>
                   <li>
@@ -167,9 +169,9 @@ function Default() {
       </div>
 
       {/* Anchors for opening additional windows */}
-      <Anchor title="Portfolio Advanced" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolioAvance.webm" type="video/webm" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioAdvance} setShowWindow={setShowWindowPortfolioAdvance} />
-      <Anchor title="Portfolio Basic" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolio.webm" type="video/mp4" />Your browser does not support the video tag.</video>} showWindow={showWindowPortfolioBasic} setShowWindow={setShowWindowPortfolioBasic} />
-      <Anchor title="Kbar" additionalInfo={<img src='/kbar.gif' className='min-w-[80vw] h-[75vh]' loading="lazy" />} showWindow={showWindowKbar} setShowWindow={setShowWindowKbar} />
+      <Anchor title="Portfolio Advanced" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolioAvance.webm" type="video/webm" />Your browser does not support the video tag.<track kind='captions' src='' srcLang='en' label='English'/></video>} showWindow={showWindowPortfolioAdvance} setShowWindow={setShowWindowPortfolioAdvance} />
+      <Anchor title="Portfolio Basic" additionalInfo={<video controls className='w-[85vw] h-[70vh]'><source src="/portfolio.webm" type="video/mp4" />Your browser does not support the video tag.<track kind='captions' src='' srcLang='en' label='English'/></video>} showWindow={showWindowPortfolioBasic} setShowWindow={setShowWindowPortfolioBasic} />
+      <Anchor title="Kbar" additionalInfo={<img src='/kbar.gif' className='min-w-[80vw] h-[calc(80vw / 1.45)]' loading="lazy" alt='kbar uses' />} showWindow={showWindowKbar} setShowWindow={setShowWindowKbar} />
     </main>
   );
 }

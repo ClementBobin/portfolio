@@ -29,7 +29,7 @@ const SkillDataProvider = ({ src, srcFallback, width, height, index }) => {
     >
       <img
         src={src}
-        srcSet={srcFallback}
+        srcSet={`${src} 1x, ${srcFallback} 2x`}
         width={width}
         height={height}
         alt="skill image"
