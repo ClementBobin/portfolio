@@ -19,7 +19,7 @@ export default function social() {
                 {/* Map through social links and display icons with links */}
                 {socialLinks.map((social) => (
                     <a key={social.link} href={social.link} target="_blank" rel="noopener noreferrer" className={`w-8 h-8 ${social.icon === github ? 'invert dark:invert-0' : ''}`}>
-                        <img src={social.icon} srcSet={social.iconFallback} alt={`${social.link} icon`} loading="lazy" />
+                        <img className="w-8 h-8" src={social.icon} srcSet={`${social.icon} 1x, ${social.iconFallback} 2x`} alt={`${social.link} icon`} loading="lazy" />
                     </a>
                 ))}
             </div>

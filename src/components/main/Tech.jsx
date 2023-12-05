@@ -20,7 +20,7 @@ const Skills = () => {
       <SkillText />
       
       {/* General Skill section */}
-      <h4>General Skill</h4>
+      <h1>General Skill</h1>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Skill_data.map((image, index) => (
           <Tooltip text={image.skill_name} content={image.content} key={index}>
@@ -36,7 +36,7 @@ const Skills = () => {
       </div>
 
       {/* Frontend Skill section */}
-      <h4>Frontend Skill</h4>
+      <h1>Frontend Skill</h1>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Frontend_skill.map((image, index) => (
           <Tooltip text={image.skill_name} content={image.content} key={index}>
@@ -52,7 +52,7 @@ const Skills = () => {
       </div>
 
       {/* Backend Skill section */}
-      <h4>Backend Skill</h4>
+      <h1>Backend Skill</h1>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Backend_skill.map((image, index) => (
           <Tooltip text={image.skill_name} content={image.content} key={index}>
@@ -68,7 +68,7 @@ const Skills = () => {
       </div>
 
       {/* FullStack section */}
-      <h4>FullStack</h4>
+      <h1>FullStack</h1>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Full_stack.map((image, index) => (
           <Tooltip text={image.skill_name} content={image.content} key={index}>
@@ -84,7 +84,7 @@ const Skills = () => {
       </div>
 
       {/* Other Skill section */}
-      <h4>Other Skill & Competence</h4>
+      <h1>Other Skill & Competence</h1>
       <div className="flex flex-row justify-around flex-wrap gap-5 items-center invert dark:invert-0">
         {Other_skill.map((image, index) => (
           <Tooltip text={image.description} content={image.content} key={index}>

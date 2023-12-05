@@ -74,7 +74,7 @@ const Loading = () => {
           <div className="baton-34"><div className="metronome"><div className="baton"></div></div></div>
           <div className="baton-35"><div className="metronome"><div className="baton"></div></div></div>
       </div>
-      <div>
+      <div className='text-center'>
         <ChangingText />
       </div>
     </section>
