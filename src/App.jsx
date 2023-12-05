@@ -44,10 +44,10 @@ const App = () => {
             <Routes>
               
               {/* Home route */}
-              <Route path='/' element={<><MyTransition /><Default /></>} />
+              <Route path='/default' element={<><MyTransition /><Default /></>} />
 
               {/* Portfolio routes */}
-              <Route path='/portfolio' element={<><MyTransition /><Portfolio /></>} />
+              <Route path='/' element={<><MyTransition /><Portfolio /></>} />
                 <Route path='/portfolio/uses' element={<><MyTransition /><Uses /></>} />
                 <Route path='/portfolio/projects' element={<><MyTransition /><Projects /></>} />
                 <Route path='/portfolio/reminder' element={<><MyTransition /><Reminder /></>} />
