@@ -4,7 +4,7 @@ import { About, Contact, Social, Experience, Feedbacks, Hero, Works, Tech, Trans
 const Portfolio = () => {
   return (
     // Main container with default background and off overflow-width
-    <div className="z-0 bg-primary overflow-x-hidden">
+    <div className="z-0 bg-primary bg-black overflow-x-hidden">
       {/* Hero section */}
       <Hero />
       
