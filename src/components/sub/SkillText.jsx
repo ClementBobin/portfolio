@@ -12,9 +12,9 @@ const SkillText = () => {
       {/* Animated welcome box */}
       <motion.div
           variants={slideInFromTop}
-          className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
+          className="Welcome-box py-[8px] px-[7px] border bg-white border-[#7042f88b] opacity-[0.9]"
         >
-          <h1 className="Welcome-text text-[13px]">
+          <h1 className="Welcome-text text-black text-[13px]">
             {t('skillBox')}
           </h1>
         </motion.div>
