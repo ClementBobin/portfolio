@@ -2,22 +2,31 @@
     "name": "Clement | Portfolio",
     "short_name": "MyPortfolio",
     "description": "Welcome to my portfolio! I am a passionate student striving to excel in the world of design, coding, and animation. Explore my projects and journey as I enhance my skills and pursue my ambitions in the tech and creative industry.",
-    "start_url": "/",
+    "start_url": "portfolio-clementbobins-projects.vercel.app/",
+    "scope": "portfolio-clementbobins-projects.vercel.app/",
     "display": "standalone",
     "background_color": "#000000",
+    "prefer_related_applications": false,
     "theme_color": "#ffffff",
+    "manifest_version": "0.11",
     "icons": [
       {
         "src": "./src/assets/c-logo.svg",
-        "sizes": "144x144",
+        "sizes": "192x192",
         "type": "image/svg",
         "purpose": "any"
       },
       {
-        "src": "./src/assets/c-logo.svg",
+        "src": "./src/assets/c-logo.png",
         "sizes": "512x512",
-        "type": "image/svg",
+        "type": "image/png",
         "purpose": "maskable"
+      },
+      {
+        "src": "./src/assets/c-logo.png",
+        "sizes": "144x144",
+        "type": "image/png",
+        "purpose": "any"
       }
     ]
   }
