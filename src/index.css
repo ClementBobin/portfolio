@@ -93,6 +93,11 @@ html.dark{
   -ms-overflow-style: none;
 }
 
+body{
+  width: 100%;
+  height: 100%;
+}
+
 /* balise style */
 strong{
   color: #f2f2f2;

@@ -11,8 +11,27 @@
       "headers" : [
         {
           "key" : "X-Robots-Tag",
-          "value" : "noindex"
+          "value" : "index"
         }
       ]
-  }]
+    },
+    {
+      "source": "/v1/script.debug.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600"
+        }
+      ]
+    },
+    {
+      "source": "/rawguids/*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600"
+        }
+      ]
+    }
+  ]
 }
