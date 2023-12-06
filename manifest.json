@@ -1,0 +1,17 @@
+{
+    "name": "Clement | Portfolio",
+    "short_name": "MyPortfolio",
+    "description": "Welcome to my portfolio! I am a passionate student striving to excel in the world of design, coding, and animation. Explore my projects and journey as I enhance my skills and pursue my ambitions in the tech and creative industry.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#ffffff",
+    "icons": [
+      {
+        "src": "/public/c-logo.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ]
+  }
+  

@@ -1,0 +1,7 @@
+User-agent: AdsBot-Google
+Disallow: /
+
+User-agent: *
+Disallow: 
+
+Sitemap: https://example.com/sitemap.xml
