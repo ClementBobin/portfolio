@@ -4,5 +4,15 @@
       "source": "/(.*)*",
       "destination": "/"
     }
-  ]
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers" : [
+        {
+          "key" : "X-Robots-Tag",
+          "value" : "noindex"
+        }
+      ]
+  }]
 }
