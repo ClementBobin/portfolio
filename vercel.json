@@ -14,35 +14,6 @@
           "value" : "index"
         }
       ]
-    },
-    {
-      "source": "/rawguids/*",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=600"
-        }
-      ]
     }
-    "headers": [
-      {
-        "source": "/",
-        "headers" : [
-          {
-            "key" : "X-Robots-Tag",
-            "value" : "index"
-          }
-        ]
-      },
-      {
-        "source": "/v1/script.debug.js",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=600"
-          }
-        ]
-      }
-    ]
   ]
 }
