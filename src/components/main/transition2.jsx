@@ -42,7 +42,6 @@ export default function transition2() {
       {/* Stars image positioned absolutely at the top left */}
       <img
         src="/stars.png"
-        srcSet="/stars.avif 1x, /stars.png 2x"
         alt="stars"
         height={300}
         width={300}
