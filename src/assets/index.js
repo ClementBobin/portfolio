@@ -1,11 +1,11 @@
 // Importing image assets
-import logo from "./c-logo.avif";
+import logo from "./c-logo.png";
 
 import backend from "./backend.png";
 import backendFallback from "./backend.png";
 import mobile from "./mobile.png";
 import mobileFallback from "./mobile.png";
-import web from "./web.avif";
+import web from "./web.png";
 import webFallback from "./web.png";
 
 import menu from "./menu.svg";
