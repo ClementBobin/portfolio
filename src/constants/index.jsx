@@ -429,8 +429,8 @@ const generateData = () => {
     {
       title: t('experienceElement3Title'),
       company_name: "Groupe Saint-bénigne",
-      icon: "./company/logo_sb.avif",
-      iconFallback: "./company/logo_sb.png",
+      icon: "./company/logoSb.svg",
+      iconFallback: "",
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [
