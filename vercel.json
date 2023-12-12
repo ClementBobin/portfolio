@@ -14,14 +14,6 @@
           "value" : "index"
         }
       ]
-    },
-    {
-      "source": "/rawguids/*",
-      "headers" : [
-        {
-          "key" : "Cache-Control",
-        }
-      ]
     }
   ]
 }
