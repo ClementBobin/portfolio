@@ -5,7 +5,7 @@ const useDarkMode = () => {
   const storedDarkMode = localStorage.getItem('darkMode');
   
   // Set dark mode state with the stored preference or default to false
-  const [darkMode, setDarkMode] = useState(storedDarkMode !== 'false');
+  const [darkMode, setDarkMode] = useState(storedDarkMode == 'true');
 
   useEffect(() => {
     // Apply or remove 'dark' class to the HTML element based on the dark mode state
