@@ -379,6 +379,7 @@ const generateData = () => {
   // Experience data
   const experiences = [
     {
+      link: 'https://clg-gmonge-beaune.eclat-bfc.fr/',
       title: t('experienceElement1Title'),
       company_name: "Monge",
       icon: "./company/school.svg",
@@ -390,6 +391,7 @@ const generateData = () => {
       ],
     },
     {
+      link: 'https://lyc-closmaire-beaune.eclat-bfc.fr/',
       title: t('experienceElement2Title'),
       company_name: "Clos Maire",
       icon: "./company/school.svg",
@@ -405,6 +407,7 @@ const generateData = () => {
       ],
     },
     {
+      link: 'https://ateliersducinema.org/',
       title: t('experienceElement4Title'),
       company_name: "Atelier Cinema",
       icon: "./company/school.svg",
@@ -416,6 +419,7 @@ const generateData = () => {
       ],
     },
     {
+      link: 'https://www.actemium.fr/implantations/actemium-dijon/presentation/',
       title: t('experienceElement5Title'),
       company_name: "Actemium",
       icon: "./company/school.svg",
@@ -427,6 +431,7 @@ const generateData = () => {
       ],
     },
     {
+      link: 'https://www.sb-lycee.fr/',
       title: t('experienceElement3Title'),
       company_name: "Groupe Saint-bénigne",
       icon: "./company/logoSb.svg",
