@@ -27,9 +27,9 @@ const ExperienceCard = ({ experience }) => {
     >
       <div>
         {/* Title of the work experience */}
-        <h3 className="text-textColor text-[24px] font-bold">
+        <a href={experience.link} className="text-textColor text-[24px] font-bold">
           {experience.title}
-        </h3>
+        </a>
         {/* Company name */}
         <p className="dark:text-secondary text-textColor text-[16px] font-semibold" style={{ margin: 0 }}>{experience.company_name}</p>
         {/* List of bullet points describing the experience */}

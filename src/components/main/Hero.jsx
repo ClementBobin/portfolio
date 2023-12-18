@@ -16,7 +16,7 @@ function Hero() {
   return (
     <div className='bg-primary h-[100vh]'>
       <div className='w-full h-full bg-gradient-to-r from-primary via-black/30 to-black/10 invert dark:invert-0'>
-        <div className='text-center flex flex-col xl:left-[-20vw] xl:pt-40 xl:text-left h-full container mx-auto'>
+        <div className='text-center flex flex-col xl:left-[-20vw] xl:pt-40 xl:text-left h-full container mx-auto dark:invert-0 invert'>
           {/* Animated heading with dynamic translation */}
           <motion.h1
             variants={fadeIn('down', 0.2)}
@@ -42,7 +42,7 @@ function Hero() {
       </div>
       <div className='w-[100%] h-full absolute right-0 bottom-0 overflow-hidden'>
         {/* Background elements, including particles container and avatar */}
-        <div className='bg-none xl:bg-hero-pattern xl:bg-cover xl:bg-right right-24 xl:bg-no-repeat w-full h-full absolute mix-blend-color-dodge translate-z-0 scale-125'></div>
+        <div className='bg-none xl:bg-hero-pattern xl:bg-cover xl:bg-right right-24 xl:bg-no-repeat w-full h-full absolute dark:mix-blend-color-dodge mix-blend-difference translate-z-0 scale-125'></div>
         <ParticlesContainer />
         {/* Animated Avatar with fadeIn effect */}
         <motion.div 
