@@ -10,7 +10,7 @@ const Transition = () => {
         autoPlay  // Automatically starts playing the video
         muted    // Mutes the audio of the video
         loop     // Loops the video continuously
-        className="rotate-180 absolute h-full w-full left-0 z-[1] object-cover "
+        className="rotate-180 absolute h-full w-full left-0 z-[1] object-cover"
       >
         <source src="/blackhole.webm" type="video/webm" />  {/* Source of the video file */}
       </video>

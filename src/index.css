@@ -5,13 +5,13 @@
 :root{
   /* Primary and Secondary colors for light and dark modes */
   --primary-dark: #030014;
-  --primary-light: #F8F8FF;
+  --primary-light: hsl(127, 80%, 96%); /* light palette: #E0FCFC, #C2E0E3, #9DB5C0, #5C6C73, #253337 */
   --secondary-dark: #aaa6c3;
-  --secondary-light: #F0FFFF;
+  --secondary-light: #1d1836;
  
   /* Tertiary and Black/White colors for light and dark modes */
   --tertiary-dark: #151030;
-  --tertiary-light: #f4efff;
+  --tertiary-light: #E0FCFC;
   --black-100-pre: #100d25;
   --black-200-pre: #090325;
   --white-100-pre: #fcfcfc;
