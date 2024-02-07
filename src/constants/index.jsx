@@ -69,16 +69,11 @@ import {
   project3Fallback,
 } from "../assets";
 import { useTranslation } from 'react-i18next';
-import Anchor from '../components/libStyleCompo/anchor';
-import { useState } from "react";
 
 // Function to generate data for the portfolio
 const generateData = () => {
   // Hook to access translation function
   const { t } = useTranslation();
-  // State variables for controlling window visibility
-  const [showWindowRef, setShowWindowRef] = useState(false);
-  const [showWindowBts, setShowWindowBts] = useState(false);
 
   // Navigation links
   const navLinks = [
@@ -439,7 +434,7 @@ const generateData = () => {
       iconBg: "#45e862",
       date: t('experienceElement3Date'),
       points: [
-        <div><button className="underline" onClick={() => setShowWindowBts(true)}>bts SIO SLAM</button>-{'>'} <button onClick={() => setShowWindowRef(true)} className="underline">Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="./Tableau-Référentiel-SLAM-_2_.html"/><a href="./Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindowRef} setShowWindow={setShowWindowRef}/><Anchor title="Bts SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="./referentielle_SIO.html"/></>} showWindow={showWindowBts} setShowWindow={setShowWindowBts}/></div>,
+        <div><a href="./Tableau-Référentiel-SLAM-_2_.html" target="_blank" className="underline">bts SIO SLAM</a>-{'>'} <a href="./referentielle_SIO.html" target="_blank" className="underline">Tableau de compétence</a></div>,
       ]
     }
   ];
