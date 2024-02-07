@@ -20,6 +20,7 @@
     "framer-motion": "^10.12.17",
     "i18next": "^23.7.6",
     "kbar": "^0.1.0-beta.43",
+    "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
     "maath": "^0.7.0",
     "react": "^18.2.0",
