@@ -36,6 +36,8 @@ import {
   phpFallback,
   python,
   pythonFallback,
+  CSharp,
+  bash,
   virtualbox,
   virtualboxFallback,
   vmware,
@@ -195,7 +197,20 @@ const generateData = () => {
       width: 40,
       height: 40,
     },
-
+    {
+      skill_name: "C#",
+      Image: CSharp,
+      ImageFallback: CSharp,
+      width: 120,
+      height: 120,
+    },
+    {
+      skill_name: "Bash",
+      Image: bash,
+      ImageFallback: bash,
+      width: 80,
+      height: 80,
+    }
   ];
 
   const Frontend_skill = [

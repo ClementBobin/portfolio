@@ -39,6 +39,8 @@ import threejs from "./tech/threejs.svg";
 import sql from "./tech/sql.png";
 import php from "./tech/php.png";
 import python from "./tech/python.png";
+import CSharp from "./tech/cSharp.png";
+import bash from "./tech/bash.png";
 import vmware from "./tech/vmware.png";
 import virtualbox from "./tech/Virtualbox.png";
 import cssFallback from "./tech/css.png";
@@ -136,6 +138,8 @@ export {
   phpFallback,
   python,
   pythonFallback,
+  CSharp,
+  bash,
   vmware,
   vmwareFallback,
   virtualbox,
