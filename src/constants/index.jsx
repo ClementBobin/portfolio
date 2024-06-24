@@ -421,7 +421,7 @@ const generateData = () => {
     {
       link: 'https://www.actemium.fr/implantations/actemium-dijon/presentation/',
       title: t('experienceElement5Title'),
-      company_name: "Actemium",
+      company_name: "ACTEMIUM DIJON",
       icon: "./company/school.svg",
       iconFallback: "",
       iconBg: "#383E56",
@@ -445,7 +445,7 @@ const generateData = () => {
     {
       link: 'https://www.actemium.fr/implantations/actemium-dijon/presentation/',
       title: t('experienceElement5Title'),
-      company_name: "Actemium",
+      company_name: "ACTEMIUM DIJON",
       icon: "./company/school.svg",
       iconFallback: "",
       iconBg: "#383E56",
