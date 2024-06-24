@@ -441,6 +441,21 @@ const generateData = () => {
       points: [
         <div><button className="underline" onClick={() => setShowWindowBts(true)}>bts SIO SLAM</button>-{'>'} <button onClick={() => setShowWindowRef(true)} className="underline">Tableau de compétence</button><Anchor title="Référentielle SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="./Tableau-Référentiel-SLAM-_2_.html"/><a href="./Tableau%20Référentiel%20SLAM%20(2).xlsx" download>Download Excel File</a></>} showWindow={showWindowRef} setShowWindow={setShowWindowRef}/><Anchor title="Bts SIO" additionalInfo={<><iframe className="w-[85vw] h-[80vh]" src="./referentielle_SIO.html"/></>} showWindow={showWindowBts} setShowWindow={setShowWindowBts}/></div>,
       ]
+    },
+    {
+      link: 'https://www.actemium.fr/implantations/actemium-dijon/presentation/',
+      title: t('experienceElement5Title'),
+      company_name: "Actemium",
+      icon: "./company/school.svg",
+      iconFallback: "",
+      iconBg: "#383E56",
+      date: t('experienceElement6Date'),
+      points: [
+        t('experienceElement6Points1'),
+        t('experienceElement6Points2'),
+        t('experienceElement6Points3'),
+        t('experienceElement6Points4'),
+      ],
     }
   ];
 
