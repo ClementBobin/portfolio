@@ -104,6 +104,10 @@ const generateData = () => {
       id: "technews",
       title: "TechNews",
     },
+    {
+        id: "docs",
+        title: "Docs",
+    }
   ];
 
    // Services data
@@ -470,6 +474,20 @@ const generateData = () => {
         t('experienceElement6Points2'),
         t('experienceElement6Points3'),
         t('experienceElement6Points4'),
+      ],
+    },
+    {
+      link: 'https://www.actemium.fr/implantations/actemium-dijon/presentation/',
+      title: t('experienceElement5Title'),
+      company_name: "ACTEMIUM DIJON",
+      icon: "./company/school.svg",
+      iconFallback: "",
+      iconBg: "#383E56",
+      date: t('experienceElement7Date'),
+      points: [
+        t('experienceElement7Points1'),
+        t('experienceElement7Points2'),
+        t('experienceElement7Points3'),
       ],
     }
   ];

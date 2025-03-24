@@ -51,7 +51,7 @@ export default function Navbar() {
                   setActive(link.title);
                 }}
               >
-                <Link to={`/portfolio/${link.id}`}>
+                <Link to={link.id === 'docs' ? 'https://mirage-docs.netlify.app/' : `/portfolio/${link.id}`}>
                   {link.title}
                 </Link>
               </li>

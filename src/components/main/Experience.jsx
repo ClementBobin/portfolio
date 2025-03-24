@@ -72,10 +72,10 @@ const Experience = () => {
       {/* Container for the work experience timeline */}
       <div className="mt-20 flex flex-col">
         <VerticalTimeline>
-          {/* Mapping through each experience and rendering an ExperienceCard for each */}
-          {experiences.map((experience, index) => (
-            <ExperienceCard key={index} experience={experience} />
-          ))}
+            {/* Mapping through each experience and rendering an ExperienceCard for each */}
+            {experiences.reverse().map((experience, index) => (
+                <ExperienceCard key={index} experience={experience} />
+            ))}
         </VerticalTimeline>
       </div>
     </section>
