@@ -323,7 +323,6 @@ const generateData = () => {
       width: 50,
       height: 50,
     },
-
   ];
 
 
@@ -462,6 +461,18 @@ const generateData = () => {
       ]
     },
     {
+      link: 'https://mirage-docs.netlify.app/docs/event/incyber/forum-2024/',
+      title: t('experienceElement6Title'),
+      company_name: "Incyber",
+      icon: "https://eviden.com/wp-content/uploads/2024/03/Forum-InCyber-logo.png",
+      iconFallback: "",
+      iconBg: "#383EFF",
+      date: t('experienceElement8Date2'),
+      points: [
+        ""
+      ],
+    },
+    {
       link: 'https://www.actemium.fr/implantations/actemium-dijon/presentation/',
       title: t('experienceElement5Title'),
       company_name: "ACTEMIUM DIJON",
@@ -488,6 +499,18 @@ const generateData = () => {
         t('experienceElement7Points1'),
         t('experienceElement7Points2'),
         t('experienceElement7Points3'),
+      ],
+    },
+    {
+      link: 'https://mirage-docs.netlify.app/docs/event/incyber/forum-2025/',
+      title: t('experienceElement6Title'),
+      company_name: "Incyber",
+      icon: "https://eviden.com/wp-content/uploads/2024/03/Forum-InCyber-logo.png",
+      iconFallback: "",
+      iconBg: "#383EFF",
+      date: t('experienceElement8Date2'),
+      points: [
+        ""
       ],
     }
   ];

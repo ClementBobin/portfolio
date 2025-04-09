@@ -6,7 +6,7 @@ export default function social() {
     const socialLinks = [
         { icon: github, iconFallback: githubFallback, link: 'https://github.com/ClementBobin' }, // GitHub profile link
         { icon: codewars, iconFallback: "", link: 'https://www.codewars.com/users/ClementBobin' }, // Codewars profile link
-        { icon: linkedIn, iconFallback: linkedInFallback, link: 'www.linkedin.com/in/clément-bobin-958559293 ' }, // LinkedIn profile link
+        { icon: linkedIn, iconFallback: linkedInFallback, link: 'https://www.linkedin.com/in/clément-bobin-958559293' }, // LinkedIn profile link
         { icon: stackoverflow, iconFallback: stackoverflowFallback, link: 'https://stackoverflow.com/users/RelateMirage' }, // StackOverflow profile link
         { icon: reddit, iconFallback: "", link: 'https://reddit.com/user/KernelKoder' }, // Reddit profile link
         { icon: codepen, iconFallback: "", link: 'https://codepen.io/RelateMirage' }, // Codepen profile link
@@ -14,7 +14,7 @@ export default function social() {
 
     // Rendering the social media icons as clickable links
     return (
-        <aside className="fixed z-50 bottom-1 right-1 w-[4.25rem] h-[6.75rem]"> 
+        <aside className="fixed z-50 bottom-1 right-1 w-[4.25rem] h-[6.75rem]">
             <div className="flex flex-wrap gap-1">
                 {/* Map through social links and display icons with links */}
                 {socialLinks.map((social) => (
