@@ -81,13 +81,17 @@ export const textVariant = (delay) => {
   };
   
   // Staggered container animation
-  export const staggerContainer = (staggerChildren, delayChildren) => {
+  export const staggerContainer = (staggerChildren = 0.1, delayChildren = 0.1) => {
     return {
-      hidden: {},
+      hidden: {
+        opacity: 0,
+      },
       show: {
+        opacity: 1,
         transition: {
           staggerChildren: staggerChildren,
-          delayChildren: delayChildren || 0,
+          delayChildren: delayChildren,
+          when: "beforeChildren",
         },
       },
     };

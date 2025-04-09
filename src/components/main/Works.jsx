@@ -2,11 +2,11 @@
 import { Tilt } from "react-tilt";
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
 
 import { styles } from "../../styles"; // Importing styles
 import { github, githubFallback } from "../../assets"; // Importing GitHub icon
 import { SectionWrapper } from "../../hoc"; // Importing a section wrapper HOC
-import generateData from "../../constants"; // Importing data (projects)
 import { fadeIn, textVariant } from "../../utils/motion"; // Importing motion-related utilities
 
 // ProjectCard component for displaying individual project cards
@@ -14,10 +14,8 @@ const ProjectCard = ({
   index,
   name,
   description,
-  tags,
-  image,
-  imageFallback,
-  source_code_link,
+  html_url,
+  updated_at,
 }) => {
   return (
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
@@ -33,18 +31,9 @@ const ProjectCard = ({
         {/* Container for the project image */}
         <div className='relative w-full h-[230px]'>
           {/* Project image */}
-          <img
-            src={image}
-            srcSet={`${image} 1x, ${imageFallback} 2x`}
-            alt='project_image'
-            className='w-full h-full object-cover rounded-2xl'
-            loading="lazy"
-          />
-
-          {/* GitHub icon for the source code link */}
           <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
             <div
-              onClick={() => window.open(source_code_link, "_blank")}
+              onClick={() => window.open(html_url, "_blank")}
               className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer'
             >
               <img
@@ -61,19 +50,8 @@ const ProjectCard = ({
         {/* Project details */}
         <div className='mt-5'>
           <h1 className='text-textColor font-bold text-[24px]'>{name}</h1>
-          <p className='mt-2 dark:text-secondary text-textColor text-[14px]'>{description}</p>
-        </div>
-
-        {/* Project tags */}
-        <div className='mt-4 flex flex-wrap gap-2'>
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color}`}
-            >
-              #{tag.name}
-            </p>
-          ))}
+          <p className='mt-2 dark:text-secondary text-textColor text-[14px]'>{description || 'No description available'}</p>
+          <p className='mt-2 text-sm text-gray-500'>Last updated: {new Date(updated_at).toLocaleDateString()}</p>
         </div>
       </Tilt>
     </motion.div>
@@ -83,7 +61,34 @@ const ProjectCard = ({
 // Works component displaying a section with a list of projects
 const Works = () => {
   const { t } = useTranslation();
-  const { projects } = generateData(); // Fetching projects data from constants
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchLatestProjects = async () => {
+      try {
+        const response = await fetch('https://api.github.com/users/clementbobin/repos?sort=updated&direction=desc&per_page=3', {
+          headers: {
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch GitHub projects: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setProjects(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestProjects();
+  }, []);
 
   return (
     <section>
@@ -103,12 +108,17 @@ const Works = () => {
         </motion.p>
       </div>
 
-      {/* Displaying individual project cards */}
-      <div className='mt-20 flex flex-wrap gap-7'>
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
-        ))}
-      </div>
+      {loading ? (
+        <div className="mt-20">Loading latest projects...</div>
+      ) : error ? (
+        <div className="mt-20 text-red-500">Error: {error}</div>
+      ) : (
+        <div className='mt-20 flex flex-wrap gap-7'>
+          {projects.map((project, index) => (
+            <ProjectCard key={`project-${index}`} index={index} {...project} />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
