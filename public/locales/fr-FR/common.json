@@ -1,0 +1,13 @@
+{
+  "home": {
+    "getStarted": "Commencez par éditer",
+    "saveChanges": "Sauvegardez et voyez vos changements instantanément.",
+    "deployNow": "Déployer maintenant",
+    "readDocs": "Lire la documentation"
+  },
+  "footer": {
+    "learn": "Apprendre",
+    "examples": "Exemples",
+    "goToNextjs": "Aller à nextjs.org →"
+  }
+}

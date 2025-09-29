@@ -1,0 +1,108 @@
+import { getTranslations } from "@/lib/i18n";
+import { Suspense } from "react";
+import RSSFeed, { FeedSkeleton } from "@/components/ui/rss-feed";
+import { Separator } from "@/components/ui/separator";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+import Link from "next/link";
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations(locale, ["rss"]);
+
+  // Define your RSS feeds
+  const rssFeeds = [
+    "https://techcrunch.com/feed/",
+    "https://feeds.feedburner.com/TechCrunch/",
+    "https://css-tricks.com/feed/",
+    "https://css-tricks.com/fee/",
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Breadcrumb Navigation */}
+        <div className="mb-8">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={`/`}
+                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  >
+                    clementBOBIN
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link
+                    href={`/${locale}`}
+                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  >
+                    portfolio
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage className="text-gray-900 dark:text-white">
+                  RSS Feeds
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+
+          {/* Separator under breadcrumb */}
+          <Separator className="mt-4 bg-gray-200 dark:bg-gray-700" />
+        </div>
+
+        <header className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            {t("rssPage.title") || "Latest Updates"}
+          </h1>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            {t("rssPage.description") ||
+              "Stay updated with the latest content from various sources"}
+          </p>
+        </header>
+
+        {/* Multiple Feeds Example */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6">Multiple Feeds</h2>
+          <Suspense fallback={<FeedSkeleton count={3} />}>
+            <RSSFeed feedUrls={rssFeeds} maxItemsPerFeed={3} locale={locale} />
+          </Suspense>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations(locale, ["rss"]);
+
+  return {
+    title: t("rssPage.metaTitle") || "My Feeds & Collections",
+    description:
+      t("rssPage.metaDescription") ||
+      "Explore my latest content and curated collections",
+  };
+}

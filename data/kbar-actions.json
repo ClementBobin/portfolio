@@ -1,0 +1,221 @@
+{
+  "icons": {
+    "COPY": "📋",
+    "EMAIL": "✉️",
+    "HOME": "🏠",
+    "CODE": "💻",
+    "SETTINGS": "⚙️",
+    "SEARCH": "🔍",
+    "USER": "👤",
+    "DATABASE": "🗄️",
+    "SERVER": "🖥️",
+    "NETWORK": "🌐",
+    "LIGHT": "☀️",
+    "DARK": "🌙",
+    "LANGUAGE": "🌐",
+    "GITHUB": "🐙",
+    "LINKEDIN": "💼",
+    "EXTERNAL": "↗️",
+    "NOTE": "📝",
+    "PROJECT": "🚀",
+    "ARTICLE": "📰",
+    "TECH": "💡",
+    "REMINDER": "⏰",
+    "COFFEE": "☕",
+    "CODEWARS": "⚔️",
+    "WORK": "💼",
+    "BUG": "🐛"
+  },
+  "actions": {
+    "general": [
+      {
+        "id": "copy",
+        "name": "Copy Link",
+        "shortcut": ["l"],
+        "keywords": "copy-link url share",
+        "section": "General",
+        "perform": "copyLink",
+        "icon": "COPY",
+        "subtitle": "Copy current page URL"
+      },
+      {
+        "id": "source",
+        "name": "View Source",
+        "shortcut": ["s"],
+        "keywords": "view-source code github",
+        "section": "General",
+        "perform": "openSource",
+        "icon": "CODE",
+        "subtitle": "Check out the code"
+      }
+    ],
+    "navigation": [
+      {
+        "id": "portfolio",
+        "name": "Portfolio",
+        "shortcut": ["p"],
+        "keywords": "portfolio about work",
+        "section": "Go To",
+        "perform": "navigateToPortfolio",
+        "icon": "USER",
+        "subtitle": "View my portfolio"
+      },
+      {
+        "id": "home",
+        "name": "Home",
+        "shortcut": ["g", "h"],
+        "keywords": "go-home main dashboard",
+        "section": "Go To",
+        "perform": "navigateToHome",
+        "icon": "HOME",
+        "subtitle": "Return to homepage"
+      },
+      {
+        "id": "projects",
+        "name": "Projects",
+        "shortcut": ["g", "p"],
+        "keywords": "go-projects work showcase",
+        "section": "Go To",
+        "perform": "navigateToProjects",
+        "icon": "PROJECT",
+        "subtitle": "View my projects"
+      },
+      {
+        "id": "uses",
+        "name": "Tech Stack",
+        "shortcut": ["g", "u"],
+        "keywords": "go-uses tools stack equipment",
+        "section": "Go To",
+        "perform": "navigateToUses",
+        "icon": "SETTINGS",
+        "subtitle": "See what I use"
+      },
+      {
+        "id": "reminder",
+        "name": "Reminders",
+        "shortcut": ["g", "r"],
+        "keywords": "go-reminder tasks todo",
+        "section": "Go To",
+        "perform": "navigateToReminder",
+        "icon": "REMINDER",
+        "subtitle": "Check reminders"
+      },
+      {
+        "id": "technews",
+        "name": "Tech News",
+        "shortcut": ["g", "t"],
+        "keywords": "go-tech news updates",
+        "section": "Go To",
+        "perform": "navigateToTechNews",
+        "icon": "TECH",
+        "subtitle": "Latest tech news"
+      }
+    ],
+    "projects": [
+      {
+        "id": "note",
+        "name": "MyNote",
+        "shortcut": ["w", "n"],
+        "keywords": "view-note notes documentation",
+        "section": "Project",
+        "perform": "openMyNote",
+        "icon": "NOTE",
+        "subtitle": "Personal note-taking app"
+      }
+    ],
+    "theme": [
+      {
+        "id": "dark",
+        "name": "Dark Mode",
+        "shortcut": ["d", "t"],
+        "keywords": "dark-theme night mode",
+        "section": "Theme",
+        "perform": "setDarkMode",
+        "icon": "DARK",
+        "subtitle": "Switch to dark theme"
+      },
+      {
+        "id": "light",
+        "name": "Light Mode",
+        "shortcut": ["l", "t"],
+        "keywords": "light-theme day mode",
+        "section": "Theme",
+        "perform": "setLightMode",
+        "icon": "LIGHT",
+        "subtitle": "Switch to light theme"
+      }
+    ],
+    "language": [
+      {
+        "id": "english",
+        "name": "English",
+        "shortcut": ["e", "n"],
+        "keywords": "english language en",
+        "section": "Language",
+        "perform": "setEnglish",
+        "data": {
+          "url": "/en-US",
+          "type": "language"
+        },
+        "icon": "LANGUAGE",
+        "subtitle": "Switch to English"
+      },
+      {
+        "id": "french",
+        "name": "Français",
+        "shortcut": ["f", "r"],
+        "keywords": "french language fr",
+        "section": "Language",
+        "perform": "setFrench",
+        "data": {
+          "url": "/fr-FR",
+          "type": "language"
+        },
+        "icon": "LANGUAGE",
+        "subtitle": "Switch to French"
+      }
+    ],
+    "social": [
+      {
+        "id": "github",
+        "name": "GitHub",
+        "shortcut": ["g", "i", "t"],
+        "keywords": "github code repository",
+        "section": "Social",
+        "perform": "openGitHub",
+        "icon": "GITHUB",
+        "subtitle": "Check my GitHub"
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "shortcut": ["l", "i"],
+        "keywords": "linkedin professional network",
+        "section": "Social",
+        "perform": "openLinkedIn",
+        "icon": "LINKEDIN",
+        "subtitle": "Connect on LinkedIn"
+      },
+      {
+        "id": "codewars",
+        "name": "Codewars",
+        "shortcut": ["c", "w"],
+        "keywords": "codewars coding challenges",
+        "section": "Social",
+        "perform": "openCodewars",
+        "icon": "CODEWARS",
+        "subtitle": "See my coding skills"
+      },
+      {
+        "id": "buymeacoffee",
+        "name": "Buy Me a Coffee",
+        "shortcut": ["c", "f"],
+        "keywords": "coffee donation support",
+        "section": "Social",
+        "perform": "openBuyMeCoffee",
+        "icon": "COFFEE",
+        "subtitle": "Support my work"
+      }
+    ]
+  }
+}
