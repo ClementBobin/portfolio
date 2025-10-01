@@ -2,6 +2,7 @@
 module.exports = {
 	siteUrl: 'https://portfolio-clement.vercel.app',
 	generateRobotsTxt: true,
+	outDir: './.next',
 	changefreq: 'weekly',
 	priority: 0.7,
 	sitemapSize: 5000,
