@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import KBar from "@/components/ui/kbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import MenuBar from "@/components/ui/menu-bar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,8 +43,6 @@ export default function RootLayout({
           />
 
           {children}
-
-          <MenuBar position="left" triggerWidth={15} sidebarWidth={300} />
         </ThemeProvider>
       </body>
     </html>

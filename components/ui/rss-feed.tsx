@@ -234,17 +234,6 @@ export default async function RSSFeed({
                               }}
                             />
                           )}
-
-                          <CardFooter className="p-0 pt-3">
-                            <a
-                              href={item.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
-                            >
-                              {t("rss.readMore")} →
-                            </a>
-                          </CardFooter>
                         </CardContent>
                       </Card>
                     ))
