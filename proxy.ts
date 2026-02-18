@@ -51,7 +51,7 @@ export function proxy(
   const { pathname } = request.nextUrl;
 
   // ❌ Skip internal Next.js paths, API routes, favicon, and sitemap/robots
-  const skipPaths = ["/robots.txt", "/sitemap.xml"];
+  const skipPaths = ["/robots.txt", "/sitemap.xml", "/navigation-graph.json"];
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
