@@ -111,7 +111,7 @@ async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedProps) {
 /* WRAPPER WITH AUTO SUSPENSE */
 /* -------------------------------------------------------------------------- */
 
-type RSSFeedComponent = (props: RSSFeedProps) => JSX.Element;
+type RSSFeedComponent = (props: RSSFeedProps) => React.JSX.Element;
 
 const RSSFeed = ((props: RSSFeedProps) => {
   return (
