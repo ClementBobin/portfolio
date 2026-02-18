@@ -38,9 +38,6 @@ interface ExtendedNodeObject extends NodeObject {
 
 export function MindmapNavigation() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
-  const [_hoveredNode, setHoveredNode] = useState<ExtendedNodeObject | null>(
-    null,
-  );
   const pathname = usePathname();
   const router = useRouter();
   const fgRef = useRef(null);
@@ -182,7 +179,6 @@ export function MindmapNavigation() {
         nodeLabel={nodeLabel}
         nodeCanvasObject={paintNode}
         onNodeClick={handleNodeClick}
-        onNodeHover={(node) => setHoveredNode(node as ExtendedNodeObject)}
         linkColor={() => "rgba(148, 163, 184, 0.3)"}
         linkWidth={1.5}
         linkDirectionalParticles={2}
