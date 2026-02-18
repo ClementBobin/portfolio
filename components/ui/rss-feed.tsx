@@ -1,12 +1,7 @@
 import { Suspense } from "react";
-import { rssParser } from "@/lib/rss-parser";
-import { getTranslations } from "@/lib/i18n";
-
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { formatDate } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Presence } from "@/components/presence";
-
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Timeline,
   TimelineConnector,
@@ -18,6 +13,9 @@ import {
   TimelineTime,
   TimelineTitle,
 } from "@/components/ui/timeline";
+import { getTranslations } from "@/lib/i18n";
+import { rssParser } from "@/lib/rss-parser";
+import { formatDate } from "@/lib/utils";
 
 interface RSSFeedProps {
   feedUrl: string;
@@ -57,10 +55,7 @@ function FeedSkeleton({ count = 5 }: { count?: number }) {
 /* SERVER COMPONENT */
 /* -------------------------------------------------------------------------- */
 
-async function RSSFeedServer({
-  feedUrl,
-  locale = "en",
-}: RSSFeedProps) {
+async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedProps) {
   const t = await getTranslations(locale, ["rss"]);
   const feed = await rssParser.parseURL(feedUrl);
 
@@ -101,9 +96,7 @@ async function RSSFeedServer({
                 </TimelineHeader>
 
                 {item.description && (
-                  <TimelineDescription>
-                    {item.description}
-                  </TimelineDescription>
+                  <TimelineDescription>{item.description}</TimelineDescription>
                 )}
               </TimelineContent>
             </TimelineItem>
@@ -118,7 +111,7 @@ async function RSSFeedServer({
 /* WRAPPER WITH AUTO SUSPENSE */
 /* -------------------------------------------------------------------------- */
 
-type RSSFeedComponent = ((props: RSSFeedProps) => JSX.Element)
+type RSSFeedComponent = (props: RSSFeedProps) => JSX.Element;
 
 const RSSFeed = ((props: RSSFeedProps) => {
   return (

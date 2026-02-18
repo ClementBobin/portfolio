@@ -1,8 +1,6 @@
 "use server";
 
-import { getTranslations } from "@/lib/i18n";
-import RSSFeed from "@/components/ui/rss-feed";
-import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,7 +9,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import Link from "next/link";
+import RSSFeed from "@/components/ui/rss-feed";
+import { Separator } from "@/components/ui/separator";
+import { getTranslations } from "@/lib/i18n";
 
 export default async function Home({
   params,

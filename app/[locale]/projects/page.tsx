@@ -1,9 +1,6 @@
-import { getTranslations } from "@/lib/i18n";
 import { fetchGitHubProjects } from "@/lib/github";
-import {
-  getRelativeTime,
-  groupProjectsByYearAndMonth,
-} from "@/lib/utils";
+import { getTranslations } from "@/lib/i18n";
+import { getRelativeTime, groupProjectsByYearAndMonth } from "@/lib/utils";
 
 export default async function Page({
   params,
@@ -18,13 +15,10 @@ export default async function Page({
     <section className="max-w-6xl mx-auto px-6 py-16 space-y-16">
       {/* Header */}
       <header className="space-y-4">
-        <h1 className="text-4xl font-bold">
-          {t("Title")}
-        </h1>
+        <h1 className="text-4xl font-bold">{t("Title")}</h1>
         <p className="text-muted-foreground max-w-3xl">
           {t("Description1")}
-          <strong>{t("Description2")}</strong>.
-          {t("Description3")}
+          <strong>{t("Description2")}</strong>.{t("Description3")}
           <strong>
             {personal.length + org.length}
             {t("Description4")}
@@ -35,34 +29,28 @@ export default async function Page({
 
       {/* Latest GitHub projects */}
       <section className="space-y-10">
-        <h2 className="text-2xl font-semibold">
-          Latest GitHub Projects
-        </h2>
+        <h2 className="text-2xl font-semibold">Latest GitHub Projects</h2>
 
         {Object.entries(groupProjectsByYearAndMonth(personal))
           .sort(([yearA], [yearB]) => Number(yearB) - Number(yearA))
           .map(([year, months]) => (
             <div key={year} className="space-y-6">
               {/* Year */}
-              <h3 className="text-xl font-bold">
-                {year}
-              </h3>
+              <h3 className="text-xl font-bold">{year}</h3>
 
               {Object.entries(months)
                 .sort(
                   ([monthA], [monthB]) =>
                     new Date(`${monthA} 1, ${year}`).getTime() -
-                    new Date(`${monthB} 1, ${year}`).getTime()
+                    new Date(`${monthB} 1, ${year}`).getTime(),
                 )
                 .map(([month, projects]) => (
                   <div key={month} className="ml-6 space-y-3">
                     {/* Month */}
-                    <h4 className="text-lg font-semibold">
-                      {month}
-                    </h4>
+                    <h4 className="text-lg font-semibold">{month}</h4>
 
                     <ul className="ml-6 space-y-2">
-                      {projects.map((project: any) => (
+                      {projects.map((project) => (
                         <li
                           key={project.id}
                           className="flex flex-col gap-1 border-b pb-2 transition hover:translate-x-1"

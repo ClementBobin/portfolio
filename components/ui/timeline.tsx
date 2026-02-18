@@ -5,9 +5,9 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import * as React from "react";
 import { useComposedRefs } from "@/hooks/compose-refs";
-import { cn } from "@/lib/utils";
 import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
 import { useLazyRef } from "@/hooks/use-lazy-ref";
+import { cn } from "@/lib/utils";
 
 type Direction = "ltr" | "rtl";
 type Orientation = "vertical" | "horizontal";
