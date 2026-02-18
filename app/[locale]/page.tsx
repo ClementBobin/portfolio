@@ -7,6 +7,7 @@ import {
 import Link from "next/link";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card } from "@/components/ui/card";
+import { MindmapNavigation } from "@/components/ui/mindmap-navigation";
 import { getTranslations } from "@/lib/i18n";
 
 /**
@@ -118,30 +119,21 @@ export default async function Home({ params }: HomeProps) {
         </div>
       </section>
 
-      {/* Demo Section with AspectRatio */}
+      {/* Navigation Mindmap Section */}
       <section className="container px-4 py-16 md:py-24">
         <div className="space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Preview
+              Navigation Map
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              A modern portfolio showcasing projects and content with elegant
-              design.
+              Explore the connections between different sections of the portfolio.
+              Click on any node to navigate, or hover to see details.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <AspectRatio ratio={16 / 9}>
-              <div className="w-full h-full rounded-lg border bg-muted/50 flex items-center justify-center">
-                <div className="text-center space-y-2">
-                  <CodeIcon className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-sm text-muted-foreground">
-                    Portfolio Preview Area
-                  </p>
-                </div>
-              </div>
-            </AspectRatio>
+            <MindmapNavigation />
           </div>
         </div>
       </section>
