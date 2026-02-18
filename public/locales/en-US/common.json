@@ -1,0 +1,13 @@
+{
+  "home": {
+    "getStarted": "Get started by editing",
+    "saveChanges": "Save and see your changes instantly.",
+    "deployNow": "Deploy now",
+    "readDocs": "Read our docs"
+  },
+  "footer": {
+    "learn": "Learn",
+    "examples": "Examples",
+    "goToNextjs": "Go to nextjs.org →"
+  }
+}

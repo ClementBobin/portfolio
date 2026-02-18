@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://portfolio-clement.vercel.app
+
+# Sitemaps
+Sitemap: https://portfolio-clement.vercel.app/sitemap.xml
