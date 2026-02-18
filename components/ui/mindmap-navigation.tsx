@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GraphData, NodeObject } from "react-force-graph-2d";
 
 // Dynamically import ForceGraph2D to avoid SSR issues
@@ -38,12 +38,12 @@ interface ExtendedNodeObject extends NodeObject {
 
 export function MindmapNavigation() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
-  const [hoveredNode, setHoveredNode] = useState<ExtendedNodeObject | null>(
+  const [_hoveredNode, setHoveredNode] = useState<ExtendedNodeObject | null>(
     null,
   );
   const pathname = usePathname();
   const router = useRouter();
-  const fgRef = useRef<any>(null);
+  const fgRef = useRef(null);
 
   // Load graph data from JSON
   useEffect(() => {
@@ -78,7 +78,8 @@ export function MindmapNavigation() {
       } else {
         // Navigate to internal routes
         const locale = pathname.split("/")[1];
-        const targetPath = nodeId === "/" ? `/${locale}` : `/${locale}${nodeId}`;
+        const targetPath =
+          nodeId === "/" ? `/${locale}` : `/${locale}${nodeId}`;
         router.push(targetPath);
       }
     },
@@ -126,12 +127,21 @@ export function MindmapNavigation() {
         ctx.stroke();
       }
 
-      // Draw label
-      ctx.font = isCurrent ? "bold 12px Inter, sans-serif" : "10px Inter, sans-serif";
+      // Draw label with contrasting color
+      ctx.font = isCurrent
+        ? "bold 12px Inter, sans-serif"
+        : "10px Inter, sans-serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = "#ffffff";
+
+      // Use dark text for better visibility on light backgrounds
+      ctx.fillStyle = "#1f2937";
       ctx.fillText(label, node.x || 0, (node.y || 0) - size - 8);
+
+      // Add a subtle white outline for better visibility on any background
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+      ctx.lineWidth = 2;
+      ctx.strokeText(label, node.x || 0, (node.y || 0) - size - 8);
     },
     [currentPath],
   );

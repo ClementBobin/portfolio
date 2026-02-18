@@ -5,7 +5,6 @@ import {
   SparklesIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card } from "@/components/ui/card";
 import { MindmapNavigation } from "@/components/ui/mindmap-navigation";
 import { getTranslations } from "@/lib/i18n";
@@ -127,8 +126,8 @@ export default async function Home({ params }: HomeProps) {
               Navigation Map
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Explore the connections between different sections of the portfolio.
-              Click on any node to navigate, or hover to see details.
+              Explore the connections between different sections of the
+              portfolio. Click on any node to navigate, or hover to see details.
             </p>
           </div>
 
