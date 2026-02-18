@@ -40,7 +40,7 @@ export function MindmapNavigation() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const pathname = usePathname();
   const router = useRouter();
-  const fgRef = useRef(null);
+  const fgRef = useRef<any>(undefined);
 
   // Load graph data from JSON
   useEffect(() => {
