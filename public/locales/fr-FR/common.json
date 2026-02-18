@@ -1,4 +1,10 @@
 {
+  "nav": {
+    "title": "Portfolio",
+    "home": "Accueil",
+    "projects": "Projets",
+    "rss": "Flux RSS"
+  },
   "home": {
     "getStarted": "Commencez par éditer",
     "saveChanges": "Sauvegardez et voyez vos changements instantanément.",
@@ -8,6 +14,7 @@
   "footer": {
     "learn": "Apprendre",
     "examples": "Exemples",
-    "goToNextjs": "Aller à nextjs.org →"
+    "goToNextjs": "Aller à nextjs.org →",
+    "copyright": "© 2024 Portfolio. Tous droits réservés."
   }
 }

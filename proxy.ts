@@ -1,30 +1,34 @@
-import { NextResponse } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { NextResponse } from "next/server";
+import type { NextUrlLike } from "@/lib/types";
 
 const locales = ["en-US", "fr-FR"];
 const defaultLocale = "en-US";
 
+/**
+ * Interface for proxy request headers.
+ */
 interface ProxyRequest {
   headers: {
     get(name: string): string | null;
   };
-  nextUrl: {
-    pathname: string;
-    [key: string]: any;
-  };
+  nextUrl: NextUrlLike;
 }
 
-interface ProxyNextUrl {
-  pathname: string;
-  [key: string]: any;
-}
-
+/**
+ * Interface for proxy request with Next.js URL object.
+ */
 interface ProxyRequestWithNextUrl extends ProxyRequest {
-  nextUrl: ProxyNextUrl;
+  nextUrl: NextUrlLike;
 }
 
-// Determine best locale from Accept-Language header
+/**
+ * Determines the best locale from the Accept-Language header.
+ *
+ * @param request - The incoming request object
+ * @returns The matched locale string
+ */
 function getLocale(request: ProxyRequest): string {
   const acceptLanguage: string =
     request.headers.get("accept-language") || "en-US,en;q=0.5";
@@ -35,9 +39,15 @@ function getLocale(request: ProxyRequest): string {
   return match(languages, locales, defaultLocale);
 }
 
+/**
+ * Proxy middleware function for handling locale-based routing.
+ *
+ * @param request - The incoming request with Next.js URL
+ * @returns NextResponse redirect or undefined if no redirect needed
+ */
 export function proxy(
   request: ProxyRequestWithNextUrl,
-): void | NextResponse {
+): undefined | NextResponse {
   const { pathname } = request.nextUrl;
 
   // ❌ Skip internal Next.js paths, API routes, favicon, and sitemap/robots

@@ -1,7 +1,6 @@
-import path from "path";
-import { readdirSync, lstatSync } from "fs";
-
-import i18n, { InitOptions, TFunction } from "i18next";
+import { lstatSync, readdirSync } from "node:fs";
+import path from "node:path";
+import i18n, { type InitOptions, type TFunction } from "i18next";
 import i18nextFSBackend from "i18next-fs-backend";
 
 let globalInstance: typeof i18n;

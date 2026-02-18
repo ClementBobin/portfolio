@@ -1,5 +1,5 @@
-import type { ParserPreset, UserConfig } from "@commitlint/types";
 import config from "@commitlint/config-conventional";
+import type { ParserPreset, UserConfig } from "@commitlint/types";
 import createPreset from "conventional-changelog-conventionalcommits";
 import { merge } from "lodash-es";
 
