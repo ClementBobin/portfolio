@@ -7,6 +7,7 @@ interface RSSItem {
   pubDate?: string;
   author?: string;
   contentSnippet?: string;
+  image?: string;
 }
 
 interface RSSFeed {
@@ -29,6 +30,26 @@ class RSSParser {
       trimValues: true,
       ignoreDeclaration: true,
     });
+  }
+
+  private extractImage(item: any): string | undefined {
+    // Media RSS
+    if (item["media:thumbnail"]?.url) return item["media:thumbnail"].url;
+    if (item["media:content"]?.url) return item["media:content"].url;
+
+    // Enclosure
+    if (item.enclosure?.url && item.enclosure?.type?.startsWith("image")) {
+      return item.enclosure.url;
+    }
+
+    // Fallback: extract first <img> from HTML
+    const html = item["content:encoded"] || item.description;
+    if (typeof html === "string") {
+      const match = html.match(/<img[^>]+src="([^">]+)"/);
+      if (match) return match[1];
+    }
+
+    return undefined;
   }
 
   private async fetchWithTimeout(url: string): Promise<Response> {
@@ -78,6 +99,7 @@ class RSSParser {
           pubDate: item.pubDate,
           author: item.author || item["dc:creator"],
           contentSnippet: item["content:encoded"] || item.description,
+          image: this.extractImage(item),
         })),
       };
     }
@@ -108,6 +130,7 @@ class RSSParser {
               entry.author?.name ||
               (typeof entry.author === "string" ? entry.author : ""),
             contentSnippet: entry.summary || entry.content,
+            image: this.extractImage(entry),
           };
         }),
       };
@@ -138,34 +161,9 @@ class RSSParser {
       };
     }
   }
-
-  async parseMultipleFeeds(
-    feedUrls: string[],
-    maxItems: number = 5,
-  ): Promise<RSSFeed[]> {
-    const promises = feedUrls.map(async (url) => {
-      try {
-        const result = await this.parseURL(url);
-        return {
-          ...result,
-          items: result.items.slice(0, maxItems),
-        };
-      } catch (error) {
-        console.error(`Failed to parse feed: ${url}`, error);
-        return {
-          url,
-          title: "Failed to load",
-          items: [],
-          error: error instanceof Error ? error.message : "Unknown error",
-        };
-      }
-    });
-
-    return Promise.all(promises);
-  }
 }
 
-// Export a singleton instance
+// Export singleton instance
 export const rssParser = new RSSParser();
 
 export { RSSParser };

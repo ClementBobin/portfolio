@@ -1,6 +1,7 @@
+"use server";
+
 import { getTranslations } from "@/lib/i18n";
-import { Suspense } from "react";
-import RSSFeed, { FeedSkeleton } from "@/components/ui/rss-feed";
+import RSSFeed from "@/components/ui/rss-feed";
 import { Separator } from "@/components/ui/separator";
 import {
   Breadcrumb,
@@ -20,13 +21,7 @@ export default async function Home({
   const { locale } = await params;
   const t = await getTranslations(locale, ["rss"]);
 
-  // Define your RSS feeds
-  const rssFeeds = [
-    "https://techcrunch.com/feed/",
-    "https://feeds.feedburner.com/TechCrunch/",
-    "https://css-tricks.com/feed/",
-    "https://css-tricks.com/fee/",
-  ];
+  const rssFeed = "https://clementbobin.github.io/obsidian/index.xml";
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
@@ -38,28 +33,17 @@ export default async function Home({
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
                   <Link
-                    href={`/`}
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                  >
-                    clementBOBIN
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link
                     href={`/${locale}`}
                     className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   >
-                    portfolio
+                    Portfolio
                   </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbPage className="text-gray-900 dark:text-white">
-                  RSS Feeds
+                  RSS Feed
                 </BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -81,10 +65,7 @@ export default async function Home({
 
         {/* Multiple Feeds Example */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Multiple Feeds</h2>
-          <Suspense fallback={<FeedSkeleton count={3} />}>
-            <RSSFeed feedUrls={rssFeeds} maxItemsPerFeed={3} locale={locale} />
-          </Suspense>
+          <RSSFeed feedUrl={rssFeed} locale={locale} />
         </section>
       </div>
     </div>

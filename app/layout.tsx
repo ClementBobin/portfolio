@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import KBar from "@/components/ui/kbar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -27,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -35,13 +29,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <KBar
-            customStyles={{
-              positioner: { zIndex: 1000 },
-              animator: { maxWidth: "min(90vw, 600px)" },
-            }}
-          />
-
           {children}
         </ThemeProvider>
       </body>

@@ -5,7 +5,7 @@ import Negotiator from "negotiator";
 const locales = ["en-US", "fr-FR"];
 const defaultLocale = "en-US";
 
-interface MiddlewareRequest {
+interface ProxyRequest {
   headers: {
     get(name: string): string | null;
   };
@@ -15,17 +15,17 @@ interface MiddlewareRequest {
   };
 }
 
-interface MiddlewareNextUrl {
+interface ProxyNextUrl {
   pathname: string;
   [key: string]: any;
 }
 
-interface MiddlewareRequestWithNextUrl extends MiddlewareRequest {
-  nextUrl: MiddlewareNextUrl;
+interface ProxyRequestWithNextUrl extends ProxyRequest {
+  nextUrl: ProxyNextUrl;
 }
 
 // Determine best locale from Accept-Language header
-function getLocale(request: MiddlewareRequest): string {
+function getLocale(request: ProxyRequest): string {
   const acceptLanguage: string =
     request.headers.get("accept-language") || "en-US,en;q=0.5";
   const headers: { [key: string]: string } = {
@@ -35,8 +35,8 @@ function getLocale(request: MiddlewareRequest): string {
   return match(languages, locales, defaultLocale);
 }
 
-export function middleware(
-  request: MiddlewareRequestWithNextUrl,
+export function proxy(
+  request: ProxyRequestWithNextUrl,
 ): void | NextResponse {
   const { pathname } = request.nextUrl;
 
