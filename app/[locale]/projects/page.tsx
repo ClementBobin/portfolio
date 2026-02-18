@@ -123,6 +123,7 @@ export default async function Page({ params }: ProjectsPageProps) {
 
               {Object.entries(months)
                 .sort(
+                  // Sort months in descending order (most recent first)
                   ([monthA], [monthB]) =>
                     new Date(`${monthB} 1, ${year}`).getTime() -
                     new Date(`${monthA} 1, ${year}`).getTime(),
