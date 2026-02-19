@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { GraphData, NodeObject } from "react-force-graph-2d";
 
 // Dynamically import ForceGraph2D to avoid SSR issues
@@ -74,15 +74,6 @@ export function MindmapNavigation() {
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  // Get the current path without locale
-  const currentPath = useMemo(() => {
-    const parts = pathname.split("/").filter(Boolean);
-    if (parts.length === 0) return "/";
-    // Remove locale (first segment) to get the actual path
-    if (parts.length === 1 && parts[0].length === 2) return "/";
-    return `/${parts.slice(1).join("/")}` || "/";
-  }, [pathname]);
-
   // Handle node click for navigation
   const handleNodeClick = useCallback(
     (node: NodeObject) => {
@@ -104,83 +95,44 @@ export function MindmapNavigation() {
 
   // Custom node rendering with color based on current/visited state
   const paintNode = useCallback(
-    (node: NodeObject, ctx: CanvasRenderingContext2D) => {
-      const extNode = node as ExtendedNodeObject;
-      const label = extNode.label || "";
-      const nodeId = extNode.id as string;
-      const isCurrent = nodeId === currentPath;
-      const isVisited = sessionStorage.getItem(`visited_${nodeId}`) === "true";
+    (node: NodeObject, ctx: CanvasRenderingContext2D, globalScale: number) => {
+      const n = node as ExtendedNodeObject;
+      if (!node.x || !node.y) return;
 
-      // Mark current path as visited
-      if (isCurrent) {
-        sessionStorage.setItem(`visited_${nodeId}`, "true");
-      }
+      // ---- RESET TRANSFORM (CRITICAL) ----
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-      // Node styling
-      const size = isCurrent ? 8 : 6;
-      const baseColor = extNode.color || "#94a3b8";
+      const x = node.x;
+      const y = node.y;
+      const size = 6;
+      const label = n.label ?? "";
 
-      // Determine node color
-      let nodeColor = baseColor;
-      if (isCurrent) {
-        nodeColor = "#ef4444"; // Red for current page
-      } else if (isVisited) {
-        nodeColor = "#a78bfa"; // Purple for visited
-      }
-
-      // Draw node circle
+      // ---- NODE ----
       ctx.beginPath();
-      ctx.arc(node.x || 0, node.y || 0, size, 0, 2 * Math.PI);
-      ctx.fillStyle = nodeColor;
+      ctx.arc(x, y, size, 0, 2 * Math.PI);
+      ctx.fillStyle = n.color ?? "#94a3b8";
       ctx.fill();
 
-      // Draw outer ring for current node
-      if (isCurrent) {
-        ctx.beginPath();
-        ctx.arc(node.x || 0, node.y || 0, size + 2, 0, 2 * Math.PI);
-        ctx.strokeStyle = nodeColor;
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-
-      // Draw label with contrasting color
-      ctx.font = isCurrent
-        ? "bold 12px Inter, sans-serif"
-        : "10px Inter, sans-serif";
+      // ---- TEXT ----
+      const fontSize = Math.max(10, 14 / globalScale);
+      ctx.font = `${fontSize}px sans-serif`;
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
+      ctx.textBaseline = "top";
 
-      // Use dark text for better visibility on light backgrounds
-      ctx.fillStyle = "#1f2937";
-      ctx.fillText(label, node.x || 0, (node.y || 0) - size - 8);
+      const textY = y + size + 2;
 
-      // Add a subtle white outline for better visibility on any background
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
       ctx.lineWidth = 2;
-      ctx.strokeText(label, node.x || 0, (node.y || 0) - size - 8);
-    },
-    [currentPath],
-  );
+      ctx.strokeStyle = "white";
+      ctx.strokeText(label, x, textY);
 
-  // Tooltip rendering
-  const nodeLabel = useCallback((node: NodeObject) => {
-    const extNode = node as ExtendedNodeObject;
-    return `
-      <div style="
-        background: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 8px 12px;
-        border-radius: 6px;
-        font-size: 12px;
-        max-width: 200px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      ">
-        <div style="font-weight: bold; margin-bottom: 4px;">${extNode.label}</div>
-        <div style="color: rgba(255, 255, 255, 0.7); margin-bottom: 4px;">${extNode.id}</div>
-        <div style="font-size: 11px; color: rgba(255, 255, 255, 0.6);">${extNode.description}</div>
-      </div>
-    `;
-  }, []);
+      ctx.fillStyle = "#000";
+      ctx.fillText(label, x, textY);
+
+      ctx.restore();
+    },
+    [],
+  );
 
   if (!graphData) {
     return (
@@ -203,19 +155,14 @@ export function MindmapNavigation() {
         graphData={graphData}
         width={dimensions.width}
         height={dimensions.height}
-        nodeLabel={nodeLabel}
         nodeCanvasObject={paintNode}
         onNodeClick={handleNodeClick}
-        linkColor={() => "rgba(148, 163, 184, 0.3)"}
-        linkWidth={1.5}
-        linkDirectionalParticles={2}
-        linkDirectionalParticleWidth={2}
-        linkDirectionalParticleSpeed={0.005}
+        autoPauseRedraw={false}
+        warmupTicks={120}
+        d3VelocityDecay={0.3}
+        linkColor={() => "rgba(148,163,184,0.3)"}
+        onEngineStop={() => fgRef.current?.zoomToFit(300, 40)}
         backgroundColor="transparent"
-        cooldownTicks={100}
-        enableZoomInteraction={true}
-        enablePanInteraction={true}
-        nodeRelSize={6}
       />
     </div>
   );
