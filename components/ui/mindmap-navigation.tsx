@@ -147,6 +147,26 @@ export function MindmapNavigation() {
     [],
   );
 
+  // Tooltip rendering for nodes
+  const nodeLabel = useCallback((node: NodeObject) => {
+    const extNode = node as ExtendedNodeObject;
+    return `
+      <div style="
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        max-width: 200px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      ">
+        <div style="font-weight: bold; margin-bottom: 4px;">${extNode.label}</div>
+        <div style="color: rgba(255, 255, 255, 0.7); margin-bottom: 4px; font-size: 11px;">${extNode.id}</div>
+        <div style="font-size: 11px; color: rgba(255, 255, 255, 0.6);">${extNode.description}</div>
+      </div>
+    `;
+  }, []);
+
   if (!graphData) {
     return (
       <div 
@@ -169,6 +189,7 @@ export function MindmapNavigation() {
         width={dimensions.width}
         height={dimensions.height}
         nodeCanvasObject={paintNode}
+        nodeLabel={nodeLabel}
         onNodeClick={handleNodeClick}
         autoPauseRedraw={false}
         warmupTicks={100}
@@ -177,6 +198,9 @@ export function MindmapNavigation() {
         d3AlphaDecay={0.02}
         linkColor={() => "rgba(148,163,184,0.3)"}
         linkWidth={1.5}
+        linkDirectionalParticles={2}
+        linkDirectionalParticleWidth={2}
+        linkDirectionalParticleSpeed={0.005}
         onEngineStop={() => {
           if (fgRef.current) {
             // Center the graph with generous padding when simulation stops
