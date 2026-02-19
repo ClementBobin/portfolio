@@ -133,7 +133,7 @@ export default async function Page({ params }: ProjectsPageProps) {
   const totalForks = personal.reduce((sum, p) => sum + p.forks_count, 0);
 
   return (
-    <div className="container px-4 py-12 md:py-16 space-y-12">
+    <div className="w-screen px-4 py-12 md:py-16 space-y-12">
       {/* Header Section */}
       <header className="space-y-6">
         <div className="flex items-center gap-3">

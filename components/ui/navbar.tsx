@@ -191,7 +191,7 @@ export function Navbar({
           className,
         )}
       >
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="w-screen flex h-16 items-center justify-between px-4">
           {/* Logo */}
           <Link
             href="/"

@@ -35,7 +35,7 @@ export default async function Home({ params }: RSSPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="w-screen mx-auto px-4 max-w-6xl">
         {/* Breadcrumb Navigation */}
         <div className="py-6">
           <Breadcrumb>

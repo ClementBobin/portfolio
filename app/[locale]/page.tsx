@@ -31,7 +31,7 @@ export default async function Home({ params }: HomeProps) {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="container px-4 py-16 md:py-24 lg:py-32">
+      <section className="w-screen px-4 py-16 md:py-24 lg:py-32">
         <div className="flex flex-col items-center text-center space-y-8">
           <div className="space-y-4 max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
@@ -66,7 +66,7 @@ export default async function Home({ params }: HomeProps) {
       </section>
 
       {/* Features Section */}
-      <section className="container px-4 py-16 md:py-24">
+      <section className="w-screen px-4 py-16 md:py-24">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* Feature 1 */}
           <Card className="group relative overflow-hidden border bg-card p-6 transition-all hover:shadow-lg">
@@ -119,7 +119,7 @@ export default async function Home({ params }: HomeProps) {
       </section>
 
       {/* Navigation Mindmap Section */}
-      <section className="container px-4 py-16 md:py-24">
+      <section className="w-screen px-4 py-16 md:py-24">
         <div className="space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -138,7 +138,7 @@ export default async function Home({ params }: HomeProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="container px-4 py-16 md:py-24">
+      <section className="w-screen px-4 py-16 md:py-24">
         <Card className="border bg-card p-8 md:p-12">
           <div className="flex flex-col items-center text-center space-y-4">
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
