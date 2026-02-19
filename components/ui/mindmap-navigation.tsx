@@ -38,9 +38,11 @@ interface ExtendedNodeObject extends NodeObject {
 
 export function MindmapNavigation() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 400 });
   const pathname = usePathname();
   const router = useRouter();
   const fgRef = useRef<any>(undefined);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Load graph data from JSON
   useEffect(() => {
@@ -53,6 +55,23 @@ export function MindmapNavigation() {
         });
       })
       .catch((err) => console.error("Failed to load navigation graph:", err));
+  }, []);
+
+  // Handle container resize
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        const { width } = containerRef.current.getBoundingClientRect();
+        setDimensions({ width: width || 800, height: 400 });
+      }
+    };
+
+    // Initial size
+    updateDimensions();
+
+    // Listen for window resize
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   // Get the current path without locale
@@ -165,17 +184,25 @@ export function MindmapNavigation() {
 
   if (!graphData) {
     return (
-      <div className="w-full h-[400px] flex items-center justify-center bg-muted/50 rounded-lg">
+      <div 
+        ref={containerRef}
+        className="w-full h-[400px] flex items-center justify-center bg-muted/50 rounded-lg"
+      >
         <p className="text-muted-foreground">Loading navigation graph...</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[400px] rounded-lg overflow-hidden border bg-background/50 backdrop-blur-sm">
+    <div 
+      ref={containerRef}
+      className="w-full h-[400px] rounded-lg overflow-hidden border bg-background/50 backdrop-blur-sm"
+    >
       <ForceGraph2D
         ref={fgRef}
         graphData={graphData}
+        width={dimensions.width}
+        height={dimensions.height}
         nodeLabel={nodeLabel}
         nodeCanvasObject={paintNode}
         onNodeClick={handleNodeClick}
