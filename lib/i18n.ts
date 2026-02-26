@@ -1,93 +1,60 @@
-import { lstatSync, readdirSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import path from "node:path";
-import i18n, { type InitOptions, type TFunction } from "i18next";
-import i18nextFSBackend from "i18next-fs-backend";
 
-let globalInstance: typeof i18n;
 const localesFolder = path.join(process.cwd(), "/public/locales");
 
-type UseTranslatorProps = {
-  ns: string[];
-  lng?: string;
+// Get language code from locale (e.g., "en-US" -> "en", "fr-FR" -> "fr")
+const getLanguageCode = (locale: string): string => {
+  return locale.split("-")[0];
 };
 
-type CreateInstanceProps = {
-  locale?: string;
-  namespaces: string[] | readonly string[];
+// Load translations from a single namespace file
+const loadTranslations = (ns: string): Record<string, unknown> => {
+  const filePath = path.join(localesFolder, `${ns}.json`);
+  const content = readFileSync(filePath, "utf-8");
+  return JSON.parse(content);
 };
 
-// Function to get available languages from the filesystem
-const getAvailableLanguages = (): string[] => {
-  return readdirSync(localesFolder).filter((fileName) => {
-    const joinedPath = path.join(localesFolder, fileName);
-    return lstatSync(joinedPath).isDirectory();
-  });
-};
-
-const createI18nClient = async ({
-  locale = "en-US",
-  namespaces,
-}: CreateInstanceProps) => {
-  let instance: typeof i18n;
-
-  const availableLanguages = getAvailableLanguages();
-
-  // Fallback logic: if requested locale doesn't exist, try base language or default
-  const effectiveLocale = availableLanguages.includes(locale)
-    ? locale
-    : availableLanguages.find((lang) =>
-        lang.startsWith(locale.split("-")[0]),
-      ) || "en-US";
-
-  const config: InitOptions = {
-    initImmediate: false,
-    fallbackLng: ["en-US", "fr-FR"], // Add fallback chain
-    supportedLngs: availableLanguages, // Explicitly set supported languages
-    ns: namespaces,
-    lng: effectiveLocale,
-    preload: availableLanguages,
-    backend: {
-      loadPath: path.join(localesFolder, "{{lng}}/{{ns}}.json"),
-    },
-    load: "currentOnly", // Only load current language
-    saveMissing: true,
-    saveMissingTo: "all",
-    missingKeyNoValueFallbackToKey: true,
-    parseMissingKeyHandler: (key) => {
-      console.log("Missing Key:", key);
-      return "";
-    },
-    react: { useSuspense: true },
-    debug: process.env.NODE_ENV === "development",
-  };
-
-  if (!globalInstance) {
-    globalInstance = i18n.createInstance(config);
-    instance = globalInstance;
-  } else {
-    instance = globalInstance.cloneInstance(config);
-  }
-
-  if (!instance.isInitialized) {
-    instance.use(i18nextFSBackend);
-    await instance.init(config);
-  } else {
-    // If already initialized, change language if needed
-    if (instance.language !== effectiveLocale) {
-      await instance.changeLanguage(effectiveLocale);
+// Get nested value from object using dot-notation key path
+const getNestedValue = (
+  obj: Record<string, unknown>,
+  keyPath: string,
+): unknown => {
+  return keyPath.split(".").reduce((current: unknown, key: string) => {
+    if (current && typeof current === "object") {
+      return (current as Record<string, unknown>)[key];
     }
-  }
-
-  return instance;
+    return undefined;
+  }, obj);
 };
 
-// returns 't' function after ensuring translations are loaded
-export const translator = async ({
-  ns,
-  lng = "en-US",
-}: UseTranslatorProps): Promise<TFunction> => {
-  const i18nInstance = await createI18nClient({ namespaces: ns, locale: lng });
-  return i18nInstance.t;
+// Create a t function for the given locale and loaded namespace translations
+const createTFunction = (
+  locale: string,
+  translations: Record<string, Record<string, unknown>>,
+) => {
+  const lang = getLanguageCode(locale);
+
+  return (key: string): string => {
+    for (const ns of Object.keys(translations)) {
+      const value = getNestedValue(translations[ns], key);
+
+      if (value !== undefined) {
+        if (typeof value === "string") {
+          return value;
+        }
+        if (typeof value === "object" && value !== null) {
+          const map = value as Record<string, string>;
+          return map[lang] ?? map["en"] ?? key;
+        }
+      }
+    }
+
+    if (process.env.NODE_ENV === "development") {
+      console.log("Missing Key:", key);
+    }
+    return key;
+  };
 };
 
 // Sync version for components that can't be async
@@ -95,11 +62,72 @@ export const getTranslations = async (
   lng: string,
   ns: string[] = ["common"],
 ) => {
-  const t = await translator({ ns, lng });
-  return t;
+  const translations: Record<string, Record<string, unknown>> = {};
+  for (const namespace of ns) {
+    translations[namespace] = loadTranslations(namespace);
+  }
+  return createTFunction(lng, translations);
 };
 
-// Helper function to get available locales
-export const getAvailableLocales = (): string[] => {
-  return getAvailableLanguages();
+const MIRAGE_API_URL =
+  process.env.MIRAGE_API_URL ?? "https://mirage-api-ruddy.vercel.app/api";
+
+/**
+ * Language configuration returned by the Mirage API.
+ *
+ * @property default - Default language code (e.g. "fr")
+ * @property available - List of available language codes (e.g. ["fr", "en"])
+ * @property labels - Display labels keyed by language code
+ */
+export interface LangConfig {
+  default: string;
+  available: string[];
+  labels: Record<string, string>;
+}
+
+const FALLBACK_LANG_CONFIG: LangConfig = {
+  default: "fr",
+  available: ["fr", "en"],
+  labels: { fr: "FR", en: "EN" },
+};
+
+let cachedLangConfig: LangConfig | null = null;
+
+/** Fetches language configuration from the Mirage API (cached for the process lifetime). */
+export const fetchLangConfig = async (): Promise<LangConfig> => {
+  if (cachedLangConfig) return cachedLangConfig;
+  try {
+    const res = await fetch(`${MIRAGE_API_URL}/config/lang`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    cachedLangConfig = data.languages as LangConfig;
+    return cachedLangConfig;
+  } catch {
+    return FALLBACK_LANG_CONFIG;
+  }
+};
+
+/** Returns the list of available locale codes from the Mirage API. */
+export const getAvailableLocales = async (): Promise<string[]> => {
+  const config = await fetchLangConfig();
+  return config.available;
+};
+
+/** Returns the default locale code from the Mirage API. */
+export const getDefaultLocale = async (): Promise<string> => {
+  const config = await fetchLangConfig();
+  return config.default;
+};
+
+// Keep translator for backward compatibility
+export const translator = async ({
+  ns,
+  lng = "en-US",
+}: {
+  ns: string[];
+  lng?: string;
+}) => {
+  return getTranslations(lng, ns);
 };

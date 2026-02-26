@@ -4,6 +4,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+const RessourceApiUrl = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
+// Derive the origin (scheme + host) for the CSP connect-src directive
+const ressourceApiOrigin = RessourceApiUrl ? new URL(RessourceApiUrl).origin : undefined;
+
 const nextConfig: NextConfig = {
   output: "standalone", // ensures SSR functions are Edge-friendly
   compress: true,
@@ -25,7 +29,7 @@ const nextConfig: NextConfig = {
               script-src 'self' 'unsafe-inline' 'unsafe-eval';
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
-              connect-src 'self' https://mirage-api-ruddy.vercel.app;
+              connect-src 'self' ${ressourceApiOrigin};
               font-src 'self';
               frame-ancestors 'none';
             `.replace(/\n/g, ""),
@@ -43,26 +47,7 @@ const nextConfig: NextConfig = {
             value: "public, max-age=31536000, immutable",
           },
         ],
-      },
-      // Optional: Extra cache for fonts, JS, CSS, images
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/(.*).(woff2|woff|ttf|css|js|png|jpg|svg|ico|xml|txt)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
+      }
     ];
   },
 };

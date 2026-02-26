@@ -165,7 +165,7 @@ export function MindmapNavigation() {
         
         // Fetch external nodes from API
         const response = await fetch(
-          "https://mirage-api-ruddy.vercel.app/api/config/navigation"
+          `${process.env.NEXT_PUBLIC_MIRAGE_API_URL ?? "https://mirage-api-ruddy.vercel.app/api"}/config/navigation`
         );
         
         if (!response.ok) {

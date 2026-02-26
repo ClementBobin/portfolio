@@ -4,9 +4,11 @@ import { MenuIcon, MoonIcon, SunIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { Presence } from "@/components/presence";
 import { cn } from "@/lib/utils";
+import { NetworkIcon } from "lucide-react";
+import { MindmapPopup } from "./mindmap/mindmap-popup";
 
 /**
  * Props for navigation link items.
@@ -40,9 +42,9 @@ interface NavbarProps {
  */
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -94,7 +96,7 @@ interface MobileMenuProps {
 function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
   const pathname = usePathname();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -181,7 +183,8 @@ export function Navbar({
   className,
 }: NavbarProps) {
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMindmapOpen, setIsMindmapOpen] = useState(false);
 
   return (
     <>
@@ -227,6 +230,21 @@ export function Navbar({
 
           {/* Right Section */}
           <div className="flex items-center gap-2">
+            {/* Mindmap Button */}
+            <button
+              type="button"
+              onClick={() => setIsMindmapOpen(true)}
+              className={cn(
+                "h-10 w-10 rounded-md border transition-all",
+                "bg-muted/50 hover:bg-muted",
+                "flex items-center justify-center",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              )}
+              aria-label="Open navigation mindmap"
+            >
+              <NetworkIcon className="h-5 w-5" />
+            </button>
+
             <ThemeToggle />
 
             {/* Mobile Menu Button */}
@@ -247,6 +265,11 @@ export function Navbar({
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         links={links}
+      />
+
+      <MindmapPopup
+        open={isMindmapOpen}
+        onClose={() => setIsMindmapOpen(false)}
       />
     </>
   );

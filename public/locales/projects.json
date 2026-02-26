@@ -1,0 +1,30 @@
+{
+  "Title": {
+    "en": "Projects",
+    "fr": "Projets"
+  },
+  "Description1": {
+    "en": "Here is a selection of my ",
+    "fr": "Voici une sélection de mes "
+  },
+  "Description2": {
+    "en": "personal and academic projects",
+    "fr": "projets personnels et académiques"
+  },
+  "Description3": {
+    "en": ", including open-source work and experiments. I am currently maintaining ",
+    "fr": ", incluant des contributions open-source et des expérimentations. Je maintiens actuellement "
+  },
+  "Description4": {
+    "en": " projects",
+    "fr": " projets"
+  },
+  "Description5": {
+    "en": " across different platforms.",
+    "fr": " sur différentes plateformes."
+  },
+  "SubTitle": {
+    "en": "Featured Projects",
+    "fr": "Projets mis en avant"
+  }
+}

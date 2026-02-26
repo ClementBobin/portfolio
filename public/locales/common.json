@@ -1,0 +1,56 @@
+{
+  "nav": {
+    "title": {
+      "en": "Portfolio",
+      "fr": "Portfolio"
+    },
+    "home": {
+      "en": "Home",
+      "fr": "Accueil"
+    },
+    "projects": {
+      "en": "Projects",
+      "fr": "Projets"
+    },
+    "rss": {
+      "en": "RSS Feed",
+      "fr": "Flux RSS"
+    }
+  },
+  "home": {
+    "getStarted": {
+      "en": "Get started by editing",
+      "fr": "Commencez par éditer"
+    },
+    "saveChanges": {
+      "en": "Save and see your changes instantly.",
+      "fr": "Sauvegardez et voyez vos changements instantanément."
+    },
+    "deployNow": {
+      "en": "Deploy now",
+      "fr": "Déployer maintenant"
+    },
+    "readDocs": {
+      "en": "Read our docs",
+      "fr": "Lire la documentation"
+    }
+  },
+  "footer": {
+    "learn": {
+      "en": "Learn",
+      "fr": "Apprendre"
+    },
+    "examples": {
+      "en": "Examples",
+      "fr": "Exemples"
+    },
+    "goToNextjs": {
+      "en": "Go to nextjs.org →",
+      "fr": "Aller à nextjs.org →"
+    },
+    "copyright": {
+      "en": "© 2024 Portfolio. All rights reserved.",
+      "fr": "© 2024 Portfolio. Tous droits réservés."
+    }
+  }
+}

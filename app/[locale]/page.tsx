@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
-import { MindmapNavigation } from "@/components/ui/mindmap-navigation";
 import { getTranslations } from "@/lib/i18n";
 
 /**
@@ -75,7 +74,7 @@ export default async function Home({ params }: HomeProps) {
                 <CodeIcon className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="font-semibold text-xl">Modern Stack</h3>
+                <h2 className="font-semibold text-xl">Modern Stack</h2>
                 <p className="text-sm text-muted-foreground">
                   Built with Next.js, React, TypeScript, and Tailwind CSS for
                   optimal performance and developer experience.
@@ -91,7 +90,7 @@ export default async function Home({ params }: HomeProps) {
                 <SparklesIcon className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="font-semibold text-xl">Beautiful UI</h3>
+                <h2 className="font-semibold text-xl">Beautiful UI</h2>
                 <p className="text-sm text-muted-foreground">
                   Carefully crafted components with smooth animations and
                   transitions for a delightful user experience.
@@ -107,7 +106,7 @@ export default async function Home({ params }: HomeProps) {
                 <RocketIcon className="h-6 w-6 text-primary" />
               </div>
               <div className="space-y-2">
-                <h3 className="font-semibold text-xl">Type Safe</h3>
+                <h2 className="font-semibold text-xl">Type Safe</h2>
                 <p className="text-sm text-muted-foreground">
                   Fully typed with TypeScript and comprehensive documentation
                   for maintainability and reliability.
@@ -115,25 +114,6 @@ export default async function Home({ params }: HomeProps) {
               </div>
             </div>
           </Card>
-        </div>
-      </section>
-
-      {/* Navigation Mindmap Section */}
-      <section className="w-screen px-4 py-16 md:py-24">
-        <div className="space-y-8">
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Navigation Map
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Explore the connections between different sections of the
-              portfolio. Click on any node to navigate, or hover to see details.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <MindmapNavigation />
-          </div>
         </div>
       </section>
 
