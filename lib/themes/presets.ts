@@ -1,4 +1,4 @@
-import type { PresetName, ThemeColors, ThemePreset } from "./types";
+import type { PresetName, ThemeColors, ThemePreset } from "../types/theme";
 
 /**
  * Theme preset definitions.
