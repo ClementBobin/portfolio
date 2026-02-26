@@ -69,37 +69,56 @@ export const getTranslations = async (
   return createTFunction(lng, translations);
 };
 
-// Mapping of short language codes to full locale codes
-const LANGUAGE_TO_LOCALE: Record<string, string> = {
-  en: "en-US",
-  fr: "fr-FR",
+const MIRAGE_API_URL =
+  process.env.MIRAGE_API_URL ?? "https://mirage-api-ruddy.vercel.app/api";
+
+/**
+ * Language configuration returned by the Mirage API.
+ *
+ * @property default - Default language code (e.g. "fr")
+ * @property available - List of available language codes (e.g. ["fr", "en"])
+ * @property labels - Display labels keyed by language code
+ */
+export interface LangConfig {
+  default: string;
+  available: string[];
+  labels: Record<string, string>;
+}
+
+const FALLBACK_LANG_CONFIG: LangConfig = {
+  default: "fr",
+  available: ["fr", "en"],
+  labels: { fr: "FR", en: "EN" },
 };
 
-// Helper function to get available locales
-export const getAvailableLocales = (): string[] => {
+let cachedLangConfig: LangConfig | null = null;
+
+/** Fetches language configuration from the Mirage API (cached for the process lifetime). */
+export const fetchLangConfig = async (): Promise<LangConfig> => {
+  if (cachedLangConfig) return cachedLangConfig;
   try {
-    const common = loadTranslations("common");
-    // Collect language keys from leaf translation objects
-    const langs = new Set<string>();
-    const collectLangs = (obj: Record<string, unknown>): void => {
-      for (const value of Object.values(obj)) {
-        if (value && typeof value === "object") {
-          const keys = Object.keys(value as Record<string, unknown>);
-          if (keys.every((k) => k in LANGUAGE_TO_LOCALE)) {
-            for (const k of keys) langs.add(k);
-          } else {
-            collectLangs(value as Record<string, unknown>);
-          }
-        }
-      }
-    };
-    collectLangs(common);
-    return Array.from(langs)
-      .filter((lang) => lang in LANGUAGE_TO_LOCALE)
-      .map((lang) => LANGUAGE_TO_LOCALE[lang]);
+    const res = await fetch(`${MIRAGE_API_URL}/config/lang`, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    cachedLangConfig = data.languages as LangConfig;
+    return cachedLangConfig;
   } catch {
-    return ["en-US", "fr-FR"];
+    return FALLBACK_LANG_CONFIG;
   }
+};
+
+/** Returns the list of available locale codes from the Mirage API. */
+export const getAvailableLocales = async (): Promise<string[]> => {
+  const config = await fetchLangConfig();
+  return config.available;
+};
+
+/** Returns the default locale code from the Mirage API. */
+export const getDefaultLocale = async (): Promise<string> => {
+  const config = await fetchLangConfig();
+  return config.default;
 };
 
 // Keep translator for backward compatibility

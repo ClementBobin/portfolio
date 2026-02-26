@@ -3,8 +3,38 @@ import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
 import type { NextUrlLike } from "@/lib/types";
 
-const locales = ["en-US", "fr-FR"];
-const defaultLocale = "en-US";
+const MIRAGE_API_URL =
+  process.env.MIRAGE_API_URL ?? "https://mirage-api-ruddy.vercel.app/api";
+
+const FALLBACK_LOCALES = ["fr", "en"];
+const FALLBACK_DEFAULT_LOCALE = "fr";
+
+let cachedLocaleConfig: { locales: string[]; defaultLocale: string } | null =
+  null;
+
+/**
+ * Fetches available locales and the default locale from the Mirage API.
+ * Caches the result for the process lifetime and falls back to hardcoded
+ * values if the request fails.
+ */
+async function getLocaleConfig(): Promise<{
+  locales: string[];
+  defaultLocale: string;
+}> {
+  if (cachedLocaleConfig) return cachedLocaleConfig;
+  try {
+    const res = await fetch(`${MIRAGE_API_URL}/config/lang`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    cachedLocaleConfig = {
+      locales: data.languages.available as string[],
+      defaultLocale: data.languages.default as string,
+    };
+    return cachedLocaleConfig;
+  } catch {
+    return { locales: FALLBACK_LOCALES, defaultLocale: FALLBACK_DEFAULT_LOCALE };
+  }
+}
 
 /**
  * Interface for proxy request headers.
@@ -27,11 +57,17 @@ interface ProxyRequestWithNextUrl extends ProxyRequest {
  * Determines the best locale from the Accept-Language header.
  *
  * @param request - The incoming request object
+ * @param locales - List of supported locales
+ * @param defaultLocale - Default locale to fall back to
  * @returns The matched locale string
  */
-function getLocale(request: ProxyRequest): string {
+function getLocale(
+  request: ProxyRequest,
+  locales: string[],
+  defaultLocale: string,
+): string {
   const acceptLanguage: string =
-    request.headers.get("accept-language") || "en-US,en;q=0.5";
+    request.headers.get("accept-language") || `${defaultLocale};q=0.5`;
   const headers: { [key: string]: string } = {
     "accept-language": acceptLanguage,
   };
@@ -45,9 +81,9 @@ function getLocale(request: ProxyRequest): string {
  * @param request - The incoming request with Next.js URL
  * @returns NextResponse redirect or undefined if no redirect needed
  */
-export function proxy(
+export async function proxy(
   request: ProxyRequestWithNextUrl,
-): undefined | NextResponse {
+): Promise<undefined | NextResponse> {
   const { pathname } = request.nextUrl;
 
   // ❌ Skip internal Next.js paths, API routes, favicon, and sitemap/robots
@@ -61,6 +97,8 @@ export function proxy(
     return;
   }
 
+  const { locales, defaultLocale } = await getLocaleConfig();
+
   // Check if the pathname already includes a supported locale
   const pathnameHasLocale: boolean = locales.some(
     (locale: string) =>
@@ -70,7 +108,7 @@ export function proxy(
   if (pathnameHasLocale) return;
 
   // Get the preferred locale and redirect
-  const locale: string = getLocale(request);
+  const locale: string = getLocale(request, locales, defaultLocale);
   request.nextUrl.pathname = `/${locale}${pathname}`;
 
   return NextResponse.redirect(request.nextUrl.toString());
