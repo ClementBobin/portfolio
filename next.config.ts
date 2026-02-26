@@ -4,11 +4,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-const mirageApiUrl =
-  process.env.NEXT_PUBLIC_MIRAGE_API_URL ??
-  "https://mirage-api-ruddy.vercel.app/api";
+const RessourceApiUrl = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
 // Derive the origin (scheme + host) for the CSP connect-src directive
-const mirageApiOrigin = new URL(mirageApiUrl).origin;
+const ressourceApiOrigin = RessourceApiUrl ? new URL(RessourceApiUrl).origin : undefined;
 
 const nextConfig: NextConfig = {
   output: "standalone", // ensures SSR functions are Edge-friendly
@@ -31,7 +29,7 @@ const nextConfig: NextConfig = {
               script-src 'self' 'unsafe-inline' 'unsafe-eval';
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
-              connect-src 'self' ${mirageApiOrigin};
+              connect-src 'self' ${ressourceApiOrigin};
               font-src 'self';
               frame-ancestors 'none';
             `.replace(/\n/g, ""),

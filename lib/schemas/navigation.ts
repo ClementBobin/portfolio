@@ -1,17 +1,19 @@
-import { z } from "zod";
-import { LocalizedStringSchema } from "./global";
+import { LocalizedString } from "./global";
 
-export const NodeNavigationItemSchema = z.object({
-  id: z.string(),
-  label: LocalizedStringSchema,
-  description: LocalizedStringSchema,
-  color: z.string(),
-  external: z.boolean().optional(),
-});
+/**
+ * Represents a single navigation item
+ */
+export type NodeNavigationItem = {
+  id: string;
+  label: LocalizedString;
+  description: LocalizedString;
+  color: string;
+  external?: boolean;
+};
 
-export const NodeNavigationSchema = z.object({
-  nodes: z.array(NodeNavigationItemSchema),
-});
-
-export type NodeNavigationItem = z.infer<typeof NodeNavigationItemSchema>;
-export type NodeNavigation = z.infer<typeof NodeNavigationSchema>;
+/**
+ * Represents a collection of navigation items
+ */
+export type NodeNavigation = {
+  nodes: NodeNavigationItem[];
+};
