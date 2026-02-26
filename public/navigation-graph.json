@@ -1,0 +1,63 @@
+{
+  "nodes": [
+    {
+      "id": "/",
+      "label": "Home",
+      "description": "Portfolio home page with overview of projects and skills",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "/projects",
+      "label": "Projects",
+      "description": "GitHub projects and open source contributions",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "/rss",
+      "label": "RSS Feed",
+      "description": "Latest blog posts and updates from my Obsidian notes",
+      "color": "#10b981"
+    },
+    {
+      "id": "https://clementbobin.github.io/cv/",
+      "label": "CV",
+      "description": "My curriculum vitae and professional experience",
+      "color": "#f59e0b",
+      "external": true
+    }
+  ],
+  "links": [
+    {
+      "source": "/",
+      "target": "/projects"
+    },
+    {
+      "source": "/",
+      "target": "/rss"
+    },
+    {
+      "source": "/",
+      "target": "https://clementbobin.github.io/cv/"
+    },
+    {
+      "source": "/projects",
+      "target": "/"
+    },
+    {
+      "source": "/projects",
+      "target": "/rss"
+    },
+    {
+      "source": "/rss",
+      "target": "/"
+    },
+    {
+      "source": "/rss",
+      "target": "/projects"
+    },
+    {
+      "source": "https://clementbobin.github.io/cv/",
+      "target": "/"
+    }
+  ]
+}

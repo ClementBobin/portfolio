@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
               script-src 'self' 'unsafe-inline' 'unsafe-eval';
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
-              connect-src 'self';
+              connect-src 'self' https://mirage-api-ruddy.vercel.app;
               font-src 'self';
               frame-ancestors 'none';
             `.replace(/\n/g, ""),

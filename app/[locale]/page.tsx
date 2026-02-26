@@ -5,8 +5,8 @@ import {
   SparklesIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card } from "@/components/ui/card";
+import { MindmapNavigation } from "@/components/ui/mindmap-navigation";
 import { getTranslations } from "@/lib/i18n";
 
 /**
@@ -31,7 +31,7 @@ export default async function Home({ params }: HomeProps) {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="container px-4 py-16 md:py-24 lg:py-32">
+      <section className="w-screen px-4 py-16 md:py-24 lg:py-32">
         <div className="flex flex-col items-center text-center space-y-8">
           <div className="space-y-4 max-w-3xl">
             <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
@@ -66,7 +66,7 @@ export default async function Home({ params }: HomeProps) {
       </section>
 
       {/* Features Section */}
-      <section className="container px-4 py-16 md:py-24">
+      <section className="w-screen px-4 py-16 md:py-24">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* Feature 1 */}
           <Card className="group relative overflow-hidden border bg-card p-6 transition-all hover:shadow-lg">
@@ -118,36 +118,27 @@ export default async function Home({ params }: HomeProps) {
         </div>
       </section>
 
-      {/* Demo Section with AspectRatio */}
-      <section className="container px-4 py-16 md:py-24">
+      {/* Navigation Mindmap Section */}
+      <section className="w-screen px-4 py-16 md:py-24">
         <div className="space-y-8">
           <div className="text-center space-y-4">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Preview
+              Navigation Map
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              A modern portfolio showcasing projects and content with elegant
-              design.
+              Explore the connections between different sections of the
+              portfolio. Click on any node to navigate, or hover to see details.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <AspectRatio ratio={16 / 9}>
-              <div className="w-full h-full rounded-lg border bg-muted/50 flex items-center justify-center">
-                <div className="text-center space-y-2">
-                  <CodeIcon className="h-12 w-12 mx-auto text-muted-foreground" />
-                  <p className="text-sm text-muted-foreground">
-                    Portfolio Preview Area
-                  </p>
-                </div>
-              </div>
-            </AspectRatio>
+            <MindmapNavigation />
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="container px-4 py-16 md:py-24">
+      <section className="w-screen px-4 py-16 md:py-24">
         <Card className="border bg-card p-8 md:p-12">
           <div className="flex flex-col items-center text-center space-y-4">
             <h2 className="text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
