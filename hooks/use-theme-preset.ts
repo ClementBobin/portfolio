@@ -59,9 +59,11 @@ export function useThemePreset() {
   const [preset, setPresetState] = useState<PresetName>(DEFAULT_PRESET);
 
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as PresetName | null;
+    const stored = localStorage.getItem(STORAGE_KEY);
     const initial: PresetName =
-      stored && Object.hasOwn(presets, stored) ? stored : DEFAULT_PRESET;
+      stored && Object.hasOwn(presets, stored)
+        ? (stored as PresetName)
+        : DEFAULT_PRESET;
     setPresetState(initial);
     applyPreset(initial);
   }, []);
