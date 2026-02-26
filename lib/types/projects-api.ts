@@ -68,23 +68,3 @@ export type GroupedProjects = Record<
   string,
   Record<string, GitHubRepository[]>
 >;
-
-/**
- * Type for URL object with flexible properties.
- * Used in proxy and middleware for Next.js routing.
- */
-export interface NextUrlLike {
-  pathname: string;
-  search?: string;
-  searchParams?: URLSearchParams;
-  href?: string;
-  origin?: string;
-  protocol?: string;
-  username?: string;
-  password?: string;
-  host?: string;
-  hostname?: string;
-  port?: string;
-  hash?: string;
-  toString(): string;
-}

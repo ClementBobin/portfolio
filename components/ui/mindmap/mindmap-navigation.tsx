@@ -7,8 +7,8 @@ import type { GraphData, NodeObject } from "react-force-graph-2d";
 import type {
   NodeNavigationItem,
   NodeNavigation,
-} from "@/lib/schemas/navigation";
-import type { LocalizedString } from "@/lib/schemas/global";
+} from "@/lib/types/navigation";
+import type { LocalizedString } from "@/lib/types/global";
 
 // Dynamically import ForceGraph2D to avoid SSR issues
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
@@ -165,7 +165,7 @@ export function MindmapNavigation() {
         
         // Fetch external nodes from API
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_MIRAGE_API_URL}/config/navigation`
+          `${process.env.NEXT_PUBLIC_RESSOURCES_API_URL}/config/navigation`
         );
         
         if (!response.ok) {
@@ -234,8 +234,8 @@ export function MindmapNavigation() {
     const updateDimensions = () => {
       if (containerRef.current) {
         const { width, height } = containerRef.current.getBoundingClientRect();
-        setDimensions({ 
-          width: width || 800, 
+        setDimensions({
+          width: width || 800,
           height: height || Math.min(500, Math.max(300, width * 0.5))
         });
       }
@@ -327,9 +327,9 @@ export function MindmapNavigation() {
 
   if (!graphData) {
     return (
-      <div 
+      <div
         ref={containerRef}
-        className="w-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] flex items-center justify-center bg-muted/50 rounded-lg"
+        className="w-full h-full flex items-center justify-center bg-muted/50 rounded-lg"
       >
         <p className="text-muted-foreground">Loading navigation graph...</p>
       </div>
@@ -337,9 +337,9 @@ export function MindmapNavigation() {
   }
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      className="w-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] rounded-lg overflow-hidden border bg-background/50 backdrop-blur-sm"
+      className="w-full h-full rounded-lg overflow-hidden border bg-background/50 backdrop-blur-sm"
     >
       <ForceGraph2D
         ref={fgRef}

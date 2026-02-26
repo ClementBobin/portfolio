@@ -2,7 +2,7 @@ import { GithubIcon, ExternalLinkIcon, GitForkIcon, StarIcon, TrendingUpIcon } f
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { getRelativeTime } from "@/lib/utils";
-import type { GitHubRepository } from "@/lib/types";
+import type { GitHubRepository } from "@/lib/types/projects-api";
 
 export async function ProjectCard({ project }: { project: GitHubRepository }) {
   return (
@@ -11,12 +11,12 @@ export async function ProjectCard({ project }: { project: GitHubRepository }) {
         <CardHeader className="space-y-3">
           <div className="flex items-start justify-between gap-2">
             <div className="flex items-center gap-2 flex-1 min-w-0">
-              <GithubIcon className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
+              <GithubIcon className="h-5 w-5 shrink-0 text-muted-foreground" />
               <CardTitle className="text-lg font-semibold truncate group-hover:text-primary transition-colors">
                 {project.name}
               </CardTitle>
             </div>
-            <ExternalLinkIcon className="h-4 w-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground" />
+            <ExternalLinkIcon className="h-4 w-4 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground" />
           </div>
           {project.description && (
             <CardDescription className="text-sm leading-relaxed line-clamp-2">{project.description}</CardDescription>

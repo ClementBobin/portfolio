@@ -69,8 +69,7 @@ export const getTranslations = async (
   return createTFunction(lng, translations);
 };
 
-const MIRAGE_API_URL =
-  process.env.MIRAGE_API_URL ?? "https://mirage-api-ruddy.vercel.app/api";
+const RESSOURCES_API_URL = process.env.NEXT_PUBLIC_RESSOURCES_API_URL;
 
 /**
  * Language configuration returned by the Mirage API.
@@ -97,7 +96,7 @@ let cachedLangConfig: LangConfig | null = null;
 export const fetchLangConfig = async (): Promise<LangConfig> => {
   if (cachedLangConfig) return cachedLangConfig;
   try {
-    const res = await fetch(`${MIRAGE_API_URL}/config/lang`, {
+    const res = await fetch(`${RESSOURCES_API_URL}/config/lang`, {
       next: { revalidate: 3600 },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);

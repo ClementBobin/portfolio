@@ -1,201 +1,464 @@
 "use client";
 
+import {
+  Direction as DirectionPrimitive,
+  Slot as SlotPrimitive,
+} from "radix-ui";
 import * as React from "react";
+import { useComposedRefs } from "@/lib/compose-refs";
 import { cn } from "@/lib/utils";
+import { useAsRef } from "@/hooks/use-as-ref";
+import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
+import { useLazyRef } from "@/hooks/use-lazy-ref";
 
-/**
- * Context for managing the ScrollSpy state.
- *
- * @property activeValue - Currently active section ID
- * @property setActiveValue - Function to update the active section
- */
-interface ScrollSpyContextValue {
-  activeValue: string | null;
-  setActiveValue: (value: string) => void;
+const ROOT_NAME = "ScrollSpy";
+const NAV_NAME = "ScrollSpyNav";
+const LINK_NAME = "ScrollSpyLink";
+const VIEWPORT_NAME = "ScrollSpyViewport";
+const SECTION_NAME = "ScrollSpySection";
+
+type Direction = "ltr" | "rtl";
+type Orientation = "horizontal" | "vertical";
+
+type LinkElement = React.ComponentRef<typeof ScrollSpyLink>;
+type SectionElement = React.ComponentRef<typeof ScrollSpySection>;
+
+function getDefaultScrollBehavior(): ScrollBehavior {
+  if (typeof window === "undefined") return "smooth";
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "auto"
+    : "smooth";
 }
 
-const ScrollSpyContext = React.createContext<ScrollSpyContextValue | undefined>(
-  undefined,
+interface StoreState {
+  value: string;
+}
+
+interface Store {
+  subscribe: (callback: () => void) => () => void;
+  getState: () => StoreState;
+  setState: <K extends keyof StoreState>(key: K, value: StoreState[K]) => void;
+  notify: () => void;
+}
+
+const StoreContext = React.createContext<Store | null>(null);
+
+function useStore<T>(
+  selector: (state: StoreState) => T,
+  ogStore?: Store | null,
+): T {
+  const contextStore = React.useContext(StoreContext);
+
+  const store = ogStore ?? contextStore;
+
+  if (!store) {
+    throw new Error(`\`useStore\` must be used within \`${ROOT_NAME}\``);
+  }
+
+  const getSnapshot = React.useCallback(
+    () => selector(store.getState()),
+    [store, selector],
+  );
+
+  return React.useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
+}
+
+interface ScrollSpyContextValue {
+  offset: number;
+  scrollBehavior: ScrollBehavior;
+  dir: Direction;
+  orientation: Orientation;
+  scrollContainer: HTMLElement | null;
+  isScrollingRef: React.RefObject<boolean>;
+  onSectionRegister: (id: string, element: SectionElement) => void;
+  onSectionUnregister: (id: string) => void;
+  onScrollToSection: (sectionId: string) => void;
+}
+
+const ScrollSpyContext = React.createContext<ScrollSpyContextValue | null>(
+  null,
 );
 
-/**
- * Hook to access ScrollSpy context.
- *
- * @returns ScrollSpy context value
- * @throws Error if used outside ScrollSpyNav
- */
-const useScrollSpy = () => {
+function useScrollSpyContext(consumerName: string) {
   const context = React.useContext(ScrollSpyContext);
   if (!context) {
-    throw new Error("useScrollSpy must be used within ScrollSpyNav");
+    throw new Error(`\`${consumerName}\` must be used within \`${ROOT_NAME}\``);
   }
   return context;
-};
-
-/**
- * Props for ScrollSpyNav component.
- *
- * @property children - Child components (ScrollSpyLink)
- * @property className - Optional CSS classes
- * @property offset - Offset for intersection observer (default: 100)
- * @property threshold - Threshold for intersection observer (default: 0.5)
- */
-interface ScrollSpyNavProps {
-  children: React.ReactNode;
-  className?: string;
-  offset?: number;
-  threshold?: number;
 }
 
-/**
- * Navigation container for ScrollSpy functionality.
- * Tracks which section is currently in view and highlights the corresponding link.
- *
- * @example
- * ```tsx
- * <ScrollSpyNav>
- *   <ScrollSpyLink value="section1">Section 1</ScrollSpyLink>
- *   <ScrollSpyLink value="section2">Section 2</ScrollSpyLink>
- * </ScrollSpyNav>
- * ```
- */
-export function ScrollSpyNav({
-  children,
-  className,
-  offset = 100,
-  threshold = 0.5,
-}: ScrollSpyNavProps) {
-  const [activeValue, setActiveValue] = React.useState<string | null>(null);
+interface ScrollSpyProps extends React.ComponentProps<"div"> {
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  rootMargin?: string;
+  threshold?: number | number[];
+  offset?: number;
+  scrollBehavior?: ScrollBehavior;
+  scrollContainer?: HTMLElement | null;
+  dir?: Direction;
+  orientation?: Orientation;
+  asChild?: boolean;
+}
 
-  React.useEffect(() => {
-    const sections = document.querySelectorAll("[data-scroll-spy]");
-    if (sections.length === 0) return;
+function ScrollSpy(props: ScrollSpyProps) {
+  const {
+    value,
+    defaultValue,
+    onValueChange,
+    rootMargin,
+    threshold = 0.1,
+    offset = 0,
+    scrollBehavior = getDefaultScrollBehavior(),
+    scrollContainer = null,
+    dir: dirProp,
+    orientation = "horizontal",
+    asChild,
+    className,
+    ...rootProps
+  } = props;
+
+  const dir = DirectionPrimitive.useDirection(dirProp);
+
+  const stateRef = useLazyRef<StoreState>(() => ({
+    value: value ?? defaultValue ?? "",
+  }));
+  const listenersRef = useLazyRef(() => new Set<() => void>());
+  const onValueChangeRef = useAsRef(onValueChange);
+
+  const store = React.useMemo<Store>(() => {
+    return {
+      subscribe: (cb) => {
+        listenersRef.current.add(cb);
+        return () => listenersRef.current.delete(cb);
+      },
+      getState: () => {
+        return stateRef.current;
+      },
+      setState: (key, value) => {
+        if (Object.is(stateRef.current[key], value)) return;
+
+        stateRef.current[key] = value;
+
+        if (key === "value" && value) {
+          onValueChangeRef.current?.(value);
+        }
+
+        store.notify();
+      },
+      notify: () => {
+        for (const cb of listenersRef.current) {
+          cb();
+        }
+      },
+    };
+  }, [listenersRef, stateRef, onValueChangeRef]);
+
+  const sectionMapRef = React.useRef(new Map<string, Element>());
+  const isScrollingRef = React.useRef(false);
+  const rafIdRef = React.useRef<number | null>(null);
+  const isMountedRef = React.useRef(false);
+  const scrollTimeoutRef = React.useRef<number | null>(null);
+
+  const onSectionRegister = React.useCallback(
+    (id: string, element: SectionElement) => {
+      sectionMapRef.current.set(id, element);
+    },
+    [],
+  );
+
+  const onSectionUnregister = React.useCallback((id: string) => {
+    sectionMapRef.current.delete(id);
+  }, []);
+
+  const onScrollToSection = React.useCallback(
+    (sectionId: string) => {
+      const section = scrollContainer
+        ? scrollContainer.querySelector(`#${sectionId}`)
+        : document.getElementById(sectionId);
+
+      if (!section) {
+        store.setState("value", sectionId);
+        return;
+      }
+
+      // Set flag to prevent observer from firing during programmatic scroll
+      isScrollingRef.current = true;
+      store.setState("value", sectionId);
+
+      if (scrollContainer) {
+        const containerRect = scrollContainer.getBoundingClientRect();
+        const sectionRect = section.getBoundingClientRect();
+        const scrollTop = scrollContainer.scrollTop;
+        const offsetPosition =
+          sectionRect.top - containerRect.top + scrollTop - offset;
+
+        scrollContainer.scrollTo({
+          top: offsetPosition,
+          behavior: scrollBehavior,
+        });
+      } else {
+        const sectionPosition = section.getBoundingClientRect().top;
+        const offsetPosition = sectionPosition + window.scrollY - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: scrollBehavior,
+        });
+      }
+
+      if (scrollTimeoutRef.current !== null) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 500);
+    },
+    [scrollContainer, offset, scrollBehavior, store],
+  );
+
+  useIsomorphicLayoutEffect(() => {
+    const currentValue = value ?? defaultValue;
+    if (currentValue === undefined) return;
+
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      store.setState("value", currentValue);
+      return;
+    }
+
+    onScrollToSection(currentValue);
+  }, [value, onScrollToSection]);
+
+  useIsomorphicLayoutEffect(() => {
+    const sectionMap = sectionMapRef.current;
+    if (sectionMap.size === 0) return;
+
+    const observerRootMargin = rootMargin ?? `${-offset}px 0px -70% 0px`;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute("data-scroll-spy");
-            if (id) setActiveValue(id);
+        if (isScrollingRef.current) return;
+
+        if (rafIdRef.current !== null) {
+          cancelAnimationFrame(rafIdRef.current);
+        }
+
+        rafIdRef.current = requestAnimationFrame(() => {
+          const intersecting = entries.filter((entry) => entry.isIntersecting);
+
+          if (intersecting.length === 0) return;
+
+          const topmost = intersecting.reduce((prev, curr) => {
+            return curr.boundingClientRect.top < prev.boundingClientRect.top
+              ? curr
+              : prev;
+          });
+
+          const id = topmost.target.id;
+          if (id && sectionMap.has(id)) {
+            store.setState("value", id);
           }
         });
       },
       {
-        rootMargin: `-${offset}px 0px -${offset}px 0px`,
+        root: scrollContainer,
+        rootMargin: observerRootMargin,
         threshold,
       },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    for (const element of sectionMap.values()) {
+      observer.observe(element);
+    }
 
     return () => {
-      sections.forEach((section) => {
-        observer.unobserve(section);
-      });
+      observer.disconnect();
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      if (scrollTimeoutRef.current !== null) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
-  }, [offset, threshold]);
+  }, [offset, rootMargin, threshold, scrollContainer]);
+
+  const contextValue = React.useMemo<ScrollSpyContextValue>(
+    () => ({
+      dir,
+      orientation,
+      offset,
+      scrollBehavior,
+      scrollContainer,
+      isScrollingRef,
+      onSectionRegister,
+      onSectionUnregister,
+      onScrollToSection,
+    }),
+    [
+      dir,
+      orientation,
+      offset,
+      scrollBehavior,
+      scrollContainer,
+      onSectionRegister,
+      onSectionUnregister,
+      onScrollToSection,
+    ],
+  );
+
+  const RootPrimitive = asChild ? SlotPrimitive.Slot : "div";
 
   return (
-    <ScrollSpyContext.Provider value={{ activeValue, setActiveValue }}>
-      <nav className={cn("flex flex-col space-y-2", className)}>{children}</nav>
-    </ScrollSpyContext.Provider>
+    <StoreContext.Provider value={store}>
+      <ScrollSpyContext.Provider value={contextValue}>
+        <RootPrimitive
+          data-orientation={orientation}
+          data-slot="scroll-spy"
+          dir={dir}
+          {...rootProps}
+          className={cn(
+            "flex",
+            orientation === "horizontal" ? "flex-row" : "flex-col",
+            className,
+          )}
+        />
+      </ScrollSpyContext.Provider>
+    </StoreContext.Provider>
   );
 }
 
-/**
- * Props for ScrollSpyLink component.
- *
- * @property value - ID of the target section
- * @property children - Link text content
- * @property className - Optional CSS classes
- */
-interface ScrollSpyLinkProps {
-  value: string;
-  children: React.ReactNode;
-  className?: string;
+interface ScrollSpyNavProps extends React.ComponentProps<"nav"> {
+  asChild?: boolean;
 }
 
-/**
- * Link component that highlights when its target section is in view.
- * Smoothly scrolls to the section when clicked.
- *
- * @example
- * ```tsx
- * <ScrollSpyLink value="introduction">Introduction</ScrollSpyLink>
- * ```
- */
-export function ScrollSpyLink({
-  value,
-  children,
-  className,
-}: ScrollSpyLinkProps) {
-  const { activeValue } = useScrollSpy();
-  const isActive = activeValue === value;
+function ScrollSpyNav(props: ScrollSpyNavProps) {
+  const { asChild, className, ...navProps } = props;
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const element = document.querySelector(`[data-scroll-spy="${value}"]`);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
+  const { dir, orientation } = useScrollSpyContext(NAV_NAME);
+
+  const NavPrimitive = asChild ? SlotPrimitive.Slot : "nav";
 
   return (
-    <a
-      href={`#${value}`}
-      onClick={handleClick}
+    <NavPrimitive
+      data-orientation={orientation}
+      data-slot="scroll-spy-nav"
+      dir={dir}
+      {...navProps}
       className={cn(
-        "px-3 py-2 text-sm transition-colors rounded-md",
-        "hover:bg-accent hover:text-accent-foreground",
-        isActive
-          ? "bg-accent text-accent-foreground font-medium"
-          : "text-muted-foreground",
+        "flex gap-2",
+        orientation === "horizontal" ? "flex-col" : "flex-row",
         className,
       )}
-    >
-      {children}
-    </a>
+    />
   );
 }
 
-/**
- * Props for ScrollSpy section component.
- *
- * @property id - Unique identifier for the section
- * @property children - Section content
- * @property className - Optional CSS classes
- */
-interface ScrollSpySectionProps {
-  id: string;
-  children: React.ReactNode;
-  className?: string;
+interface ScrollSpyLinkProps extends React.ComponentProps<"a"> {
+  value: string;
+  asChild?: boolean;
 }
 
-/**
- * Wrapper component for sections that should be tracked by ScrollSpy.
- *
- * @example
- * ```tsx
- * <ScrollSpySection id="introduction">
- *   <h2>Introduction</h2>
- *   <p>Content...</p>
- * </ScrollSpySection>
- * ```
- */
-export function ScrollSpySection({
-  id,
-  children,
-  className,
-}: ScrollSpySectionProps) {
+function ScrollSpyLink(props: ScrollSpyLinkProps) {
+  const { value: linkValue, asChild, onClick, className, ...linkProps } = props;
+
+  const { orientation, onScrollToSection } = useScrollSpyContext(LINK_NAME);
+  const value = useStore((state) => state.value);
+  const isActive = value === linkValue;
+
+  const onLinkClick = React.useCallback(
+    (event: React.MouseEvent<LinkElement>) => {
+      event.preventDefault();
+      onClick?.(event);
+      onScrollToSection(linkValue);
+    },
+    [linkValue, onClick, onScrollToSection],
+  );
+
+  const LinkPrimitive = asChild ? SlotPrimitive.Slot : "a";
+
   return (
-    <section id={id} data-scroll-spy={id} className={className}>
-      {children}
-    </section>
+    <LinkPrimitive
+      data-orientation={orientation}
+      data-slot="scroll-spy-link"
+      data-state={isActive ? "active" : "inactive"}
+      {...linkProps}
+      href={asChild ? undefined : `#${linkValue}`}
+      className={cn(
+        "rounded px-3 py-1.5 font-medium text-muted-foreground text-sm transition-colors hover:bg-accent hover:text-accent-foreground data-[state=active]:bg-accent data-[state=active]:text-foreground",
+        className,
+      )}
+      onClick={onLinkClick}
+    />
   );
 }
 
-/**
- * Legacy export alias for ScrollSpyNav.
- * @deprecated Use ScrollSpyNav instead
- */
-export const ScrollSpy = ScrollSpyNav;
+interface ScrollSpyViewportProps extends React.ComponentProps<"div"> {
+  asChild?: boolean;
+}
+
+function ScrollSpyViewport(props: ScrollSpyViewportProps) {
+  const { asChild, className, ...viewportProps } = props;
+
+  const { dir, orientation } = useScrollSpyContext(VIEWPORT_NAME);
+
+  const ViewportPrimitive = asChild ? SlotPrimitive.Slot : "div";
+
+  return (
+    <ViewportPrimitive
+      data-orientation={orientation}
+      data-slot="scroll-spy-viewport"
+      dir={dir}
+      {...viewportProps}
+      className={cn("flex flex-1 flex-col gap-8", className)}
+    />
+  );
+}
+
+interface ScrollSpySectionProps extends React.ComponentProps<"div"> {
+  value: string;
+  asChild?: boolean;
+}
+
+function ScrollSpySection(props: ScrollSpySectionProps) {
+  const { asChild, ref, value, ...sectionProps } = props;
+
+  const { orientation, onSectionRegister, onSectionUnregister } =
+    useScrollSpyContext(SECTION_NAME);
+  const sectionRef = React.useRef<SectionElement>(null);
+  const composedRef = useComposedRefs(ref, sectionRef);
+
+  useIsomorphicLayoutEffect(() => {
+    const element = sectionRef.current;
+    if (!element || !value) return;
+
+    onSectionRegister(value, element);
+
+    return () => {
+      onSectionUnregister(value);
+    };
+  }, [value, onSectionRegister, onSectionUnregister]);
+
+  const SectionPrimitive = asChild ? SlotPrimitive.Slot : "div";
+
+  return (
+    <SectionPrimitive
+      data-orientation={orientation}
+      data-slot="scroll-spy-section"
+      {...sectionProps}
+      id={value}
+      ref={composedRef}
+    />
+  );
+}
+
+export {
+  ScrollSpy,
+  ScrollSpyLink,
+  ScrollSpyNav,
+  ScrollSpySection,
+  ScrollSpyViewport,
+  //
+  type ScrollSpyProps,
+};

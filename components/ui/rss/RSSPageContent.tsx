@@ -1,14 +1,5 @@
 import { RssIcon, SparklesIcon } from "lucide-react";
-import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import RSSFeed from "@/components/ui/rss/rss-feed";
 import { getTranslations } from "@/lib/i18n";
 
@@ -23,33 +14,11 @@ export async function RSSPageContent({ params }: RSSPageProps) {
   const { locale } = await params;
   const t = await getTranslations(locale, ["rss"]);
 
-  const rssFeed = "https://clementbobin.github.io/obsidian/index.xml";
+  const rssFeed = process.env.NEXT_PUBLIC_RSS_URL ?? "";
 
   return (
     <div className="min-h-screen bg-background">
       <div className="w-screen mx-auto px-4 max-w-6xl">
-        {/* Breadcrumb Navigation */}
-        <div className="py-6">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link
-                    href={`/${locale}`}
-                    className="transition-colors hover:text-foreground"
-                  >
-                    Portfolio
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>RSS Feed</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-
         {/* Hero Section */}
         <header className="py-12 md:py-16 space-y-6">
           <div className="flex items-center gap-3 justify-center md:justify-start">

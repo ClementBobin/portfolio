@@ -15,7 +15,7 @@ import { rssParser } from "@/lib/rss-parser";
 import { formatDate } from "@/lib/utils";
 
 interface RSSFeedProps {
-  feedUrl: string;
+  feedUrl?: string;
   locale?: string;
 }
 
@@ -48,6 +48,16 @@ function FeedSkeleton({ count = 5 }: { count?: number }) {
 
 async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedProps) {
   const t = await getTranslations(locale, ["rss"]);
+
+  if (!feedUrl) {
+    return (
+      <Alert variant="destructive">
+        <AlertTitle>{t("rss.error")}</AlertTitle>
+        <AlertDescription>No feed URL provided.</AlertDescription>
+      </Alert>
+    );
+  }
+
   const feed = await rssParser.parseURL(feedUrl);
 
   if (feed.error) {

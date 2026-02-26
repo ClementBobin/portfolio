@@ -10,8 +10,8 @@ export const presets = {
   /**
    * Default — the original design-system palette using oklch colors.
    */
-  default: {
-    label: "Default",
+  deepOcean: {
+    label: "Deep Ocean",
     light: {
       background: "oklch(1 0 0)",
       foreground: "oklch(0.129 0.042 264.695)",

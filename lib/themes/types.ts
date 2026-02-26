@@ -45,7 +45,7 @@ export interface ThemePreset {
  * Union of all available theme preset names.
  */
 export type PresetName =
-  | "default"
+  | "deepOcean"
   | "warm"
   | "ocean"
   | "forest"

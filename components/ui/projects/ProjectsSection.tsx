@@ -20,7 +20,7 @@ export async function ProjectsSection({ projects }: ProjectsSectionProps) {
               <div className="bg-primary/10 px-4 py-2 rounded-lg">
                 <h3 className="text-xl font-bold">{year}</h3>
               </div>
-              <div className="flex-1 h-px bg-gradient-to-r from-border to-transparent" />
+              <div className="flex-1 h-px bg-linear-to-r from-border to-transparent" />
             </div>
 
             {Object.entries(months)

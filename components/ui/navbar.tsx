@@ -141,7 +141,7 @@ function ThemePresetSelect() {
           aria-label="Color theme presets"
           className={cn(
             "absolute right-0 top-full mt-2 z-50",
-            "min-w-[8rem] rounded-md border bg-popover text-popover-foreground shadow-md",
+            "min-w-32 rounded-md border bg-popover text-popover-foreground shadow-md",
             "py-1",
           )}
         >
@@ -281,7 +281,7 @@ export function Navbar({
     <>
       <header
         className={cn(
-          "sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+          "sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60",
           className,
         )}
       >
