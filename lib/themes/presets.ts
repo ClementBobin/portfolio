@@ -1,4 +1,4 @@
-import type { ThemeColors, ThemePreset } from "./types";
+import type { PresetName, ThemeColors, ThemePreset } from "./types";
 
 /**
  * Theme preset definitions.
@@ -447,13 +447,7 @@ export const presets = {
       sidebarRing: "#a3a3a3",
     } satisfies ThemeColors,
   } satisfies ThemePreset,
-} satisfies Record<string, ThemePreset>;
-
-/**
- * Union of all available preset names.
- * Automatically updated when new presets are added to the `presets` object above.
- */
-export type PresetName = keyof typeof presets;
+} satisfies Record<PresetName, ThemePreset>;
 
 /** The preset applied when no stored preference exists. */
 export const DEFAULT_PRESET: PresetName = "warm";

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { PresetName } from "@/lib/themes/presets";
 import { DEFAULT_PRESET, presets } from "@/lib/themes/presets";
+import type { PresetName } from "@/lib/themes/types";
 
 const STORAGE_KEY = "theme-preset";
 
