@@ -4,6 +4,11 @@ import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { GraphData, NodeObject } from "react-force-graph-2d";
+import type {
+  NodeNavigationItem,
+  NodeNavigation,
+} from "@/lib/schemas/navigation";
+import type { LocalizedString } from "@/lib/schemas/global";
 
 // Dynamically import ForceGraph2D to avoid SSR issues
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
@@ -36,6 +41,113 @@ interface ExtendedNodeObject extends NodeObject {
   external?: boolean;
 }
 
+// Local nodes configuration
+const LOCAL_NODES: NodeNavigationItem[] = [
+  {
+    id: "/",
+    label: { en: "Home", fr: "Accueil" },
+    description: {
+      en: "Portfolio home page with overview of projects and skills",
+      fr: "Page d'accueil du portfolio avec un aperçu des projets et des compétences",
+    },
+    color: "#8b5cf6",
+  },
+  {
+    id: "/projects",
+    label: { en: "Projects", fr: "Projets" },
+    description: {
+      en: "GitHub projects and open source contributions",
+      fr: "Projets GitHub et contributions open source",
+    },
+    color: "#3b82f6",
+  },
+  {
+    id: "/rss",
+    label: { en: "RSS Feed", fr: "Flux RSS" },
+    description: {
+      en: "Latest blog posts and updates from my Obsidian notes",
+      fr: "Derniers articles de blog et mises à jour de mes notes Obsidian",
+    },
+    color: "#10b981",
+  },
+];
+
+// Helper function to get localized string
+function getLocalizedString(
+  localizedStr: LocalizedString,
+  locale: string
+): string {
+  // Try exact locale match (e.g., "en-US")
+  if (localizedStr[locale]) {
+    return localizedStr[locale];
+  }
+  
+  // Try language code only (e.g., "en" from "en-US")
+  const langCode = locale.split("-")[0];
+  if (localizedStr[langCode]) {
+    return localizedStr[langCode];
+  }
+  
+  // Fallback to English
+  if (localizedStr.en) {
+    return localizedStr.en;
+  }
+  
+  // Return first available value
+  const values = Object.values(localizedStr);
+  return (values[0] as string) || "";
+}
+
+// Helper function to convert localized nodes to navigation nodes
+function convertToNavigationNodes(
+  apiNodes: NodeNavigationItem[],
+  locale: string
+): NavigationNode[] {
+  return apiNodes.map((node) => ({
+    id: node.id,
+    label: getLocalizedString(node.label, locale),
+    description: getLocalizedString(node.description, locale),
+    color: node.color,
+    external: node.external,
+  }));
+}
+
+// Helper function to generate links between nodes
+function generateLinks(
+  localNodes: NavigationNode[],
+  externalNodes: NavigationNode[]
+): NavigationLink[] {
+  const links: NavigationLink[] = [];
+  const mainNode = localNodes.find((node) => node.id === "/");
+  
+  if (!mainNode) return links;
+  
+  // Link all local nodes to each other
+  for (const node of localNodes) {
+    if (node.id !== "/") {
+      // Link node to home
+      links.push({ source: node.id, target: "/" });
+      // Link home to node
+      links.push({ source: "/", target: node.id });
+      
+      // Link to other local nodes
+      for (const otherNode of localNodes) {
+        if (otherNode.id !== "/" && otherNode.id !== node.id) {
+          links.push({ source: node.id, target: otherNode.id });
+        }
+      }
+    }
+  }
+  
+  // Link main node to all external nodes
+  for (const extNode of externalNodes) {
+    links.push({ source: "/", target: extNode.id });
+    links.push({ source: extNode.id, target: "/" });
+  }
+  
+  return links;
+}
+
 export function MindmapNavigation() {
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -44,18 +156,64 @@ export function MindmapNavigation() {
   const fgRef = useRef<any>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Load graph data from JSON
+  // Load graph data from API and merge with local nodes
   useEffect(() => {
-    fetch("/navigation-graph.json")
-      .then((res) => res.json())
-      .then((data: NavigationGraphData) => {
+    const loadGraphData = async () => {
+      try {
+        // Get current locale from pathname
+        const locale = pathname.split("/")[1] || "en-US";
+        
+        // Fetch external nodes from API
+        const response = await fetch(
+          "https://mirage-api-ruddy.vercel.app/api/config/navigation"
+        );
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch navigation data");
+        }
+        
+        const apiData: NodeNavigation = await response.json();
+        
+        // Mark external nodes
+        const externalNodesWithFlag: NodeNavigationItem[] = apiData.nodes.map((node: NodeNavigationItem) => ({
+          ...node,
+          external: true,
+        }));
+        
+        // Convert both local and external nodes to navigation format
+        const localNodesConverted = convertToNavigationNodes(LOCAL_NODES, locale);
+        const externalNodesConverted = convertToNavigationNodes(
+          externalNodesWithFlag,
+          locale
+        );
+        
+        // Combine all nodes
+        const allNodes = [...localNodesConverted, ...externalNodesConverted];
+        
+        // Generate links
+        const links = generateLinks(localNodesConverted, externalNodesConverted);
+        
         setGraphData({
-          nodes: data.nodes,
-          links: data.links,
+          nodes: allNodes,
+          links: links,
         });
-      })
-      .catch((err) => console.error("Failed to load navigation graph:", err));
-  }, []);
+      } catch (err) {
+        console.error("Failed to load navigation graph:", err);
+        
+        // Fallback to local nodes only
+        const locale = pathname.split("/")[1] || "en-US";
+        const localNodesConverted = convertToNavigationNodes(LOCAL_NODES, locale);
+        const links = generateLinks(localNodesConverted, []);
+        
+        setGraphData({
+          nodes: localNodesConverted,
+          links: links,
+        });
+      }
+    };
+    
+    loadGraphData();
+  }, [pathname]);
 
   // Center the graph after it's loaded and positioned
   useEffect(() => {
