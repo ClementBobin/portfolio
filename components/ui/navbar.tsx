@@ -1,13 +1,20 @@
 "use client";
 
-import { MenuIcon, MoonIcon, SunIcon, XIcon } from "lucide-react";
+import {
+  MenuIcon,
+  MoonIcon,
+  NetworkIcon,
+  PaletteIcon,
+  SunIcon,
+  XIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Presence } from "@/components/presence";
+import { useThemePreset } from "@/hooks/use-theme-preset";
 import { cn } from "@/lib/utils";
-import { NetworkIcon } from "lucide-react";
 import { MindmapPopup } from "./mindmap/mindmap-popup";
 
 /**
@@ -77,6 +84,90 @@ function ThemeToggle() {
         </Presence>
       </div>
     </button>
+  );
+}
+
+/**
+ * Theme preset combobox component.
+ * Lets the user pick a color-palette preset from a dropdown.
+ */
+function ThemePresetSelect() {
+  const { preset, setPreset, presets } = useThemePreset();
+  const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="h-10 w-10 rounded-md border bg-muted/50 animate-pulse" />
+    );
+  }
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={cn(
+          "relative h-10 w-10 rounded-md border transition-all",
+          "bg-muted/50 hover:bg-muted",
+          "flex items-center justify-center",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        )}
+        aria-label="Select color theme"
+        aria-expanded={open}
+        aria-haspopup="listbox"
+      >
+        <PaletteIcon className="h-5 w-5" />
+      </button>
+
+      {open && (
+        <div
+          role="listbox"
+          aria-label="Color theme presets"
+          className={cn(
+            "absolute right-0 top-full mt-2 z-50",
+            "min-w-[8rem] rounded-md border bg-popover text-popover-foreground shadow-md",
+            "py-1",
+          )}
+        >
+          {(Object.keys(presets) as Array<keyof typeof presets>).map((name) => (
+            <button
+              key={name}
+              type="button"
+              role="option"
+              aria-selected={preset === name}
+              onClick={() => {
+                setPreset(name);
+                setOpen(false);
+              }}
+              className={cn(
+                "w-full text-left px-3 py-1.5 text-sm transition-colors",
+                "hover:bg-accent hover:text-accent-foreground",
+                preset === name &&
+                  "bg-accent text-accent-foreground font-medium",
+              )}
+            >
+              {presets[name].label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -245,6 +336,7 @@ export function Navbar({
               <NetworkIcon className="h-5 w-5" />
             </button>
 
+            <ThemePresetSelect />
             <ThemeToggle />
 
             {/* Mobile Menu Button */}
