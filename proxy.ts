@@ -57,7 +57,7 @@ function getLocale(
 export async function proxy(
   request: { headers: { get(name: string): string | null }; nextUrl: NextUrlLike },
 ): Promise<NextResponse | undefined> {
-  let { pathname } = request.nextUrl;
+  const { pathname } = request.nextUrl;
 
   // Skip internal paths, API, favicon, or special files
   const skipPaths = ["/robots.txt", "/sitemap.xml", "/navigation-graph.json"];
