@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
-import { MindmapNavigation } from "@/components/ui/mindmap-navigation";
 import { getTranslations } from "@/lib/i18n";
 
 /**

@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import RSSFeed from "@/components/ui/rss-feed";
+import RSSFeed from "@/components/ui/rss/rss-feed";
 import { getTranslations } from "@/lib/i18n";
 
 export interface RSSPageProps {
