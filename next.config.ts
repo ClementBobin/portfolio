@@ -4,9 +4,18 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-const RessourceApiUrl = process.env.NEXT_PUBLIC_RESSOURCES_API_URL;
+const ressourceApiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
+const rssUrl = process.env.NEXT_PUBLIC_RSS_URL;
+
 // Derive the origin (scheme + host) for the CSP connect-src directive
-const ressourceApiOrigin = RessourceApiUrl ? new URL(RessourceApiUrl).origin : undefined;
+const ressourceApiOrigin = ressourceApiUrl
+  ? new URL(ressourceApiUrl).origin
+  : undefined;
+const rssOrigin = rssUrl ? new URL(rssUrl).origin : undefined;
+
+const extraConnectSrc = [ressourceApiOrigin, rssOrigin]
+  .filter(Boolean)
+  .join(" ");
 
 const nextConfig: NextConfig = {
   output: "standalone", // ensures SSR functions are Edge-friendly
@@ -29,7 +38,7 @@ const nextConfig: NextConfig = {
               script-src 'self' 'unsafe-inline' 'unsafe-eval';
               style-src 'self' 'unsafe-inline';
               img-src 'self' data:;
-              connect-src 'self' ${ressourceApiOrigin};
+              connect-src 'self' ${extraConnectSrc};
               font-src 'self';
               frame-ancestors 'none';
             `.replace(/\n/g, ""),

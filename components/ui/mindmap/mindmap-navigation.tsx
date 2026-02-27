@@ -162,49 +162,80 @@ export function MindmapNavigation() {
       try {
         // Get current locale from pathname
         const locale = pathname.split("/")[1] || "en-US";
-        
-        // Fetch external nodes from API
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_RESSOURCES_API_URL}/config/navigation`
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+
+        // Build locale-aware local nodes, prefixing with NEXT_PUBLIC_SITE_URL when set.
+        const localNodesWithUrl: NodeNavigationItem[] = LOCAL_NODES.map(
+          (node) => ({
+            ...node,
+            id: siteUrl
+              ? node.id === "/"
+                ? `${siteUrl}/${locale}`
+                : `${siteUrl}/${locale}${node.id}`
+              : node.id,
+          }),
         );
-        
-        if (!response.ok) {
-          throw new Error("Failed to fetch navigation data");
+
+        // Fetch external nodes from API (in-memory cached).
+        const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
+        if (!apiUrl) {
+          throw new Error("NEXT_PUBLIC_RESSOURCE_API_URL is not set");
         }
-        
+        const remoteUrl = `${apiUrl}/config/navigation`;
+        const response = await fetch(remoteUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch navigation data: ${response.status} ${response.statusText}`);
+        }
         const apiData: NodeNavigation = await response.json();
-        
+
         // Mark external nodes
-        const externalNodesWithFlag: NodeNavigationItem[] = apiData.nodes.map((node: NodeNavigationItem) => ({
-          ...node,
-          external: true,
-        }));
-        
+        const externalNodesWithFlag: NodeNavigationItem[] = apiData.nodes.map(
+          (node: NodeNavigationItem) => ({
+            ...node,
+            external: true,
+          }),
+        );
+
         // Convert both local and external nodes to navigation format
-        const localNodesConverted = convertToNavigationNodes(LOCAL_NODES, locale);
+        const localNodesConverted = convertToNavigationNodes(
+          localNodesWithUrl,
+          locale,
+        );
         const externalNodesConverted = convertToNavigationNodes(
           externalNodesWithFlag,
-          locale
+          locale,
         );
-        
+
         // Combine all nodes
         const allNodes = [...localNodesConverted, ...externalNodesConverted];
-        
+
         // Generate links
         const links = generateLinks(localNodesConverted, externalNodesConverted);
-        
+
         setGraphData({
           nodes: allNodes,
           links: links,
         });
       } catch (err) {
         console.error("Failed to load navigation graph:", err);
-        
+
         // Fallback to local nodes only
         const locale = pathname.split("/")[1] || "en-US";
-        const localNodesConverted = convertToNavigationNodes(LOCAL_NODES, locale);
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "";
+        const fallbackNodes: NodeNavigationItem[] = LOCAL_NODES.map((node) => ({
+          ...node,
+          id: siteUrl
+            ? node.id === "/"
+              ? `${siteUrl}/${locale}`
+              : `${siteUrl}/${locale}${node.id}`
+            : node.id,
+        }));
+        const localNodesConverted = convertToNavigationNodes(
+          fallbackNodes,
+          locale,
+        );
         const links = generateLinks(localNodesConverted, []);
-        
+
         setGraphData({
           nodes: localNodesConverted,
           links: links,
@@ -258,11 +289,17 @@ export function MindmapNavigation() {
         // Open external links in a new tab
         window.open(nodeId, "_blank", "noopener,noreferrer");
       } else {
-        // Navigate to internal routes
-        const locale = pathname.split("/")[1];
-        const targetPath =
-          nodeId === "/" ? `/${locale}` : `/${locale}${nodeId}`;
-        router.push(targetPath);
+        // Navigate to internal routes.
+        // When NEXT_PUBLIC_SITE_URL is set the nodeId is already a full URL.
+        const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+        if (siteUrl && nodeId.startsWith(siteUrl)) {
+          window.location.href = nodeId;
+        } else {
+          const locale = pathname.split("/")[1];
+          const targetPath =
+            nodeId === "/" ? `/${locale}` : `/${locale}${nodeId}`;
+          router.push(targetPath);
+        }
       }
     },
     [pathname, router],

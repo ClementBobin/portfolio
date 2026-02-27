@@ -40,15 +40,3 @@ export interface ThemePreset {
   light: ThemeColors;
   dark: ThemeColors;
 }
-
-/**
- * Union of all available theme preset names.
- */
-export type PresetName =
-  | "deepOcean"
-  | "warm"
-  | "ocean"
-  | "forest"
-  | "slate"
-  | "lilac"
-  | "minimal";
