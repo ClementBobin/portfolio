@@ -4,16 +4,16 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-const mirageApiUrl = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
+const ressourceApiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
 const rssUrl = process.env.NEXT_PUBLIC_RSS_URL;
 
 // Derive the origin (scheme + host) for the CSP connect-src directive
-const mirageApiOrigin = mirageApiUrl
-  ? new URL(mirageApiUrl).origin
+const ressourceApiOrigin = ressourceApiUrl
+  ? new URL(ressourceApiUrl).origin
   : undefined;
 const rssOrigin = rssUrl ? new URL(rssUrl).origin : undefined;
 
-const extraConnectSrc = [mirageApiOrigin, rssOrigin]
+const extraConnectSrc = [ressourceApiOrigin, rssOrigin]
   .filter(Boolean)
   .join(" ");
 

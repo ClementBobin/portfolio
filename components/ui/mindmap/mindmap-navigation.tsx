@@ -9,7 +9,6 @@ import type {
   NodeNavigation,
 } from "@/lib/types/navigation";
 import type { LocalizedString } from "@/lib/types/global";
-import { fetchWithCache } from "@/lib/cache";
 
 // Dynamically import ForceGraph2D to avoid SSR issues
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
@@ -178,23 +177,17 @@ export function MindmapNavigation() {
         );
 
         // Fetch external nodes from API (in-memory cached).
-        const apiUrl = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
+        const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
         if (!apiUrl) {
-          throw new Error("NEXT_PUBLIC_MIRAGE_API_URL is not set");
+          throw new Error("NEXT_PUBLIC_RESSOURCE_API_URL is not set");
         }
         const remoteUrl = `${apiUrl}/config/navigation`;
-        const apiData = await fetchWithCache<NodeNavigation>(
-          remoteUrl,
-          () =>
-            fetch(remoteUrl).then((res) => {
-              if (!res.ok)
-                throw new Error(
-                  `Failed to fetch navigation from ${remoteUrl}: ${res.status} ${res.statusText}`,
-                );
-              return res.json() as Promise<NodeNavigation>;
-            }),
-        );
-        
+        const response = await fetch(remoteUrl);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch navigation data: ${response.status} ${response.statusText}`);
+        }
+        const apiData: NodeNavigation = await response.json();
+
         // Mark external nodes
         const externalNodesWithFlag: NodeNavigationItem[] = apiData.nodes.map(
           (node: NodeNavigationItem) => ({

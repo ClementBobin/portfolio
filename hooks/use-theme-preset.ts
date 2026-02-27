@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { DEFAULT_PRESET, presets as staticPresets } from "@/lib/themes/presets";
 import type { PresetName } from "@/lib/themes/presets";
 import type { ThemePreset } from "@/lib/types/theme";
-import { fetchWithCache } from "@/lib/cache";
 
 type DynamicPresets = Record<string, ThemePreset>;
 
@@ -75,23 +74,25 @@ export function useThemePreset() {
       stored && Object.hasOwn(staticPresets, stored)
         ? (stored as PresetName)
         : DEFAULT_PRESET;
+
     setPresetState(initial);
     applyPresetFromMap(initial, staticPresets);
 
-    // Fetch remote presets from the Mirage API (in-memory cached).
-    const apiUrl = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
+    // Fetch remote presets from the API (no cache).
+    const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
     if (!apiUrl) return;
 
-    const remoteUrl = `${apiUrl}/config/colors/preset`;
-    fetchWithCache<DynamicPresets>(remoteUrl, () =>
-      fetch(remoteUrl).then((res) => {
-        if (!res.ok)
+    const remoteUrl = `${apiUrl}/config/theme`;
+
+    fetch(remoteUrl)
+      .then((res) => {
+        if (!res.ok) {
           throw new Error(
             `Failed to fetch presets from ${remoteUrl}: ${res.status} ${res.statusText}`,
           );
+        }
         return res.json() as Promise<DynamicPresets>;
-      }),
-    )
+      })
       .then((data) => {
         if (
           data &&
@@ -106,12 +107,14 @@ export function useThemePreset() {
           )
         ) {
           setLoadedPresets(data);
+
           // Honour stored preference if its key exists in remote data.
           const storedPref = localStorage.getItem(STORAGE_KEY);
           const resolved =
             storedPref && Object.hasOwn(data, storedPref)
               ? storedPref
               : initial;
+
           setPresetState(resolved);
           applyPresetFromMap(resolved, data);
         }

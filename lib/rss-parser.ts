@@ -1,5 +1,4 @@
 import { XMLParser } from "fast-xml-parser";
-import { fetchWithCache } from "@/lib/cache";
 
 interface RSSItem {
   title: string;
@@ -142,10 +141,8 @@ class RSSParser {
 
   async parseURL(url: string): Promise<RSSFeed> {
     try {
-      const xmlText = await fetchWithCache<string>(url, async () => {
-        const response = await this.fetchWithTimeout(url);
-        return response.text();
-      });
+      const response = await this.fetchWithTimeout(url);
+      const xmlText = await response.text();
       const parsedData = this.parser.parse(xmlText);
 
       const { title, items } = this.normalizeFeedData(parsedData);

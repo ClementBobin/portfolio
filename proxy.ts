@@ -1,7 +1,7 @@
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
-import type { NextUrlLike } from "@/lib/types";
+import type { NextUrlLike } from "@/lib/types/global";
 
 const MIRAGE_API_URL = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
 
