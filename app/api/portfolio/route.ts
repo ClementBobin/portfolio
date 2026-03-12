@@ -10,8 +10,6 @@ export async function GET(_req: NextRequest) {
   // Try fetching from external resource API
   const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
 
-  console.log(apiUrl)
-
   if (apiUrl) {
     try {
       const res = await fetch(`${apiUrl}/cv`, {
@@ -66,7 +64,6 @@ const fallbackData: PortfolioData = {
     location: "Beaune, France",
   },
   contact: [
-    { type: "website", label: "Portfolio", href: "https://portfolio-clement.vercel.app" },
     { type: "github", label: "ClementBobin", href: "https://github.com/ClementBobin" },
     { type: "linkedin", label: "Clément Bobin", href: "https://www.linkedin.com/in/cl%C3%A9ment-bobin-958559293" },
     { type: "location", label: "Beaune, France" },
