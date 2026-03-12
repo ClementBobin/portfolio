@@ -1,67 +1,172 @@
 import type { PortfolioData } from "@/lib/types/portfolio-api";
-import { HeroSection } from "@/components/ui/portfolio/HeroSection";
-import { SkillsSection } from "@/components/ui/portfolio/SkillsSection";
-import { ExperienceSection } from "@/components/ui/portfolio/ExperienceSection";
-import { EducationSection } from "@/components/ui/portfolio/EducationSection";
-import { ProjectsSection } from "@/components/ui/portfolio/ProjectsSection";
-// import { HobbiesSection } from "@/components/ui/portfolio/HobbiesSection";
-import { Separator } from "@/components/ui/separator";
 
-export interface PortfolioPageProps {
-  params: Promise<{ locale: string }>;
+// Sections
+import { HeroSection } from "./HeroSection";
+import { HighlightsSection } from "./HighlightsSection";
+import { StrengthSection } from "./StrengthSection";
+import { WhatIBringSection } from "./WhatIBringSection";
+import { ExperienceSection } from "./ExperienceSection";
+import { PassionSection } from "./PassionSection";
+import { ProjectsSection } from "./ProjectsSection";
+import { VisionSectionComponent } from "./VisionSection";
+import { RecommendationsSection } from "./RecommendationsSection";
+
+// If SkillsSection & EducationSection already exist in your project:
+// import { SkillsSection } from "./SkillsSection";
+// import { EducationSection } from "./EducationSection";
+
+interface PortfolioPageContentProps {
+  data: PortfolioData;
+  locale: string;
+  cvUrl: string;
 }
 
-async function fetchPortfolioData(): Promise<PortfolioData | null> {
-  try {
-    // Call the internal API route
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/portfolio`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
+function SectionWrapper({ children, id }: { children: React.ReactNode; id?: string }) {
+  return (
+    <section
+      id={id}
+      style={{
+        width: "100%",
+        maxWidth: "56rem",
+        margin: "0 auto",
+        padding: "4rem 1.5rem",
+      }}
+    >
+      {children}
+    </section>
+  );
 }
 
-export async function PortfolioPageContent({ params }: PortfolioPageProps) {
-  const { locale } = await params;
-  const data = await fetchPortfolioData();
+function Divider() {
+  return (
+    <div style={{ maxWidth: "56rem", margin: "0 auto", padding: "0 1.5rem" }}>
+      <div style={{ height: 1, background: "var(--border)", opacity: 0.5 }} />
+    </div>
+  );
+}
 
-  if (!data) {
-    return (
-      <div className="container mx-auto px-4 max-w-5xl py-20 text-center">
-        <p className="text-muted-foreground">
-          {locale.startsWith("fr") ? "Impossible de charger les données du portfolio." : "Unable to load portfolio data."}
-        </p>
-      </div>
-    );
-  }
+export function PortfolioPageContent({ data, locale, cvUrl }: PortfolioPageContentProps) {
+  const {
+    personal,
+    contact,
+    strengths,
+    experiences,
+    // education,
+    projects,
+    hobbies,
+    valueCards,
+    highlights,
+    vision,
+    recommendations,
+  } = data;
 
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <HeroSection personal={data.personal} contact={data.contact} locale={locale} />
+    <div style={{ background: "var(--background)", color: "var(--foreground)", minHeight: "100vh" }}>
 
-      {/* Content sections */}
-      <div className="container mx-auto px-4 max-w-5xl pb-24 space-y-20">
-        <Separator />
+      {/* Hero — full-width, no wrapper */}
+      <HeroSection personal={personal} contact={contact} locale={locale} cvUrl={cvUrl} />
 
-        <SkillsSection skills={data.skills} locale={locale} />
+      {/* Highlights stats strip */}
+      {highlights?.length ? (
+        <>
+          <SectionWrapper>
+            <HighlightsSection highlights={highlights} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
 
-        <Separator />
+      {/* Strengths horizontal timeline */}
+      {strengths?.length ? (
+        <>
+          <SectionWrapper id="strengths">
+            <StrengthSection strengths={strengths} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
 
-        <ExperienceSection experiences={data.experiences} locale={locale} />
+      {/* What I Bring */}
+      {valueCards?.length ? (
+        <>
+          <SectionWrapper id="values">
+            <WhatIBringSection cards={valueCards} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
 
-        <Separator />
+      {/* Experience Timeline */}
+      {experiences?.length ? (
+        <>
+          <SectionWrapper id="experience">
+            <ExperienceSection experiences={experiences} locale={locale} cvUrl={cvUrl} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
 
-        <EducationSection education={data.education} locale={locale} />
+      {/* Skills (existing component)
+      {data.skills?.length ? (
+        <>
+          <SectionWrapper id="skills">
+            <SkillsSection skills={data.skills} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null} */}
 
-        <Separator />
+      {/* Education (existing component)
+      {education?.length ? (
+        <>
+          <SectionWrapper id="education">
+            <EducationSection education={education} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null} */}
 
-        <ProjectsSection projects={data.projects} locale={locale} />
-      </div>
+      {/* Passions */}
+      {hobbies?.length ? (
+        <>
+          <SectionWrapper id="passions">
+            <PassionSection hobbies={hobbies} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
+
+      {/* Personal Projects */}
+      {projects?.length ? (
+        <>
+          <SectionWrapper id="projects">
+            <ProjectsSection projects={projects} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
+
+      {/* Vision */}
+      {vision?.items?.length ? (
+        <>
+          <SectionWrapper id="vision">
+            <VisionSectionComponent vision={vision} locale={locale} />
+          </SectionWrapper>
+          <Divider />
+        </>
+      ) : null}
+
+      {/* Recommendations */}
+      {recommendations?.length ? (
+        <>
+          <SectionWrapper id="recommendations">
+            <RecommendationsSection recommendations={recommendations} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null}
+
+      {/* Footer spacer */}
+      <div style={{ height: "6rem" }} />
     </div>
   );
 }

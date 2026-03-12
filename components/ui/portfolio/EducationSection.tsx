@@ -1,6 +1,6 @@
-import { GraduationCapIcon, ExternalLinkIcon } from "lucide-react";
+import { ExternalLinkIcon } from "lucide-react";
 import type { Education } from "@/lib/types/portfolio-api";
-import { SectionHeading } from "./SkillsSection";
+import { SectionHeading } from "../section-heading";
 import { Badge } from "@/components/ui/badge";
 
 interface EducationSectionProps {
