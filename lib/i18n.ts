@@ -4,8 +4,10 @@ import path from "node:path";
 const localesFolder = path.join(process.cwd(), "/public/locales");
 
 // Get language code from locale (e.g., "en-US" -> "en", "fr-FR" -> "fr")
-const getLanguageCode = (locale: string): string => {
-  return locale.split("-")[0];
+export const getLanguageCode = (locale?: string): string => {
+  // Use "en" as a fallback if locale is undefined
+  const safeLocale = locale || "en";
+  return safeLocale.split("-")[0];
 };
 
 // Load translations from a single namespace file

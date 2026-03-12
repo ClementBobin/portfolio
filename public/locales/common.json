@@ -1,8 +1,8 @@
 {
   "nav": {
-    "title": {
-      "en": "Portfolio",
-      "fr": "Portfolio"
+    "resume": {
+      "en": "Resume",
+      "fr": "CV"
     },
     "home": {
       "en": "Home",
@@ -36,21 +36,13 @@
     }
   },
   "footer": {
-    "learn": {
-      "en": "Learn",
-      "fr": "Apprendre"
-    },
-    "examples": {
-      "en": "Examples",
-      "fr": "Exemples"
-    },
-    "goToNextjs": {
-      "en": "Go to nextjs.org →",
-      "fr": "Aller à nextjs.org →"
-    },
     "copyright": {
       "en": "© 2024 Portfolio. All rights reserved.",
       "fr": "© 2024 Portfolio. Tous droits réservés."
+    },
+    "build": {
+      "en": "Built with Next.js & Tailwind CSS",
+      "fr": "Construit avec Next.js & Tailwind CSS"
     }
   }
 }

@@ -259,7 +259,6 @@ function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
  * @example
  * ```tsx
  * <Navbar
- *   logo="My Portfolio"
  *   links={[
  *     { href: "/", label: "Home" },
  *     { href: "/projects", label: "Projects" },
@@ -270,7 +269,6 @@ function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
  */
 export function Navbar({
   links = [],
-  logo = "Portfolio",
   className,
 }: NavbarProps) {
   const pathname = usePathname();
@@ -286,14 +284,6 @@ export function Navbar({
         )}
       >
         <div className="w-screen flex h-16 items-center justify-between px-4">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center space-x-2 font-bold text-xl hover:opacity-80 transition-opacity"
-          >
-            {typeof logo === "string" ? <span>{logo}</span> : logo}
-          </Link>
-
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-1">
             {links.map((link) => {

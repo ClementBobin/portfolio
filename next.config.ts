@@ -25,6 +25,9 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: true, // critical CSS & Tailwind tree-shaking
   },
+  images: {
+    domains: ['clementbobin.github.io'],
+  },
   async headers() {
     return [
       {
@@ -37,7 +40,7 @@ const nextConfig: NextConfig = {
               default-src 'self';
               script-src 'self' 'unsafe-inline' 'unsafe-eval';
               style-src 'self' 'unsafe-inline';
-              img-src 'self' data:;
+              img-src 'self' data: https://clementbobin.github.io;
               connect-src 'self' ${extraConnectSrc};
               font-src 'self';
               frame-ancestors 'none';

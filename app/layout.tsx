@@ -1,29 +1,12 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { ReactNode } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
+import "./globals.css";
 
-/**
- * Metadata for the application.
- */
-export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Personal portfolio and project showcase",
-};
-
-/**
- * Props for Root Layout component.
- *
- * @property children - Child components to render
- */
-interface RootLayoutProps {
-  children: React.ReactNode;
+interface LocaleLayoutProps {
+  children: ReactNode;
 }
 
-/**
- * Root layout component for the application.
- * Provides theme support and global styles.
- */
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+export default async function LocaleLayout({ children }: LocaleLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
@@ -33,7 +16,9 @@ export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">{children}</main>
+          </div>
         </ThemeProvider>
       </body>
     </html>
