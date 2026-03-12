@@ -3,9 +3,6 @@
 import {
   ExternalLinkIcon,
   FileTextIcon,
-  GithubIcon,
-  GlobeIcon,
-  LinkedinIcon,
   MapPinIcon,
   MessageCircleIcon,
 } from "lucide-react";
@@ -20,21 +17,6 @@ interface HeroSectionProps {
   cvUrl?: string;
 }
 
-function getContactIcon(type: string) {
-  switch (type) {
-    case "github":
-      return GithubIcon;
-    case "linkedin":
-      return LinkedinIcon;
-    case "website":
-      return GlobeIcon;
-    case "location":
-      return MapPinIcon;
-    default:
-      return GlobeIcon;
-  }
-}
-
 export function HeroSection({
   personal,
   contact,
@@ -45,7 +27,7 @@ export function HeroSection({
   const [contactOpen, setContactOpen] = useState(false);
 
   return (
-    <>
+    <section>
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background">
         {/* Soft glow */}
         <div
@@ -132,36 +114,34 @@ export function HeroSection({
             </button>
           </div>
 
-          {/* Social links */}
-          {contact.length > 0 && (
-            <div className="flex items-center gap-2 flex-wrap justify-center mt-1">
-              {contact.map((item) => {
-                const Icon = getContactIcon(item.type);
-                if (!item.href) {
-                  return (
+          {/* Location contacts */}
+          {contact.some(c => c.type === "location") && (
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-1">
+              {contact
+                .filter(c => c.type === "location")
+                .map((item, index) =>
+                  item.href ? (
+                    <a
+                      key={index}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary/40 hover:text-foreground transition-colors"
+                    >
+                      <MapPinIcon className="h-3 w-3" />
+                      {item.label}
+                      <ExternalLinkIcon className="h-2.5 w-2.5 opacity-40" />
+                    </a>
+                  ) : (
                     <span
-                      key={item.type}
+                      key={index}
                       className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card"
                     >
-                      <Icon className="h-3 w-3" />
+                      <MapPinIcon className="h-3 w-3" />
                       {item.label}
                     </span>
-                  );
-                }
-                return (
-                  <a
-                    key={item.type}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary/40 hover:text-foreground transition-colors"
-                  >
-                    <Icon className="h-3 w-3" />
-                    {item.label}
-                    <ExternalLinkIcon className="h-2.5 w-2.5 opacity-40" />
-                  </a>
-                );
-              })}
+                  )
+                )}
             </div>
           )}
         </div>
@@ -187,6 +167,6 @@ export function HeroSection({
         onClose={() => setContactOpen(false)}
         contact={contact}
       />
-    </>
+    </section>
   );
 }

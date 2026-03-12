@@ -10,6 +10,13 @@ import {
 import { useState } from "react";
 import type { Recommendation } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "../card";
+import { Button } from "../button";
 
 interface RecommendationsSectionProps {
   recommendations: Recommendation[];
@@ -31,13 +38,14 @@ function RecommendationDialog({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/40 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative z-10 w-full max-w-lg rounded-2xl border border-border bg-card shadow-2xl max-h-[90vh] overflow-y-auto animate-in zoom-in-95 fade-in duration-200">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-border">
+
+      <Card className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto animate-in zoom-in-95 fade-in duration-200">
+        <CardHeader className="flex items-center justify-between border-b border-border p-6">
           <div className="flex items-center gap-3">
             {rec.author.photo ? (
               <img
@@ -59,21 +67,24 @@ function RecommendationDialog({
               </p>
             </div>
           </div>
-          <button
+
+          <Button
+            variant="ghost"
+            size="icon-xs"
             onClick={onClose}
-            className="h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:bg-accent transition-colors"
+            className="h-8 w-8"
           >
             <XIcon className="h-4 w-4" />
-          </button>
-        </div>
+          </Button>
+        </CardHeader>
 
-        <div className="p-6 space-y-5">
+        <CardContent className="space-y-5 p-6">
           {/* Context */}
           {rec.context?.[lang] && (
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 {lang === "fr" ? "Contexte" : "Context"}
-              </h4>
+              </p>
               <p className="text-sm text-foreground/80 leading-relaxed">
                 {rec.context[lang]}
               </p>
@@ -81,11 +92,11 @@ function RecommendationDialog({
           )}
 
           {/* Strengths */}
-          {rec.strengths && rec.strengths.length > 0 && (
+          {rec.strengths?.length > 0 && (
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                 {lang === "fr" ? "Points forts" : "Key Strengths"}
-              </h4>
+              </p>
               <div className="space-y-3">
                 {rec.strengths.map((s, i) => (
                   <div key={i} className="flex gap-3">
@@ -109,33 +120,33 @@ function RecommendationDialog({
           {/* Collaboration */}
           {rec.collaboration?.[lang] && (
             <div>
-              <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
                 {lang === "fr" ? "Collaboration" : "Collaboration"}
-              </h4>
+              </p>
               <p className="text-sm text-foreground/80 leading-relaxed italic">
                 "{rec.collaboration[lang]}"
               </p>
             </div>
           )}
 
-          {/* LinkedIn button */}
+          {/* LinkedIn */}
           {rec.author.linkedinUrl && (
-            <a
-              href={rec.author.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-90 w-full justify-center"
+            <Button
+              asChild
+              className="w-full justify-center mt-2"
               style={{ background: "#0A66C2", color: "#fff" }}
             >
-              <LinkedinIcon className="h-4 w-4" />
-              {lang === "fr"
-                ? "Voir le profil LinkedIn"
-                : "View LinkedIn profile"}
-              <ExternalLinkIcon className="h-3.5 w-3.5" />
-            </a>
+              <a href={rec.author.linkedinUrl} target="_blank" rel="noopener noreferrer">
+                <LinkedinIcon className="h-4 w-4 mr-2 inline-block" />
+                {lang === "fr"
+                  ? "Voir le profil LinkedIn"
+                  : "View LinkedIn profile"}
+                <ExternalLinkIcon className="h-3.5 w-3.5 ml-2 inline-block" />
+              </a>
+            </Button>
           )}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
@@ -152,17 +163,14 @@ function RecommendationCard({
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5 flex flex-col gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
-      {/* Quote icon */}
+    <Card className="p-5 flex flex-col gap-4 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
       <QuoteIcon className="h-6 w-6 text-primary/30" />
 
-      {/* Excerpt */}
       <p className="text-sm text-foreground/80 leading-relaxed flex-1 italic">
         "{rec.excerpt[lang]}"
       </p>
 
-      {/* Author */}
-      <div className="flex items-center justify-between gap-3">
+      <CardFooter className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           {rec.author.photo ? (
             <img
@@ -184,14 +192,17 @@ function RecommendationCard({
             </p>
           </div>
         </div>
-        <button
+
+        <Button
+          variant="outline"
+          size="sm"
           onClick={onOpen}
-          className="text-xs font-medium text-primary hover:text-primary/80 transition-colors whitespace-nowrap border border-primary/20 rounded-lg px-3 py-1.5 hover:bg-primary/5"
+          className="whitespace-nowrap"
         >
           {lang === "fr" ? "Voir plus" : "Read more"}
-        </button>
-      </div>
-    </div>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
 
@@ -200,14 +211,14 @@ export function RecommendationsSection({
   locale,
 }: RecommendationsSectionProps) {
   if (!recommendations?.length) return null;
-  const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
+
   const [open, setOpen] = useState<Recommendation | null>(null);
 
   return (
     <>
       <section className="space-y-8">
         <SectionHeading
-          title={lang === "fr" ? "Recommandations" : "Recommendations"}
+          title={locale.split("-")[0] === "fr" ? "Recommandations" : "Recommendations"}
         />
         <div className="grid gap-4 sm:grid-cols-2">
           {recommendations.map((rec) => (
