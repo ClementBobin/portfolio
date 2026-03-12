@@ -1,6 +1,11 @@
 import {
-  LayersIcon, SearchIcon, ZapIcon, ShieldCheckIcon, UsersIcon, CodeIcon,
+  CodeIcon,
+  LayersIcon,
+  SearchIcon,
+  ShieldCheckIcon,
   StarIcon,
+  UsersIcon,
+  ZapIcon,
 } from "lucide-react";
 import type { ValueCard } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
@@ -43,20 +48,28 @@ export function WhatIBringSection({ cards, locale }: WhatIBringSectionProps) {
             >
               <div
                 className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ background: `color-mix(in srgb, ${color} 15%, transparent)` }}
+                style={{
+                  background: `color-mix(in srgb, ${color} 15%, transparent)`,
+                }}
               >
                 <Icon className="h-5 w-5" style={{ color }} />
               </div>
-              <h3 className="font-semibold text-sm text-foreground">{card.title[lang]}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{card.description[lang]}</p>
+              <h3 className="font-semibold text-sm text-foreground">
+                {card.title[lang]}
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {card.description[lang]}
+              </p>
             </div>
           );
         })}
       </div>
 
       {/* Closing quote */}
-      <blockquote className="text-center text-base italic text-muted-foreground max-w-xl mx-auto px-6 py-5 rounded-2xl border border-border bg-card"
-        style={{ fontFamily: "Georgia, serif" }}>
+      <blockquote
+        className="text-center text-base italic text-muted-foreground max-w-xl mx-auto px-6 py-5 rounded-2xl border border-border bg-card"
+        style={{ fontFamily: "Georgia, serif" }}
+      >
         {lang === "fr"
           ? "« Je ne livre pas du code — je livre des solutions qui durent. »"
           : '"I don\'t ship code — I ship solutions that last."'}

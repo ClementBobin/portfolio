@@ -8,7 +8,8 @@ const MIRAGE_API_URL = process.env.NEXT_PUBLIC_MIRAGE_API_URL;
 const FALLBACK_LOCALES = ["fr", "en"];
 const FALLBACK_DEFAULT_LOCALE = "fr";
 
-let cachedLocaleConfig: { locales: string[]; defaultLocale: string } | null = null;
+let cachedLocaleConfig: { locales: string[]; defaultLocale: string } | null =
+  null;
 
 /** Fetch available locales from Mirage API, fallback to hardcoded */
 async function getLocaleConfig(): Promise<{
@@ -28,7 +29,10 @@ async function getLocaleConfig(): Promise<{
     };
     return cachedLocaleConfig;
   } catch {
-    return { locales: FALLBACK_LOCALES, defaultLocale: FALLBACK_DEFAULT_LOCALE };
+    return {
+      locales: FALLBACK_LOCALES,
+      defaultLocale: FALLBACK_DEFAULT_LOCALE,
+    };
   }
 }
 
@@ -46,7 +50,9 @@ function getLocale(
   const acceptLanguage: string =
     request.headers.get("accept-language") || `${defaultLocale};q=0.5`;
 
-  const negotiator = new Negotiator({ headers: { "accept-language": acceptLanguage } });
+  const negotiator = new Negotiator({
+    headers: { "accept-language": acceptLanguage },
+  });
   const languages = negotiator.languages();
 
   const matched = match(languages, locales, defaultLocale);
@@ -54,9 +60,10 @@ function getLocale(
 }
 
 /** Proxy middleware for locale-based routing */
-export async function proxy(
-  request: { headers: { get(name: string): string | null }; nextUrl: NextUrlLike },
-): Promise<NextResponse | undefined> {
+export async function proxy(request: {
+  headers: { get(name: string): string | null };
+  nextUrl: NextUrlLike;
+}): Promise<NextResponse | undefined> {
   const { pathname } = request.nextUrl;
 
   // Skip internal paths, API, favicon, or special files

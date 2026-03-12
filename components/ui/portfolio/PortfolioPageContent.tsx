@@ -1,15 +1,14 @@
 import type { PortfolioData } from "@/lib/types/portfolio-api";
-
+import { ExperienceSection } from "./ExperienceSection";
 // Sections
 import { HeroSection } from "./HeroSection";
 import { HighlightsSection } from "./HighlightsSection";
-import { StrengthSection } from "./StrengthSection";
-import { WhatIBringSection } from "./WhatIBringSection";
-import { ExperienceSection } from "./ExperienceSection";
 import { PassionSection } from "./PassionSection";
 import { ProjectsSection } from "./ProjectsSection";
-import { VisionSectionComponent } from "./VisionSection";
 import { RecommendationsSection } from "./RecommendationsSection";
+import { StrengthSection } from "./StrengthSection";
+import { VisionSectionComponent } from "./VisionSection";
+import { WhatIBringSection } from "./WhatIBringSection";
 
 // If SkillsSection & EducationSection already exist in your project:
 // import { SkillsSection } from "./SkillsSection";
@@ -21,7 +20,13 @@ interface PortfolioPageContentProps {
   cvUrl: string;
 }
 
-function SectionWrapper({ children, id }: { children: React.ReactNode; id?: string }) {
+function SectionWrapper({
+  children,
+  id,
+}: {
+  children: React.ReactNode;
+  id?: string;
+}) {
   return (
     <section
       id={id}
@@ -45,7 +50,11 @@ function Divider() {
   );
 }
 
-export function PortfolioPageContent({ data, locale, cvUrl }: PortfolioPageContentProps) {
+export function PortfolioPageContent({
+  data,
+  locale,
+  cvUrl,
+}: PortfolioPageContentProps) {
   const {
     personal,
     contact,
@@ -61,10 +70,20 @@ export function PortfolioPageContent({ data, locale, cvUrl }: PortfolioPageConte
   } = data;
 
   return (
-    <div style={{ background: "var(--background)", color: "var(--foreground)", minHeight: "100vh" }}>
-
+    <div
+      style={{
+        background: "var(--background)",
+        color: "var(--foreground)",
+        minHeight: "100vh",
+      }}
+    >
       {/* Hero — full-width, no wrapper */}
-      <HeroSection personal={personal} contact={contact} locale={locale} cvUrl={cvUrl} />
+      <HeroSection
+        personal={personal}
+        contact={contact}
+        locale={locale}
+        cvUrl={cvUrl}
+      />
 
       {/* Highlights stats strip */}
       {highlights?.length ? (
@@ -100,7 +119,11 @@ export function PortfolioPageContent({ data, locale, cvUrl }: PortfolioPageConte
       {experiences?.length ? (
         <>
           <SectionWrapper id="experience">
-            <ExperienceSection experiences={experiences} locale={locale} cvUrl={cvUrl} />
+            <ExperienceSection
+              experiences={experiences}
+              locale={locale}
+              cvUrl={cvUrl}
+            />
           </SectionWrapper>
           <Divider />
         </>
@@ -158,11 +181,12 @@ export function PortfolioPageContent({ data, locale, cvUrl }: PortfolioPageConte
 
       {/* Recommendations */}
       {recommendations?.length ? (
-        <>
-          <SectionWrapper id="recommendations">
-            <RecommendationsSection recommendations={recommendations} locale={locale} />
-          </SectionWrapper>
-        </>
+        <SectionWrapper id="recommendations">
+          <RecommendationsSection
+            recommendations={recommendations}
+            locale={locale}
+          />
+        </SectionWrapper>
       ) : null}
 
       {/* Footer spacer */}

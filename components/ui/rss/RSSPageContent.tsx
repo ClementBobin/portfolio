@@ -1,6 +1,6 @@
 import { RssIcon, SparklesIcon } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import RSSFeed from "@/components/ui/rss/rss-feed";
+import { Separator } from "@/components/ui/separator";
 import { getTranslations } from "@/lib/i18n";
 
 export interface RSSPageProps {

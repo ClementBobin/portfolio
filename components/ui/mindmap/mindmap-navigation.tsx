@@ -4,11 +4,11 @@ import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { GraphData, NodeObject } from "react-force-graph-2d";
-import type {
-  NodeNavigationItem,
-  NodeNavigation,
-} from "@/lib/types/navigation";
 import type { LocalizedString } from "@/lib/types/global";
+import type {
+  NodeNavigation,
+  NodeNavigationItem,
+} from "@/lib/types/navigation";
 
 // Dynamically import ForceGraph2D to avoid SSR issues
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
@@ -75,24 +75,24 @@ const LOCAL_NODES: NodeNavigationItem[] = [
 // Helper function to get localized string
 function getLocalizedString(
   localizedStr: LocalizedString,
-  locale: string
+  locale: string,
 ): string {
   // Try exact locale match (e.g., "en-US")
   if (localizedStr[locale]) {
     return localizedStr[locale];
   }
-  
+
   // Try language code only (e.g., "en" from "en-US")
   const langCode = locale.split("-")[0];
   if (localizedStr[langCode]) {
     return localizedStr[langCode];
   }
-  
+
   // Fallback to English
   if (localizedStr.en) {
     return localizedStr.en;
   }
-  
+
   // Return first available value
   const values = Object.values(localizedStr);
   return (values[0] as string) || "";
@@ -101,7 +101,7 @@ function getLocalizedString(
 // Helper function to convert localized nodes to navigation nodes
 function convertToNavigationNodes(
   apiNodes: NodeNavigationItem[],
-  locale: string
+  locale: string,
 ): NavigationNode[] {
   return apiNodes.map((node) => ({
     id: node.id,
@@ -115,13 +115,13 @@ function convertToNavigationNodes(
 // Helper function to generate links between nodes
 function generateLinks(
   localNodes: NavigationNode[],
-  externalNodes: NavigationNode[]
+  externalNodes: NavigationNode[],
 ): NavigationLink[] {
   const links: NavigationLink[] = [];
   const mainNode = localNodes.find((node) => node.id === "/");
-  
+
   if (!mainNode) return links;
-  
+
   // Link all local nodes to each other
   for (const node of localNodes) {
     if (node.id !== "/") {
@@ -129,7 +129,7 @@ function generateLinks(
       links.push({ source: node.id, target: "/" });
       // Link home to node
       links.push({ source: "/", target: node.id });
-      
+
       // Link to other local nodes
       for (const otherNode of localNodes) {
         if (otherNode.id !== "/" && otherNode.id !== node.id) {
@@ -138,13 +138,13 @@ function generateLinks(
       }
     }
   }
-  
+
   // Link main node to all external nodes
   for (const extNode of externalNodes) {
     links.push({ source: "/", target: extNode.id });
     links.push({ source: extNode.id, target: "/" });
   }
-  
+
   return links;
 }
 
@@ -184,7 +184,9 @@ export function MindmapNavigation() {
         const remoteUrl = `${apiUrl}/config/navigation`;
         const response = await fetch(remoteUrl);
         if (!response.ok) {
-          throw new Error(`Failed to fetch navigation data: ${response.status} ${response.statusText}`);
+          throw new Error(
+            `Failed to fetch navigation data: ${response.status} ${response.statusText}`,
+          );
         }
         const apiData: NodeNavigation = await response.json();
 
@@ -210,7 +212,10 @@ export function MindmapNavigation() {
         const allNodes = [...localNodesConverted, ...externalNodesConverted];
 
         // Generate links
-        const links = generateLinks(localNodesConverted, externalNodesConverted);
+        const links = generateLinks(
+          localNodesConverted,
+          externalNodesConverted,
+        );
 
         setGraphData({
           nodes: allNodes,
@@ -242,7 +247,7 @@ export function MindmapNavigation() {
         });
       }
     };
-    
+
     loadGraphData();
   }, [pathname]);
 
@@ -255,7 +260,7 @@ export function MindmapNavigation() {
           fgRef.current.zoomToFit(600, 80);
         }
       }, 1000);
-      
+
       return () => clearTimeout(timer);
     }
   }, [graphData]);
@@ -267,7 +272,7 @@ export function MindmapNavigation() {
         const { width, height } = containerRef.current.getBoundingClientRect();
         setDimensions({
           width: width || 800,
-          height: height || Math.min(500, Math.max(300, width * 0.5))
+          height: height || Math.min(500, Math.max(300, width * 0.5)),
         });
       }
     };

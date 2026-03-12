@@ -1,8 +1,16 @@
 "use client";
 
+import {
+  ExternalLinkIcon,
+  FileTextIcon,
+  GithubIcon,
+  GlobeIcon,
+  LinkedinIcon,
+  MapPinIcon,
+  MessageCircleIcon,
+} from "lucide-react";
 import { useState } from "react";
-import { FileTextIcon, MessageCircleIcon, MapPinIcon, GithubIcon, LinkedinIcon, GlobeIcon, ExternalLinkIcon } from "lucide-react";
-import type { PortfolioPersonal, ContactItem } from "@/lib/types/portfolio-api";
+import type { ContactItem, PortfolioPersonal } from "@/lib/types/portfolio-api";
 import { ContactDialog } from "./ContactDialog";
 
 interface HeroSectionProps {
@@ -14,15 +22,25 @@ interface HeroSectionProps {
 
 function getContactIcon(type: string) {
   switch (type) {
-    case "github": return GithubIcon;
-    case "linkedin": return LinkedinIcon;
-    case "website": return GlobeIcon;
-    case "location": return MapPinIcon;
-    default: return GlobeIcon;
+    case "github":
+      return GithubIcon;
+    case "linkedin":
+      return LinkedinIcon;
+    case "website":
+      return GlobeIcon;
+    case "location":
+      return MapPinIcon;
+    default:
+      return GlobeIcon;
   }
 }
 
-export function HeroSection({ personal, contact, locale, cvUrl = "https://clementbobin.github.io/cv/view" }: HeroSectionProps) {
+export function HeroSection({
+  personal,
+  contact,
+  locale,
+  cvUrl = "https://clementbobin.github.io/cv/view",
+}: HeroSectionProps) {
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
   const [contactOpen, setContactOpen] = useState(false);
 
@@ -30,34 +48,54 @@ export function HeroSection({ personal, contact, locale, cvUrl = "https://clemen
     <>
       <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background">
         {/* Soft glow */}
-        <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.06]"
-          style={{ background: "radial-gradient(circle, var(--primary) 0%, transparent 70%)" }} />
+        <div
+          className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.06]"
+          style={{
+            background:
+              "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
+          }}
+        />
 
         <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-2xl mx-auto gap-5">
           {/* Eyebrow */}
-          <p className="text-base md:text-lg tracking-wide text-muted-foreground" style={{ fontFamily: "Georgia, serif" }}>
+          <p
+            className="text-base md:text-lg tracking-wide text-muted-foreground"
+            style={{ fontFamily: "Georgia, serif" }}
+          >
             {lang === "fr" ? "Salut, je suis" : "Hi, I'm"}
           </p>
 
           {/* Name */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-none tracking-tight"
-            style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}>
+          <h1
+            className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground leading-none tracking-tight"
+            style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+          >
             {personal.name}
           </h1>
 
           {/* Years of experience */}
           {personal.yearsExperience != null && (
             <p className="text-sm text-muted-foreground tracking-widest">
-              {personal.yearsExperience}{lang === "fr" ? " ans d'expérience" : " years of experience"}
+              {personal.yearsExperience}
+              {lang === "fr" ? " ans d'expérience" : " years of experience"}
             </p>
           )}
 
           {/* Role */}
           {personal.role?.[lang] && (
-            <p className="text-xl md:text-2xl text-foreground/80 font-light" style={{ fontFamily: "Georgia, serif" }}>
+            <p
+              className="text-xl md:text-2xl text-foreground/80 font-light"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
               {lang === "fr" ? "Développeur " : "Developer — "}
-              <span className="italic font-semibold" style={{ color: "var(--primary)" }}>
-                {personal.role[lang].replace(/^(développeur|developer)\s*—?\s*/i, "")}
+              <span
+                className="italic font-semibold"
+                style={{ color: "var(--primary)" }}
+              >
+                {personal.role[lang].replace(
+                  /^(développeur|developer)\s*—?\s*/i,
+                  "",
+                )}
               </span>
             </p>
           )}
@@ -77,7 +115,10 @@ export function HeroSection({ personal, contact, locale, cvUrl = "https://clemen
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold text-sm transition-all hover:opacity-90 hover:shadow-lg active:scale-95"
-              style={{ background: "var(--primary)", color: "var(--primary-foreground)" }}
+              style={{
+                background: "var(--primary)",
+                color: "var(--primary-foreground)",
+              }}
             >
               <FileTextIcon className="h-4 w-4" />
               {lang === "fr" ? "Voir mon CV" : "View Resume"}
@@ -98,15 +139,25 @@ export function HeroSection({ personal, contact, locale, cvUrl = "https://clemen
                 const Icon = getContactIcon(item.type);
                 if (!item.href) {
                   return (
-                    <span key={item.type} className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card">
-                      <Icon className="h-3 w-3" />{item.label}
+                    <span
+                      key={item.type}
+                      className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card"
+                    >
+                      <Icon className="h-3 w-3" />
+                      {item.label}
                     </span>
                   );
                 }
                 return (
-                  <a key={item.type} href={item.href} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary/40 hover:text-foreground transition-colors">
-                    <Icon className="h-3 w-3" />{item.label}
+                  <a
+                    key={item.type}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-muted-foreground px-3 py-1.5 rounded-full border border-border bg-card hover:border-primary/40 hover:text-foreground transition-colors"
+                  >
+                    <Icon className="h-3 w-3" />
+                    {item.label}
                     <ExternalLinkIcon className="h-2.5 w-2.5 opacity-40" />
                   </a>
                 );
@@ -118,13 +169,24 @@ export function HeroSection({ personal, contact, locale, cvUrl = "https://clemen
         {/* Scroll hint */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-30">
           <div className="w-px h-8 bg-foreground" />
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg
+            width="10"
+            height="6"
+            viewBox="0 0 10 6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
             <path d="M1 1l4 4 4-4" />
           </svg>
         </div>
       </section>
 
-      <ContactDialog open={contactOpen} onClose={() => setContactOpen(false)} contact={contact} />
+      <ContactDialog
+        open={contactOpen}
+        onClose={() => setContactOpen(false)}
+        contact={contact}
+      />
     </>
   );
 }

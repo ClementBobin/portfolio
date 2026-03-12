@@ -1,5 +1,10 @@
+import {
+  BriefcaseIcon,
+  FolderOpenIcon,
+  LayersIcon,
+  SparklesIcon,
+} from "lucide-react";
 import type { Highlight } from "@/lib/types/portfolio-api";
-import { BriefcaseIcon, FolderOpenIcon, LayersIcon, SparklesIcon } from "lucide-react";
 
 interface HighlightsSectionProps {
   highlights: Highlight[];
@@ -8,14 +13,21 @@ interface HighlightsSectionProps {
 
 function getIcon(name?: string) {
   switch (name) {
-    case "Briefcase": return BriefcaseIcon;
-    case "FolderOpen": return FolderOpenIcon;
-    case "Layers": return LayersIcon;
-    default: return SparklesIcon;
+    case "Briefcase":
+      return BriefcaseIcon;
+    case "FolderOpen":
+      return FolderOpenIcon;
+    case "Layers":
+      return LayersIcon;
+    default:
+      return SparklesIcon;
   }
 }
 
-export function HighlightsSection({ highlights, locale }: HighlightsSectionProps) {
+export function HighlightsSection({
+  highlights,
+  locale,
+}: HighlightsSectionProps) {
   if (!highlights?.length) return null;
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
@@ -32,14 +44,19 @@ export function HighlightsSection({ highlights, locale }: HighlightsSectionProps
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-1">
                 <Icon className="h-5 w-5 text-primary" />
               </div>
-              <span className="text-3xl font-black text-foreground" style={{ fontFamily: "Georgia, serif" }}>
+              <span
+                className="text-3xl font-black text-foreground"
+                style={{ fontFamily: "Georgia, serif" }}
+              >
                 {h.value}
               </span>
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 {h.label[lang]}
               </span>
               {h.description?.[lang] && (
-                <span className="text-xs text-muted-foreground/70">{h.description[lang]}</span>
+                <span className="text-xs text-muted-foreground/70">
+                  {h.description[lang]}
+                </span>
               )}
             </div>
           );

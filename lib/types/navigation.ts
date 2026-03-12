@@ -1,4 +1,4 @@
-import { LocalizedString } from "./global";
+import type { LocalizedString } from "./global";
 
 /**
  * Represents a single navigation item

@@ -32,7 +32,14 @@ export interface PortfolioPersonal {
 
 // ─── Contact ────────────────────────────────────────────────────────────────
 
-export type ContactType = "website" | "github" | "linkedin" | "email" | "location" | "twitter" | string;
+export type ContactType =
+  | "website"
+  | "github"
+  | "linkedin"
+  | "email"
+  | "location"
+  | "twitter"
+  | string;
 
 export interface ContactItem {
   type: ContactType;

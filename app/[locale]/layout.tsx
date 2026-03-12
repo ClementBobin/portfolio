@@ -1,13 +1,16 @@
 import type { ReactNode } from "react";
 import { Navbar } from "@/components/ui/navbar";
-import { getTranslations, fetchLangConfig } from "@/lib/i18n";
+import { fetchLangConfig, getTranslations } from "@/lib/i18n";
 
 interface LocaleLayoutProps {
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }
 
-export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleLayoutProps) {
   const { locale } = await params;
   const t = await getTranslations(locale, ["common"]);
   const langConfig = await fetchLangConfig();

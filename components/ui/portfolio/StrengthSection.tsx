@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { ExternalLinkIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import type { StrengthItem } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
 
@@ -19,8 +19,13 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setAnimated(true); observer.disconnect(); } },
-      { threshold: 0.3 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnimated(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 },
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -32,7 +37,11 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
     <section ref={ref} className="space-y-8">
       <SectionHeading
         title={lang === "fr" ? "Forces" : "Strengths"}
-        subtitle={lang === "fr" ? "Compétences évaluées de 0 à 100%" : "Core skills rated from 0 to 100%"}
+        subtitle={
+          lang === "fr"
+            ? "Compétences évaluées de 0 à 100%"
+            : "Core skills rated from 0 to 100%"
+        }
       />
 
       <div className="overflow-x-auto pb-4">
@@ -68,8 +77,10 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
                   {/* Node circle */}
                   <div className="relative z-10 flex flex-col items-center gap-1">
                     {isHov && (
-                      <div className="absolute w-14 h-14 rounded-full animate-ping opacity-20"
-                        style={{ background: s.color }} />
+                      <div
+                        className="absolute w-14 h-14 rounded-full animate-ping opacity-20"
+                        style={{ background: s.color }}
+                      />
                     )}
                     <div
                       className="relative z-10 w-12 h-12 rounded-full border-2 flex items-center justify-center text-xs font-bold shadow-sm transition-transform duration-200"
@@ -88,8 +99,10 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
                   </div>
 
                   {/* Label */}
-                  <span className="text-xs font-semibold text-center leading-tight transition-colors"
-                    style={{ color: isHov ? s.color : "var(--foreground)" }}>
+                  <span
+                    className="text-xs font-semibold text-center leading-tight transition-colors"
+                    style={{ color: isHov ? s.color : "var(--foreground)" }}
+                  >
                     {s.label[lang]}
                   </span>
 
@@ -117,20 +130,40 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
             {strengths.map((s) => {
               if (hovered !== s.id) return null;
               return (
-                <div key={s.id} className="rounded-xl border border-border bg-card p-4 flex items-start justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-150">
+                <div
+                  key={s.id}
+                  className="rounded-xl border border-border bg-card p-4 flex items-start justify-between gap-4 animate-in fade-in slide-in-from-bottom-2 duration-150"
+                >
                   <div className="space-y-1 flex-1">
-                    <h3 className="text-sm font-semibold" style={{ color: s.color }}>{s.label[lang]}</h3>
-                    <p className="text-sm text-muted-foreground">{s.description[lang]}</p>
+                    <h3
+                      className="text-sm font-semibold"
+                      style={{ color: s.color }}
+                    >
+                      {s.label[lang]}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {s.description[lang]}
+                    </p>
                     {s.example && (
-                      <a href={s.example.href} target="_blank" rel="noopener noreferrer"
+                      <a
+                        href={s.example.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 text-xs font-medium mt-1 px-2.5 py-1 rounded-lg"
-                        style={{ background: `color-mix(in srgb, ${s.color} 15%, transparent)`, color: s.color }}>
+                        style={{
+                          background: `color-mix(in srgb, ${s.color} 15%, transparent)`,
+                          color: s.color,
+                        }}
+                      >
                         <ExternalLinkIcon className="h-3 w-3" />
                         {s.example.label[lang]}
                       </a>
                     )}
                   </div>
-                  <div className="text-4xl font-black opacity-20 shrink-0" style={{ color: s.color }}>
+                  <div
+                    className="text-4xl font-black opacity-20 shrink-0"
+                    style={{ color: s.color }}
+                  >
                     {s.level}%
                   </div>
                 </div>
@@ -138,7 +171,9 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
             })}
             {!hovered && (
               <p className="text-center text-xs text-muted-foreground/50 py-4">
-                {lang === "fr" ? "Survolez un nœud pour les détails" : "Hover a node for details"}
+                {lang === "fr"
+                  ? "Survolez un nœud pour les détails"
+                  : "Hover a node for details"}
               </p>
             )}
           </div>

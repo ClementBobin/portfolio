@@ -1,5 +1,8 @@
 import { Suspense } from "react";
-import { RSSPageContent, type RSSPageProps } from "@/components/ui/rss/RSSPageContent";
+import {
+  RSSPageContent,
+  type RSSPageProps,
+} from "@/components/ui/rss/RSSPageContent";
 import { RSSPageFallback } from "@/components/ui/rss/RSSPageFallback";
 
 /**

@@ -1,7 +1,7 @@
 "use client";
 
+import { NetworkIcon, XIcon } from "lucide-react";
 import { useEffect } from "react";
-import { XIcon, NetworkIcon } from "lucide-react";
 import { Presence } from "@/components/presence";
 import { cn } from "@/lib/utils";
 import { MindmapNavigation } from "./mindmap-navigation";

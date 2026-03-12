@@ -47,7 +47,7 @@ const createTFunction = (
         }
         if (typeof value === "object" && value !== null) {
           const map = value as Record<string, string>;
-          return map[lang] ?? map["en"] ?? key;
+          return map[lang] ?? map.en ?? key;
         }
       }
     }

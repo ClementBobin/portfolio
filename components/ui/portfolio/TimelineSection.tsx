@@ -1,18 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import {
-  ChevronDownIcon,
-  ExternalLinkIcon,
   BriefcaseIcon,
   CalendarIcon,
+  ChevronDownIcon,
   CodeIcon,
+  ExternalLinkIcon,
   GraduationCapIcon,
   HeartIcon,
 } from "lucide-react";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import type { Education, Experience } from "@/lib/types/portfolio-api";
 import { cn } from "@/lib/utils";
-import type { Experience, Education } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
 
 interface TimelineSectionProps {
@@ -28,14 +28,24 @@ type TimelineItem =
 function parseYear(period: string): number {
   // Extract first year from period strings like "Sep 2025 - Présent" or "2025 - 2026"
   const match = period.match(/\d{4}/);
-  return match ? parseInt(match[0]) : 0;
+  return match ? parseInt(match[0], 10) : 0;
 }
 
-function ExperienceCard({ exp, locale, isLast }: { exp: Experience; locale: string; isLast: boolean }) {
+function ExperienceCard({
+  exp,
+  locale,
+  isLast,
+}: {
+  exp: Experience;
+  locale: string;
+  isLast: boolean;
+}) {
   const [expanded, setExpanded] = useState(false);
   const lang = locale.split("-")[0] as "en" | "fr";
   const hasDetails = exp.details && (exp.details.tasks || exp.details.context);
-  const techList = exp.techs.map((t) => (typeof t === "string" ? t : t.name)).filter(Boolean);
+  const techList = exp.techs
+    .map((t) => (typeof t === "string" ? t : t.name))
+    .filter(Boolean);
 
   const iconMap: Record<string, typeof BriefcaseIcon> = {
     work: BriefcaseIcon,
@@ -58,7 +68,14 @@ function ExperienceCard({ exp, locale, isLast }: { exp: Experience; locale: stri
             : "border-border bg-background",
         )}
       >
-        <Icon className={cn("h-2 w-2", exp.isHighlighted ? "text-primary-foreground" : "text-muted-foreground")} />
+        <Icon
+          className={cn(
+            "h-2 w-2",
+            exp.isHighlighted
+              ? "text-primary-foreground"
+              : "text-muted-foreground",
+          )}
+        />
       </div>
 
       <div
@@ -87,12 +104,19 @@ function ExperienceCard({ exp, locale, isLast }: { exp: Experience; locale: stri
                 </span>
               )}
             </div>
-            <p className="mt-0.5 text-sm font-medium text-muted-foreground">{exp.role[lang]}</p>
+            <p className="mt-0.5 text-sm font-medium text-muted-foreground">
+              {exp.role[lang]}
+            </p>
             <div className="flex items-center gap-1.5 mt-1">
               <CalendarIcon className="h-3 w-3 text-muted-foreground/50" />
-              <span className="text-xs text-muted-foreground">{exp.period[lang]}</span>
+              <span className="text-xs text-muted-foreground">
+                {exp.period[lang]}
+              </span>
               {exp.href && (
-                <a href={exp.href} target="_blank" rel="noopener noreferrer"
+                <a
+                  href={exp.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="ml-1 text-primary/60 hover:text-primary transition-colors"
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -107,18 +131,25 @@ function ExperienceCard({ exp, locale, isLast }: { exp: Experience; locale: stri
               className="shrink-0 h-8 w-8 rounded-xl hover:bg-muted flex items-center justify-center transition-colors"
             >
               <ChevronDownIcon
-                className={cn("h-4 w-4 text-muted-foreground transition-transform duration-300", expanded && "rotate-180")}
+                className={cn(
+                  "h-4 w-4 text-muted-foreground transition-transform duration-300",
+                  expanded && "rotate-180",
+                )}
               />
             </button>
           )}
         </div>
 
-        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{exp.description[lang]}</p>
+        <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+          {exp.description[lang]}
+        </p>
 
         {techList.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1.5">
             {techList.map((tech, i) => (
-              <Badge key={i} variant="outline" className="text-xs">{tech}</Badge>
+              <Badge key={i} variant="outline" className="text-xs">
+                {tech}
+              </Badge>
             ))}
           </div>
         )}
@@ -146,7 +177,10 @@ function ExperienceCard({ exp, locale, isLast }: { exp: Experience; locale: stri
                   </div>
                   <ul className="space-y-1.5">
                     {(exp.details.tasks[lang] as string[]).map((task, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-foreground/80">
+                      <li
+                        key={i}
+                        className="flex items-start gap-2 text-sm text-foreground/80"
+                      >
                         <span className="mt-2 w-1 h-1 rounded-full bg-primary/60 shrink-0" />
                         {task}
                       </li>
@@ -167,7 +201,15 @@ function ExperienceCard({ exp, locale, isLast }: { exp: Experience; locale: stri
   );
 }
 
-function EducationCard({ edu, locale, isLast }: { edu: Education; locale: string; isLast: boolean }) {
+function EducationCard({
+  edu,
+  locale,
+  isLast,
+}: {
+  edu: Education;
+  locale: string;
+  isLast: boolean;
+}) {
   const lang = locale.split("-")[0] as "en" | "fr";
 
   return (
@@ -185,7 +227,10 @@ function EducationCard({ edu, locale, isLast }: { edu: Education; locale: string
             <div className="flex items-center gap-2">
               <span className="font-bold text-base">{edu.school[lang]}</span>
               {edu.href && (
-                <a href={edu.href} target="_blank" rel="noopener noreferrer"
+                <a
+                  href={edu.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-primary/60 hover:text-primary transition-colors"
                 >
                   <ExternalLinkIcon className="h-3 w-3" />
@@ -199,14 +244,20 @@ function EducationCard({ edu, locale, isLast }: { edu: Education; locale: string
           </span>
         </div>
         {edu.specialty && (
-          <Badge variant="secondary" className="text-xs mt-2">{edu.specialty[lang]}</Badge>
+          <Badge variant="secondary" className="text-xs mt-2">
+            {edu.specialty[lang]}
+          </Badge>
         )}
       </div>
     </div>
   );
 }
 
-export function TimelineSection({ experiences, education, locale }: TimelineSectionProps) {
+export function TimelineSection({
+  experiences,
+  education,
+  locale,
+}: TimelineSectionProps) {
   const lang = locale.split("-")[0] as "en" | "fr";
 
   // Merge all items with parsed years, sort descending
@@ -239,7 +290,9 @@ export function TimelineSection({ experiences, education, locale }: TimelineSect
     <section id="timeline" className="space-y-6">
       <SectionHeading
         title={lang === "fr" ? "Parcours" : "Journey"}
-        subtitle={lang === "fr" ? "Expériences & Formation" : "Experience & Education"}
+        subtitle={
+          lang === "fr" ? "Expériences & Formation" : "Experience & Education"
+        }
       />
 
       <div className="space-y-8">
@@ -249,7 +302,9 @@ export function TimelineSection({ experiences, education, locale }: TimelineSect
             <div className="flex items-center gap-3 mb-5">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-border" />
               <div className="flex items-center gap-1.5 bg-primary/10 border border-primary/20 rounded-full px-3 py-1">
-                <span className="text-xs font-bold text-primary tabular-nums">{year || "—"}</span>
+                <span className="text-xs font-bold text-primary tabular-nums">
+                  {year || "—"}
+                </span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent to-border" />
             </div>

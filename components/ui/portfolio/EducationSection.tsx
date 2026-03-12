@@ -1,7 +1,7 @@
 import { ExternalLinkIcon } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import type { Education } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
-import { Badge } from "@/components/ui/badge";
 
 interface EducationSectionProps {
   education: Education[];
