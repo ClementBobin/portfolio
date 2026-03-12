@@ -1,6 +1,5 @@
 // Importing necessary React components and utilities
-import React from 'react';
-import { Tilt } from 'react-tilt';
+import Tilt from "react-parallax-tilt"
 import { motion } from 'framer-motion';
 
 // Importing styles and data generation functions

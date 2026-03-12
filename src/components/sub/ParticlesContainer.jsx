@@ -1,6 +1,6 @@
-import {Particles} from 'react-tsparticles';
+import {Particles} from '@tsparticles/react';
 import {loadFull} from 'tsparticles';
-import React, {useCallback} from 'react';
+import {useCallback} from 'react';
 
 // ParticlesContainer component using react-tsparticles library
 function ParticlesContainer() {

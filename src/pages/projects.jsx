@@ -5,8 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { fadeIn, staggerContainer, textVariant } from '../utils/motion';
-import { Tilt } from "react-tilt";
-import { github, githubFallback } from "../assets";
 
 // Component to display the projects section
 function Projects() {

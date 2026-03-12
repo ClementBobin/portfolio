@@ -1,5 +1,5 @@
 // Importing necessary dependencies and assets
-import { Tilt } from "react-tilt";
+import Tilt from "react-parallax-tilt"
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
