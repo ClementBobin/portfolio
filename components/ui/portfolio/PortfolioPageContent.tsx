@@ -85,35 +85,15 @@ export function PortfolioPageContent({
         cvUrl={cvUrl}
       />
 
-      {/* Highlights stats strip */}
-      {highlights?.length ? (
-        <>
-          <SectionWrapper>
-            <HighlightsSection highlights={highlights} locale={locale} />
-          </SectionWrapper>
-          <Divider />
-        </>
-      ) : null}
-
       {/* Strengths horizontal timeline */}
-      {strengths?.length ? (
+      {/* {strengths?.length ? (
         <>
           <SectionWrapper id="strengths">
             <StrengthSection strengths={strengths} locale={locale} />
           </SectionWrapper>
-          <Divider />
         </>
-      ) : null}
+      ) : null} */}
 
-      {/* What I Bring */}
-      {valueCards?.length ? (
-        <>
-          <SectionWrapper id="values">
-            <WhatIBringSection cards={valueCards} locale={locale} />
-          </SectionWrapper>
-          <Divider />
-        </>
-      ) : null}
 
       {/* Experience Timeline */}
       {experiences?.length ? (
@@ -123,9 +103,17 @@ export function PortfolioPageContent({
               experiences={experiences}
               locale={locale}
               cvUrl={cvUrl}
-            />
+              />
           </SectionWrapper>
-          <Divider />
+        </>
+      ) : null}
+
+      {/* What I Bring */}
+      {valueCards?.length ? (
+        <>
+          <SectionWrapper id="values">
+            <WhatIBringSection cards={valueCards} locale={locale} title="Ce que j'apporte" subtitle="Voici ce que j'apporte à chaque projet." />
+          </SectionWrapper>
         </>
       ) : null}
 
@@ -135,17 +123,6 @@ export function PortfolioPageContent({
           <SectionWrapper id="skills">
             <SkillsSection skills={data.skills} locale={locale} />
           </SectionWrapper>
-          <Divider />
-        </>
-      ) : null} */}
-
-      {/* Education (existing component)
-      {education?.length ? (
-        <>
-          <SectionWrapper id="education">
-            <EducationSection education={education} locale={locale} />
-          </SectionWrapper>
-          <Divider />
         </>
       ) : null} */}
 
@@ -155,7 +132,6 @@ export function PortfolioPageContent({
           <SectionWrapper id="passions">
             <PassionSection hobbies={hobbies} locale={locale} />
           </SectionWrapper>
-          <Divider />
         </>
       ) : null}
 
@@ -165,7 +141,15 @@ export function PortfolioPageContent({
           <SectionWrapper id="projects">
             <ProjectsSection projects={projects} locale={locale} />
           </SectionWrapper>
-          <Divider />
+        </>
+      ) : null}
+
+      {/* Highlights stats strip */}
+      {highlights?.length ? (
+        <>
+          <SectionWrapper>
+            <HighlightsSection highlights={highlights} locale={locale} />
+          </SectionWrapper>
         </>
       ) : null}
 
@@ -175,7 +159,6 @@ export function PortfolioPageContent({
           <SectionWrapper id="vision">
             <VisionSectionComponent vision={vision} locale={locale} />
           </SectionWrapper>
-          <Divider />
         </>
       ) : null}
 

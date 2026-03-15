@@ -216,7 +216,7 @@ export function RecommendationsSection({
 
   return (
     <>
-      <section className="space-y-8">
+      <section className="space-y-8 min-h-screen">
         <SectionHeading
           title={locale.split("-")[0] === "fr" ? "Recommandations" : "Recommendations"}
         />

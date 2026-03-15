@@ -41,14 +41,14 @@ function ProjectCard({
 
           <div className="flex items-center gap-1 shrink-0">
 
-            {project.url && (
+            {project.href && (
               <Button
                 asChild
                 variant="ghost"
                 size="icon-xs"
               >
                 <a
-                  href={project.url}
+                  href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -57,14 +57,14 @@ function ProjectCard({
               </Button>
             )}
 
-            {project.github && (
+            {project.githubHref && (
               <Button
                 asChild
                 variant="ghost"
                 size="icon-xs"
               >
                 <a
-                  href={project.github}
+                  href={project.githubHref}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -89,16 +89,16 @@ function ProjectCard({
         </CardDescription>
 
         {/* Tech stack */}
-        {project.techs.length > 0 && (
+        {project.badge && (
           <p className="flex flex-wrap gap-1">
 
-            {project.techs.map((tech) => (
+            {project.badge.map((i) => (
               <Badge
-                key={tech.id ?? tech.name}
+                key={i[lang]}
                 variant="outline"
                 className="text-xs"
               >
-                {tech.name}
+                {i[lang]}
               </Badge>
             ))}
 
@@ -116,7 +116,7 @@ export function ProjectsSection({ projects, locale }: ProjectsSectionProps) {
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 min-h-screen">
 
       <SectionHeading
         title={lang === "fr" ? "Projets personnels" : "Personal Projects"}

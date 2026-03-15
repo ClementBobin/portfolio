@@ -11,6 +11,8 @@ import type { ValueCard } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
 
 interface WhatIBringSectionProps {
+  title: string;
+  subtitle: string;
   cards: ValueCard[];
   locale: string;
 }
@@ -32,9 +34,10 @@ export function WhatIBringSection({ cards, locale }: WhatIBringSectionProps) {
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 min-h-screen">
       <SectionHeading
         title={lang === "fr" ? "Ce que j'apporte" : "What I Bring"}
+        subtitle={lang === "fr" ? "Voici ce que j'apporte à chaque projet." : "Here's what I bring to each project."}
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -52,7 +55,7 @@ export function WhatIBringSection({ cards, locale }: WhatIBringSectionProps) {
                   background: `color-mix(in srgb, ${color} 15%, transparent)`,
                 }}
               >
-                <Icon className="h-5 w-5" style={{ color }} />
+                <Icon className="h-5 w-5" />
               </div>
               <h3 className="font-semibold text-sm text-foreground">
                 {card.title[lang]}

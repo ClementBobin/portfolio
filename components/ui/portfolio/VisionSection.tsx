@@ -26,7 +26,7 @@ export function VisionSectionComponent({
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 min-h-screen">
       <SectionHeading
         title={
           vision.headline?.[lang] ?? (lang === "fr" ? "Ma vision" : "My Vision")

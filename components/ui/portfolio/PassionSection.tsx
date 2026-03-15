@@ -39,7 +39,7 @@ export function PassionSection({ hobbies, locale }: PassionSectionProps) {
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
   return (
-    <section className="space-y-8">
+    <section className="space-y-8 min-h-screen">
       <SectionHeading title={lang === "fr" ? "Mes passions" : "My Passions"} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

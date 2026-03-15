@@ -126,7 +126,7 @@ export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
   const hoveredStrength = strengths.find((s) => s.id === hovered) ?? null;
 
   return (
-    <section ref={sectionRef} className="space-y-8">
+    <section ref={sectionRef} className="space-y-8 min-h-screen">
       <SectionHeading
         title={lang === "fr" ? "Forces" : "Strengths"}
         subtitle={lang === "fr" ? "Compétences évaluées de 0 à 100%" : "Core skills rated from 0 to 100%"}

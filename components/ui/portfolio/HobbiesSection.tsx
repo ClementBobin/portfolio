@@ -33,7 +33,7 @@ export function HobbiesSection({ hobbies, locale }: HobbiesSectionProps) {
   const lang = locale.split("-")[0] as "en" | "fr";
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 min-h-screen">
       <SectionHeading title={lang === "fr" ? "Centres d'intérêt" : "Hobbies"} />
 
       <div className="grid gap-4 sm:grid-cols-2">

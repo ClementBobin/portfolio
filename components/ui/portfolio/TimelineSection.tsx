@@ -287,7 +287,7 @@ export function TimelineSection({
     .sort((a, b) => b - a);
 
   return (
-    <section id="timeline" className="space-y-6">
+    <section id="timeline" className="space-y-6 min-h-screen">
       <SectionHeading
         title={lang === "fr" ? "Parcours" : "Journey"}
         subtitle={

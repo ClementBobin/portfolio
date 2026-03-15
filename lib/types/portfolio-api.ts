@@ -23,7 +23,10 @@ export interface PortfolioPersonal {
   status?: LocalizedString;
   photo: string;
   photoBackEmoji?: string;
-  subtitle: LocalizedString;
+  subtitle: {
+    libelle: LocalizedString;
+    href?: string;
+  };
   summary: LocalizedString;
   location: string;
   yearsExperience?: number;
@@ -126,9 +129,10 @@ export interface Project {
   title: LocalizedString;
   description: LocalizedString;
   media?: string;
+  badge?: LocalizedString[];
   techs: ProjectTech[];
-  github?: string;
-  url?: string;
+  githubHref?: string;
+  href?: string;
 }
 
 // ─── Hobbies / Passions ─────────────────────────────────────────────────────
@@ -152,11 +156,13 @@ export interface ValueCard {
 // ─── Highlights ──────────────────────────────────────────────────────────────
 
 export interface Highlight {
-  id: string;
-  value: string; // e.g. "3+"
+  tag?: LocalizedString[];
   label: LocalizedString;
   description?: LocalizedString;
   icon?: string;
+  highlight?: boolean;
+  href?: string;
+  githubHref?: string;
 }
 
 // ─── Vision / Future ─────────────────────────────────────────────────────────

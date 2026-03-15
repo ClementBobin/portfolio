@@ -28,7 +28,7 @@ export function HeroSection({
 
   return (
     <section>
-      <section className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-background">
+      <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
         {/* Soft glow */}
         <div
           className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.06]"
@@ -144,21 +144,6 @@ export function HeroSection({
                 )}
             </div>
           )}
-        </div>
-
-        {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-30">
-          <div className="w-px h-8 bg-foreground" />
-          <svg
-            width="10"
-            height="6"
-            viewBox="0 0 10 6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-          >
-            <path d="M1 1l4 4 4-4" />
-          </svg>
         </div>
       </section>
 
