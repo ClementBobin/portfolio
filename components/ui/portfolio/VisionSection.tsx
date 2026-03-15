@@ -49,7 +49,7 @@ export function VisionSectionComponent({
                   background: `color-mix(in srgb, ${color} 15%, transparent)`,
                 }}
               >
-                <Icon className="h-5 w-5" style={{ color }} />
+                <Icon className="h-5 w-5"/>
               </div>
               <div>
                 <h3 className="font-bold text-sm text-foreground mb-2">

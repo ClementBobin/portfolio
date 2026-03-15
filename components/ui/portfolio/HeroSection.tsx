@@ -26,12 +26,18 @@ export function HeroSection({
   const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
   const [contactOpen, setContactOpen] = useState(false);
 
+  // normalize subtitle to a localized string so we can index by lang safely
+  const subtitleText =
+    typeof personal.subtitle === "string"
+      ? personal.subtitle
+      : (personal.subtitle as unknown as Record<string, string> | undefined)?.[lang];
+
   return (
     <section>
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background">
         {/* Soft glow */}
         <div
-          className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-[0.06]"
+          className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 rounded-full opacity-[0.06]"
           style={{
             background:
               "radial-gradient(circle, var(--primary) 0%, transparent 70%)",
@@ -83,10 +89,10 @@ export function HeroSection({
           )}
 
           {/* Status badge */}
-          {personal.subtitle?.[lang]?.trim() && (
+          {subtitleText?.trim() && (
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border bg-card text-sm text-muted-foreground shadow-sm">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shrink-0" />
-              {personal.subtitle[lang]}
+              {subtitleText}
             </div>
           )}
 

@@ -57,7 +57,7 @@ export function PassionSection({ hobbies, locale }: PassionSectionProps) {
                   background: `color-mix(in srgb, ${color} 15%, transparent)`,
                 }}
               >
-                {hobby.emoji ?? <Icon className="h-6 w-6" style={{ color }} />}
+                {hobby.emoji ?? <Icon className="h-6 w-6" />}
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="font-bold text-sm text-foreground mb-2">

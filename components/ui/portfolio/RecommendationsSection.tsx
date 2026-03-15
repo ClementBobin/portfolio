@@ -92,7 +92,7 @@ function RecommendationDialog({
           )}
 
           {/* Strengths */}
-          {rec.strengths?.length > 0 && (
+          {rec.strengths && (
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">
                 {lang === "fr" ? "Points forts" : "Key Strengths"}
