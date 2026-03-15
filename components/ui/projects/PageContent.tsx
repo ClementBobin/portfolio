@@ -1,9 +1,9 @@
-import { fetchGitHubProjects } from "@/lib/github";
-import { getTranslations } from "@/lib/i18n";
-import { StatsSection } from "./StatsSection";
-import { ProjectsSection } from "./ProjectsSection";
 import { GithubIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { fetchGitHubProjects } from "@/lib/github";
+import { getTranslations } from "@/lib/i18n";
+import { ProjectsSection } from "./ProjectsSection";
+import { StatsSection } from "./StatsSection";
 
 export interface ProjectsPageProps {
   params: Promise<{ locale: string }>;
@@ -37,7 +37,8 @@ export async function PageContent({ params }: ProjectsPageProps) {
           </h1>
         </div>
         <p className="text-lg text-muted-foreground max-w-3xl leading-relaxed">
-          {t("Description1") || "Explore my open source projects and contributions."}{" "}
+          {t("Description1") ||
+            "Explore my open source projects and contributions."}{" "}
           <strong className="text-foreground">{t("Description2")}</strong>
           {t("Description3")}
           <strong className="text-foreground">
@@ -49,7 +50,11 @@ export async function PageContent({ params }: ProjectsPageProps) {
       </header>
 
       {/* Statistics Section */}
-      <StatsSection totalProjects={totalProjects} totalStars={totalStars} totalForks={totalForks} />
+      <StatsSection
+        totalProjects={totalProjects}
+        totalStars={totalStars}
+        totalForks={totalForks}
+      />
 
       <Separator />
 

@@ -1,5 +1,5 @@
-import { ProjectCard } from "./ProjectCard";
 import { groupProjectsByYearAndMonth } from "@/lib/utils";
+import { ProjectCard } from "./ProjectCard";
 
 interface ProjectsSectionProps {
   projects: any[];
@@ -27,7 +27,7 @@ export async function ProjectsSection({ projects }: ProjectsSectionProps) {
               .sort(
                 ([monthA], [monthB]) =>
                   new Date(`${monthB} 1, ${year}`).getTime() -
-                  new Date(`${monthA} 1, ${year}`).getTime()
+                  new Date(`${monthA} 1, ${year}`).getTime(),
               )
               .map(([month, monthProjects]) => (
                 <div key={month} className="ml-6 space-y-4">

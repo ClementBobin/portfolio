@@ -1,4 +1,7 @@
-import type { GitHubProjectsResponse, GitHubRepository } from "@/lib/types/projects-api";
+import type {
+  GitHubProjectsResponse,
+  GitHubRepository,
+} from "@/lib/types/projects-api";
 
 /**
  * Fetches GitHub projects from both personal and organization repositories.

@@ -1,358 +1,213 @@
 "use client";
 
-import {
-  MenuIcon,
-  MoonIcon,
-  NetworkIcon,
-  PaletteIcon,
-  SunIcon,
-  XIcon,
-} from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { useEffect, useRef, useState } from "react";
-import { Presence } from "@/components/presence";
-import { useThemePreset } from "@/hooks/use-theme-preset";
-import { cn } from "@/lib/utils";
-import { MindmapPopup } from "./mindmap/mindmap-popup";
+import { useEffect, useState } from "react";
 
-/**
- * Props for navigation link items.
- *
- * @property href - URL path for the link
- * @property label - Display text for the link
- * @property icon - Optional icon component
- */
-interface NavLinkItem {
-  href: string;
+interface NavItem {
   label: string;
-  icon?: React.ComponentType<{ className?: string }>;
+  href: string;
+  isDropdown?: boolean;
+  children?: { label: string; href: string }[];
 }
 
-/**
- * Props for Navbar component.
- *
- * @property links - Array of navigation links
- * @property logo - Optional logo text or component
- * @property className - Optional CSS classes
- */
 interface NavbarProps {
-  links?: NavLinkItem[];
-  logo?: React.ReactNode;
-  className?: string;
+  navItems?: NavItem[];
+  rightItems?: React.ReactNode;
+  themeToggle?: React.ReactNode;
+  themePresetSelect?: React.ReactNode;
+  mindmapPopup?: React.ReactNode;
 }
 
-/**
- * Theme toggle button component.
- * Switches between light and dark themes with smooth animation.
- */
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className="h-10 w-10 rounded-md border bg-muted/50 animate-pulse" />
-    );
-  }
-
-  const isDark = theme === "dark";
-
-  return (
-    <button
-      type="button"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      className={cn(
-        "relative h-10 w-10 rounded-md border transition-all",
-        "bg-muted/50 hover:bg-muted",
-        "flex items-center justify-center",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-      )}
-      aria-label="Toggle theme"
-    >
-      <div className="relative h-6 w-6">
-        <Presence present={!isDark}>
-          <SunIcon className="absolute inset-0 h-6 w-6 transition-transform duration-300 scale-100 rotate-0" />
-        </Presence>
-        <Presence present={isDark}>
-          <MoonIcon className="absolute inset-0 h-6 w-6 transition-transform duration-300 scale-100 rotate-0" />
-        </Presence>
-      </div>
-    </button>
-  );
-}
-
-/**
- * Theme preset combobox component.
- * Lets the user pick a color-palette preset from a dropdown.
- */
-function ThemePresetSelect() {
-  const { preset, setPreset, presets } = useThemePreset();
-  const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  if (!mounted) {
-    return (
-      <div className="h-10 w-10 rounded-md border bg-muted/50 animate-pulse" />
-    );
-  }
-
-  return (
-    <div ref={ref} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className={cn(
-          "relative h-10 w-10 rounded-md border transition-all",
-          "bg-muted/50 hover:bg-muted",
-          "flex items-center justify-center",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        )}
-        aria-label="Select color theme"
-        aria-expanded={open}
-        aria-haspopup="listbox"
-      >
-        <PaletteIcon className="h-5 w-5" />
-      </button>
-
-      {open && (
-        <div
-          role="listbox"
-          aria-label="Color theme presets"
-          className={cn(
-            "absolute right-0 top-full mt-2 z-50",
-            "min-w-32 rounded-md border bg-popover text-popover-foreground shadow-md",
-            "py-1",
-          )}
-        >
-          {(Object.keys(presets) as Array<keyof typeof presets>).map((name) => (
-            <button
-              key={name}
-              type="button"
-              role="option"
-              aria-selected={preset === name}
-              onClick={() => {
-                setPreset(name);
-                setOpen(false);
-              }}
-              className={cn(
-                "w-full text-left px-3 py-1.5 text-sm transition-colors",
-                "hover:bg-accent hover:text-accent-foreground",
-                preset === name &&
-                  "bg-accent text-accent-foreground font-medium",
-              )}
-            >
-              {presets[name].label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
-/**
- * Mobile menu component with slide-in animation.
- *
- * @property isOpen - Whether the menu is open
- * @property onClose - Callback to close the menu
- * @property links - Navigation links to display
- */
-interface MobileMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  links: NavLinkItem[];
-}
-
-function MobileMenu({ isOpen, onClose, links }: MobileMenuProps) {
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
-  return (
-    <Presence present={isOpen}>
-      <div className="fixed inset-0 z-50 md:hidden animate-in fade-in duration-200">
-        {/* Backdrop */}
-        <div
-          className="absolute inset-0 bg-background/80 backdrop-blur-sm"
-          onClick={onClose}
-          onKeyDown={(e) => e.key === "Escape" && onClose()}
-        />
-
-        {/* Menu Panel */}
-        <nav className="fixed right-0 top-0 bottom-0 w-64 bg-background border-l shadow-lg animate-in slide-in-from-right duration-300">
-          <div className="flex items-center justify-between p-4 border-b">
-            <span className="font-semibold">Menu</span>
-            <button
-              type="button"
-              onClick={onClose}
-              className="h-8 w-8 rounded-md hover:bg-accent flex items-center justify-center"
-              aria-label="Close menu"
-            >
-              <XIcon className="h-5 w-5" />
-            </button>
-          </div>
-
-          <div className="flex flex-col p-4 space-y-2">
-            {links.map((link) => {
-              const isActive = pathname === link.href;
-              const Icon = link.icon;
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={onClose}
-                  className={cn(
-                    "flex items-center gap-3 px-4 py-3 rounded-md transition-colors",
-                    "hover:bg-accent hover:text-accent-foreground",
-                    isActive
-                      ? "bg-accent text-accent-foreground font-medium"
-                      : "text-foreground",
-                  )}
-                >
-                  {Icon && <Icon className="h-5 w-5" />}
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
-      </div>
-    </Presence>
-  );
-}
-
-/**
- * Main navigation bar component with responsive design.
- * Features theme toggle, mobile menu, and active link highlighting.
- *
- * @example
- * ```tsx
- * <Navbar
- *   links={[
- *     { href: "/", label: "Home" },
- *     { href: "/projects", label: "Projects" },
- *     { href: "/about", label: "About" },
- *   ]}
- * />
- * ```
- */
 export function Navbar({
-  links = [],
-  className,
+  navItems = [],
+  rightItems,
+  themeToggle,
+  themePresetSelect,
+  mindmapPopup,
 }: NavbarProps) {
-  const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMindmapOpen, setIsMindmapOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [_mobileOpen, _setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 12);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
+  }, []);
+
+  const navBase: React.CSSProperties = {
+    position: "fixed",
+    inset: "0 0 auto 0",
+    zIndex: 50,
+    height: 52,
+    display: "flex",
+    alignItems: "center",
+    transition:
+      "background 0.25s, border-color 0.25s, box-shadow 0.25s, backdrop-filter 0.25s",
+    background: scrolled ? "var(--background)" : "transparent",
+    borderBottom: `1px solid ${scrolled ? "var(--border)" : "transparent"}`,
+    backdropFilter: scrolled ? "blur(14px) saturate(1.5)" : "none",
+    WebkitBackdropFilter: scrolled ? "blur(14px) saturate(1.5)" : "none",
+    boxShadow: scrolled
+      ? "0 1px 20px color-mix(in srgb, var(--foreground) 4%, transparent)"
+      : "none",
+  };
+
+  const btnStyle = (active = false): React.CSSProperties => ({
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 4,
+    padding: "6px 12px",
+    borderRadius: 8,
+    fontSize: 13,
+    fontWeight: 500,
+    color: "var(--foreground)",
+    background: active ? "var(--accent)" : "transparent",
+    border: "none",
+    cursor: "pointer",
+    textDecoration: "none",
+    transition: "background 0.15s",
+    whiteSpace: "nowrap" as const,
+  });
 
   return (
     <>
-      <header
-        className={cn(
-          "sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60",
-          className,
-        )}
-      >
-        <div className="w-screen flex h-16 items-center justify-between px-4">
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
-            {links.map((link) => {
-              const isActive = pathname === link.href;
-              const Icon = link.icon;
-
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors",
-                    "hover:bg-accent hover:text-accent-foreground",
-                    isActive
-                      ? "bg-accent text-accent-foreground"
-                      : "text-muted-foreground",
+      <nav style={navBase}>
+        <div
+          style={{
+            maxWidth: "72rem",
+            margin: "0 auto",
+            padding: "0 1.5rem",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 8,
+          }}
+        >
+          {/* Left nav links */}
+          <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
+            {navItems.map((item) =>
+              item.isDropdown && item.children?.length ? (
+                <div key={item.label} style={{ position: "relative" }}>
+                  <button
+                    style={btnStyle(openDropdown === item.label)}
+                    onClick={() =>
+                      setOpenDropdown(
+                        openDropdown === item.label ? null : item.label,
+                      )
+                    }
+                    onMouseEnter={(e) => {
+                      if (openDropdown !== item.label)
+                        (e.currentTarget as HTMLElement).style.background =
+                          "var(--accent)";
+                    }}
+                    onMouseLeave={(e) => {
+                      if (openDropdown !== item.label)
+                        (e.currentTarget as HTMLElement).style.background =
+                          "transparent";
+                    }}
+                  >
+                    {item.label}
+                    <svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 10 10"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      style={{
+                        opacity: 0.5,
+                        transform:
+                          openDropdown === item.label
+                            ? "rotate(180deg)"
+                            : "none",
+                        transition: "transform 0.2s",
+                      }}
+                    >
+                      <path d="M2 3.5l3 3 3-3" />
+                    </svg>
+                  </button>
+                  {openDropdown === item.label && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "calc(100% + 6px)",
+                        left: 0,
+                        background: "var(--card)",
+                        border: "1px solid var(--border)",
+                        borderRadius: 12,
+                        padding: 4,
+                        minWidth: 160,
+                        boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+                        zIndex: 200,
+                      }}
+                    >
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          onClick={() => setOpenDropdown(null)}
+                          style={{
+                            display: "block",
+                            padding: "8px 12px",
+                            borderRadius: 8,
+                            fontSize: 13,
+                            color: "var(--foreground)",
+                            textDecoration: "none",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLElement).style.background =
+                              "var(--accent)";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.background =
+                              "transparent";
+                          }}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
                   )}
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  style={btnStyle()}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.background =
+                      "var(--accent)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.background =
+                      "transparent";
+                  }}
                 >
-                  {Icon && <Icon className="h-4 w-4" />}
-                  {link.label}
+                  {item.label}
                 </Link>
-              );
-            })}
-          </nav>
+              ),
+            )}
+            {mindmapPopup}
+          </div>
 
-          {/* Right Section */}
-          <div className="flex items-center gap-2">
-            {/* Mindmap Button */}
-            <button
-              type="button"
-              onClick={() => setIsMindmapOpen(true)}
-              className={cn(
-                "h-10 w-10 rounded-md border transition-all",
-                "bg-muted/50 hover:bg-muted",
-                "flex items-center justify-center",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-              )}
-              aria-label="Open navigation mindmap"
-            >
-              <NetworkIcon className="h-5 w-5" />
-            </button>
-
-            <ThemePresetSelect />
-            <ThemeToggle />
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden h-10 w-10 rounded-md border bg-muted/50 hover:bg-muted flex items-center justify-center"
-              aria-label="Open menu"
-            >
-              <MenuIcon className="h-5 w-5" />
-            </button>
+          {/* Right controls */}
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            {themePresetSelect}
+            {themeToggle}
+            {rightItems}
           </div>
         </div>
-      </header>
+      </nav>
 
-      {/* Mobile Menu */}
-      <MobileMenu
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-        links={links}
-      />
-
-      <MindmapPopup
-        open={isMindmapOpen}
-        onClose={() => setIsMindmapOpen(false)}
-      />
+      {/* Backdrop for dropdown close */}
+      {openDropdown && (
+        <div
+          style={{ position: "fixed", inset: 0, zIndex: 49 }}
+          onClick={() => setOpenDropdown(null)}
+        />
+      )}
     </>
   );
 }

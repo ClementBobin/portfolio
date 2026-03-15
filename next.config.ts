@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
     optimizeCss: true, // critical CSS & Tailwind tree-shaking
   },
   images: {
-    domains: ['clementbobin.github.io'],
+    domains: ["clementbobin.github.io"],
   },
   async headers() {
     return [
@@ -59,7 +59,7 @@ const nextConfig: NextConfig = {
             value: "public, max-age=31536000, immutable",
           },
         ],
-      }
+      },
     ];
   },
 };

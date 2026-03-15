@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { DEFAULT_PRESET, presets as staticPresets } from "@/lib/themes/presets";
 import type { PresetName } from "@/lib/themes/presets";
+import { DEFAULT_PRESET, presets as staticPresets } from "@/lib/themes/presets";
 import type { ThemePreset } from "@/lib/types/theme";
 
 type DynamicPresets = Record<string, ThemePreset>;
@@ -99,11 +99,7 @@ export function useThemePreset() {
           typeof data === "object" &&
           Object.keys(data).length > 0 &&
           Object.values(data).every(
-            (p) =>
-              p &&
-              typeof p === "object" &&
-              "light" in p &&
-              "dark" in p,
+            (p) => p && typeof p === "object" && "light" in p && "dark" in p,
           )
         ) {
           setLoadedPresets(data);

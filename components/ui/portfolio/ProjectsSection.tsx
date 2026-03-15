@@ -1,91 +1,137 @@
-import { GithubIcon, ExternalLinkIcon } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+"use client";
+
+import { ExternalLinkIcon, GithubIcon } from "lucide-react";
 import type { Project } from "@/lib/types/portfolio-api";
-import { SectionHeading } from "./SkillsSection";
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardTitle,
+} from "../card";
+import { Button } from "../button";
+import { Badge } from "../badge";
+import { SectionHeading } from "../section-heading";
 
 interface ProjectsSectionProps {
   projects: Project[];
   locale: string;
 }
 
-function ProjectCard({ project, locale }: { project: Project; locale: string }) {
-  const lang = locale.split("-")[0] as "en" | "fr";
+function ProjectCard({
+  project,
+  locale,
+}: {
+  project: Project;
+  locale: string;
+}) {
+  const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
 
   return (
-    <Card className="group h-full border bg-card hover:shadow-md hover:border-primary/30 transition-all duration-300">
-      <CardHeader className="pb-3">
+    <Card className="group overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200">
+
+      <CardContent className="flex flex-col gap-3">
+
+        {/* Header */}
         <div className="flex items-start justify-between gap-2">
-          <CardTitle className="text-base font-semibold leading-tight group-hover:text-primary transition-colors">
+
+          <CardTitle className="text-sm leading-tight group-hover:text-primary transition-colors">
             {project.title[lang]}
           </CardTitle>
+
           <div className="flex items-center gap-1 shrink-0">
-            {project.url && (
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-7 w-7 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Live demo"
+
+            {project.href && (
+              <Button
+                asChild
+                variant="ghost"
+                size="icon-xs"
               >
-                <ExternalLinkIcon className="h-3.5 w-3.5" />
-              </a>
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLinkIcon />
+                </a>
+              </Button>
             )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-7 w-7 rounded-md hover:bg-muted flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="GitHub"
+
+            {project.githubHref && (
+              <Button
+                asChild
+                variant="ghost"
+                size="icon-xs"
               >
-                <GithubIcon className="h-3.5 w-3.5" />
-              </a>
+                <a
+                  href={project.githubHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubIcon />
+                </a>
+              </Button>
             )}
+
           </div>
         </div>
-      </CardHeader>
 
-      <CardContent className="space-y-3">
-        {project.media && (
-          <img
-            src={project.media}
-            alt={project.title[lang]}
-            className="w-full h-64 md:h-80 object-cover rounded-xl"
-            onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.style.display = "none";
-            }}
-          />
-        )}
-        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+        {/* Description */}
+        <CardDescription className="text-sm text-muted-foreground leading-relaxed line-clamp-3 flex-1">
+          {project.media && (
+            <img
+              src={project.media}
+              alt={project.title[lang]}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          )}
           {project.description[lang]}
-        </p>
+        </CardDescription>
 
-        {project.techs.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {project.techs.map((tech, i) => (
-              <Badge key={i} variant="outline" className="text-xs">
-                {tech.name}
+        {/* Tech stack */}
+        {project.badge && (
+          <p className="flex flex-wrap gap-1">
+
+            {project.badge.map((i) => (
+              <Badge
+                key={i[lang]}
+                variant="outline"
+                className="text-xs"
+              >
+                {i[lang]}
               </Badge>
             ))}
-          </div>
+
+          </p>
         )}
+
       </CardContent>
     </Card>
   );
 }
 
 export function ProjectsSection({ projects, locale }: ProjectsSectionProps) {
-  const lang = locale.split("-")[0];
+  if (!projects?.length) return null;
+
+  const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
+
   return (
-    <section className="space-y-6">
-      <SectionHeading title={lang === "fr" ? "Projets" : "Projects"} />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <section className="space-y-8 min-h-screen">
+
+      <SectionHeading
+        title={lang === "fr" ? "Projets personnels" : "Personal Projects"}
+      />
+
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} locale={locale} />
+          <ProjectCard
+            key={project.id}
+            project={project}
+            locale={locale}
+          />
         ))}
       </div>
+
     </section>
   );
 }

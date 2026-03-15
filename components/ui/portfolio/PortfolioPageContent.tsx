@@ -1,67 +1,179 @@
 import type { PortfolioData } from "@/lib/types/portfolio-api";
-import { HeroSection } from "@/components/ui/portfolio/HeroSection";
-import { SkillsSection } from "@/components/ui/portfolio/SkillsSection";
-import { ExperienceSection } from "@/components/ui/portfolio/ExperienceSection";
-import { EducationSection } from "@/components/ui/portfolio/EducationSection";
-import { ProjectsSection } from "@/components/ui/portfolio/ProjectsSection";
-// import { HobbiesSection } from "@/components/ui/portfolio/HobbiesSection";
-import { Separator } from "@/components/ui/separator";
+import { ExperienceSection } from "./ExperienceSection";
+// Sections
+import { HeroSection } from "./HeroSection";
+import { HighlightsSection } from "./HighlightsSection";
+import { PassionSection } from "./PassionSection";
+import { ProjectsSection } from "./ProjectsSection";
+import { RecommendationsSection } from "./RecommendationsSection";
+import { StrengthSection } from "./StrengthSection";
+import { VisionSectionComponent } from "./VisionSection";
+import { WhatIBringSection } from "./WhatIBringSection";
 
-export interface PortfolioPageProps {
-  params: Promise<{ locale: string }>;
+// If SkillsSection & EducationSection already exist in your project:
+// import { SkillsSection } from "./SkillsSection";
+// import { EducationSection } from "./EducationSection";
+
+interface PortfolioPageContentProps {
+  data: PortfolioData;
+  locale: string;
+  cvUrl: string;
 }
 
-async function fetchPortfolioData(): Promise<PortfolioData | null> {
-  try {
-    // Call the internal API route
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/portfolio`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
-  }
+function SectionWrapper({
+  children,
+  id,
+}: {
+  children: React.ReactNode;
+  id?: string;
+}) {
+  return (
+    <section
+      id={id}
+      style={{
+        width: "100%",
+        maxWidth: "56rem",
+        margin: "0 auto",
+        padding: "4rem 1.5rem",
+      }}
+    >
+      {children}
+    </section>
+  );
 }
 
-export async function PortfolioPageContent({ params }: PortfolioPageProps) {
-  const { locale } = await params;
-  const data = await fetchPortfolioData();
+function Divider() {
+  return (
+    <div style={{ maxWidth: "56rem", margin: "0 auto", padding: "0 1.5rem" }}>
+      <div style={{ height: 1, background: "var(--border)", opacity: 0.5 }} />
+    </div>
+  );
+}
 
-  if (!data) {
-    return (
-      <div className="container mx-auto px-4 max-w-5xl py-20 text-center">
-        <p className="text-muted-foreground">
-          {locale.startsWith("fr") ? "Impossible de charger les données du portfolio." : "Unable to load portfolio data."}
-        </p>
-      </div>
-    );
-  }
+export function PortfolioPageContent({
+  data,
+  locale,
+  cvUrl,
+}: PortfolioPageContentProps) {
+  const {
+    personal,
+    contact,
+    strengths,
+    experiences,
+    // education,
+    projects,
+    hobbies,
+    valueCards,
+    highlights,
+    vision,
+    recommendations,
+  } = data;
 
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <HeroSection personal={data.personal} contact={data.contact} locale={locale} />
+    <div
+      style={{
+        background: "var(--background)",
+        color: "var(--foreground)",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Hero — full-width, no wrapper */}
+      <HeroSection
+        personal={personal}
+        contact={contact}
+        locale={locale}
+        cvUrl={cvUrl}
+      />
 
-      {/* Content sections */}
-      <div className="container mx-auto px-4 max-w-5xl pb-24 space-y-20">
-        <Separator />
+      {/* Strengths horizontal timeline */}
+      {/* {strengths?.length ? (
+        <>
+          <SectionWrapper id="strengths">
+            <StrengthSection strengths={strengths} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null} */}
 
-        <SkillsSection skills={data.skills} locale={locale} />
 
-        <Separator />
+      {/* Experience Timeline */}
+      {experiences?.length ? (
+        <>
+          <SectionWrapper id="experience">
+            <ExperienceSection
+              experiences={experiences}
+              locale={locale}
+              cvUrl={cvUrl}
+              />
+          </SectionWrapper>
+        </>
+      ) : null}
 
-        <ExperienceSection experiences={data.experiences} locale={locale} />
+      {/* What I Bring */}
+      {valueCards?.length ? (
+        <>
+          <SectionWrapper id="values">
+            <WhatIBringSection cards={valueCards} locale={locale} title="Ce que j'apporte" subtitle="Voici ce que j'apporte à chaque projet." />
+          </SectionWrapper>
+        </>
+      ) : null}
 
-        <Separator />
+      {/* Skills (existing component)
+      {data.skills?.length ? (
+        <>
+          <SectionWrapper id="skills">
+            <SkillsSection skills={data.skills} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null} */}
 
-        <EducationSection education={data.education} locale={locale} />
+      {/* Passions */}
+      {hobbies?.length ? (
+        <>
+          <SectionWrapper id="passions">
+            <PassionSection hobbies={hobbies} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null}
 
-        <Separator />
+      {/* Personal Projects */}
+      {projects?.length ? (
+        <>
+          <SectionWrapper id="projects">
+            <ProjectsSection projects={projects} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null}
 
-        <ProjectsSection projects={data.projects} locale={locale} />
-      </div>
+      {/* Highlights stats strip */}
+      {highlights?.length ? (
+        <>
+          <SectionWrapper>
+            <HighlightsSection highlights={highlights} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null}
+
+      {/* Vision */}
+      {vision?.items?.length ? (
+        <>
+          <SectionWrapper id="vision">
+            <VisionSectionComponent vision={vision} locale={locale} />
+          </SectionWrapper>
+        </>
+      ) : null}
+
+      {/* Recommendations */}
+      {recommendations?.length ? (
+        <SectionWrapper id="recommendations">
+          <RecommendationsSection
+            recommendations={recommendations}
+            locale={locale}
+          />
+        </SectionWrapper>
+      ) : null}
+
+      {/* Footer spacer */}
+      <div style={{ height: "6rem" }} />
     </div>
   );
 }

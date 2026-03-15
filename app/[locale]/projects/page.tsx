@@ -1,6 +1,9 @@
 import { Suspense } from "react";
+import {
+  PageContent,
+  type ProjectsPageProps,
+} from "@/components/ui/projects/PageContent";
 import { ProjectsFallback } from "@/components/ui/projects/ProjectsFallback";
-import { PageContent, type ProjectsPageProps } from "@/components/ui/projects/PageContent";
 /**
  * PageWrapper is a Server Component that wraps the main page in Suspense
  */

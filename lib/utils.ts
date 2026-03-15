@@ -1,6 +1,9 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { GitHubRepository, GroupedProjects } from "@/lib/types/projects-api";
+import type {
+  GitHubRepository,
+  GroupedProjects,
+} from "@/lib/types/projects-api";
 
 /**
  * Merges class names using clsx and tailwind-merge.
