@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Hobby } from "@/lib/types/portfolio-api";
-import { SectionHeading } from "./SkillsSection";
+import { SectionHeading } from "../section-heading";
 
 interface HobbiesSectionProps {
   hobbies: Hobby[];
