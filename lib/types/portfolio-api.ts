@@ -68,17 +68,25 @@ export interface SkillSection {
 // ─── Strengths (horizontal timeline) ────────────────────────────────────────
 
 export interface StrengthItem {
-  id: string;
-  label: LocalizedString;
-  level: number; // 0–100
-  color: string;
-  description: LocalizedString;
-  example?: {
-    label: LocalizedString;
-    href: string;
-  };
-}
+  strengths: {
+    id: string
+    label: LocalizedString
+    description: LocalizedString
+    percentage: number
+  }[]
 
+  detail?: {
+    title: LocalizedString
+    short?: LocalizedString
+    description?: LocalizedString
+    categories?: {
+      id: string
+      title: LocalizedString
+      description: LocalizedString
+    }[]
+    exampleHref?: string
+  }
+}
 // ─── Experience ─────────────────────────────────────────────────────────────
 
 export type WorkType = "work" | "experience";
@@ -211,7 +219,7 @@ export interface PortfolioData {
   personal: PortfolioPersonal;
   contact: ContactItem[];
   skills: SkillSection[];
-  strengths?: StrengthItem[] | null;
+  strength?: StrengthItem | null;
   experiences: Experience[];
   education: Education[];
   projects: Project[];

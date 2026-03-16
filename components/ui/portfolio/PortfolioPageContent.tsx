@@ -42,14 +42,6 @@ function SectionWrapper({
   );
 }
 
-function Divider() {
-  return (
-    <div style={{ maxWidth: "56rem", margin: "0 auto", padding: "0 1.5rem" }}>
-      <div style={{ height: 1, background: "var(--border)", opacity: 0.5 }} />
-    </div>
-  );
-}
-
 export function PortfolioPageContent({
   data,
   locale,
@@ -58,7 +50,7 @@ export function PortfolioPageContent({
   const {
     personal,
     contact,
-    strengths,
+    strength,
     experiences,
     // education,
     projects,
@@ -86,13 +78,13 @@ export function PortfolioPageContent({
       />
 
       {/* Strengths horizontal timeline */}
-      {/* {strengths?.length ? (
+      {strength?.length ? (
         <>
-          <SectionWrapper id="strengths">
-            <StrengthSection strengths={strengths} locale={locale} />
+          <SectionWrapper id="strength">
+            <StrengthSection strength={strength} locale={locale} />
           </SectionWrapper>
         </>
-      ) : null} */}
+      ) : null}
 
 
       {/* Experience Timeline */}
@@ -127,13 +119,13 @@ export function PortfolioPageContent({
       ) : null} */}
 
       {/* Passions */}
-      {hobbies?.length ? (
+      {/* {hobbies?.length ? (
         <>
           <SectionWrapper id="passions">
             <PassionSection hobbies={hobbies} locale={locale} />
           </SectionWrapper>
         </>
-      ) : null}
+      ) : null} */}
 
       {/* Personal Projects */}
       {projects?.length ? (
@@ -154,13 +146,13 @@ export function PortfolioPageContent({
       ) : null}
 
       {/* Vision */}
-      {vision?.items?.length ? (
+      {/* {vision?.items?.length ? (
         <>
           <SectionWrapper id="vision">
             <VisionSectionComponent vision={vision} locale={locale} />
           </SectionWrapper>
         </>
-      ) : null}
+      ) : null} */}
 
       {/* Recommendations */}
       {recommendations?.length ? (

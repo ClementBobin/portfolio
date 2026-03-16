@@ -1,237 +1,160 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
-import { ExternalLinkIcon } from "lucide-react";
-import type { StrengthItem } from "@/lib/types/portfolio-api";
-import { SectionHeading } from "../section-heading";
-import { cn } from "@/lib/utils";
+import { useState } from "react"
+import { cn } from "@/lib/utils"
+import { ExternalLinkIcon } from "lucide-react"
+import type { StrengthItem } from "@/lib/types/portfolio-api"
 
-interface StrengthSectionProps {
-  strengths: StrengthItem[];
-  locale: string;
+interface Props {
+  strength: StrengthItem
+  locale: string
 }
 
-// SVG arc progress ring — animates from 0% (grey) to level% (dark green)
-// r=36 → circumference = 2π×36 ≈ 226.2
-const RADIUS = 36;
-const CIRC = 2 * Math.PI * RADIUS;
+export function StrengthSection({ strength, locale }: Props) {
+  const lang = locale.split("-")[0] as "fr" | "en"
 
-interface RingProps {
-  level: number;       // 0–100
-  animated: boolean;
-  delay: number;       // ms
-  isHovered: boolean;
-  label: string;
-}
+  const [activeId, setActiveId] = useState(
+    strength.strengths[0]?.id ?? null
+  )
 
-function ProgressRing({ level, animated, delay, isHovered, label }: RingProps) {
-  const [displayed, setDisplayed] = useState(0);
+  const activeNode = strength.strengths.find(
+    (s) => s.id === activeId
+  )
 
-  // Animate the counter number separately with rAF
-  useEffect(() => {
-    if (!animated) return;
-    let start: number | null = null;
-    const duration = 1400 + delay;
-
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const elapsed = ts - start - delay;
-      if (elapsed < 0) { requestAnimationFrame(step); return; }
-      const progress = Math.min(elapsed / 1200, 1);
-      // ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplayed(Math.round(eased * level));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }, [animated, level, delay]);
-
-  const strokeDashoffset = CIRC - (animated ? (level / 100) * CIRC : 0);
+  const activePercentage = activeNode?.percentage ?? 0
 
   return (
-    <div className="relative w-20 h-20">
-      <svg
-        width="80"
-        height="80"
-        viewBox="0 0 80 80"
-        className="-rotate-90"
-      >
-        {/* Track — always grey */}
-        <circle
-          cx="40"
-          cy="40"
-          r={RADIUS}
-          fill="none"
-          strokeWidth="5"
-          className="stroke-muted"
-        />
-        {/* Progress arc — grey when idle, animates to dark green */}
-        <circle
-          cx="40"
-          cy="40"
-          r={RADIUS}
-          fill="none"
-          strokeWidth="5"
-          strokeLinecap="round"
-          strokeDasharray={CIRC}
-          strokeDashoffset={strokeDashoffset}
-          className={cn(
-            "transition-[stroke-dashoffset,stroke]",
-            animated ? "stroke-emerald-700" : "stroke-muted-foreground/30"
-          )}
-          style={{
-            transitionDuration: animated ? "1400ms" : "0ms",
-            transitionDelay: animated ? `${delay}ms` : "0ms",
-            transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)",
-          }}
-        />
-      </svg>
+    <section className="py-24 space-y-16">
 
-      {/* Counter in centre */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-0">
-        <span
-          className={cn(
-            "text-sm font-black tabular-nums leading-none transition-colors duration-700",
-            animated ? "text-emerald-700" : "text-muted-foreground/40"
-          )}
-        >
-          {displayed}%
-        </span>
+      {/* Title */}
+      <div className="text-center space-y-3">
+        <h2 className="text-4xl font-serif font-semibold">
+          {lang === "fr" ? "Mes points forts" : "My strengths"}
+        </h2>
+
+        {strength.detail?.short && (
+          <p className="text-muted-foreground text-sm">
+            {strength.detail.short[lang]}
+          </p>
+        )}
       </div>
-    </div>
-  );
-}
 
-export function StrengthSection({ strengths, locale }: StrengthSectionProps) {
-  if (!strengths?.length) return null;
-  const lang = locale.split("-")[0] as "en" | "fr";
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [animated, setAnimated] = useState(false);
-  const [hovered, setHovered] = useState<string | null>(null);
+      {/* Timeline */}
+      <div className="relative max-w-5xl mx-auto">
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimated(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+        {/* base line */}
+        <div className="absolute top-5 left-0 right-0 h-[3px] bg-muted" />
 
-  const hoveredStrength = strengths.find((s) => s.id === hovered) ?? null;
+        {/* progress line */}
+        <div
+          className="absolute top-5 left-0 h-[3px] bg-accent transition-all duration-500"
+          style={{ width: `${activePercentage}%` }}
+        />
 
-  return (
-    <section ref={sectionRef} className="space-y-8 min-h-screen">
-      <SectionHeading
-        title={lang === "fr" ? "Forces" : "Strengths"}
-        subtitle={lang === "fr" ? "Compétences évaluées de 0 à 100%" : "Core skills rated from 0 to 100%"}
-      />
+        {/* nodes */}
+        <div className="flex justify-between items-start relative">
 
-      {/* Rings row */}
-      <div className="overflow-x-auto pb-2">
-        <div className="flex items-start justify-between gap-2 min-w-[480px] px-4">
-          {strengths.map((s, i) => {
-            const isHov = hovered === s.id;
+          {strength.strengths.map((node) => {
+
+            const isActive = activePercentage >= node.percentage
+
             return (
               <button
-                key={s.id}
-                className={cn(
-                  "flex flex-col items-center gap-3 flex-1 rounded-2xl py-4 px-2 transition-all duration-200 cursor-pointer select-none",
-                  isHov
-                    ? "bg-emerald-50 dark:bg-emerald-950/30 ring-1 ring-emerald-200 dark:ring-emerald-800"
-                    : "hover:bg-muted/50"
-                )}
-                onMouseEnter={() => setHovered(s.id)}
-                onMouseLeave={() => setHovered(null)}
-                onFocus={() => setHovered(s.id)}
-                onBlur={() => setHovered(null)}
+                key={node.id}
+                onMouseEnter={() => setActiveId(node.id)}
+                className="flex flex-col items-center gap-3 relative z-10 group"
               >
-                <ProgressRing
-                  level={s.level}
-                  animated={animated}
-                  delay={i * 120}
-                  isHovered={isHov}
-                  label={s.label[lang]}
+
+                <div
+                  className={cn(
+                    "w-8 h-8 rounded-full border-4 transition-all duration-300",
+                    isActive
+                      ? "bg-accent border-accent"
+                      : "bg-muted border-muted"
+                  )}
                 />
+
                 <span
                   className={cn(
-                    "text-xs font-semibold text-center leading-tight transition-colors duration-200",
-                    isHov ? "text-emerald-700 dark:text-emerald-400" : "text-foreground"
+                    "text-sm font-medium transition-colors",
+                    isActive
+                      ? "text-accent"
+                      : "text-muted-foreground"
                   )}
                 >
-                  {s.label[lang]}
+                  {node.label[lang]}
                 </span>
+
               </button>
-            );
+            )
           })}
         </div>
       </div>
 
-      {/* Connector progress bar strip */}
-      <div className="flex gap-1 px-4">
-        {strengths.map((s, i) => (
-          <div
-            key={s.id}
-            className="flex-1 h-1 rounded-full bg-muted overflow-hidden"
-          >
-            <div
-              className={cn(
-                "h-full rounded-full transition-[width] ease-[cubic-bezier(0.16,1,0.3,1)]",
-                hovered === s.id
-                  ? "bg-emerald-600"
-                  : "bg-emerald-700/60"
-              )}
-              style={{
-                width: animated ? `${s.level}%` : "0%",
-                transitionDuration: animated ? "1400ms" : "0ms",
-                transitionDelay: animated ? `${i * 120}ms` : "0ms",
-              }}
-            />
+      {/* Detail panel */}
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+
+        {/* Example / description */}
+        <div className="space-y-6">
+
+          {strength.detail?.title && (
+            <h3 className="text-xl font-semibold">
+              {strength.detail.title[lang]}
+            </h3>
+          )}
+
+          {activeNode && (
+            <p className="text-muted-foreground leading-relaxed">
+              {activeNode.description[lang]}
+            </p>
+          )}
+
+          {strength.detail?.description && (
+            <p className="text-sm text-muted-foreground">
+              {strength.detail.description[lang]}
+            </p>
+          )}
+
+          {strength.detail?.exampleHref && (
+            <a
+              href={strength.detail.exampleHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:underline"
+            >
+              <ExternalLinkIcon className="w-4 h-4" />
+              {lang === "fr"
+                ? "Voir un exemple concret"
+                : "See real example"}
+            </a>
+          )}
+
+        </div>
+
+        {/* Category cards */}
+        {strength.detail?.categories && (
+          <div className="space-y-4">
+
+            {strength.detail.categories.map((cat) => (
+              <div
+                key={cat.id}
+                className="p-4 rounded-xl border bg-card"
+              >
+                <h4 className="text-sm font-semibold mb-1">
+                  {cat.title[lang]}
+                </h4>
+
+                <p className="text-sm text-muted-foreground">
+                  {cat.description[lang]}
+                </p>
+              </div>
+            ))}
+
           </div>
-        ))}
+        )}
+
       </div>
 
-      {/* Detail card */}
-      <div className="min-h-[88px]">
-        {hoveredStrength ? (
-          <div
-            key={hoveredStrength.id}
-            className="rounded-xl border border-border bg-card p-4 flex items-start justify-between gap-4 animate-in fade-in slide-in-from-bottom-1 duration-150"
-          >
-            <div className="space-y-1.5 flex-1">
-              <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-400">
-                {hoveredStrength.label[lang]}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {hoveredStrength.description[lang]}
-              </p>
-              {hoveredStrength.example && (
-                <a
-                  href={hoveredStrength.example.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs font-medium mt-1 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-950/60 transition-colors"
-                >
-                  <ExternalLinkIcon className="h-3 w-3" />
-                  {hoveredStrength.example.label[lang]}
-                </a>
-              )}
-            </div>
-            <span className="text-4xl font-black text-emerald-700/20 dark:text-emerald-400/20 shrink-0 tabular-nums">
-              {hoveredStrength.level}%
-            </span>
-          </div>
-        ) : (
-          <p className="text-center text-xs text-muted-foreground/40 py-6">
-            {lang === "fr" ? "Survolez un nœud pour les détails" : "Hover a node for details"}
-          </p>
-        )}
-      </div>
     </section>
-  );
+  )
 }
