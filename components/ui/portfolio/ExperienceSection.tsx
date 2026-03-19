@@ -17,7 +17,9 @@ import {
   TimelineDot,
   TimelineItem,
 } from "@/components/ui/timeline";
-import type { Experience, Education, ExperienceDetails } from "@/lib/types/portfolio-api";
+import { durationLabel, parseDate, totalWorkDuration } from "@/lib/duration";
+import { getLanguageCode, useTranslations } from "@/lib/i18n";
+import type { Education, Experience, ExperienceDetails } from "@/lib/types/portfolio-api";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "../section-heading";
 
@@ -28,137 +30,23 @@ interface ExperienceSectionProps {
   cvUrl?: string;
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function getTasks(
   tasks: ExperienceDetails["tasks"] | undefined,
   lang: "en" | "fr",
 ): string[] {
   if (!tasks) return [];
-
-  // case: { en: string[], fr: string[] }
   if (typeof tasks === "object" && Array.isArray((tasks as any)[lang])) {
     return (tasks as { en: string[]; fr: string[] })[lang];
   }
-
-  // case: { en: string, fr: string }
   if (typeof tasks === "object" && typeof (tasks as any)[lang] === "string") {
     return [(tasks as { en: string; fr: string })[lang]];
   }
-
   return [];
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                 Helpers                                     */
-/* -------------------------------------------------------------------------- */
-
-function parseDate(str: string): Date | null {
-  if (!str) return null;
-
-  if (/present|présent/i.test(str)) {
-    return new Date();
-  }
-
-  const date = new Date(str);
-  return isNaN(date.getTime()) ? null : date;
-}
-
-// ✅ corrected: include partial months
-function monthsBetween(start: Date, end: Date): number {
-  let months =
-    (end.getFullYear() - start.getFullYear()) * 12 +
-    (end.getMonth() - start.getMonth());
-
-  // include partial month if end day >= start day
-  if (end.getDate() >= start.getDate()) {
-    months += 1;
-  }
-
-  return months;
-}
-
-function durationLabel(periodEn: string): string | null {
-  const parts = periodEn.split(/[-–—]/).map((s) => s.trim());
-  if (parts.length < 2) return null;
-
-  const start = parseDate(parts[0]);
-  const end = parseDate(parts[1]);
-  if (!start || !end) return null;
-
-  const totalMonths = monthsBetween(start, end);
-  if (totalMonths <= 0) return null;
-
-  if (totalMonths < 12) return `${totalMonths}mo`;
-
-  const y = Math.floor(totalMonths / 12);
-  const m = totalMonths % 12;
-  return m > 0 ? `${y}y ${m}mo` : `${y}y`;
-}
-
-// Merge overlapping intervals
-function mergeIntervals(intervals: [Date, Date][]): [Date, Date][] {
-  if (intervals.length === 0) return [];
-
-  intervals.sort((a, b) => a[0].getTime() - b[0].getTime());
-
-  const merged: [Date, Date][] = [intervals[0]];
-
-  for (let i = 1; i < intervals.length; i++) {
-    const [currentStart, currentEnd] = intervals[i];
-    const last = merged[merged.length - 1];
-
-    if (currentStart <= last[1]) {
-      last[1] = new Date(Math.max(last[1].getTime(), currentEnd.getTime()));
-    } else {
-      merged.push([currentStart, currentEnd]);
-    }
-  }
-
-  return merged;
-}
-
-export function totalWorkDuration(
-  experiences: Experience[],
-  lang: "fr" | "en" = "fr"
-): string {
-  const intervals: [Date, Date][] = [];
-
-  for (const exp of experiences) {
-    if (exp.workType !== "work") continue;
-
-    const period = exp.period[lang] || exp.period.en;
-    const parts = period.split(/[-–—]/).map((s) => s.trim());
-    if (parts.length < 2) continue;
-
-    const start = parseDate(parts[0]);
-    const end = parseDate(parts[1]);
-    if (start && end && end > start) intervals.push([start, end]);
-  }
-
-  const merged = mergeIntervals(intervals);
-  let totalMonths = 0;
-
-  for (const [start, end] of merged) {
-    totalMonths += monthsBetween(start, end);
-  }
-
-  const years = Math.floor(totalMonths / 12);
-  const months = totalMonths % 12;
-
-  if (lang === "fr") {
-    if (years === 0) return `${months} mois`;
-    if (months === 0) return `${years} an${years > 1 ? "s" : ""}`;
-    return `${years} an${years > 1 ? "s" : ""} ${months} mois`;
-  } else {
-    if (years === 0) return `${months} months`;
-    if (months === 0) return `${years} year${years > 1 ? "s" : ""}`;
-    return `${years} year${years > 1 ? "s" : ""} ${months} months`;
-  }
-}
-
-/* -------------------------------------------------------------------------- */
-/*                           Timeline Data Builder                            */
-/* -------------------------------------------------------------------------- */
+// ─── Timeline builder ─────────────────────────────────────────────────────────
 
 type TimelineEntry =
   | { type: "experience"; date: Date | null; data: Experience }
@@ -166,7 +54,7 @@ type TimelineEntry =
 
 function buildTimeline(
   experiences: Experience[],
-  educations: Education[] = [],
+  educations: Education[],
 ): TimelineEntry[] {
   const expEntries: TimelineEntry[] = experiences.map((exp) => ({
     type: "experience",
@@ -186,21 +74,16 @@ function buildTimeline(
   });
 }
 
-/* -------------------------------------------------------------------------- */
-/*                              Experience Card                               */
-/* -------------------------------------------------------------------------- */
+// ─── Experience Card ──────────────────────────────────────────────────────────
 
 function ExperienceCard({ exp, locale }: { exp: Experience; locale: string }) {
   const [expanded, setExpanded] = useState(false);
-
-  const lang = locale.startsWith("fr") ? "fr" : "en";
-
+  const lang = getLanguageCode(locale) as "en" | "fr";
+  const t = useTranslations(locale);
   const hasDetails = exp.details && (exp.details.tasks || exp.details.context);
-
   const techList = exp.techs
-    .map((t) => (typeof t === "string" ? t : t.name))
+    .map((tech) => (typeof tech === "string" ? tech : tech.name))
     .filter(Boolean);
-
   const dur = durationLabel(exp.period.en);
 
   return (
@@ -217,50 +100,34 @@ function ExperienceCard({ exp, locale }: { exp: Experience; locale: string }) {
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <BriefcaseIcon className="h-4 w-4 text-primary shrink-0" />
-
-              <span className="font-semibold text-sm">
-                {exp.company[lang]}
-              </span>
-
+              <span className="font-semibold text-sm">{t(exp.company)}</span>
               <Badge
                 variant={exp.isHighlighted ? "default" : "secondary"}
                 className="text-[10px]"
               >
-                {exp.type[lang]}
+                {t(exp.type)}
               </Badge>
-
               {exp.isHighlighted && (
-                <Badge
-                  variant="outline"
-                  className="text-[10px] text-primary border-primary/30"
-                >
+                <Badge variant="outline" className="text-[10px] text-primary border-primary/30">
                   {lang === "fr" ? "Actuel" : "Current"}
                 </Badge>
               )}
             </div>
 
-            <p className="text-sm text-muted-foreground">
-              {exp.role[lang]}
-            </p>
+            <p className="text-sm text-muted-foreground">{t(exp.role)}</p>
 
             <div className="flex items-center gap-2 mt-1 flex-wrap">
               <span className="text-xs text-muted-foreground flex items-center gap-1">
                 <CalendarIcon className="h-3 w-3" />
-                {exp.period[lang]}
+                {t(exp.period)}
               </span>
-
               {dur && (
                 <span className="text-xs px-2 py-0.5 rounded-full bg-accent text-accent-foreground font-medium">
                   {dur}
                 </span>
               )}
-
               {exp.href && (
-                <a
-                  href={exp.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href={exp.href} target="_blank" rel="noopener noreferrer">
                   <ExternalLinkIcon className="h-3 w-3" />
                 </a>
               )}
@@ -273,27 +140,19 @@ function ExperienceCard({ exp, locale }: { exp: Experience; locale: string }) {
               className="h-7 w-7 flex items-center justify-center"
             >
               <ChevronDownIcon
-                className={cn(
-                  "h-4 w-4 transition-transform",
-                  expanded && "rotate-180",
-                )}
+                className={cn("h-4 w-4 transition-transform", expanded && "rotate-180")}
               />
             </button>
           )}
         </div>
 
-        <p className="mt-2 text-sm text-muted-foreground">
-          {exp.description[lang]}
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{t(exp.description)}</p>
 
         {techList.length > 0 && (
           <div className="mt-3 flex flex-wrap gap-1">
-            {techList.map((t, i) => (
-              <span
-                key={i}
-                className="text-xs px-2 py-0.5 rounded border border-border"
-              >
-                {t}
+            {techList.map((tech, i) => (
+              <span key={i} className="text-xs px-2 py-0.5 rounded border border-border">
+                {tech}
               </span>
             ))}
           </div>
@@ -301,15 +160,14 @@ function ExperienceCard({ exp, locale }: { exp: Experience; locale: string }) {
 
         {hasDetails && expanded && (
           <div className="border-t border-border pt-4 mt-4 space-y-3">
-            {exp.details?.context?.[lang] && (
+            {exp.details?.context && (
               <p className="text-sm italic text-muted-foreground">
-                {exp.details.context[lang]}
+                {t(exp.details.context)}
               </p>
             )}
-
             {exp.details?.tasks && (
               <ul className="space-y-1">
-                {getTasks(exp.details.tasks, lang).map((task: string, i: number) => (
+                {getTasks(exp.details.tasks, lang).map((task, i) => (
                   <li key={i} className="flex gap-2 text-sm">
                     <span className="w-1 h-1 bg-primary rounded-full mt-2" />
                     {task}
@@ -317,10 +175,9 @@ function ExperienceCard({ exp, locale }: { exp: Experience; locale: string }) {
                 ))}
               </ul>
             )}
-
-            {exp.details?.env?.[lang] && (
+            {exp.details?.env && (
               <div className="text-xs font-mono bg-muted/30 rounded px-3 py-2">
-                {exp.details.env[lang]}
+                {t(exp.details.env)}
               </div>
             )}
           </div>
@@ -330,41 +187,29 @@ function ExperienceCard({ exp, locale }: { exp: Experience; locale: string }) {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                               Education Card                               */
-/* -------------------------------------------------------------------------- */
+// ─── Education Card ───────────────────────────────────────────────────────────
 
 function EducationCard({ edu, locale }: { edu: Education; locale: string }) {
-  const lang = locale.startsWith("fr") ? "fr" : "en";
+  const t = useTranslations(locale);
 
   return (
     <div className="rounded-xl border border-dashed border-border bg-muted/20 p-5">
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="font-semibold">{edu.degree[lang]}</h3>
-
-          <p className="text-sm text-muted-foreground">
-            {edu.school[lang]}
-          </p>
-
+          <h3 className="font-semibold">{t(edu.degree)}</h3>
+          <p className="text-sm text-muted-foreground">{t(edu.school)}</p>
           {edu.specialty && (
-            <p className="text-xs text-muted-foreground mt-1">
-              {edu.specialty[lang]}
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">{t(edu.specialty)}</p>
           )}
         </div>
-
-        <span className="text-xs px-3 py-1 rounded-full border">
-          {edu.period}
-        </span>
+        {/* period is a plain string, not localized */}
+        <span className="text-xs px-3 py-1 rounded-full border">{edu.period}</span>
       </div>
     </div>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                              Section Component                             */
-/* -------------------------------------------------------------------------- */
+// ─── Section ──────────────────────────────────────────────────────────────────
 
 export function ExperienceSection({
   experiences = [],
@@ -372,30 +217,24 @@ export function ExperienceSection({
   locale,
   cvUrl,
 }: ExperienceSectionProps) {
-  const lang = locale.startsWith("fr") ? "fr" : "en";
+  const lang = getLanguageCode(locale) as "en" | "fr";
 
   const timeline = useMemo(
     () => buildTimeline(experiences, educations),
     [experiences, educations],
   );
 
-  const total = totalWorkDuration(experiences);
+  const total = totalWorkDuration(experiences, lang);
 
   return (
     <section className="space-y-6 min-h-screen">
-
-      <SectionHeading
-        title={lang === "fr" ? "Mon parcours" : "My Journey"}
-      />
+      <SectionHeading title={lang === "fr" ? "Mon parcours" : "My Journey"} />
 
       <div className="flex items-center justify-between flex-wrap gap-4">
-
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/5 text-sm font-medium text-primary">
           <BriefcaseIcon className="h-4 w-4" />
           {total}{" "}
-          {lang === "fr"
-            ? "d'expérience professionnelle"
-            : "of professional experience"}
+          {lang === "fr" ? "d'expérience professionnelle" : "of professional experience"}
         </div>
 
         <a
@@ -408,15 +247,11 @@ export function ExperienceSection({
           {lang === "fr" ? "Voir le CV complet" : "View full CV"}
           <ExternalLinkIcon className="h-3 w-3 opacity-60" />
         </a>
-
       </div>
 
       <Timeline orientation="vertical">
-
         {timeline.map((item, i) => (
-
           <TimelineItem key={i}>
-
             <TimelineDot
               className={cn(
                 item.type === "experience"
@@ -440,13 +275,9 @@ export function ExperienceSection({
                 <EducationCard edu={item.data} locale={locale} />
               )}
             </TimelineContent>
-
           </TimelineItem>
-
         ))}
-
       </Timeline>
-
     </section>
   );
 }

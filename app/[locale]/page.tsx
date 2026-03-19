@@ -7,8 +7,8 @@ async function getPortfolioData() {
   return res.json();
 }
 
-export default async function PortfolioPage({ params }: { params: { locale: string } }) {
-  const { locale } = params;
+export default async function PortfolioPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   const data = await getPortfolioData();
   const cvUrl = process.env.NEXT_PUBLIC_CV_URL ?? "https://localhost:3000/cv/view";
 
