@@ -98,7 +98,7 @@ async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedProps) {
                     <CardTitle className="text-xl font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
                       {item.title}
                     </CardTitle>
-                    <ExternalLinkIcon className="h-4 w-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground" />
+                    <ExternalLinkIcon className="h-4 w-4 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground" />
                   </div>
 
                   {item.pubDate && (

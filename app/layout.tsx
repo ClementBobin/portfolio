@@ -2,11 +2,7 @@ import type { ReactNode } from "react";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-interface LocaleLayoutProps {
-  children: ReactNode;
-}
-
-export default async function LocaleLayout({ children }: LocaleLayoutProps) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="font-sans antialiased">
@@ -16,9 +12,7 @@ export default async function LocaleLayout({ children }: LocaleLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
-            <main className="flex-1">{children}</main>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

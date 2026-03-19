@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import type { ValueCard } from "@/lib/types/portfolio-api";
 import { SectionHeading } from "../section-heading";
+import { getLanguageCode, getTranslations } from "@/lib/i18n";
 
 interface WhatIBringSectionProps {
   title: string;
@@ -29,9 +30,10 @@ function getIcon(name: string) {
   return map[name] ?? StarIcon;
 }
 
-export function WhatIBringSection({ cards, locale }: WhatIBringSectionProps) {
+export async function WhatIBringSection({ cards, locale }: WhatIBringSectionProps) {
   if (!cards?.length) return null;
-  const lang = locale?.split("-")[0] === "fr" ? "fr" : "en";
+  const t = await getTranslations(locale);
+  const lang = getLanguageCode(locale);
 
   return (
     <section className="space-y-8 min-h-screen">
@@ -58,10 +60,10 @@ export function WhatIBringSection({ cards, locale }: WhatIBringSectionProps) {
                 <Icon className="h-5 w-5" />
               </div>
               <h3 className="font-semibold text-sm text-foreground">
-                {card.title[lang]}
+                {t(card.title)}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                {card.description[lang]}
+                {t(card.description)}
               </p>
             </div>
           );

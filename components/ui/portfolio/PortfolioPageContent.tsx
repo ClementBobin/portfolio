@@ -52,7 +52,7 @@ export function PortfolioPageContent({
     contact,
     strength,
     experiences,
-    // education,
+    education,
     projects,
     hobbies,
     valueCards,
@@ -78,7 +78,7 @@ export function PortfolioPageContent({
       />
 
       {/* Strengths horizontal timeline */}
-      {strength?.length ? (
+      {strength?.strengths.length ? (
         <>
           <SectionWrapper id="strength">
             <StrengthSection strength={strength} locale={locale} />
@@ -93,6 +93,7 @@ export function PortfolioPageContent({
           <SectionWrapper id="experience">
             <ExperienceSection
               experiences={experiences}
+              educations={education}
               locale={locale}
               cvUrl={cvUrl}
               />

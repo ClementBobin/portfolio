@@ -14,7 +14,7 @@ export async function GET(_req: NextRequest) {
           personal: raw.personal,
           contact: raw.contact,
           skills: raw.skills,
-          strengths: raw.strengths,
+          strength: raw.strengths,
           experiences: raw.experiences,
           education: raw.education,
           projects: raw.projects,

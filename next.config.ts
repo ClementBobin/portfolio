@@ -28,6 +28,10 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["clementbobin.github.io"],
   },
+  i18n: {
+    locales: ['en', 'fr'],
+    defaultLocale: 'en',
+  },
   async headers() {
     return [
       {

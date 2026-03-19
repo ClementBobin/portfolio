@@ -51,6 +51,7 @@
     "@tailwindcss/postcss": "^4",
     "@types/negotiator": "^0.6.4",
     "@types/node": "25.2.3",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "commitizen": "^4.3.1",
     "husky": "^9.1.7",

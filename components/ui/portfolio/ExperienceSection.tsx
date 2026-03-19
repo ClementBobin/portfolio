@@ -22,7 +22,7 @@ import { cn } from "@/lib/utils";
 import { SectionHeading } from "../section-heading";
 
 interface ExperienceSectionProps {
-  experiences: Experience[];
+  experiences?: Experience[];
   educations?: Education[];
   locale: string;
   cvUrl?: string;
@@ -49,96 +49,111 @@ function getTasks(
 }
 
 /* -------------------------------------------------------------------------- */
-/*                                   Helpers                                  */
+/*                                 Helpers                                     */
 /* -------------------------------------------------------------------------- */
 
-function parseDate(s: string): Date | null {
-  if (!s) return null;
+function parseDate(str: string): Date | null {
+  if (!str) return null;
 
-  const lower = s.toLowerCase().trim();
-
-  if (/present|actuel|présent|now/.test(lower)) return new Date();
-
-  const MONTHS: Record<string, number> = {
-    jan: 0,
-    feb: 1,
-    fév: 1,
-    mar: 2,
-    apr: 3,
-    avr: 3,
-    may: 4,
-    mai: 4,
-    jun: 5,
-    jul: 6,
-    aug: 7,
-    sep: 8,
-    oct: 9,
-    nov: 10,
-    dec: 11,
-    déc: 11,
-  };
-
-  const match = lower.match(/(\w+)\s+(\d{4})/);
-
-  if (match) {
-    const m = MONTHS[match[1].slice(0, 3)] ?? 0;
-    return new Date(parseInt(match[2], 10), m);
+  if (/present|présent/i.test(str)) {
+    return new Date();
   }
 
-  const yearOnly = lower.match(/(\d{4})/);
+  const date = new Date(str);
+  return isNaN(date.getTime()) ? null : date;
+}
 
-  if (yearOnly) return new Date(parseInt(yearOnly[1], 10), 0);
+// ✅ corrected: include partial months
+function monthsBetween(start: Date, end: Date): number {
+  let months =
+    (end.getFullYear() - start.getFullYear()) * 12 +
+    (end.getMonth() - start.getMonth());
 
-  return null;
+  // include partial month if end day >= start day
+  if (end.getDate() >= start.getDate()) {
+    months += 1;
+  }
+
+  return months;
 }
 
 function durationLabel(periodEn: string): string | null {
   const parts = periodEn.split(/[-–—]/).map((s) => s.trim());
-
   if (parts.length < 2) return null;
 
   const start = parseDate(parts[0]);
   const end = parseDate(parts[1]);
-
   if (!start || !end) return null;
 
-  const ms = end.getTime() - start.getTime();
-  const months = Math.round(ms / (1000 * 60 * 60 * 24 * 30.5));
+  const totalMonths = monthsBetween(start, end);
+  if (totalMonths <= 0) return null;
 
-  if (months <= 0) return null;
+  if (totalMonths < 12) return `${totalMonths}mo`;
 
-  if (months < 12) return `${months}mo`;
-
-  const y = Math.floor(months / 12);
-  const m = months % 12;
-
+  const y = Math.floor(totalMonths / 12);
+  const m = totalMonths % 12;
   return m > 0 ? `${y}y ${m}mo` : `${y}y`;
 }
 
-function totalWorkDuration(experiences: Experience[]): string {
-  let totalMs = 0;
+// Merge overlapping intervals
+function mergeIntervals(intervals: [Date, Date][]): [Date, Date][] {
+  if (intervals.length === 0) return [];
+
+  intervals.sort((a, b) => a[0].getTime() - b[0].getTime());
+
+  const merged: [Date, Date][] = [intervals[0]];
+
+  for (let i = 1; i < intervals.length; i++) {
+    const [currentStart, currentEnd] = intervals[i];
+    const last = merged[merged.length - 1];
+
+    if (currentStart <= last[1]) {
+      last[1] = new Date(Math.max(last[1].getTime(), currentEnd.getTime()));
+    } else {
+      merged.push([currentStart, currentEnd]);
+    }
+  }
+
+  return merged;
+}
+
+export function totalWorkDuration(
+  experiences: Experience[],
+  lang: "fr" | "en" = "fr"
+): string {
+  const intervals: [Date, Date][] = [];
 
   for (const exp of experiences) {
     if (exp.workType !== "work") continue;
 
-    const parts = exp.period.en.split(/[-–—]/).map((s) => s.trim());
-
+    const period = exp.period[lang] || exp.period.en;
+    const parts = period.split(/[-–—]/).map((s) => s.trim());
     if (parts.length < 2) continue;
 
     const start = parseDate(parts[0]);
     const end = parseDate(parts[1]);
-
-    if (start && end) totalMs += Math.max(0, end.getTime() - start.getTime());
+    if (start && end && end > start) intervals.push([start, end]);
   }
 
-  const months = Math.round(totalMs / (1000 * 60 * 60 * 24 * 30.5));
+  const merged = mergeIntervals(intervals);
+  let totalMonths = 0;
 
-  if (months < 12) return `${months} mois`;
+  for (const [start, end] of merged) {
+    totalMonths += monthsBetween(start, end);
+  }
 
-  const y = Math.floor(months / 12);
-  const m = months % 12;
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
 
-  return m > 0 ? `${y} ans ${m} mois` : `${y} ans`;
+  if (lang === "fr") {
+    if (years === 0) return `${months} mois`;
+    if (months === 0) return `${years} an${years > 1 ? "s" : ""}`;
+    return `${years} an${years > 1 ? "s" : ""} ${months} mois`;
+  } else {
+    if (years === 0) return `${months} months`;
+    if (months === 0) return `${years} year${years > 1 ? "s" : ""}`;
+    return `${years} year${years > 1 ? "s" : ""} ${months} months`;
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -352,10 +367,10 @@ function EducationCard({ edu, locale }: { edu: Education; locale: string }) {
 /* -------------------------------------------------------------------------- */
 
 export function ExperienceSection({
-  experiences,
+  experiences = [],
   educations = [],
   locale,
-  cvUrl = "https://clementbobin.github.io/cv/view",
+  cvUrl,
 }: ExperienceSectionProps) {
   const lang = locale.startsWith("fr") ? "fr" : "en";
 

@@ -57,7 +57,7 @@ function ExperienceCard({
     <div className="relative pl-10">
       {/* Connector line */}
       {!isLast && (
-        <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gradient-to-b from-border to-transparent" />
+        <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-linear-to-b from-border to-transparent" />
       )}
       {/* Icon dot */}
       <div
@@ -158,7 +158,7 @@ function ExperienceCard({
           <div
             className={cn(
               "overflow-hidden transition-all duration-300",
-              expanded ? "max-h-[600px] opacity-100 mt-4" : "max-h-0 opacity-0",
+              expanded ? "max-h-150 opacity-100 mt-4" : "max-h-0 opacity-0",
             )}
           >
             <div className="border-t border-border pt-4 space-y-3">
@@ -215,7 +215,7 @@ function EducationCard({
   return (
     <div className="relative pl-10">
       {!isLast && (
-        <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-gradient-to-b from-border to-transparent" />
+        <div className="absolute left-4 top-8 bottom-0 w-0.5 bg-linear-to-b from-border to-transparent" />
       )}
       <div className="absolute left-2 top-2 h-4 w-4 rounded-full border-2 border-primary/40 bg-primary/10 flex items-center justify-center">
         <GraduationCapIcon className="h-2 w-2 text-primary/70" />
@@ -300,13 +300,13 @@ export function TimelineSection({
           <div key={year} className="relative">
             {/* Year marker */}
             <div className="flex items-center gap-3 mb-5">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-border" />
+              <div className="h-px flex-1 bg-linear-to-r from-transparent to-border" />
               <div className="flex items-center gap-1.5 bg-primary/10 border border-primary/20 rounded-full px-3 py-1">
                 <span className="text-xs font-bold text-primary tabular-nums">
                   {year || "—"}
                 </span>
               </div>
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-border" />
+              <div className="h-px flex-1 bg-linear-to-l from-transparent to-border" />
             </div>
 
             <div className="space-y-4">
