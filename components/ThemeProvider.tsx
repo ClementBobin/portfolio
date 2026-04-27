@@ -20,15 +20,16 @@ interface ThemeProviderProps {
  * Injects .dark class on the <html> element.
  */
 export function ThemeProvider({ children, defaultTheme = "light" }: ThemeProviderProps) {
-  const [theme, setThemeState] = React.useState<"light" | "dark">(defaultTheme);
-
-  React.useEffect(() => {
+  const [theme, setThemeState] = React.useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return defaultTheme;
     const stored = localStorage.getItem("theme") as "light" | "dark" | null;
     const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = stored ?? (systemDark ? "dark" : "light");
-    setThemeState(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
-  }, []);
+    return stored ?? (systemDark ? "dark" : "light");
+  });
+
+  React.useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const setTheme = React.useCallback((t: "light" | "dark") => {
     setThemeState(t);

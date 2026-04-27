@@ -4,9 +4,9 @@ import { useDirection } from "@radix-ui/react-direction";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
 import * as React from "react";
-import { useComposedRefs } from "@/hooks/compose-refs";
-import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
-import { useLazyRef } from "@/hooks/use-lazy-ref";
+import { useComposedRefs } from "@/lib/hooks/useComposeRefs";
+import { useIsomorphicLayoutEffect } from "@/lib/hooks/use-isomorphic-layout-effect";
+import { useLazyRef } from "@/lib/hooks/use-lazy-ref";
 import { cn } from "@/lib/utils";
 
 type Direction = "ltr" | "rtl";
@@ -232,7 +232,6 @@ function Timeline(props: TimelineProps) {
       <TimelineContext.Provider value={contextValue}>
         <RootPrimitive
           role="list"
-          aria-orientation={orientation}
           data-slot="timeline"
           data-orientation={orientation}
           data-variant={variant}

@@ -53,8 +53,11 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
       }, ERASE_SPEED);
       return () => clearTimeout(timer);
     } else if (isErasing && displayed.length === 0) {
-      setIsErasing(false);
-      setRoleIndex((prev) => (prev + 1) % roles.length);
+      const timer = setTimeout(() => {
+        setIsErasing(false);
+        setRoleIndex((prev) => (prev + 1) % roles.length);
+      }, 0);
+      return () => clearTimeout(timer);
     }
   }, [displayed, isErasing, roleIndex, roles]);
 

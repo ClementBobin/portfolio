@@ -1,7 +1,6 @@
-import type { NextRequest } from "next/server";
 import type { PortfolioData } from "@/lib/types/portfolio-api";
 
-export async function GET(_req: NextRequest) {
+export async function GET() {
   const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
 
   if (apiUrl) {

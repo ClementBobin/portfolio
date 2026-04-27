@@ -2,9 +2,9 @@
 
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
-import { useAsRef } from "@/hooks/use-as-ref";
-import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
-import { useLazyRef } from "@/hooks/use-lazy-ref";
+import { useAsRef } from "@/lib/hooks/use-as-ref";
+import { useIsomorphicLayoutEffect } from "@/lib/hooks/use-isomorphic-layout-effect";
+import { useLazyRef } from "@/lib/hooks/use-lazy-ref";
 import { cn } from "@/lib/utils";
 
 interface DivProps extends React.ComponentProps<"div"> {

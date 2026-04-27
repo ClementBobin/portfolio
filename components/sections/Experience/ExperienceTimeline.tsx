@@ -1,6 +1,5 @@
 import * as React from "react";
 import Link from "next/link";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import TechBadge from "@/components/ui/TechBadge";
 import type { Experience } from "@/lib/types/portfolio-api";

@@ -27,7 +27,6 @@ export function Navbar({
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [_mobileOpen, _setMobileOpen] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 12);

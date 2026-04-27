@@ -21,7 +21,7 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
   const colors = useTechColors();
   const entry = colors.get(name.toLowerCase());
   const color = entry?.color ?? "#7A6555";
-  const Icon = getTechIcon(entry?.icon ?? "Code2");
+  const iconName = entry?.icon ?? "Code2";
 
   return (
     <motion.div
@@ -45,7 +45,7 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
         className="flex h-10 w-10 items-center justify-center rounded-full"
         style={{ backgroundColor: `${color}22`, color }}
       >
-        <Icon size={20} aria-hidden="true" />
+        {React.createElement(getTechIcon(iconName), { size: 20, "aria-hidden": "true" })}
       </div>
       <span className="text-sm font-medium text-foreground">{name}</span>
       {level && (

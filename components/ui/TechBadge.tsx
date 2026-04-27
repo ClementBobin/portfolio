@@ -25,7 +25,7 @@ export default function TechBadge({ name, className, size = "md" }: TechBadgePro
   const colors = useTechColors();
   const entry = colors.get(name.toLowerCase());
   const color = entry?.color ?? "#7A6555";
-  const Icon = getTechIcon(entry?.icon ?? "Code2");
+  const iconName = entry?.icon ?? "Code2";
 
   return (
     <motion.span
@@ -48,7 +48,7 @@ export default function TechBadge({ name, className, size = "md" }: TechBadgePro
         (e.currentTarget as HTMLElement).style.boxShadow = "none";
       }}
     >
-      <Icon size={size === "sm" ? 10 : 12} aria-hidden="true" />
+      {React.createElement(getTechIcon(iconName), { size: size === "sm" ? 10 : 12, "aria-hidden": "true" })}
       {name}
     </motion.span>
   );
