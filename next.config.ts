@@ -1,67 +1,8 @@
 import type { NextConfig } from "next";
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-const ressourceApiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
-const rssUrl = process.env.NEXT_PUBLIC_RSS_URL;
-
-// Derive the origin (scheme + host) for the CSP connect-src directive
-const ressourceApiOrigin = ressourceApiUrl
-  ? new URL(ressourceApiUrl).origin
-  : undefined;
-const rssOrigin = rssUrl ? new URL(rssUrl).origin : undefined;
-
-const extraConnectSrc = [ressourceApiOrigin, rssOrigin]
-  .filter(Boolean)
-  .join(" ");
-
 const nextConfig: NextConfig = {
-  output: "standalone", // ensures SSR functions are Edge-friendly
-  compress: true,
-  productionBrowserSourceMaps: true,
-  reactStrictMode: true,
-  experimental: {
-    optimizeCss: true, // critical CSS & Tailwind tree-shaking
-  },
-  images: {
-    domains: ["clementbobin.github.io"],
-  },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          // Security headers
-          {
-            key: "Content-Security-Policy",
-            value: `
-              default-src 'self';
-              script-src 'self' 'unsafe-inline' 'unsafe-eval';
-              style-src 'self' 'unsafe-inline';
-              img-src 'self' data: https://clementbobin.github.io;
-              connect-src 'self' ${extraConnectSrc};
-              font-src 'self';
-              frame-ancestors 'none';
-            `.replace(/\n/g, ""),
-          },
-          {
-            key: "Strict-Transport-Security",
-            value: "max-age=31536000; includeSubDomains; preload",
-          },
-          { key: "X-Frame-Options", value: "DENY" },
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-
-          // Cache headers for static assets (enables HTTP/2 multiplexing benefits)
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-    ];
-  },
+  allowedDevOrigins: ['127.0.0.1'],
+  /* config options here */
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+export default nextConfig;
