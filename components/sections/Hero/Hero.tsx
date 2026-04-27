@@ -99,7 +99,8 @@ function computeYears(experiences: Experience[]): number | undefined {
       }
     }
   }
-  return now - earliest || undefined;
+  const years = now - earliest;
+  return years > 0 ? years : undefined;
 }
 
 /** Warm illustrated bookshelf SVG */

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { useTranslations } from "@/lib/hooks/useTranslation";
 import type { ContactItem } from "@/lib/types/portfolio-api";
 
 interface ContactProps {
@@ -18,7 +17,6 @@ interface ContactProps {
  * @param locale - Current locale
  */
 export default function Contact({ contact, locale }: ContactProps) {
-  const t = useTranslations(locale, ["common"]);
   const heading = locale === "fr" ? "Contact" : "Contact";
   const subtitle = locale === "fr"
     ? "Discutons de votre projet"
@@ -67,9 +65,6 @@ export default function Contact({ contact, locale }: ContactProps) {
         ? "Décrivez votre projet ou votre message…"
         : "Describe your project or message…",
   };
-
-  // suppress unused t warning – t is available for future i18n key lookups
-  void t;
 
   return (
     <section

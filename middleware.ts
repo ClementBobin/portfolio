@@ -10,6 +10,7 @@ export function middleware(request: NextRequest) {
   if (!hasLocale) {
     return NextResponse.redirect(new URL(`/${DEFAULT_LOCALE}${pathname}`, request.url))
   }
+  return NextResponse.next()
 }
 
 export const config = {
