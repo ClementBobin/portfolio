@@ -2,8 +2,8 @@ import { IconProps } from "@/lib/types/global";
 
 export function ChevronDownIcon(props: IconProps) {
   return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+    <svg fill="currentColor" viewBox="0 0 12 8" {...props}>
+      <path d="M6 8L0 0h12L6 8z" />
     </svg>
   )
 }

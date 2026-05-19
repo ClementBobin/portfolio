@@ -27,40 +27,6 @@ const PAUSE_DURATION = 2000;
 export default function HeroText({ personal, locale, yearsExperience }: HeroTextProps) {
   const t = useTranslations(locale, ["common"]);
 
-  const titleStr = t(personal.title);
-  const roleStr = personal.role ? t(personal.role) : null;
-  const roles = [titleStr, roleStr].filter(Boolean) as string[];
-
-  const [roleIndex, setRoleIndex] = React.useState(0);
-  const [displayed, setDisplayed] = React.useState("");
-  const [isErasing, setIsErasing] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!roles.length) return;
-    const current = roles[roleIndex];
-
-    if (!isErasing && displayed.length < current.length) {
-      const timer = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length + 1));
-      }, TYPEWRITER_SPEED);
-      return () => clearTimeout(timer);
-    } else if (!isErasing && displayed.length === current.length) {
-      const timer = setTimeout(() => setIsErasing(true), PAUSE_DURATION);
-      return () => clearTimeout(timer);
-    } else if (isErasing && displayed.length > 0) {
-      const timer = setTimeout(() => {
-        setDisplayed(displayed.slice(0, -1));
-      }, ERASE_SPEED);
-      return () => clearTimeout(timer);
-    } else if (isErasing && displayed.length === 0) {
-      const timer = setTimeout(() => {
-        setIsErasing(false);
-        setRoleIndex((prev) => (prev + 1) % roles.length);
-      }, 0);
-      return () => clearTimeout(timer);
-    }
-  }, [displayed, isErasing, roleIndex, roles]);
-
   const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
   const containerVariants: Variants = {
@@ -114,7 +80,7 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
         </motion.p>
       )}
 
-      {/* Role with typewriter */}
+      {/* Role */}
       <motion.div
         variants={itemVariants}
         className="flex items-center gap-2 text-2xl font-medium text-foreground md:text-3xl"
@@ -124,8 +90,7 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
           className="font-[family-name:var(--font-dancing)] text-accent"
           style={{ fontSize: "1.2em" }}
         >
-          {displayed}
-          <span className="animate-pulse">|</span>
+          {developerLabel}
         </span>
       </motion.div>
 

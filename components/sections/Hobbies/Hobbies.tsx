@@ -1,5 +1,3 @@
-import * as React from "react";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { Hobby } from "@/lib/types/portfolio-api";
 
@@ -16,6 +14,7 @@ interface HobbiesProps {
  */
 export default function Hobbies({ hobbies, locale }: HobbiesProps) {
   const heading = locale === "fr" ? "Centres d'intérêt" : "Hobbies & Interests";
+  const lang = locale as "en" | "fr";
 
   if (!hobbies.length) return null;
 
@@ -25,14 +24,16 @@ export default function Hobbies({ hobbies, locale }: HobbiesProps) {
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
-
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {hobbies.map((hobby, i) => {
-          const title = hobby.title[locale as "en" | "fr"] ?? hobby.title.en ?? "";
-          const details = hobby.details.map(
-            (d) => d[locale as "en" | "fr"] ?? d.en ?? ""
-          );
+        const title =
+          hobby.title?.[lang] ??
+          hobby.title?.en ??
+          "";
+
+        const details = (hobby.details ?? []).map(
+          d => d?.[lang] ?? d?.en ?? ""
+        );
 
           return (
             <ScrollReveal key={i} delay={i * 0.08}>

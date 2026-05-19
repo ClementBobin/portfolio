@@ -30,8 +30,12 @@ export interface TFunction {
 
 export const getLanguageCode = (locale?: string): string => (locale || "en").split("-")[0];
 
-function isLocalizedArray(value: object): value is LocalizedArray {
-  return Object.values(value).some((v) => Array.isArray(v));
+function isLocalizedArray(value: unknown): value is LocalizedArray {
+  return (
+    value !== null &&
+    typeof value === "object" &&
+    Object.values(value).some(Array.isArray)
+  );
 }
 
 function resolve(namespaces: LoadedNamespaces, key: string, lang: string): string | undefined {
@@ -65,27 +69,48 @@ function createTFunction(lang: string, namespaces: LoadedNamespaces): TFunction 
   function t(key: string): string;
   function t(key: LocalizedString): string;
   function t(key: LocalizedArray): string[];
-  function t(key: string | LocalizedString | LocalizedArray): string | string[] {
-    // string key → namespace lookup
+  function t(
+    key: string | LocalizedString | LocalizedArray | null | undefined
+  ): string | string[] {
+
+    // null / undefined protection
+    if (key == null) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[i18n] t() received undefined/null");
+      }
+      return "";
+    }
+
+    // translation key lookup
     if (typeof key === "string") {
       const val = resolve(namespaces, key, lang);
-      if (val !== undefined) return val;
+
+      if (val !== undefined) {
+        return val;
+      }
+
       if (process.env.NODE_ENV === "development") {
         console.warn(`[i18n] Missing key: "${key}" (lang: ${lang})`);
       }
+
       return key;
     }
 
-    // object → localized array
-    if (isLocalizedArray(key)) {
-      return (key as LocalizedArray)[lang] ?? (key as LocalizedArray).en ?? [];
+    // sanity check for non-object weirdness
+    if (typeof key !== "object") {
+      return "";
     }
 
-    // object → localized string
+    // localized array
+    if (isLocalizedArray(key)) {
+      return key[lang] ?? key.en ?? [];
+    }
+
+    // localized string
     return (
-      (key as LocalizedString)[lang] ??
-      (key as LocalizedString).en ??
-      Object.values(key as LocalizedString)[0] ??
+      key[lang] ??
+      key.en ??
+      Object.values(key)[0] ??
       ""
     );
   }
@@ -100,22 +125,13 @@ async function loadLocalNamespace(ns: string): Promise<TranslationNamespace> {
     const { readFileSync } = await import("node:fs");
     const { join } = await import("node:path");
     const filePath = join(process.cwd(), "public", "locales", `${ns}.json`);
-    return JSON.parse(readFileSync(filePath, "utf-8")) as TranslationNamespace;
-  } catch {
-    return {};
-  }
-}
-
-async function loadRemoteNamespace(ns: string): Promise<TranslationNamespace> {
-  const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
-  if (!apiUrl) return {};
-  try {
-    const res = await fetch(`${apiUrl}/config/i18n/${ns}`, {
-      next: { revalidate: 3600 },
-    });
-    if (!res.ok) return {};
-    return (await res.json()) as TranslationNamespace;
-  } catch {
+    console.log(`[i18n] Reading file: ${filePath}`); // ← add
+    const raw = readFileSync(filePath, "utf-8");
+    console.log(`[i18n] Raw length: ${raw.length}`); // ← add
+    const content = JSON.parse(raw);
+    return content as TranslationNamespace;
+  } catch (e) {
+    console.error(`[i18n] Failed to load ${ns}:`, e);
     return {};
   }
 }
@@ -139,11 +155,10 @@ export async function getTranslations(
 
   await Promise.all(
     ns.map(async (name) => {
-      const [local, remote] = await Promise.all([
+      const [local] = await Promise.all([
         loadLocalNamespace(name),
-        loadRemoteNamespace(name),
       ]);
-      namespaces[name] = { ...local, ...remote };
+      namespaces[name] = { ...local };
     }),
   );
 
@@ -158,23 +173,10 @@ async function fetchNamespaceClient(ns: string): Promise<TranslationNamespace> {
   if (clientCache.has(ns)) return clientCache.get(ns)!;
 
   const result: TranslationNamespace = {};
-
   try {
-    const res = await fetch(`/locales/${ns}.json`);
+    const res = await fetch(`/api/locales/${ns}`);
     if (res.ok) Object.assign(result, await res.json());
-  } catch {
-    /* ignore */
-  }
-
-  const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
-  if (apiUrl) {
-    try {
-      const res = await fetch(`${apiUrl}/config/i18n/${ns}`);
-      if (res.ok) Object.assign(result, await res.json());
-    } catch {
-      /* ignore */
-    }
-  }
+  } catch { /* ignore */ }
 
   clientCache.set(ns, result);
   return result;

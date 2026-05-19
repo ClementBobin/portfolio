@@ -1,5 +1,3 @@
-import * as React from "react";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ExperienceTimeline from "./ExperienceTimeline";
 import type { Experience } from "@/lib/types/portfolio-api";
 
@@ -28,8 +26,6 @@ export default function ExperienceSection({ experiences, locale }: ExperiencePro
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
-
       {workExperiences.length > 0 && (
         <div className="mb-16">
           <h3 className="mb-8 font-[family-name:var(--font-lora)] text-lg italic text-muted-foreground">

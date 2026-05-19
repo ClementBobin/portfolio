@@ -8,7 +8,7 @@ interface LocaleLayoutParams {
 
 export async function generateMetadata({ params }: LocaleLayoutParams): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations(locale, ["common"]);
+  const t = await getTranslations(locale, ["email"]);
   return {
     title: {
       default: "Clément BOBIN — Portfolio",

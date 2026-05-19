@@ -1,5 +1,3 @@
-import * as React from "react";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { getTechIcon } from "@/lib/utils/techIcon";
 import type { ValueCard } from "@/lib/types/portfolio-api";
@@ -26,8 +24,6 @@ export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
-
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {valueCards.map((card, i) => {
           const title = card.title[locale as "en" | "fr"] ?? card.title.en ?? "";

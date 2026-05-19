@@ -1,0 +1,66 @@
+{
+  "title": {
+    "fr": "Me contacter",
+    "en": "Contact me"
+  },
+  "separator": {
+    "fr": "ou envoyez-moi un message",
+    "en": "or send me a message"
+  },
+  "nameLbl": {
+    "fr": "Nom",
+    "en": "Name"
+  },
+  "namePh": {
+    "fr": "Votre nom",
+    "en": "Your name"
+  },
+  "emailLbl": {
+    "fr": "Email",
+    "en": "Email"
+  },
+  "emailPh": {
+    "fr": "votre@email.com",
+    "en": "you@email.com"
+  },
+  "msgLbl": {
+    "fr": "Message",
+    "en": "Message"
+  },
+  "msgPh": {
+    "fr": "Votre message...",
+    "en": "Your message..."
+  },
+  "send": {
+    "fr": "Envoyer",
+    "en": "Send"
+  },
+  "sending": {
+    "fr": "Envoi en cours…",
+    "en": "Sending…"
+  },
+  "sent": {
+    "fr": "Message envoyé !",
+    "en": "Message sent!"
+  },
+  "sentDesc": {
+    "fr": "Je vous répondrai dès que possible.",
+    "en": "I'll get back to you soon."
+  },
+  "error": {
+    "fr": "Une erreur est survenue. Veuillez réessayer.",
+    "en": "Something went wrong. Please try again."
+  },
+  "nameError": {
+    "fr": "Le nom est requis",
+    "en": "Name is required"
+  },
+  "emailError": {
+    "fr": "Adresse email invalide",
+    "en": "Invalid email address"
+  },
+  "messageError": {
+    "fr": "Le message doit contenir au moins 10 caractères",
+    "en": "Message must be at least 10 characters"
+  }
+}

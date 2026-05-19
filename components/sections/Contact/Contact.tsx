@@ -1,201 +1,283 @@
 "use client";
 
-import * as React from "react";
-import { motion } from "framer-motion";
-import type { ContactItem } from "@/lib/types/portfolio-api";
+import { useState, useCallback, type ReactNode } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { ExternalLink, Copy, Check, Loader2 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator,
+} from "@/components/ui/field";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { EmailIcon, LinkedInIcon } from "@/components/icons";
+import { useTranslations } from "@/lib/hooks/useTranslation";
 
-interface ContactProps {
-  contact: ContactItem[];
-  locale: string;
+// ─── Schema ───────────────────────────────────────────────────────────────────
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Le nom est requis"),
+  email: z.string().email("Adresse email invalide"),
+  phone: z.string().optional(),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
+// ─── Props ────────────────────────────────────────────────────────────────────
+
+interface ContactDialogProps {
+  trigger: ReactNode;
+  email?: string;
+  linkedinUrl?: string;
+  linkedinLabel?: string;
+  locale: "fr" | "en";
 }
 
-/**
- * Contact section — form + contact links for reaching out.
- * Submits to /api/contact (may be unavailable).
- *
- * @param contact - Contact items
- * @param locale - Current locale
- */
-export default function Contact({ contact, locale }: ContactProps) {
-  const heading = locale === "fr" ? "Contact" : "Contact";
-  const subtitle = locale === "fr"
-    ? "Discutons de votre projet"
-    : "Let's discuss your project";
+// ─── Email card ───────────────────────────────────────────────────────────────
 
-  const [status, setStatus] = React.useState<"idle" | "sending" | "sent" | "error">("idle");
+function EmailCard({ email }: { email: string }) {
+  const [copied, setCopied] = useState(false);
 
-  const handleSubmit = React.useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      setStatus("sending");
-      const form = e.currentTarget;
-      const data = {
-        name: (form.elements.namedItem("name") as HTMLInputElement).value,
-        email: (form.elements.namedItem("email") as HTMLInputElement).value,
-        message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
-      };
+  const copy = useCallback(async () => {
+    await navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [email]);
 
+  return (
+    <Card className="flex flex-col gap-2.5 rounded-xl p-4">
+      <CardHeader className="flex items-center gap-2.5">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+          <EmailIcon width={15} height={15} />
+        </span>
+        <CardTitle className="text-sm font-medium">Email</CardTitle>
+      </CardHeader>
+      <CardContent className="flex items-center justify-between gap-3">
+        <span className="truncate text-[13px] text-foreground">{email}</span>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={copy}
+          className="h-7 shrink-0 rounded-lg border-stone-200 px-3 text-xs font-medium hover:bg-stone-50"
+        >
+          {copied ? (
+            <><Check size={11} className="mr-1" />Copié !</>
+          ) : (
+            <><Copy size={11} className="mr-1" />Copier</>
+          )}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ─── LinkedIn card ────────────────────────────────────────────────────────────
+
+function LinkedInCard({ url, label }: { url: string; label: string }) {
+  return (
+    <Card className="flex flex-col gap-2.5 rounded-xl p-4">
+      <CardHeader className="flex items-center gap-2.5">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
+          <LinkedInIcon width={15} height={15} />
+        </span>
+        <CardTitle>LinkedIn</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-stone-50"
+        >
+          {label}
+          <ExternalLink size={11} />
+        </a>
+      </CardContent>
+    </Card>
+  );
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
+
+export function ContactDialog({
+  trigger,
+  email,
+  linkedinUrl,
+  linkedinLabel,
+  locale,
+}: ContactDialogProps) {
+  const [open, setOpen] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "sent" | "error">("idle");
+  const t = useTranslations(locale, ["email"]);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = useCallback(
+    async (data: ContactFormValues) => {
+      setSubmitStatus("idle");
       try {
-        await fetch("/api/contact", {
+        const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
-        setStatus("sent");
-        form.reset();
+        if (!res.ok) throw new Error("API error");
+        setSubmitStatus("sent");
+        reset();
       } catch {
-        setStatus("error");
+        setSubmitStatus("error");
       }
     },
-    []
+    [reset],
   );
 
-  const labels = {
-    name: locale === "fr" ? "Nom" : "Name",
-    email: locale === "fr" ? "Email" : "Email",
-    message: locale === "fr" ? "Message" : "Message",
-    send: locale === "fr" ? "Envoyer" : "Send",
-    sending: locale === "fr" ? "Envoi…" : "Sending…",
-    sent: locale === "fr" ? "Message envoyé ! 🎉" : "Message sent! 🎉",
-    error: locale === "fr" ? "Erreur. Veuillez réessayer." : "Error. Please try again.",
-    namePlaceholder: locale === "fr" ? "Votre nom" : "Your name",
-    emailPlaceholder: locale === "fr" ? "votre@email.com" : "you@email.com",
-    messagePlaceholder:
-      locale === "fr"
-        ? "Décrivez votre projet ou votre message…"
-        : "Describe your project or message…",
+  const handleOpenChange = (next: boolean) => {
+    setOpen(next);
+    if (!next) {
+      reset();
+      setSubmitStatus("idle");
+    }
   };
 
   return (
-    <section
-      id="contact"
-      className="mx-auto w-full max-w-5xl px-6 py-24"
-      aria-label={heading}
-    >
-      <div className="mx-auto max-w-2xl">
-        <div className="mb-10 text-center">
-          <h2 className="font-[family-name:var(--font-playfair)] text-3xl font-bold text-foreground">
-            {heading}
-          </h2>
-          <p className="mt-2 text-muted-foreground">{subtitle}</p>
-        </div>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-        <div className="grid gap-10 md:grid-cols-5">
-          {/* Contact links */}
-          {contact.length > 0 && (
-            <aside className="md:col-span-2 flex flex-col gap-3">
-              {contact.map((item) => (
-                <ContactCard key={item.type} item={item} />
-              ))}
-            </aside>
+      <DialogContent className="max-w-[420px] gap-0 overflow-hidden rounded-2xl p-0">
+        {/* ── Header ─────────────────────────────────────────────────────── */}
+        <DialogHeader className="px-5 pb-1 pt-5">
+          <DialogTitle className="text-base font-semibold">
+            {t("title")}
+          </DialogTitle>
+        </DialogHeader>
+
+        {/* ── Body ───────────────────────────────────────────────────────── */}
+        <div className="flex flex-col gap-3 px-5 pb-5 pt-3">
+          {/* Contact cards */}
+          {email && <EmailCard email={email} />}
+          {linkedinUrl && linkedinLabel && (
+            <LinkedInCard url={linkedinUrl} label={linkedinLabel} />
           )}
 
-          {/* Form */}
-          <div className={contact.length > 0 ? "md:col-span-3" : "md:col-span-5"}>
-            <motion.form
-              onSubmit={handleSubmit}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="flex flex-col gap-4"
-            >
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="name" className="text-sm font-medium text-foreground">
-                    {labels.name}
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder={labels.namePlaceholder}
-                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring"
+          {/* Separator */}
+          <FieldSeparator className="text-xs">
+            {t("separator")}
+          </FieldSeparator>
+
+          {/* ── Sent state ───────────────────────────────────────────────── */}
+          {submitStatus === "sent" ? (
+            <div className="rounded-xl bg-emerald-100 px-4 py-5 text-center">
+              <p className="text-sm font-semibold text-emerald-800">{t("sent")}</p>
+              <p className="mt-1 text-xs text-emerald-700">{t("sentDesc")}</p>
+            </div>
+          ) : (
+            /* ── Form ──────────────────────────────────────────────────── */
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <FieldGroup className="flex flex-col gap-3">
+
+                {/* Name */}
+                <Field data-invalid={!!errors.name}>
+                  <FieldLabel htmlFor="cd-name" className="text-[13px] font-medium">
+                    {t("nameLbl")}
+                  </FieldLabel>
+                  <Input
+                    id="cd-name"
+                    placeholder={t("namePh")}
+                    autoComplete="off"
+                    aria-invalid={!!errors.name}
+                    className="rounded-xl border-stone-200 bg-white text-sm focus-visible:border-[#3b5a3a] focus-visible:ring-[#3b5a3a]/20"
+                    {...register("name")}
                   />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className="text-sm font-medium text-foreground">
-                    {labels.email}
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
+                  <FieldError errors={[errors.name]} />
+                </Field>
+
+                {/* Email */}
+                <Field data-invalid={!!errors.email}>
+                  <FieldLabel htmlFor="cd-email" className="text-[13px] font-medium">
+                    {t("emailLbl")}
+                  </FieldLabel>
+                  <Input
+                    id="cd-email"
                     type="email"
-                    required
-                    placeholder={labels.emailPlaceholder}
-                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring"
+                    placeholder={t("emailPh")}
+                    autoComplete="off"
+                    aria-invalid={!!errors.email}
+                    className="rounded-xl border-stone-200 bg-white text-sm focus-visible:border-[#3b5a3a] focus-visible:ring-[#3b5a3a]/20"
+                    {...register("email")}
                   />
-                </div>
-              </div>
+                  <FieldError errors={[errors.email]} />
+                </Field>
 
-              <div className="flex flex-col gap-1.5">
-                <label htmlFor="message" className="text-sm font-medium text-foreground">
-                  {labels.message}
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  placeholder={labels.messagePlaceholder}
-                  className="w-full resize-none rounded-lg border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring"
-                />
-              </div>
+                {/* Message */}
+                <Field data-invalid={!!errors.message}>
+                  <FieldLabel htmlFor="cd-message" className="text-[13px] font-medium">
+                    {t("msgLbl")}
+                  </FieldLabel>
+                  <Textarea
+                    id="cd-message"
+                    placeholder={t("msgPh")}
+                    rows={4}
+                    aria-invalid={!!errors.message}
+                    className="resize-none rounded-xl border-stone-200 bg-white text-sm focus-visible:border-[#3b5a3a] focus-visible:ring-[#3b5a3a]/20"
+                    {...register("message")}
+                  />
+                  <FieldError errors={[errors.message]} />
+                </Field>
 
-              <button
-                type="submit"
-                disabled={status === "sending" || status === "sent"}
-                className="w-full rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110 disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                {status === "sending" ? labels.sending : labels.send}
-              </button>
+                {/* API error banner */}
+                {submitStatus === "error" && (
+                  <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">
+                    {t("error")}
+                  </p>
+                )}
 
-              {status === "sent" && (
-                <p className="text-center text-sm text-accent">{labels.sent}</p>
-              )}
-              {status === "error" && (
-                <p className="text-center text-sm text-destructive">{labels.error}</p>
-              )}
-            </motion.form>
-          </div>
+                {/* Submit */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="mt-1 w-full rounded-xl bg-[#3b5a3a] py-3 text-sm font-medium text-white hover:bg-[#2d4f2c] disabled:opacity-55"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={14} className="mr-2 animate-spin" />
+                      {t("sending")}
+                    </>
+                  ) : (
+                    t("send")
+                  )}
+                </Button>
+              </FieldGroup>
+            </form>
+          )}
         </div>
-      </div>
-    </section>
+      </DialogContent>
+    </Dialog>
   );
-}
-
-interface ContactCardProps {
-  item: ContactItem;
-}
-
-const ICONS: Record<string, string> = {
-  github: "🐙",
-  linkedin: "💼",
-  email: "✉️",
-  website: "🌐",
-  location: "📍",
-  twitter: "🐦",
-};
-
-/**
- * Individual contact method card.
- */
-function ContactCard({ item }: ContactCardProps) {
-  const icon = ICONS[item.type] ?? "🔗";
-  const inner = (
-    <div className="flex items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 text-sm text-foreground transition-all hover:border-accent hover:text-accent">
-      <span>{icon}</span>
-      <span className="font-medium">{item.label}</span>
-    </div>
-  );
-
-  if (item.href) {
-    return (
-      <a href={item.href} target="_blank" rel="noopener noreferrer">
-        {inner}
-      </a>
-    );
-  }
-
-  return inner;
 }

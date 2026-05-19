@@ -1,5 +1,3 @@
-import * as React from "react";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import SkillBadge from "./SkillBadge";
 import type { SkillSection } from "@/lib/types/portfolio-api";
@@ -26,8 +24,6 @@ export default function Skills({ skills, locale }: SkillsProps) {
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
-
       <div className="flex flex-col gap-12">
         {skills.map((section, sectionIdx) => {
           const title =

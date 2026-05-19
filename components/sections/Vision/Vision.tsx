@@ -1,5 +1,3 @@
-import * as React from "react";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { getTechIcon } from "@/lib/utils/techIcon";
 import type { VisionSection } from "@/lib/types/portfolio-api";
@@ -32,8 +30,6 @@ export default function Vision({ vision, locale }: VisionProps) {
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
-
       {headline && (
         <ScrollReveal>
           <p className="mb-4 text-center font-[family-name:var(--font-playfair)] text-2xl font-semibold text-foreground">

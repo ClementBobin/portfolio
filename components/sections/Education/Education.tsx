@@ -1,6 +1,4 @@
-import * as React from "react";
 import Link from "next/link";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { Education } from "@/lib/types/portfolio-api";
 
@@ -26,7 +24,6 @@ export default function EducationSection({ education, locale }: EducationProps) 
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
 
       <div className="grid gap-6 md:grid-cols-2">
         {education.map((edu, i) => {

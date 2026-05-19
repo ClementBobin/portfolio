@@ -1,5 +1,3 @@
-import * as React from "react";
-import { SectionHeading } from "@/components/ui/section-heading";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { StrengthItem } from "@/lib/types/portfolio-api";
 
@@ -25,8 +23,6 @@ export default function Strength({ strength, locale }: StrengthProps) {
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={heading}
     >
-      <SectionHeading title={heading} />
-
       <div className="flex flex-col gap-6">
         {strength.strengths.map((item, i) => {
           const label = item.label[locale as "en" | "fr"] ?? item.label.en ?? "";
