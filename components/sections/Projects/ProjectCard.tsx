@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import TechBadge from "@/components/ui/TechBadge";
 import type { Project } from "@/lib/types/portfolio-api";
+import { DynamicIcon } from "@/components/icons";
 
 interface ProjectCardProps {
   project: Project;
@@ -72,7 +72,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
         {project.techs.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {project.techs.map((tech) => (
-              <TechBadge key={tech.name} name={tech.name} size="sm" />
+              <DynamicIcon key={tech.name} iconClass={tech.name} />
             ))}
           </div>
         )}

@@ -1,8 +1,7 @@
-import * as React from "react";
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import TechBadge from "@/components/ui/TechBadge";
 import type { Experience } from "@/lib/types/portfolio-api";
+import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 
 interface ExperienceTimelineProps {
   experiences: Experience[];
@@ -86,7 +85,7 @@ export default function ExperienceTimeline({ experiences, locale }: ExperienceTi
                 {techs.length > 0 && (
                   <div className="flex flex-wrap gap-1.5">
                     {techs.map((tech) => (
-                      <TechBadge key={tech} name={tech} size="sm" />
+                      <DynamicIcon key={tech} iconClass={tech} />
                     ))}
                   </div>
                 )}

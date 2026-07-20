@@ -11,3 +11,4 @@ export * from './moon';
 export * from './phone';
 export * from './sun';
 export * from './website';
+export * from './dynamicLucideIcon';

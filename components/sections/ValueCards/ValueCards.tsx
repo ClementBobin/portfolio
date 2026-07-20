@@ -1,5 +1,5 @@
+import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { getTechIcon } from "@/lib/utils/techIcon";
 import type { ValueCard } from "@/lib/types/portfolio-api";
 
 interface ValueCardsProps {
@@ -29,7 +29,6 @@ export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
           const title = card.title[locale as "en" | "fr"] ?? card.title.en ?? "";
           const description = card.description[locale as "en" | "fr"] ?? card.description.en ?? "";
           const color = card.color ?? "#C4922A";
-          const Icon = getTechIcon(card.icon);
 
           return (
             <ScrollReveal key={i} delay={i * 0.08}>
@@ -47,7 +46,7 @@ export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
                   className="flex h-12 w-12 items-center justify-center rounded-xl"
                   style={{ backgroundColor: `${color}22`, color }}
                 >
-                  <Icon size={24} aria-hidden="true" />
+                  <DynamicIcon iconClass={card.icon} />
                 </div>
                 <div>
                   <h3

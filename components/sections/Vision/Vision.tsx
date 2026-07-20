@@ -1,5 +1,5 @@
+import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { getTechIcon } from "@/lib/utils/techIcon";
 import type { VisionSection } from "@/lib/types/portfolio-api";
 
 interface VisionProps {
@@ -49,13 +49,12 @@ export default function Vision({ vision, locale }: VisionProps) {
           const title = item.title[locale as "en" | "fr"] ?? item.title.en ?? "";
           const description = item.description[locale as "en" | "fr"] ?? item.description.en ?? "";
           const tags = item.tags?.map((t) => t[locale as "en" | "fr"] ?? t.en ?? "") ?? [];
-          const Icon = getTechIcon(item.icon);
 
           return (
             <ScrollReveal key={item.id} delay={i * 0.1}>
               <div className="group flex gap-4 rounded-xl border border-border bg-card p-6 transition-shadow hover:shadow-md">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent">
-                  <Icon size={24} aria-hidden="true" />
+                  <DynamicIcon iconClass={item.icon} />
                 </div>
                 <div className="flex flex-col gap-2">
                   <h3 className="font-[family-name:var(--font-playfair)] font-semibold text-foreground">

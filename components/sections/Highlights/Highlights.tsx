@@ -1,7 +1,8 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { getTechIcon } from "@/lib/utils/techIcon";
 import type { Highlight } from "@/lib/types/portfolio-api";
+import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
+import { Item } from "three/examples/jsm/inspector/ui/Item.js";
 
 interface HighlightsProps {
   highlights: Highlight[];
@@ -32,7 +33,6 @@ export default function Highlights({ highlights, locale }: HighlightsProps) {
             ? item.description[locale as "en" | "fr"] ?? item.description.en
             : undefined;
           const tags = item.tag?.map((t) => t[locale as "en" | "fr"] ?? t.en ?? "") ?? [];
-          const Icon = item.icon ? getTechIcon(item.icon) : null;
 
           const cardContent = (
             <div
@@ -46,11 +46,9 @@ export default function Highlights({ highlights, locale }: HighlightsProps) {
                 <div className="absolute right-3 top-3 text-lg">⭐</div>
               )}
 
-              {Icon && (
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/15 text-accent">
-                  <Icon size={20} aria-hidden="true" />
-                </div>
-              )}
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/15 text-accent">
+                <DynamicIcon iconClass={item.icon} />
+              </div>
 
               <div>
                 {tags.length > 0 && (

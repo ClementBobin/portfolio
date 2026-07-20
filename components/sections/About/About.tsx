@@ -37,7 +37,9 @@ export default function About({ personal, locale }: AboutProps) {
                   <Image
                     src={personal.photo}
                     alt={personal.name}
-                    fill
+                    width={320}
+                    height={320}
+                    priority
                     className="object-cover"
                   />
                 </AspectRatio>

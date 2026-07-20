@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { fetchPortfolioData } from "@/lib/data";
-import Footer from "@/components/layout/Footer";
+import Footer from "@/app/Footer";
 import Hero from "@/components/sections/Hero/Hero";
 import About from "@/components/sections/About/About";
 import Skills from "@/components/sections/Skills/Skills";
@@ -12,7 +12,6 @@ import ValueCards from "@/components/sections/ValueCards/ValueCards";
 import Vision from "@/components/sections/Vision/Vision";
 import Hobbies from "@/components/sections/Hobbies/Hobbies";
 import Strength from "@/components/sections/Strength/Strength";
-import Contact from "@/components/sections/Contact/Contact";
 
 interface PageParams {
   params: Promise<{ locale: string }>;
@@ -42,7 +41,7 @@ export default async function PortfolioPage({ params }: PageParams) {
     <>
       <main className="flex flex-col">
         <Suspense fallback={<div className="h-screen flex items-center justify-center">Loading...</div>}>
-          <Hero personal={personal} locale={locale} experiences={experiences} />
+          <Hero personal={personal} locale={locale} experiences={experiences} contact={contact} />
 
           <About personal={personal} locale={locale} />
 

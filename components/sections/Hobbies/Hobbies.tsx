@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import {DynamicLucideIcon} from "@/components/icons";
 import type { Hobby } from "@/lib/types/portfolio-api";
 
 interface HobbiesProps {
@@ -40,7 +41,7 @@ export default function Hobbies({ hobbies, locale }: HobbiesProps) {
               <div className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-5 transition-shadow hover:shadow-md">
                 <div className="flex items-center gap-3">
                   <span className="text-3xl" role="img" aria-label={title}>
-                    {hobby.emoji ?? hobby.icon}
+                    <DynamicLucideIcon name={hobby.icon} />
                   </span>
                   <h3 className="font-[family-name:var(--font-playfair)] text-lg font-semibold text-foreground">
                     {title}

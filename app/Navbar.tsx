@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Navbar } from "@/components/ui/navbar";
 import { useTheme } from "@/components/ThemeProvider";
-import { MoonIcon, SunIcon } from "../icons";
+import { MoonIcon, SunIcon } from "../components/icons";
 
 interface NavbarPortfolioProps {
   locale: string;

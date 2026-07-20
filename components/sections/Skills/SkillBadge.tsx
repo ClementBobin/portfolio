@@ -1,9 +1,8 @@
 "use client";
 
-import * as React from "react";
 import { motion } from "framer-motion";
 import { useTechColors } from "@/lib/hooks/useTechColors";
-import { getTechIcon } from "@/lib/utils/techIcon";
+import { DynamicIcon } from "@/components/icons";
 
 interface SkillBadgeProps {
   name: string;
@@ -21,7 +20,6 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
   const colors = useTechColors();
   const entry = colors.get(name.toLowerCase());
   const color = entry?.color ?? "#7A6555";
-  const iconName = entry?.icon ?? "Code2";
 
   return (
     <motion.div
@@ -45,7 +43,7 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
         className="flex h-10 w-10 items-center justify-center rounded-full"
         style={{ backgroundColor: `${color}22`, color }}
       >
-        {React.createElement(getTechIcon(iconName), { size: 20, "aria-hidden": "true" })}
+        <DynamicIcon iconHref={entry?.iconHref} iconClass={entry?.icon} />
       </div>
       <span className="text-sm font-medium text-foreground">{name}</span>
       {level && (

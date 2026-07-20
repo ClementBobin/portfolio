@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import type { PortfolioPersonal, Experience } from "@/lib/types/portfolio-api";
+import type { PortfolioPersonal, Experience, Contact } from "@/lib/types/portfolio-api";
 import HeroText from "./HeroText";
 import computeYears from "@/lib/utils";
 import { ChevronDownIcon } from "@/components/icons";
@@ -14,6 +14,7 @@ interface HeroProps {
   personal: PortfolioPersonal;
   locale: string;
   experiences: Experience[];
+  contact: Contact[];
 }
 
 /**
@@ -23,8 +24,9 @@ interface HeroProps {
  * @param personal - Personal portfolio data
  * @param locale - Current locale
  * @param experiences - Work experiences (used to compute years of experience)
+ * @param contact - Contact information
  */
-export default function Hero({ personal, locale, experiences }: HeroProps) {
+export default function Hero({ personal, locale, experiences, contact }: HeroProps) {
   const yearsExperience = personal.yearsExperience ?? computeYears(experiences);
   const cvLabel = locale === "fr" ? "Voir mon CV" : "View my CV";
   const contactLabel = locale === "fr" ? "Me contacter" : "Contact me";
@@ -54,9 +56,8 @@ export default function Hero({ personal, locale, experiences }: HeroProps) {
           </Link>
           <ContactDialog
             trigger={<div className="rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{contactLabel}</div>}
-            email="clementbouly@hotmail.fr"
-            linkedinUrl="https://linkedin.com/in/clementbouly"
-            linkedinLabel="Voir mon profil"
+            linkedinUrl={contact.find((c) => c.type === "linkedin")?.href ?? ""}
+            linkedinLabel={contact.find((c) => c.type === "linkedin")?.label ?? ""}
             locale="fr"
           />
         </div>
