@@ -1,5 +1,3 @@
-import { ExternalLink } from "lucide-react";
-
 type LocalizedString = string | { en: string; fr: string };
 
 interface UsesItem {
