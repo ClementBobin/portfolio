@@ -1,5 +1,5 @@
 import ExperienceTimeline from "./ExperienceTimeline";
-import type { Experience } from "@/lib/types/portfolio-api";
+import type { Experience } from "@/types/portfolio-api";
 
 interface ExperienceProps {
   experiences: Experience[];

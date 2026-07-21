@@ -1,4 +1,4 @@
-import { IconProps } from "@/lib/types/global";
+import { IconProps } from "@/types/global";
 
 export function GitHubIcon(props: IconProps) {
   return (

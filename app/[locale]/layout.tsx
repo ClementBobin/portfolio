@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { getTranslations, fetchLangConfig } from "@/lib/hooks/useTranslation";
+import { getTranslations, fetchLangConfig } from "@/hooks/useTranslation";
 
 interface LocaleLayoutParams {
   params: Promise<{ locale: string }>;

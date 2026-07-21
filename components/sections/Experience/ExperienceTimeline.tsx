@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { Experience } from "@/lib/types/portfolio-api";
+import type { Experience } from "@/types/portfolio-api";
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 
 interface ExperienceTimelineProps {

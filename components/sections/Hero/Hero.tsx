@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import type { PortfolioPersonal, Experience, Contact } from "@/lib/types/portfolio-api";
+import type { PortfolioPersonal, Experience, Contact } from "@/types/portfolio-api";
 import HeroText from "./HeroText";
 import computeYears from "@/lib/utils";
 import { ChevronDownIcon } from "@/components/icons";

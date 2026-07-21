@@ -1,5 +1,5 @@
 import ProjectCard from "./ProjectCard";
-import type { Project } from "@/lib/types/portfolio-api";
+import type { Project } from "@/types/portfolio-api";
 
 interface ProjectsProps {
   projects: Project[];

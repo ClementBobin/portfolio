@@ -1,4 +1,4 @@
-import type { PortfolioData } from "@/lib/types/portfolio-api";
+import type { PortfolioData } from "@/types/portfolio-api";
 
 /**
  * Fetches portfolio data directly from the resource API.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { Highlight } from "@/lib/types/portfolio-api";
+import type { Highlight } from "@/types/portfolio-api";
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import { Item } from "three/examples/jsm/inspector/ui/Item.js";
 

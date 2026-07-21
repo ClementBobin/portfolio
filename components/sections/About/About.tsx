@@ -1,6 +1,6 @@
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { PortfolioPersonal } from "@/lib/types/portfolio-api";
+import type { PortfolioPersonal } from "@/types/portfolio-api";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface AboutProps {

@@ -1,7 +1,7 @@
 "use server";
 
 import { rssParser } from "@/lib/rss-parser";
-import { getTranslations } from "@/lib/hooks/useTranslation";
+import { getTranslations } from "@/hooks/useTranslation";
 import { formatDate } from "@/lib/utils";
 import {
   Timeline,

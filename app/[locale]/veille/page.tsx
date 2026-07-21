@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { RSSFeed } from "@/components/sections/rss";
 import { FeedSkeleton } from "@/components/sections/rss/feed-skeleton";
-import { getTranslations } from "@/lib/hooks/useTranslation";
+import { getTranslations } from "@/hooks/useTranslation";
 
 const VEILLE_FEED = "https://clementbobin.github.io/obsidian/index.xml";
 

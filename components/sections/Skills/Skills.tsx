@@ -1,6 +1,6 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import SkillBadge from "./SkillBadge";
-import type { SkillSection } from "@/lib/types/portfolio-api";
+import type { SkillSection } from "@/types/portfolio-api";
 
 interface SkillsProps {
   skills: SkillSection[];

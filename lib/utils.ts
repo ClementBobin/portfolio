@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { Experience } from "./types/portfolio-api";
+import { Experience } from "../types/portfolio-api";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))

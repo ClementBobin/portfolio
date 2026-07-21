@@ -1,5 +1,5 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { StrengthItem } from "@/lib/types/portfolio-api";
+import type { StrengthItem } from "@/types/portfolio-api";
 
 interface StrengthProps {
   strength: StrengthItem;

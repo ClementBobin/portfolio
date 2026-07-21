@@ -3,8 +3,8 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { useTranslations } from "@/lib/hooks/useTranslation";
-import type { PortfolioPersonal } from "@/lib/types/portfolio-api";
+import { useTranslations } from "@/hooks/useTranslation";
+import type { PortfolioPersonal } from "@/types/portfolio-api";
 
 interface HeroTextProps {
   personal: PortfolioPersonal;

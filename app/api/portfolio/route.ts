@@ -1,4 +1,4 @@
-import type { PortfolioData } from "@/lib/types/portfolio-api";
+import type { PortfolioData } from "@/types/portfolio-api";
 
 export async function GET() {
   const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;

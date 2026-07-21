@@ -1,6 +1,6 @@
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { ValueCard } from "@/lib/types/portfolio-api";
+import type { ValueCard } from "@/types/portfolio-api";
 
 interface ValueCardsProps {
   valueCards: ValueCard[];

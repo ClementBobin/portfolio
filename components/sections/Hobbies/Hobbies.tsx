@@ -1,6 +1,6 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import {DynamicLucideIcon} from "@/components/icons";
-import type { Hobby } from "@/lib/types/portfolio-api";
+import type { Hobby } from "@/types/portfolio-api";
 
 interface HobbiesProps {
   hobbies: Hobby[];

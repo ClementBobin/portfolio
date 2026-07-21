@@ -1,6 +1,6 @@
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { VisionSection } from "@/lib/types/portfolio-api";
+import type { VisionSection } from "@/types/portfolio-api";
 
 interface VisionProps {
   vision: VisionSection;

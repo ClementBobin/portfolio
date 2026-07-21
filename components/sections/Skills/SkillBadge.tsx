@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTechColors } from "@/lib/hooks/useTechColors";
+import { useTechColors } from "@/hooks/useTechColors";
 import { DynamicIcon } from "@/components/icons";
 
 interface SkillBadgeProps {

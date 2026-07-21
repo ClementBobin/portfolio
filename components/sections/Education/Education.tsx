@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { Education } from "@/lib/types/portfolio-api";
+import type { Education } from "@/types/portfolio-api";
 
 interface EducationProps {
   education: Education[];

@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/lib/types/portfolio-api";
+import type { Project } from "@/types/portfolio-api";
 import { DynamicIcon } from "@/components/icons";
 
 interface ProjectCardProps {
