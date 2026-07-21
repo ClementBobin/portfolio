@@ -1,0 +1,51 @@
+{
+  "projects": {
+    "metaTitle": { "en": "Projects", "fr": "Projets" },
+    "metaDescription": {
+      "en": "A chronological view of all my open-source repos and contributions.",
+      "fr": "Vue chronologique de tous mes dépôts open source et contributions."
+    },
+    "status": { "en": "Open source", "fr": "Open source" },
+    "title": { "en": "Projects", "fr": "Projets" },
+    "description": {
+      "en": "A chronological view of everything I have shipped — personal repos and organization contributions, grouped by creation date.",
+      "fr": "Vue chronologique de tout ce que j'ai livré — dépôts personnels et contributions organisationnelles, regroupés par date de création."
+    },
+    "personal": { "en": "Personal projects", "fr": "Projets personnels" },
+    "org": { "en": "Organization contributions", "fr": "Contributions organisationnelles" }
+  },
+  "uses": {
+    "metaTitle": { "en": "Uses", "fr": "Outils" },
+    "metaDescription": {
+      "en": "Hardware, software and services I use every day.",
+      "fr": "Matériel, logiciels et services que j'utilise au quotidien."
+    },
+    "title": { "en": "Uses", "fr": "Outils" },
+    "description": {
+      "en": "I often get messages asking about specific pieces of software or hardware I use. This is a living document with everything I'm using nowadays.",
+      "fr": "On me demande souvent quels logiciels ou matériels j'utilise. Voici un document vivant avec tout ce que j'utilise."
+    },
+    "error": { "en": "Could not load data.", "fr": "Impossible de charger les données." }
+  },
+  "veille": {
+    "metaTitle": { "en": "Tech Watch", "fr": "Veille Technologique" },
+    "metaDescription": {
+      "en": "My tech watch — curated articles, tools and resources I follow.",
+      "fr": "Ma veille technologique — articles, outils et ressources que je suis."
+    },
+    "status": { "en": "Live feed", "fr": "Flux en direct" },
+    "title": { "en": "Tech Watch", "fr": "Veille Technologique" },
+    "description": {
+      "en": "Curated articles, tools and resources from my Obsidian notes feed.",
+      "fr": "Articles, outils et ressources sélectionnés depuis mon flux de notes Obsidian."
+    }
+  },
+  "rss": {
+    "error": { "en": "Failed to load feed", "fr": "Échec du chargement du flux" },
+    "noItems": { "en": "No articles found", "fr": "Aucun article trouvé" },
+    "noItemsDescription": {
+      "en": "The feed is empty or unavailable.",
+      "fr": "Le flux est vide ou indisponible."
+    }
+  }
+}
