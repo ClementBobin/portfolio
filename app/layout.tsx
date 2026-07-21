@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
       default: "Clément BOBIN — Portfolio",
       template: "%s | Clément BOBIN",
     },
-    description: t("seo.description") || "Fullstack developer portfolio",
+    description: "Fullstack developer portfolio",
   };
 }
 

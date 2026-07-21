@@ -3,6 +3,7 @@
 import { useState, useCallback, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { ExternalLink, Copy, Check, Loader2 } from "lucide-react";
 import {
   Dialog,
@@ -30,10 +31,29 @@ import { Button } from "@/components/ui/button";
 import { EmailIcon, LinkedInIcon } from "@/components/icons";
 import { useTranslations } from "@/hooks/useTranslation";
 
+interface ContactDialogProps {
+  trigger: ReactNode;
+  email?: string;
+  linkedinUrl?: string;
+  linkedinLabel?: string;
+  locale: string;
+}
+
+// ─── Schema ───────────────────────────────────────────────────────────────────
+const contactSchema = z.object({
+  name: z.string().min(1, "Le nom est requis"),
+  email: z.string().email("Adresse email invalide"),
+  phone: z.string().optional(),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+});
+
+type ContactFormValues = z.infer<typeof contactSchema>;
+
 // ─── Email card ───────────────────────────────────────────────────────────────
 
-function EmailCard({ email }: { email: string }) {
+function EmailCard({ email, locale }: { email: string, locale: string; }) {
   const [copied, setCopied] = useState(false);
+  const t = useTranslations(locale, ["email"]);
 
   const copy = useCallback(async () => {
     await navigator.clipboard.writeText(email);
@@ -47,7 +67,7 @@ function EmailCard({ email }: { email: string }) {
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
           <EmailIcon width={15} height={15} />
         </span>
-        <CardTitle className="text-sm font-medium">Email</CardTitle>
+        <CardTitle className="text-sm font-medium">{t("contact.mail")}</CardTitle>
       </CardHeader>
       <CardContent className="flex items-center justify-between gap-3">
         <span className="truncate text-[13px] text-foreground">{email}</span>
@@ -59,9 +79,9 @@ function EmailCard({ email }: { email: string }) {
           className="h-7 shrink-0 rounded-lg border-stone-200 px-3 text-xs font-medium hover:bg-stone-50"
         >
           {copied ? (
-            <><Check size={11} className="mr-1" />Copié !</>
+            <><Check size={11} className="mr-1" />{t("contact.copied")}</>
           ) : (
-            <><Copy size={11} className="mr-1" />Copier</>
+            <><Copy size={11} className="mr-1" />{t("contact.copy")}</>
           )}
         </Button>
       </CardContent>
@@ -148,7 +168,7 @@ export function ContactDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
-      <DialogContent className="max-w-[420px] gap-0 overflow-hidden rounded-2xl p-0">
+      <DialogContent className="max-w-105 gap-0 overflow-hidden rounded-2xl p-0">
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <DialogHeader className="px-5 pb-1 pt-5">
           <DialogTitle className="text-base font-semibold">
@@ -159,7 +179,7 @@ export function ContactDialog({
         {/* ── Body ───────────────────────────────────────────────────────── */}
         <div className="flex flex-col gap-3 px-5 pb-5 pt-3">
           {/* Contact cards */}
-          {email && <EmailCard email={email} />}
+          {email && <EmailCard email={email} locale={locale} />}
           {linkedinUrl && linkedinLabel && (
             <LinkedInCard url={linkedinUrl} label={linkedinLabel} />
           )}

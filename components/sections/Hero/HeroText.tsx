@@ -1,7 +1,6 @@
 "use client";
 
-import * as React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { useTranslations } from "@/hooks/useTranslation";
 import type { PortfolioPersonal } from "@/types/portfolio-api";
@@ -12,10 +11,6 @@ interface HeroTextProps {
   yearsExperience?: number;
 }
 
-const TYPEWRITER_SPEED = 80;
-const ERASE_SPEED = 40;
-const PAUSE_DURATION = 2000;
-
 /**
  * Animated hero text with typewriter effect for roles.
  * Name animates in with staggered entrance animation.
@@ -25,7 +20,7 @@ const PAUSE_DURATION = 2000;
  * @param yearsExperience - Years of experience
  */
 export default function HeroText({ personal, locale, yearsExperience }: HeroTextProps) {
-  const t = useTranslations(locale, ["common"]);
+  const t = useTranslations(locale, ["portfolio"]);
 
   const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -42,68 +37,64 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
   };
 
-  const greeting = locale === "fr" ? "Salut, je suis" : "Hi, I'm";
-  const expText = yearsExperience
-    ? locale === "fr"
-      ? `${yearsExperience} ans d'expérience`
-      : `${yearsExperience} years of experience`
-    : null;
-  const developerLabel = locale === "fr" ? "Développeur" : "Developer";
+  const greeting = t("hero.greeting");
+  const expText = t("hero.yearsExperience", { count: yearsExperience ?? 0 });
+  const developerLabel = t("hero.developer");
 
   return (
-    <motion.div
+    <m.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       className="flex flex-col items-center gap-4 text-center"
     >
       {/* Greeting */}
-      <motion.p
+      <m.p
         variants={itemVariants}
-        className="font-[family-name:var(--font-lora)] text-lg italic text-muted-foreground"
+        className="text-lg italic text-muted-foreground"
       >
         {greeting}
-      </motion.p>
+      </m.p>
 
       {/* Name */}
-      <motion.h1
+      <m.h1
         variants={itemVariants}
-        className="font-[family-name:var(--font-playfair)] text-5xl font-bold italic leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl"
+        className="text-5xl font-bold italic leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl"
       >
         {personal.name}
-      </motion.h1>
+      </m.h1>
 
       {/* Years of experience */}
       {expText && (
-        <motion.p variants={itemVariants} className="text-sm text-muted-foreground">
+        <m.p variants={itemVariants} className="text-sm text-muted-foreground">
           {expText}
-        </motion.p>
+        </m.p>
       )}
 
       {/* Role */}
-      <motion.div
+      <m.div
         variants={itemVariants}
         className="flex items-center gap-2 text-2xl font-medium text-foreground md:text-3xl"
       >
-        <span className="font-[family-name:var(--font-lora)]">{developerLabel}</span>
+        <span>{developerLabel}</span>
         <span
-          className="font-[family-name:var(--font-dancing)] text-accent"
+          className="text-accent"
           style={{ fontSize: "1.2em" }}
         >
           {developerLabel}
         </span>
-      </motion.div>
+      </m.div>
 
       {/* Status badge */}
       {personal.subtitle && (
-        <motion.div variants={itemVariants}>
+        <m.div variants={itemVariants}>
           <HangingChalkboard
             text={t(personal.subtitle.libelle)}
             href={personal.subtitle.href}
           />
-        </motion.div>
+        </m.div>
       )}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -117,7 +108,7 @@ interface HangingChalkboardProps {
  */
 function HangingChalkboard({ text, href }: HangingChalkboardProps) {
   const content = (
-    <motion.div
+    <m.div
       animate={{
         rotate: [0, -2, 2, -1, 1, 0],
         transition: { duration: 4, repeat: Infinity, ease: "easeInOut" },
@@ -147,7 +138,7 @@ function HangingChalkboard({ text, href }: HangingChalkboardProps) {
           {text}
         </text>
       </svg>
-    </motion.div>
+    </m.div>
   );
 
   if (href) {

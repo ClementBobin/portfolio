@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/types/portfolio-api";
 import { DynamicIcon } from "@/components/icons";
+import { useTranslations } from "@/hooks/useTranslation";
 
 interface ProjectCardProps {
   project: Project;
@@ -21,9 +22,9 @@ interface ProjectCardProps {
  * @param index - Card index for staggered animation delay
  */
 export default function ProjectCard({ project, locale, index = 0 }: ProjectCardProps) {
-  const title = project.title[locale as "en" | "fr"] ?? project.title.en ?? "";
-  const description = project.description[locale as "en" | "fr"] ?? project.description.en ?? "";
-  const badges = project.badge?.map((b) => b[locale as "en" | "fr"] ?? b.en ?? "") ?? [];
+  const t = useTranslations(locale, ["portfolio"]);
+  const title = t(project.title);
+  const badges = project.badge?.map((b) => t(b)) ?? [];
 
   return (
     <motion.article
@@ -62,10 +63,10 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
             </div>
           )}
 
-          <h3 className="font-[family-name:var(--font-playfair)] text-lg font-semibold text-foreground">
+          <h3 className="text-lg font-semibold text-foreground">
             {title}
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-foreground/75">{description}</p>
+          <p className="mt-2 text-sm leading-relaxed text-foreground/75">{t(project.description)}</p>
         </div>
 
         {/* Tech badges */}
@@ -87,7 +88,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
               className="inline-flex items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-all hover:brightness-110"
             >
               <span>🔗</span>
-              {locale === "fr" ? "Voir le projet" : "View project"}
+              {t("projects.viewProject")}
             </Link>
           )}
           {project.githubHref && (

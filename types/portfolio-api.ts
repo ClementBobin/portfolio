@@ -3,10 +3,7 @@
  * All optional fields: if null/undefined, the section/field is hidden.
  */
 
-export type LocalizedString = {
-  en: string;
-  fr: string;
-};
+import type { LocalizedString } from "./global";
 
 // ─── SEO ────────────────────────────────────────────────────────────────────
 

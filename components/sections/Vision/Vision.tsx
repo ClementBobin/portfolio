@@ -1,5 +1,6 @@
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { getTranslations } from "@/hooks/useTranslation";
 import type { VisionSection } from "@/types/portfolio-api";
 
 interface VisionProps {
@@ -13,14 +14,10 @@ interface VisionProps {
  * @param vision - Vision section data
  * @param locale - Current locale
  */
-export default function Vision({ vision, locale }: VisionProps) {
-  const heading = locale === "fr" ? "Vision & Objectifs" : "Vision & Goals";
-  const headline = vision.headline
-    ? vision.headline[locale as "en" | "fr"] ?? vision.headline.en
-    : null;
-  const subtitle = vision.subtitle
-    ? vision.subtitle[locale as "en" | "fr"] ?? vision.subtitle.en
-    : null;
+export default async function Vision({ vision, locale }: VisionProps) {
+  const t = await getTranslations(locale, ["portfolio"]);
+  const headline = t(vision.headline)
+  const subtitle = t(vision.subtitle)
 
   if (!vision.items.length) return null;
 
@@ -28,11 +25,11 @@ export default function Vision({ vision, locale }: VisionProps) {
     <section
       id="vision"
       className="mx-auto w-full max-w-5xl px-6 py-24"
-      aria-label={heading}
+      aria-label={t("section.vision")}
     >
       {headline && (
         <ScrollReveal>
-          <p className="mb-4 text-center font-[family-name:var(--font-playfair)] text-2xl font-semibold text-foreground">
+          <p className="mb-4 text-center text-2xl font-semibold text-foreground">
             {headline}
           </p>
         </ScrollReveal>
@@ -46,9 +43,7 @@ export default function Vision({ vision, locale }: VisionProps) {
 
       <div className="grid gap-6 sm:grid-cols-2">
         {vision.items.map((item, i) => {
-          const title = item.title[locale as "en" | "fr"] ?? item.title.en ?? "";
-          const description = item.description[locale as "en" | "fr"] ?? item.description.en ?? "";
-          const tags = item.tags?.map((t) => t[locale as "en" | "fr"] ?? t.en ?? "") ?? [];
+          const tags = item.tags?.map((tag) => t(tag)) ?? [];
 
           return (
             <ScrollReveal key={item.id} delay={i * 0.1}>
@@ -57,10 +52,10 @@ export default function Vision({ vision, locale }: VisionProps) {
                   <DynamicIcon iconClass={item.icon} />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-[family-name:var(--font-playfair)] font-semibold text-foreground">
-                    {title}
+                  <h3 className="font-semibold text-foreground">
+                    {t(item.title)}
                   </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{t(item.description)}</p>
                   {tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
                       {tags.map((tag) => (

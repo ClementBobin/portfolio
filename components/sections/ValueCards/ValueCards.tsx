@@ -1,6 +1,7 @@
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { ValueCard } from "@/types/portfolio-api";
+import { getTranslations } from "@/hooks/useTranslation";
 
 interface ValueCardsProps {
   valueCards: ValueCard[];
@@ -13,8 +14,8 @@ interface ValueCardsProps {
  * @param valueCards - Array of value card items
  * @param locale - Current locale
  */
-export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
-  const heading = locale === "fr" ? "Ce que j'apporte" : "What I Bring";
+export default async function ValueCards({ valueCards, locale }: ValueCardsProps) {
+  const t = await getTranslations(locale, ["portfolio"]);
 
   if (!valueCards.length) return null;
 
@@ -22,12 +23,10 @@ export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
     <section
       id="values"
       className="mx-auto w-full max-w-5xl px-6 py-24"
-      aria-label={heading}
+      aria-label={t("section.values")}
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {valueCards.map((card, i) => {
-          const title = card.title[locale as "en" | "fr"] ?? card.title.en ?? "";
-          const description = card.description[locale as "en" | "fr"] ?? card.description.en ?? "";
           const color = card.color ?? "#C4922A";
 
           return (
@@ -53,9 +52,9 @@ export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
                     className="font-[family-name:var(--font-playfair)] text-lg font-semibold"
                     style={{ color }}
                   >
-                    {title}
+                    {t(card.title)}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-foreground/80">{description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80">{t(card.description)}</p>
                 </div>
               </div>
             </ScrollReveal>

@@ -62,5 +62,17 @@
   "messageError": {
     "fr": "Le message doit contenir au moins 10 caractères",
     "en": "Message must be at least 10 characters"
+  },
+  "mail": {
+    "fr": "Email",
+    "en": "Mail"
+  },
+  "copied": {
+    "fr": "Copié !",
+    "en": "Copied!"
+  },
+  "copy": {
+    "fr": "Copier",
+    "en": "Copy"
   }
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { Highlight } from "@/types/portfolio-api";
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
-import { Item } from "three/examples/jsm/inspector/ui/Item.js";
+import { getTranslations } from "@/hooks/useTranslation";
 
 interface HighlightsProps {
   highlights: Highlight[];
@@ -15,8 +15,8 @@ interface HighlightsProps {
  * @param highlights - Array of highlight items
  * @param locale - Current locale
  */
-export default function Highlights({ highlights, locale }: HighlightsProps) {
-  const heading = locale === "fr" ? "Points forts" : "Highlights";
+export default async function Highlights({ highlights, locale }: HighlightsProps) {
+  const t = await getTranslations(locale, ["portfolio"]);
 
   if (!highlights.length) return null;
 
@@ -24,15 +24,12 @@ export default function Highlights({ highlights, locale }: HighlightsProps) {
     <section
       id="highlights"
       className="mx-auto w-full max-w-5xl px-6 py-24"
-      aria-label={heading}
+      aria-label={t("section.highlights")}
     >
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {highlights.map((item, i) => {
-          const label = item.label[locale as "en" | "fr"] ?? item.label.en ?? "";
-          const description = item.description
-            ? item.description[locale as "en" | "fr"] ?? item.description.en
-            : undefined;
-          const tags = item.tag?.map((t) => t[locale as "en" | "fr"] ?? t.en ?? "") ?? [];
+          const description = t(item.description);
+          const tags = t(item.tag);
 
           const cardContent = (
             <div
@@ -63,8 +60,8 @@ export default function Highlights({ highlights, locale }: HighlightsProps) {
                     ))}
                   </div>
                 )}
-                <h3 className="font-[family-name:var(--font-playfair)] font-semibold text-foreground">
-                  {label}
+                <h3 className="font-semibold text-foreground">
+                  {t(item.label)}
                 </h3>
                 {description && (
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
@@ -75,7 +72,7 @@ export default function Highlights({ highlights, locale }: HighlightsProps) {
                 <div className="mt-auto flex gap-2">
                   {item.href && (
                     <span className="text-xs text-accent">
-                      {locale === "fr" ? "Voir →" : "View →"}
+                      {t("highlights.view")}
                     </span>
                   )}
                 </div>

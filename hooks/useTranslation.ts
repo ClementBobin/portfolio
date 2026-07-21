@@ -10,23 +10,9 @@
  *   t(data.personal.summary)          → string  (localize { en, fr } object)
  *   t(data.seo.keywords)              → string[] (localize { en: [], fr: [] } object)
  */
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type LocalizedValue = Record<string, string>;
-type TranslationNamespace = Record<string, LocalizedValue | Record<string, unknown>>;
-type LoadedNamespaces = Record<string, TranslationNamespace>;
-
-export type LocalizedString = Record<string, string>;
-export type LocalizedArray = Record<string, string[]>;
-
-export interface TFunction {
-  (key: string, vars?: Record<string, string | number>): string;
-  (key: LocalizedString, vars?: Record<string, string | number>): string;
-  (key: LocalizedArray): string[];
-}
-
 // ─── Shared helpers ───────────────────────────────────────────────────────────
+
+import type { LocalizedString, LocalizedArray, LoadedNamespaces, TFunction, TranslationNamespace } from "@/types/global";
 
 export const getLanguageCode = (locale?: string): string => (locale || "en").split("-")[0];
 
@@ -42,7 +28,7 @@ function resolve(namespaces: LoadedNamespaces, key: string, lang: string): strin
   for (const ns of Object.values(namespaces)) {
     const direct = ns[key];
     if (direct && typeof direct === "object" && !Array.isArray(direct)) {
-      const map = direct as LocalizedValue;
+      const map = direct as LocalizedString;
       const val = map[lang] ?? map.en;
       if (val !== undefined) return val;
     }
@@ -56,7 +42,7 @@ function resolve(namespaces: LoadedNamespaces, key: string, lang: string): strin
           : undefined;
     }
     if (current && typeof current === "object" && !Array.isArray(current)) {
-      const map = current as LocalizedValue;
+      const map = current as LocalizedString;
       const val = map[lang] ?? map.en;
       if (val !== undefined) return val;
     }

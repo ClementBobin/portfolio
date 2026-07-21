@@ -2,11 +2,12 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import type { PortfolioPersonal, Experience, Contact } from "@/types/portfolio-api";
+import type { PortfolioPersonal, Experience, ContactItem } from "@/types/portfolio-api";
 import HeroText from "./HeroText";
 import computeYears from "@/lib/utils";
 import { ChevronDownIcon } from "@/components/icons";
 import { ContactDialog } from "../Contact/Contact";
+import { useTranslations } from "@/hooks/useTranslation";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
@@ -14,7 +15,7 @@ interface HeroProps {
   personal: PortfolioPersonal;
   locale: string;
   experiences: Experience[];
-  contact: Contact[];
+  contact: ContactItem[];
 }
 
 /**
@@ -27,15 +28,14 @@ interface HeroProps {
  * @param contact - Contact information
  */
 export default function Hero({ personal, locale, experiences, contact }: HeroProps) {
+  const t = useTranslations(locale, ["portfolio"]);
   const yearsExperience = personal.yearsExperience ?? computeYears(experiences);
-  const cvLabel = locale === "fr" ? "Voir mon CV" : "View my CV";
-  const contactLabel = locale === "fr" ? "Me contacter" : "Contact me";
 
   return (
     <section
       id="hero"
       className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden"
-      aria-label={locale === "fr" ? "Présentation" : "Introduction"}
+      aria-label={t("hero.label")}
     >
       {/* Three.js canvas — dynamically loaded, aria-hidden */}
       <HeroCanvas />
@@ -52,13 +52,13 @@ export default function Hero({ personal, locale, experiences, contact }: HeroPro
             rel="noopener noreferrer"
             className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:brightness-110 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            {cvLabel}
+            {t("hero.viewCv")}
           </Link>
           <ContactDialog
-            trigger={<div className="rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{contactLabel}</div>}
+            trigger={<div className="rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{t("hero.contact")}</div>}
             linkedinUrl={contact.find((c) => c.type === "linkedin")?.href ?? ""}
             linkedinLabel={contact.find((c) => c.type === "linkedin")?.label ?? ""}
-            locale="fr"
+            locale={locale}
           />
         </div>
       </div>

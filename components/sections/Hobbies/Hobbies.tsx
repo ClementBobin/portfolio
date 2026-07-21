@@ -1,6 +1,7 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import {DynamicLucideIcon} from "@/components/icons";
+import { DynamicLucideIcon } from "@/components/icons";
 import type { Hobby } from "@/types/portfolio-api";
+import { getTranslations } from "@/hooks/useTranslation";
 
 interface HobbiesProps {
   hobbies: Hobby[];
@@ -13,9 +14,8 @@ interface HobbiesProps {
  * @param hobbies - Array of hobby items
  * @param locale - Current locale
  */
-export default function Hobbies({ hobbies, locale }: HobbiesProps) {
-  const heading = locale === "fr" ? "Centres d'intérêt" : "Hobbies & Interests";
-  const lang = locale as "en" | "fr";
+export default async function Hobbies({ hobbies, locale }: HobbiesProps) {
+  const t = await getTranslations(locale, ["portfolio"]);
 
   if (!hobbies.length) return null;
 
@@ -23,18 +23,13 @@ export default function Hobbies({ hobbies, locale }: HobbiesProps) {
     <section
       id="hobbies"
       className="mx-auto w-full max-w-5xl px-6 py-24"
-      aria-label={heading}
+      aria-label={t("section.hobbies")}
     >
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {hobbies.map((hobby, i) => {
-        const title =
-          hobby.title?.[lang] ??
-          hobby.title?.en ??
-          "";
+          const title = t(hobby.title);
 
-        const details = (hobby.details ?? []).map(
-          d => d?.[lang] ?? d?.en ?? ""
-        );
+          const details = hobby.details?.map((detail) => t(detail)) ?? [];
 
           return (
             <ScrollReveal key={i} delay={i * 0.08}>
@@ -43,7 +38,7 @@ export default function Hobbies({ hobbies, locale }: HobbiesProps) {
                   <span className="text-3xl" role="img" aria-label={title}>
                     <DynamicLucideIcon name={hobby.icon} />
                   </span>
-                  <h3 className="font-[family-name:var(--font-playfair)] text-lg font-semibold text-foreground">
+                  <h3 className="text-lg font-semibold text-foreground">
                     {title}
                   </h3>
                 </div>

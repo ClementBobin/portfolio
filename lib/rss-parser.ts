@@ -165,5 +165,3 @@ class RSSParser {
 
 // Export singleton instance
 export const rssParser = new RSSParser();
-
-export { RSSParser };

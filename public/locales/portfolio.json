@@ -1,8 +1,100 @@
 {
     "section": {
-        "about" : {
+        "about": {
             "fr": "À propos",
             "en": "About"
+        },
+        "education": {
+            "fr": "Formation",
+            "en": "Education"
+        },
+        "experience": {
+            "fr": "Expériences",
+            "en": "Experience"
+        },
+        "workExperience": {
+            "fr": "Expériences professionnelles",
+            "en": "Work Experience"
+        },
+        "projectExperience": {
+            "fr": "Projets & Expériences",
+            "en": "Projects & Experience"
+        },
+        "projects": {
+            "fr": "Projets",
+            "en": "Projects"
+        },
+        "highlights": {
+            "fr": "Points forts",
+            "en": "Highlights"
+        },
+        "skills": {
+            "fr": "Compétences",
+            "en": "Skills"
+        },
+        "hobbies": {
+            "fr": "Centres d'intérêt",
+            "en": "Hobbies & Interests"
+        },
+        "strengths": {
+            "fr": "Mes atouts",
+            "en": "Strengths"
+        },
+        "values": {
+            "fr": "Ce que j'apporte",
+            "en": "What I Bring"
+        },
+        "vision": {
+            "fr": "Vision & Objectifs",
+            "en": "Vision & Goals"
+        },
+        "hero": {
+            "fr": "Présentation",
+            "en": "Introduction"
+        }
+    },
+    "hero": {
+        "greeting": {
+            "fr": "Salut, je suis",
+            "en": "Hi, I'm"
+        },
+        "yearsExperience": {
+            "fr": "{{count}} ans d'expérience",
+            "en": "{{count}} years of experience"
+        },
+        "developer": {
+            "fr": "Développeur",
+            "en": "Developer"
+        },
+        "label": {
+            "fr": "Présentation",
+            "en": "Introduction"
+        },
+        "viewCv": {
+            "fr": "Voir mon CV",
+            "en": "View my CV"
+        },
+        "contact": {
+            "fr": "Me contacter",
+            "en": "Contact me"
+        }
+    },
+    "highlights": {
+        "view": {
+            "fr": "Voir →",
+            "en": "View →"
+        }
+    },
+    "projects": {
+        "viewProject": {
+            "fr": "Voir le projet",
+            "en": "View project"
+        }
+    },
+    "contributions": {
+        "viewGithub": {
+            "fr": "Voir sur GitHub",
+            "en": "View on GitHub"
         }
     }
 }

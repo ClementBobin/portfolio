@@ -2,6 +2,7 @@ import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { Experience } from "@/types/portfolio-api";
 import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
+import { getTranslations } from "@/hooks/useTranslation";
 
 interface ExperienceTimelineProps {
   experiences: Experience[];
@@ -14,18 +15,17 @@ interface ExperienceTimelineProps {
  * @param experiences - List of experience items
  * @param locale - Current locale
  */
-export default function ExperienceTimeline({ experiences, locale }: ExperienceTimelineProps) {
+export default async function ExperienceTimeline({ experiences, locale }: ExperienceTimelineProps) {
+  const t = await getTranslations(locale);
+
   return (
     <div className="relative flex flex-col gap-0">
       {/* Vertical line */}
       <div className="absolute left-6 top-0 h-full w-px bg-border" aria-hidden="true" />
 
       {experiences.map((exp, i) => {
-        const company = exp.company[locale as "en" | "fr"] ?? exp.company.en ?? "";
-        const role = exp.role[locale as "en" | "fr"] ?? exp.role.en ?? "";
-        const period = exp.period[locale as "en" | "fr"] ?? exp.period.en ?? "";
-        const description = exp.description[locale as "en" | "fr"] ?? exp.description.en ?? "";
-        const type = exp.type[locale as "en" | "fr"] ?? exp.type.en ?? "";
+        const company = t(exp.company);
+        const description = t(exp.description);
 
         const techs = exp.techs.map((t) =>
           typeof t === "string" ? t : t.name
@@ -54,8 +54,8 @@ export default function ExperienceTimeline({ experiences, locale }: ExperienceTi
               >
                 <div className="mb-1 flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <h3 className="font-[family-name:var(--font-playfair)] text-lg font-semibold text-foreground">
-                      {role}
+                    <h3 className="text-lg font-semibold text-foreground">
+                      {t(exp.role)}
                     </h3>
                     {exp.href ? (
                       <Link
@@ -71,9 +71,9 @@ export default function ExperienceTimeline({ experiences, locale }: ExperienceTi
                     )}
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <span className="text-xs text-muted-foreground">{period}</span>
+                    <span className="text-xs text-muted-foreground">{t(exp.period)}</span>
                     <span className="rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground">
-                      {type}
+                      {t(exp.type)}
                     </span>
                   </div>
                 </div>

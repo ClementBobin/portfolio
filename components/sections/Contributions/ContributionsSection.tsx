@@ -5,25 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { GitHubIcon } from "@/components/icons/gitHub";
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
-
-type LocalizedString = string | { en: string; fr: string };
-
-interface ContributionItem {
-  slug: string;
-  title: string;
-  subtitle: LocalizedString;
-  description: LocalizedString;
-  tags: string[];
-  href: string | null;
-  private: boolean;
-  status: LocalizedString;
-  highlights: { en: string[]; fr: string[] };
-}
-
-function resolve(value: LocalizedString, locale: string): string {
-  if (typeof value === "string") return value;
-  return value[locale as keyof typeof value] ?? value.en ?? "";
-}
+import { getTranslations } from "@/hooks/useTranslation";
+import type { ContributionItem } from "@/types/contribution";
 
 async function fetchContributions(): Promise<ContributionItem[]> {
   try {
@@ -37,13 +20,14 @@ async function fetchContributions(): Promise<ContributionItem[]> {
 }
 
 export async function ContributionsSection({ locale }: { locale: string }) {
+  const t = await getTranslations(locale, ["portfolio"]);
   const items = await fetchContributions();
   if (!items.length) return null;
 
   return (
     <ul className="flex flex-col gap-6">
       {items.map((item, i) => {
-        const highlights = item.highlights[locale as "en" | "fr"] ?? item.highlights.en;
+        const highlights = t(item.highlights);
 
         return (
           <ScrollReveal key={item.slug} delay={i * 0.08}>
@@ -52,17 +36,17 @@ export async function ContributionsSection({ locale }: { locale: string }) {
                 <CardHeader className="border-b">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex flex-col gap-1">
-                      <CardTitle className="font-[family-name:var(--font-playfair)] text-xl">
+                      <CardTitle className="text-xl">
                         {item.title}
                       </CardTitle>
                       <CardDescription className="text-xs font-medium uppercase tracking-wide">
-                        {resolve(item.subtitle, locale)}
+                        {t(item.subtitle)}
                       </CardDescription>
                     </div>
                     <div className="flex shrink-0 items-center gap-2 pt-0.5">
                       <Status variant={item.private ? "warning" : "success"}>
                         <StatusIndicator />
-                        <StatusLabel>{resolve(item.status, locale)}</StatusLabel>
+                        <StatusLabel>{t(item.status)}</StatusLabel>
                       </Status>
                       {item.private && (
                         <span title="Private" className="text-muted-foreground">
@@ -75,7 +59,7 @@ export async function ContributionsSection({ locale }: { locale: string }) {
 
                 <CardContent className="flex flex-col gap-4 pt-4">
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    {resolve(item.description, locale)}
+                    {t(item.description)}
                   </p>
 
                   {highlights.length > 0 && (
@@ -92,7 +76,9 @@ export async function ContributionsSection({ locale }: { locale: string }) {
                   {item.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5">
                       {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">{tag}</Badge>
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
                       ))}
                     </div>
                   )}
@@ -107,7 +93,7 @@ export async function ContributionsSection({ locale }: { locale: string }) {
                       className="flex items-center gap-2 text-sm font-medium transition-colors hover:text-accent"
                     >
                       <GitHubIcon className="size-4" />
-                      View on GitHub
+                      {t("contributions.viewGithub")}
                     </a>
                   </CardFooter>
                 )}
