@@ -1,16 +1,5 @@
-import type { SVGProps } from 'react'
-
-/**
- * Simple localized string
- * Example: { en: "Hello", fr: "Bonjour" }
- */
-export type LocalizedString = Record<string, string>;
-
-/**
- * Localized array of strings
- * Example: { en: ["Item 1", "Item 2"], fr: ["Élément 1"] }
- */
-export type LocalizedStringArray = Record<string, string[]>;
+import type { ReactNode, SVGProps } from 'react'
+import { z } from "zod";
 
 /**
  * Type for URL object with flexible properties.
@@ -33,3 +22,24 @@ export interface NextUrlLike {
 }
 
 export type IconProps = SVGProps<SVGSVGElement>
+export interface PageParams {
+  params: Promise<{ locale: string }>;
+}
+
+export interface ContactDialogProps {
+  trigger: ReactNode;
+  email?: string;
+  linkedinUrl?: string;
+  linkedinLabel?: string;
+  locale: "fr" | "en";
+}
+
+// ─── Schema ───────────────────────────────────────────────────────────────────
+export const contactSchema = z.object({
+  name: z.string().min(1, "Le nom est requis"),
+  email: z.string().email("Adresse email invalide"),
+  phone: z.string().optional(),
+  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
+});
+
+export type ContactFormValues = z.infer<typeof contactSchema>;

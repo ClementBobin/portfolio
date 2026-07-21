@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { PortfolioPersonal } from "@/types/portfolio-api";
+import { getTranslations } from "@/hooks/useTranslation";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface AboutProps {
@@ -15,22 +16,21 @@ interface AboutProps {
  * @param contact - Contact items
  * @param locale - Current locale
  */
-export default function About({ personal, locale }: AboutProps) {
-  const summary = personal.summary[locale as "en" | "fr"] ?? personal.summary.en ?? "";
-  const title = locale === "fr" ? "À propos" : "About";
+export default async function About({ personal, locale }: AboutProps) {
+  const t = await getTranslations(locale);
 
   return (
     <section
       id="about"
       className="mx-auto w-full max-w-5xl px-6 py-24"
-      aria-label={title}
+      aria-label={t("section.about")}
     >
 
       <div className="grid gap-12 md:grid-cols-2 md:items-center">
         {/* Photo */}
         <ScrollReveal direction="left">
           <div className="relative mx-auto w-64 md:w-80">
-            <div className="absolute -inset-2 rounded-2xl bg-gradient-to-br from-accent/30 to-primary/20 blur-xl" />
+            <div className="absolute -inset-2 rounded-2xl bg-linear-to-br from-accent/30 to-primary/20 blur-xl" />
             <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
               {personal.photo ? (
                 <AspectRatio ratio={4 / 4} className="w-full">
@@ -57,8 +57,8 @@ export default function About({ personal, locale }: AboutProps) {
         {/* Text content */}
         <ScrollReveal direction="right">
           <div className="flex flex-col gap-6">
-            <p className="font-[family-name:var(--font-lora)] text-lg leading-relaxed text-foreground/90">
-              {summary}
+            <p className="text-lg leading-relaxed text-foreground/90">
+              {t(personal.summary)}
             </p>
           </div>
         </ScrollReveal>

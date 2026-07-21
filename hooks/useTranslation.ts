@@ -21,8 +21,8 @@ export type LocalizedString = Record<string, string>;
 export type LocalizedArray = Record<string, string[]>;
 
 export interface TFunction {
-  (key: string): string;
-  (key: LocalizedString): string;
+  (key: string, vars?: Record<string, string | number>): string;
+  (key: LocalizedString, vars?: Record<string, string | number>): string;
   (key: LocalizedArray): string[];
 }
 
@@ -65,12 +65,18 @@ function resolve(namespaces: LoadedNamespaces, key: string, lang: string): strin
   return undefined;
 }
 
+function interpolate(str: string, vars?: Record<string, string | number>): string {
+  if (!vars) return str;
+  return str.replace(/\{\{(\w+)\}\}/g, (_, k) => String(vars[k] ?? `{{${k}}}`));
+}
+
 function createTFunction(lang: string, namespaces: LoadedNamespaces): TFunction {
-  function t(key: string): string;
-  function t(key: LocalizedString): string;
+  function t(key: string, vars?: Record<string, string | number>): string;
+  function t(key: LocalizedString, vars?: Record<string, string | number>): string;
   function t(key: LocalizedArray): string[];
   function t(
-    key: string | LocalizedString | LocalizedArray | null | undefined
+    key: string | LocalizedString | LocalizedArray | null | undefined,
+    vars?: Record<string, string | number>,
   ): string | string[] {
 
     // null / undefined protection
@@ -84,16 +90,11 @@ function createTFunction(lang: string, namespaces: LoadedNamespaces): TFunction 
     // translation key lookup
     if (typeof key === "string") {
       const val = resolve(namespaces, key, lang);
-
-      if (val !== undefined) {
-        return val;
-      }
-
+      if (val !== undefined) return interpolate(val, vars);
       if (process.env.NODE_ENV === "development") {
         console.warn(`[i18n] Missing key: "${key}" (lang: ${lang})`);
       }
-
-      return key;
+      return interpolate(key, vars);
     }
 
     // sanity check for non-object weirdness
@@ -107,11 +108,9 @@ function createTFunction(lang: string, namespaces: LoadedNamespaces): TFunction 
     }
 
     // localized string
-    return (
-      key[lang] ??
-      key.en ??
-      Object.values(key)[0] ??
-      ""
+    return interpolate(
+      key[lang] ?? key.en ?? Object.values(key)[0] ?? "",
+      vars,
     );
   }
 

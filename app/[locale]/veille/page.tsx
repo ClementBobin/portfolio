@@ -4,12 +4,9 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { RSSFeed } from "@/components/sections/rss";
 import { FeedSkeleton } from "@/components/sections/rss/feed-skeleton";
 import { getTranslations } from "@/hooks/useTranslation";
+import type { PageParams } from "@/types/global";
 
 const VEILLE_FEED = "https://clementbobin.github.io/obsidian/index.xml";
-
-interface PageParams {
-  params: Promise<{ locale: string }>;
-}
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const { locale } = await params;
@@ -29,7 +26,7 @@ export default async function VeillePage({ params }: PageParams) {
         {/* Header */}
         <ScrollReveal>
           <div className="mb-16">
-            <h1 className="font-[family-name:var(--font-playfair)] text-4xl font-bold tracking-tight mb-3">
+            <h1 className="text-4xl font-bold tracking-tight mb-3">
               {t("veille.title")}
             </h1>
             <p className="leading-relaxed text-muted-foreground">

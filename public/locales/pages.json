@@ -104,5 +104,53 @@
       "en": "Experiments and interactive projects",
       "fr": "Expérimentations et projets interactifs"
     }
+  },
+  "contributions": {
+    "metaTitle": {
+      "en": "Contributions",
+      "fr": "Contributions"
+    },
+    "metaDescription": {
+      "en": "Private projects and open-source contributions I have built.",
+      "fr": "Projets privés et contributions open-source que j'ai réalisés."
+    },
+    "title": {
+      "en": "Contributions",
+      "fr": "Contributions"
+    },
+    "description": {
+      "en": "Projects I have built that I cannot fully showcase — private work, client projects, and open-source libraries.",
+      "fr": "Projets que j'ai réalisés mais que je ne peux pas pleinement montrer — travaux privés, projets clients et bibliothèques open-source."
+    }
+  },
+  "showcase": {
+    "metaTitle": {
+      "en": "Showcase",
+      "fr": "Vitrine"
+    },
+    "metaDescription": {
+      "en": "A curated selection of projects I am proud of.",
+      "fr": "Une sélection de projets dont je suis fier."
+    },
+    "title": {
+      "en": "Showcase",
+      "fr": "Vitrine"
+    },
+    "description": {
+      "en": "A curated selection of projects I have built.",
+      "fr": "Une sélection de projets que j'ai réalisés."
+    },
+    "status": {
+      "en": "Selected work",
+      "fr": "Travaux sélectionnés"
+    },
+    "viewProject": {
+      "en": "View project",
+      "fr": "Voir le projet"
+    },
+    "viewCode": {
+      "en": "View code",
+      "fr": "Voir le code"
+    }
   }
 }

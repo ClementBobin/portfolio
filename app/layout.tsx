@@ -1,28 +1,47 @@
 import type { Metadata } from "next";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { getTranslations } from "@/hooks/useTranslation";
+import type { PageParams } from "@/types/global";
 import { LazyMotion, domAnimation } from 'framer-motion';
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "Clément BOBIN — Portfolio",
-  description: "Fullstack developer portfolio",
-};
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations(locale, ["email"]);
+  return {
+    title: {
+      default: "Clément BOBIN — Portfolio",
+      template: "%s | Clément BOBIN",
+    },
+    description: t("seo.description") || "Fullstack developer portfolio",
+  };
+}
 
 /**
- * Root layout. Fonts are loaded at runtime in [locale]/layout.tsx via @import
- * to avoid build-time Google Fonts network dependency.
+ * Locale-specific layout. Applies editorial font CSS variables, ThemeProvider, and lang attribute.
+ * Fonts are loaded via an inline <style> tag at runtime to avoid build-time Google Fonts fetching.
  */
-export default function RootLayout({
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   return (
-    <html lang="fr" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">
-        <LazyMotion features={domAnimation}>
-          {children}
-        </LazyMotion>
-      </body>
-    </html>
+    <>
+      {/* Load editorial fonts at runtime — no build-time network dependency */}
+      <html lang={locale}>
+        <body>
+          <ThemeProvider>
+            <LazyMotion features={domAnimation}>
+              {children}
+            </LazyMotion>
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
   );
 }

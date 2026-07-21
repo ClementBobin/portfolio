@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { LabsSection, LabsSkeleton } from "@/components/sections/Labs/LabsSection";
+import { ContributionsSection, ContributionsSkeleton } from "@/components/sections/Contributions/ContributionsSection";
 import { getTranslations } from "@/hooks/useTranslation";
 import type { PageParams } from "@/types/global";
 
@@ -9,12 +9,12 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   const { locale } = await params;
   const t = await getTranslations(locale, ["pages"]);
   return {
-    title: t("labs.metaTitle"),
-    description: t("labs.metaDescription"),
+    title: t("contributions.metaTitle"),
+    description: t("contributions.metaDescription"),
   };
 }
 
-export default async function LabsPage({ params }: PageParams) {
+export default async function ContributionsPage({ params }: PageParams) {
   const { locale } = await params;
   const t = await getTranslations(locale, ["pages"]);
 
@@ -23,17 +23,17 @@ export default async function LabsPage({ params }: PageParams) {
       <main className="mx-auto w-full max-w-2xl px-6 py-24">
         <ScrollReveal>
           <div className="mb-12">
-            <h1 className="text-4xl font-bold tracking-tight mb-2">
-              {t("labs.title")}
+            <h1 className="text-4xl font-bold tracking-tight mb-3">
+              {t("contributions.title")}
             </h1>
-            <p className="text-muted-foreground">
-              {t("labs.description")}
+            <p className="leading-relaxed text-muted-foreground">
+              {t("contributions.description")}
             </p>
           </div>
         </ScrollReveal>
 
-        <Suspense fallback={<LabsSkeleton />}>
-          <LabsSection locale={locale} />
+        <Suspense fallback={<ContributionsSkeleton />}>
+          <ContributionsSection locale={locale} />
         </Suspense>
       </main>
     </>

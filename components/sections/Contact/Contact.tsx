@@ -3,7 +3,6 @@
 import { useState, useCallback, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { ExternalLink, Copy, Check, Loader2 } from "lucide-react";
 import {
   Dialog,
@@ -30,27 +29,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { EmailIcon, LinkedInIcon } from "@/components/icons";
 import { useTranslations } from "@/hooks/useTranslation";
-
-// ─── Schema ───────────────────────────────────────────────────────────────────
-
-const contactSchema = z.object({
-  name: z.string().min(1, "Le nom est requis"),
-  email: z.string().email("Adresse email invalide"),
-  phone: z.string().optional(),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
-});
-
-type ContactFormValues = z.infer<typeof contactSchema>;
-
-// ─── Props ────────────────────────────────────────────────────────────────────
-
-interface ContactDialogProps {
-  trigger: ReactNode;
-  email?: string;
-  linkedinUrl?: string;
-  linkedinLabel?: string;
-  locale: "fr" | "en";
-}
 
 // ─── Email card ───────────────────────────────────────────────────────────────
 
