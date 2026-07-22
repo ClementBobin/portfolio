@@ -4,8 +4,7 @@ import Footer from "@/app/Footer";
 import Hero from "@/components/sections/Hero/Hero";
 import About from "@/components/sections/About/About";
 import Skills from "@/components/sections/Skills/Skills";
-import ExperienceSection from "@/components/sections/Experience/Experience";
-import EducationSection from "@/components/sections/Education/Education";
+import Experience from "@/components/sections/Experience/Experience";
 import Projects from "@/components/sections/Projects/Projects";
 import Highlights from "@/components/sections/Highlights/Highlights";
 import ValueCards from "@/components/sections/ValueCards/ValueCards";
@@ -30,8 +29,7 @@ export default async function PortfolioPage({ params }: PageParams) {
           <About personal={personal} locale={locale} />
 
           {skills.length > 0 && <Skills skills={skills} locale={locale} />}
-          {experiences.length > 0 && <ExperienceSection experiences={experiences} locale={locale} />}
-          {education.length > 0 && <EducationSection education={education} locale={locale} />}
+          {education.length > 0 && <Experience experiences={experiences} education={education} locale={locale} />}
           {highlights && highlights.length > 0 && <Highlights highlights={highlights} locale={locale} />}
           {projects.length > 0 && <Projects projects={projects} locale={locale} />}
           {strength && strength.strengths.length > 0 && <Strength strength={strength} locale={locale} />}

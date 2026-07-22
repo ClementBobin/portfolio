@@ -20,7 +20,6 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
   const t = useTranslations(locale, ["portfolio"]);
   const title = t(project.title);
   const description = t(project.description);
-  console.log(project.techs)
 
   return (
     <motion.article

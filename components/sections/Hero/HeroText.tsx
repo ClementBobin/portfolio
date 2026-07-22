@@ -38,7 +38,7 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
   };
 
   const greeting = t("hero.greeting");
-  const expText = t("hero.yearsExperience", { count: yearsExperience ?? 0 });
+  const expText = t("hero.experience", { n: yearsExperience ?? 0 });
   const developerLabel = t("hero.developer");
 
   return (
