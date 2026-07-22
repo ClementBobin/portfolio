@@ -1,94 +1,116 @@
 {
     "section": {
         "about": {
-            "fr": "À propos",
-            "en": "About"
-        },
-        "education": {
-            "fr": "Formation",
-            "en": "Education"
-        },
-        "experience": {
-            "fr": "Expériences",
-            "en": "Experience"
-        },
-        "workExperience": {
-            "fr": "Expériences professionnelles",
-            "en": "Work Experience"
-        },
-        "projectExperience": {
-            "fr": "Projets & Expériences",
-            "en": "Projects & Experience"
-        },
-        "projects": {
-            "fr": "Projets",
-            "en": "Projects"
-        },
-        "highlights": {
-            "fr": "Points forts",
-            "en": "Highlights"
+        "fr": "À propos",
+        "en": "About"
         },
         "skills": {
-            "fr": "Compétences",
-            "en": "Skills"
+        "fr": "Compétences",
+        "en": "Skills"
         },
-        "hobbies": {
-            "fr": "Centres d'intérêt",
-            "en": "Hobbies & Interests"
+        "experience": {
+        "fr": "Expériences",
+        "en": "Experience"
         },
-        "strengths": {
-            "fr": "Mes atouts",
-            "en": "Strengths"
+        "education": {
+        "fr": "Formation",
+        "en": "Education"
+        },
+        "highlights": {
+        "fr": "Points forts",
+        "en": "Highlights"
+        },
+        "projects": {
+        "fr": "Projets",
+        "en": "Projects"
+        },
+        "strength": {
+        "fr": "Mes atouts",
+        "en": "Strengths"
         },
         "values": {
-            "fr": "Ce que j'apporte",
-            "en": "What I Bring"
+        "fr": "Ce que j'apporte",
+        "en": "What I Bring"
         },
         "vision": {
-            "fr": "Vision & Objectifs",
-            "en": "Vision & Goals"
+        "fr": "Vision & Objectifs",
+        "en": "Vision & Goals"
         },
-        "hero": {
-            "fr": "Présentation",
-            "en": "Introduction"
+        "hobbies": {
+        "fr": "Centres d'intérêt",
+        "en": "Hobbies & Interests"
         }
     },
     "hero": {
         "greeting": {
-            "fr": "Salut, je suis",
-            "en": "Hi, I'm"
-        },
-        "yearsExperience": {
-            "fr": "{{count}} ans d'expérience",
-            "en": "{{count}} years of experience"
+        "fr": "Salut, je suis",
+        "en": "Hi, I'm"
         },
         "developer": {
-            "fr": "Développeur",
-            "en": "Developer"
+        "fr": "Développeur",
+        "en": "Developer"
         },
-        "label": {
-            "fr": "Présentation",
-            "en": "Introduction"
+        "experience": {
+        "fr": "{{n}} ans d'expérience",
+        "en": "{{n}} years of experience"
         },
         "viewCv": {
-            "fr": "Voir mon CV",
-            "en": "View my CV"
+        "fr": "Voir mon CV",
+        "en": "View my CV"
         },
         "contact": {
-            "fr": "Me contacter",
-            "en": "Contact me"
+        "fr": "Me contacter",
+        "en": "Contact me"
+        },
+        "intro": {
+        "fr": "Présentation",
+        "en": "Introduction"
+        }
+    },
+    "experience": {
+        "work": {
+        "fr": "Expériences professionnelles",
+        "en": "Work Experience"
+        },
+        "projects": {
+        "fr": "Projets & Expériences",
+        "en": "Projects & Experience"
         }
     },
     "highlights": {
         "view": {
-            "fr": "Voir →",
-            "en": "View →"
+        "fr": "Voir le projet",
+        "en": "View project"
+        },
+        "eyebrow": {
+        "fr": "Ce que j'ai réalisé",
+        "en": "What I've done"
+        },
+        "title": {
+        "fr": "Highlights",
+        "en": "Highlights"
+        },
+        "code": {
+        "fr": "Voir le code",
+        "en": "View code"
         }
     },
     "projects": {
+        "eyebrow": {
+        "fr": "Ce que je construis",
+        "en": "What I build"
+        },
+        "title": {
+        "fr": "Projets Personnels",
+        "en": "Personal Projects"
+        },
         "viewProject": {
             "fr": "Voir le projet",
             "en": "View project"
+        },
+        "viewCode": {
+        "fr": "Voir le code",
+        "en": "View code"
         }
     },
     "contributions": {

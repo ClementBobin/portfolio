@@ -1,7 +1,11 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { Highlight } from "@/types/portfolio-api";
-import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
+import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
+import { ExternalLinkIcon, GitHubIcon } from "@/components/icons";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { SectionHeader } from "@/components/ui/SectionHeader";
 import { getTranslations } from "@/hooks/useTranslation";
 
 interface HighlightsProps {
@@ -9,12 +13,6 @@ interface HighlightsProps {
   locale: string;
 }
 
-/**
- * Highlights section — key achievements displayed as prominent cards.
- *
- * @param highlights - Array of highlight items
- * @param locale - Current locale
- */
 export default async function Highlights({ highlights, locale }: HighlightsProps) {
   const t = await getTranslations(locale, ["portfolio"]);
 
@@ -26,64 +24,87 @@ export default async function Highlights({ highlights, locale }: HighlightsProps
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={t("section.highlights")}
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ScrollReveal>
+        <SectionHeader
+          eyebrow={t("highlights.eyebrow")}
+          title={t("highlights.title")}
+        />
+      </ScrollReveal>
+
+      <div className="grid gap-4 sm:grid-cols-2">
         {highlights.map((item, i) => {
-          const description = t(item.description);
-          const tags = t(item.tag);
-
-          const cardContent = (
-            <div
-              className={`group relative flex h-full flex-col gap-3 overflow-hidden rounded-xl border p-5 transition-all hover:shadow-md ${
-                item.highlight
-                  ? "border-accent/50 bg-accent/5 hover:bg-accent/10"
-                  : "border-border bg-card hover:border-accent/30"
-              }`}
-            >
-              {item.highlight && (
-                <div className="absolute right-3 top-3 text-lg">⭐</div>
-              )}
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/15 text-accent">
-                <DynamicIcon iconClass={item.icon} />
-              </div>
-
-              <div>
-                {tags.length > 0 && (
-                  <div className="mb-2 flex flex-wrap gap-1">
-                    {tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-secondary px-2 py-0.5 text-xs text-muted-foreground"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                <h3 className="font-semibold text-foreground">
-                  {t(item.label)}
-                </h3>
-                {description && (
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{description}</p>
-                )}
-              </div>
-
-              {(item.href ?? item.githubHref) && (
-                <div className="mt-auto flex gap-2">
-                  {item.href && (
-                    <span className="text-xs text-accent">
-                      {t("highlights.view")}
-                    </span>
-                  )}
-                </div>
-              )}
-            </div>
-          );
-
+          const label = t(item.label);
+          const description = item.description ? t(item.description) : undefined;
+          const tags = item.tag?.map((tag) => t(tag)) ?? [];
           const href = item.href ?? item.githubHref;
 
+          const cardContent = (
+            <Card
+              className={`h-full transition-all hover:shadow-md ${
+                item.highlight
+                  ? "border-accent/40 bg-accent/5 hover:bg-accent/8"
+                  : "hover:border-accent/20"
+              }`}
+            >
+              <CardHeader>
+                <div className="flex items-start gap-4">
+                  {/* Icon */}
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                    {item.icon ? (
+                      <DynamicLucideIcon name={item.icon} size={20} />
+                    ) : (
+                      <span className="text-lg">⭐</span>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col gap-1.5 min-w-0">
+                    <CardTitle className="font-[family-name:var(--font-playfair)] text-base leading-snug">
+                      {label}
+                    </CardTitle>
+                    {/* Tags */}
+                    {tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {tags.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="text-xs h-5">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </CardHeader>
+
+              {description && (
+                <CardContent>
+                  <CardDescription className="text-sm leading-relaxed">
+                    {description}
+                  </CardDescription>
+                </CardContent>
+              )}
+
+              {/* Links */}
+              {(item.href || item.githubHref) && (
+                <CardFooter className="gap-4">
+                  {item.href && (
+                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                      {t("highlights.view")}
+                      <ExternalLinkIcon className="size-3.5" />
+                    </span>
+                  )}
+                  {item.githubHref && (
+                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
+                      {t("highlights.code")}
+                      <GitHubIcon className="size-3.5" />
+                    </span>
+                  )}
+                </CardFooter>
+              )}
+            </Card>
+          );
+
           return (
-            <ScrollReveal key={i} delay={i * 0.07}>
+            <ScrollReveal key={i} delay={i * 0.06}>
               {href ? (
                 <Link href={href} target="_blank" rel="noopener noreferrer" className="flex h-full">
                   {cardContent}

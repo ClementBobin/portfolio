@@ -134,10 +134,9 @@ export interface Project {
   title: LocalizedString;
   description: LocalizedString;
   media?: string;
-  badge?: LocalizedString[];
   techs: ProjectTech[];
-  githubHref?: string;
-  href?: string;
+  github?: string;
+  url?: string;
 }
 
 // ─── Hobbies / Passions ─────────────────────────────────────────────────────
