@@ -1,4 +1,4 @@
-import type { PortfolioData } from "@/lib/types/portfolio-api";
+import type { PortfolioData } from "@/types/portfolio-api";
 
 /**
  * Safe defaults matching the PortfolioData shape.
@@ -240,7 +240,7 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
           contact:         (raw.contact          as PortfolioData["contact"])         ?? [],
           skills:          (raw.skills           as PortfolioData["skills"])          ?? [],
           //strength:        EMPTY.strength,
-          strengths:       (raw.strengths        as PortfolioData["strength"])        ?? null,
+          strength:       (raw.strengths        as PortfolioData["strength"])        ?? null,
           experiences:     (raw.experiences      as PortfolioData["experiences"])     ?? [],
           education:       (raw.education        as PortfolioData["education"])       ?? [],
           projects:        (raw.projects         as PortfolioData["projects"])        ?? [],

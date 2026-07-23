@@ -17,7 +17,7 @@ export async function GET() {
   //   }
   // }
 
-  const data = [
+  const data: any[] = [
     // {
     //   slug: "grocery-list-paradigms",
     //   title: "Grocery List — 3 paradigmes",

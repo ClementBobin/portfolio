@@ -42,7 +42,7 @@ export async function LabsSection({ locale }: { locale: string }) {
             <Link href={lab.href} className="group block">
               <Card className="transition-all group-hover:ring-accent/40 group-hover:shadow-md">
                 <CardHeader>
-                  <CardTitle className="font-[family-name:var(--font-playfair)] text-lg font-semibold">
+                  <CardTitle className="text-lg font-semibold">
                     {lab.title}
                   </CardTitle>
                   <CardDescription>{resolve(lab.description, locale)}</CardDescription>

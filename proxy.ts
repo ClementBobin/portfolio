@@ -5,7 +5,7 @@ const LOCALES = ['fr', 'en']
 const DEFAULT_LOCALE = 'fr'
 
 /** Routes blocked from direct access (without locale prefix) */
-const BLOCKED_ROUTES = []
+const BLOCKED_ROUTES: string[] = []
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl

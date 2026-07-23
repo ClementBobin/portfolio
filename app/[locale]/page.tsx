@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { fetchPortfolioData } from "@/lib/data";
-import Footer from "@/app/Footer";
+import Footer from "@/app/[locale]/Footer";
 import Hero from "@/components/sections/Hero/Hero";
 import About from "@/components/sections/About/About";
 import Skills from "@/components/sections/Skills/Skills";

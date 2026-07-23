@@ -7,9 +7,12 @@ export type LocalizedString = Record<string, string>;
 export type LocalizedArray = Record<string, string[]>;
 
 export interface TFunction {
-  (key: string, vars?: Record<string, string | number>): string;
-  (key: LocalizedString, vars?: Record<string, string | number>): string;
-  (key: LocalizedArray): string[];
+  (
+    key: string | LocalizedString | null | undefined,
+    vars?: Record<string, string | number>
+  ): string;
+
+  (key: LocalizedArray | null | undefined): string[];
 }
 
 /**
