@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# portfolio-clement.vercel.app
 
-## Getting Started
+> My personal space
 
-First, run the development server:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FClementBobin%2Fportfolio)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Technology stack
+
+- **Framework** [Vite](https://https://vitejs.dev/)
+- **Front-end:** [React](https://reactjs.org/)
+- **Animation:** [Framer](https://www.framer.com/docs/animation/)
+- **Deployment:** [Vercel](https://vercel.com/)
+
+## Running locally
+
+1. Clone this repo:
+
+```sh
+$ git clone https://github.com/ClementBobin/portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Then go to the project's folder:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```sh
+cd portfolio
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Install all dependencies:
 
-## Learn More
+```sh
+npm i
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Run locally:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```sh
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## File structure
 
-## Deploy on Vercel
+The basic file structure for the project is organized in the following way:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+.
+|-- src
+|    |-- assets
+|    |    |-- tech
+|    |    |-- People
+|    |    `-- company
+|    |-- components
+|    |    |-- libStyleCompo
+|    |    |-- ai
+|    |    |-- canvas
+|    |    |-- main
+|    |    `-- sub
+|    |-- hoc
+|    |-- icons
+|    |-- pages
+|    `-- utils
+`-- public
+    `-- planet
+```
+### [components](https://github.com/ClementBobin/portfolio/tree/main/src/components)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Here you'll find reusable blocks of React components.
+
+### [data](https://github.com/ClementBobin/portfolio/tree/main/src/constants)
+
+Here you'll find default templates for different pages.
+
+### [lib](https://github.com/ClementBobin/portfolio/tree/main/src/components/libStyleCompo)
+
+Here you'll find a set of utilities.
+
+### [pages](https://github.com/ClementBobin/portfolio/tree/main/src/pages)
+
+Here you'll find all the main pages of the site.
+
+### [public](https://github.com/ClementBobin/portfolio/tree/main/public)
+
+Here you'll find some of the CSS, images, and font files.
+
+### [assets](https://github.com/ClementBobin/portfolio/tree/main/src/assets)
+
+Here you'll find the other part of the CSS, images, and font files.
+
+
+## License
+
+[MIT License](http://ClementBobin.mit-license.org/) © Clement BOBIN
