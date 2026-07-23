@@ -68,7 +68,7 @@ function DockItem({
         )}
       </AnimatePresence>
 
-      <Link href={item.href}>
+      <Link href={item.href} aria-label={item.label}>
         <m.div
           style={{ width: springSize, height: springSize }}
           onMouseEnter={() => setHovered(true)}

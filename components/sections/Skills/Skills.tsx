@@ -31,9 +31,9 @@ export default async function Skills({ skills, locale }: SkillsProps) {
           return (
             <ScrollReveal key={sectionIdx} delay={sectionIdx * 0.1}>
               <div>
-                <h3 className="mb-6 text-xl font-semibold text-foreground">
+                <h1 className="mb-6 text-xl font-semibold text-foreground">
                   {t(section.title)}
-                </h3>
+                </h1>
 
                 {section.type === "badges" && (
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
