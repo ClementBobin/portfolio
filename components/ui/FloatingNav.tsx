@@ -1,23 +1,24 @@
 "use client";
 
-import * as React from "react";
 import { m, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
-import { MoonIcon, SunIcon } from "@/components/icons";
+import { DynamicLucideIcon, MoonIcon, SunIcon } from "@/components/icons";
 import { useTheme } from "@/components/ThemeProvider";
+import { useRef, useState, useEffect } from "react";
+import { useTranslations } from "@/hooks/useTranslation"
 
 interface NavItem {
   id: string;
   label: string;
   href: string;
-  emoji: string;
+  icon: string;
 }
 
 interface FloatingNavProps {
   items: NavItem[];
   locale: string;
-  altLocale: string;
-  altLocaleLabel: string;
+  topId: string;
+  altLocaleIcon: string;
 }
 
 const DOCK_SIZE = 44;
@@ -37,8 +38,8 @@ function DockItem({
   index: number;
   total: number;
 }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = React.useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [hovered, setHovered] = useState(false);
 
   const distance = useTransform(mouseX, (val) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -81,7 +82,7 @@ function DockItem({
             }
           `}
         >
-          <span className="text-lg leading-none">{item.emoji}</span>
+          <DynamicLucideIcon name={item.icon} />
         </m.div>
       </Link>
 
@@ -95,15 +96,16 @@ function DockItem({
   );
 }
 
-export default function FloatingNav({ items, locale, altLocale, altLocaleLabel }: FloatingNavProps) {
+export default function FloatingNav({ items, locale, topId, altLocaleIcon }: FloatingNavProps) {
+  const t = useTranslations(locale, ["common"]);
   const { theme, toggleTheme } = useTheme();
-  const [activeId, setActiveId] = React.useState<string>("");
-  const [visible, setVisible] = React.useState(true);
-  const lastScrollY = React.useRef(0);
+  const [activeId, setActiveId] = useState<string>("");
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const mouseX = useMotionValue(Infinity);
 
   // Scroll spy
-  React.useEffect(() => {
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -121,7 +123,7 @@ export default function FloatingNav({ items, locale, altLocale, altLocaleLabel }
   }, [items]);
 
   // Hide on scroll down, show on scroll up
-  React.useEffect(() => {
+  useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY;
       setVisible(y < lastScrollY.current || y < 80);
@@ -140,7 +142,7 @@ export default function FloatingNav({ items, locale, altLocale, altLocaleLabel }
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           aria-label="Navigation"
-          className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2"
+          className="fixed bottom-6 right-3 z-50"
         >
           <div
             className="flex items-end gap-2 rounded-2xl bg-background/80 px-3 py-3 shadow-xl shadow-black/10 backdrop-blur-md ring-1 ring-foreground/10"
@@ -160,22 +162,22 @@ export default function FloatingNav({ items, locale, altLocale, altLocaleLabel }
             ))}
 
             {/* Divider */}
-            <div className="mx-1 h-8 w-px bg-border" />
+            <div className="mx-1 h-8 w-px mb-3 bg-border" />
 
             {/* Locale switcher */}
             <Link
-              href={`/${altLocale}`}
-              className="flex h-11 w-11 items-center justify-center rounded-2xl bg-card text-xs font-semibold text-muted-foreground ring-1 ring-foreground/10 transition-colors hover:text-foreground hover:ring-accent/40"
+              href={`#${topId}`}
+              className="flex h-11 w-11 items-center mb-2 justify-center rounded-2xl bg-card text-xs font-semibold text-muted-foreground ring-1 ring-foreground/10 transition-colors hover:text-foreground hover:ring-accent/40"
             >
-              {altLocaleLabel}
+              <DynamicLucideIcon name={altLocaleIcon} />
             </Link>
 
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               type="button"
-              aria-label={locale === "fr" ? "Changer de thème" : "Toggle theme"}
-              className="flex h-11 w-11 items-center justify-center rounded-2xl bg-card text-foreground/70 ring-1 ring-foreground/10 transition-colors hover:text-foreground hover:ring-accent/40"
+              aria-label={t(`toggleTheme`)}
+              className="flex h-11 w-11 items-center mb-2 justify-center rounded-2xl bg-card text-foreground/70 ring-1 ring-foreground/10 transition-colors hover:text-foreground hover:ring-accent/40"
             >
               {theme === "dark"
                 ? <SunIcon width="18" height="18" />

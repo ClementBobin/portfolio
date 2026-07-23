@@ -1,33 +1,31 @@
 
 import FloatingNav from "@/components/ui/FloatingNav";
-import { getTranslations } from "@/hooks/useTranslation";
 import type { PageParams } from "@/types/global";
 
 const NAV_ITEMS_FR = [
-  { id: "hero",       label: "Accueil",      href: "/",       emoji: "🏠" },
-  { id: "contributions", label: "Contributions", href: "/contributions", emoji: "💻" },
-  { id: "lab",       label: "Lab",          href: "/lab",    emoji: "🧪" },
-  { id: "veille",     label: "Veille",       href: "/veille",  emoji: "🔍" },
+  { id: "hero",       label: "Accueil",      href: "/",       icon: "House" },
+  { id: "contributions", label: "Contributions", href: "/contributions", icon: "HandPlatter" },
+  { id: "lab",       label: "Lab",          href: "/lab",    icon: "Sparkles" },
+  { id: "veille",     label: "Veille",       href: "/veille",  icon: "Search" },
 ];
 
 const NAV_ITEMS_EN = [
-  { id: "hero",       label: "Home",         href: "/",       emoji: "🏠" },
-  { id: "contributions", label: "Contributions", href: "/contributions", emoji: "💻" },
-  { id: "lab",       label: "Lab",          href: "/lab",    emoji: "🧪" },
-  { id: "veille",     label: "Veille",       href: "/veille",  emoji: "🔍" },
+  { id: "hero",       label: "Home",         href: "/",       icon: "House"  },
+  { id: "contributions", label: "Contributions", href: "/contributions", icon: "HandPlatter" },
+  { id: "lab",       label: "Lab",          href: "/lab",    icon: "Sparkles" },
+  { id: "veille",     label: "Veille",       href: "/veille",  icon: "Search" },
 ];
 
 export default async function Navbar({ params }: PageParams) {
   const { locale } = await params;
-  const t = await getTranslations(locale, ["common"]);
   const items = locale === "fr" ? NAV_ITEMS_FR : NAV_ITEMS_EN;
 
   return (
     <FloatingNav
       items={items}
       locale={locale}
-      altLocale={t("footer.backToTop")}
-      altLocaleLabel={t("footer.backToTop").toUpperCase()}
+      topId="top"
+      altLocaleIcon="ArrowUp"
     />
   );
 }

@@ -29,7 +29,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="h-full"
     >
-      <Card className="group h-full transition-all hover:shadow-lg hover:ring-accent/20">
+      <Card className="group transition-all hover:shadow-lg hover:ring-accent/20">
         {/* Media */}
         {project.media ? (
           <div className="relative h-44 w-full overflow-hidden rounded-t-xl bg-secondary">
@@ -70,16 +70,25 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
 
         {/* Links */}
         {(project.github) && (
-          <CardFooter className="gap-4">
+          <CardFooter
+          className="
+            items-center
+            gap-2
+            text-sm
+            font-medium
+            text-muted-foreground
+            transition-colors
+            hover:text-foreground
+          ">
             {project.github && (
               <Link
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="flex flex-row items-center gap-2"
               >
-                {t("projects.viewCode")}
                 <GitHubIcon className="size-3.5" />
+                {t("projects.viewCode")}
               </Link>
             )}
           </CardFooter>

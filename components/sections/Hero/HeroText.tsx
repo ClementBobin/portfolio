@@ -76,7 +76,7 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
         variants={itemVariants}
         className="flex items-center gap-2 text-2xl font-medium text-foreground md:text-3xl"
       >
-        <span>{developerLabel}</span>
+        {/* <span>{developerLabel}</span> */}
         <span
           className="text-accent"
           style={{ fontSize: "1.2em" }}

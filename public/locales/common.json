@@ -4,21 +4,25 @@
       "fr": "Fait avec ☕ et passion",
       "en": "Made with ☕ and passion"
     },
-    "altLocale": {
-      "fr": "en",
-      "en": "fr"
-    },
-    "switchLanguage": {
-      "fr": "English",
-      "en": "Français"
-    },
-    "backToTop": {
-      "fr": "Haut de page",
-      "en": "Back to top"
-    },
     "copyright": {
       "fr": "© {{year}} Clément BOBIN. Tous droits réservés.",
       "en": "© {{year}} Clément BOBIN. All rights reserved."
+    },
+    "backToTop": {
+      "fr": "Retour en haut",
+      "en": "Back to top"
     }
+  },
+  "altLocale": {
+    "fr": "en",
+    "en": "fr"
+  },
+  "switchLanguage": {
+    "fr": "English",
+    "en": "Français"
+  },
+  "toggleTheme": {
+    "fr": "Changer de thème",
+    "en": "Toggle theme"
   }
 }

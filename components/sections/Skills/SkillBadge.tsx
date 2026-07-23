@@ -40,7 +40,7 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
       }}
     >
       <div
-        className="flex h-10 w-10 items-center justify-center rounded-full"
+        className="flex h-10 w-10 items-center justify-center rounded-full pl-1"
         style={{ backgroundColor: `${color}22`, color }}
       >
         <DynamicIcon iconHref={entry?.iconHref} iconClass={entry?.icon} />

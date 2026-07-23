@@ -18,13 +18,13 @@ export default async function Footer({ locale }: FooterProps) {
 
         <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
           <Link
-            href={`/${t("footer.altLocale")}`}
+            href={`/${t("altLocale")}`}
             className="hover:text-accent transition-colors"
           >
-            {t("footer.switchLanguage")}
+            {t("switchLanguage")}
           </Link>
           <span aria-hidden="true">·</span>
-          <Link href={`/${locale}#hero`} className="hover:text-accent transition-colors">
+          <Link href={`#top`} className="hover:text-accent transition-colors">
             {t("footer.backToTop")}
           </Link>
         </div>

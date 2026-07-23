@@ -8,9 +8,7 @@ export async function GET() {
   if (apiUrl) {
     try {
       const res = await fetch(`${apiUrl}/contributions`, { next: { revalidate: 3600 } });
-      if (res.ok) return Response.json(await res.json(), {
-        headers: { "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400" },
-      });
+      if (res.ok) return Response.json(await res.json());
     } catch { /* fall through */ }
   }
 

@@ -35,6 +35,7 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <LazyMotion features={domAnimation}>
               <Navbar params={params} />
+              <section id="top" className="h-0 w-0" />
               {children}
             </LazyMotion>
           </ThemeProvider>
