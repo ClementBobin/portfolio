@@ -167,6 +167,7 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
             {/* Locale switcher */}
             <Link
               href={`#${topId}`}
+              aria-label={t(`backToTop`)}
               className="flex h-11 w-11 items-center mb-2 justify-center rounded-2xl bg-card text-xs font-semibold text-muted-foreground ring-1 ring-foreground/10 transition-colors hover:text-foreground hover:ring-accent/40"
             >
               <DynamicLucideIcon name={altLocaleIcon} />

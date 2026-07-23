@@ -24,8 +24,8 @@ export default async function Footer({ locale }: FooterProps) {
             {t("switchLanguage")}
           </Link>
           <span aria-hidden="true">·</span>
-          <Link href={`#top`} className="hover:text-accent transition-colors">
-            {t("footer.backToTop")}
+          <Link href={`#top`} className="hover:text-accent transition-colors" aria-label={t("backToTop")}>
+            {t("backToTop")}
           </Link>
         </div>
 
