@@ -1,7 +1,9 @@
-import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
+"use client"
+
+import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { ValueCard } from "@/types/portfolio-api";
-import { getTranslations } from "@/hooks/useTranslation";
+import { useTranslations } from "@/hooks/useTranslation";
 
 interface ValueCardsProps {
   valueCards: ValueCard[];
@@ -14,8 +16,8 @@ interface ValueCardsProps {
  * @param valueCards - Array of value card items
  * @param locale - Current locale
  */
-export default async function ValueCards({ valueCards, locale }: ValueCardsProps) {
-  const t = await getTranslations(locale, ["portfolio"]);
+export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
+  const t = useTranslations(locale, ["portfolio"]);
 
   if (!valueCards.length) return null;
 
@@ -25,7 +27,7 @@ export default async function ValueCards({ valueCards, locale }: ValueCardsProps
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={t("section.values")}
     >
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 grid-cols-2">
         {valueCards.map((card, i) => {
           const color = card.color ?? "#C4922A";
 
@@ -45,11 +47,11 @@ export default async function ValueCards({ valueCards, locale }: ValueCardsProps
                   className="flex h-12 w-12 items-center justify-center rounded-xl"
                   style={{ backgroundColor: `${color}22`, color }}
                 >
-                  <DynamicIcon iconClass={card.icon} />
+                  <DynamicLucideIcon name={card.icon} />
                 </div>
                 <div>
                   <h3
-                    className="font-[family-name:var(--font-playfair)] text-lg font-semibold"
+                    className="text-lg font-semibold"
                     style={{ color }}
                   >
                     {t(card.title)}

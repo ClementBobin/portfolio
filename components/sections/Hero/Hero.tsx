@@ -34,7 +34,7 @@ export default function Hero({ personal, locale, experiences, contact }: HeroPro
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden"
+      className="relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden"
       aria-label={t("hero.label")}
     >
       {/* Three.js canvas — dynamically loaded, aria-hidden */}

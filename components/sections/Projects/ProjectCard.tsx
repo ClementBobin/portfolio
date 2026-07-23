@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/types/portfolio-api";
@@ -22,7 +22,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
   const description = t(project.description);
 
   return (
-    <motion.article
+    <m.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -36,6 +36,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
             <Image
               src={project.media}
               alt={title}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
@@ -84,6 +85,6 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
           </CardFooter>
         )}
       </Card>
-    </motion.article>
+    </m.article>
   );
 }

@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { getTranslations } from "@/hooks/useTranslation";
-import type { PageParams } from "@/types/global";
 import { LazyMotion, domAnimation } from 'framer-motion';
+import Navbar from "./Navbar";
 import "./globals.css";
 
-export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations(locale, ["email"]);
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: {
       default: "Clément BOBIN — Portfolio",
@@ -37,6 +34,7 @@ export default async function LocaleLayout({
         <body>
           <ThemeProvider>
             <LazyMotion features={domAnimation}>
+              <Navbar params={params} />
               {children}
             </LazyMotion>
           </ThemeProvider>

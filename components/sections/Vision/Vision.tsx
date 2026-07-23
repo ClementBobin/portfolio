@@ -1,4 +1,4 @@
-import { DynamicIcon } from "@/components/icons/dynamicLucideIcon";
+import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { getTranslations } from "@/hooks/useTranslation";
 import type { VisionSection } from "@/types/portfolio-api";
@@ -49,7 +49,7 @@ export default async function Vision({ vision, locale }: VisionProps) {
             <ScrollReveal key={item.id} delay={i * 0.1}>
               <div className="group flex gap-4 rounded-xl border border-border bg-card p-6 transition-shadow hover:shadow-md">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent">
-                  <DynamicIcon iconClass={item.icon} />
+                  <DynamicLucideIcon name={item.icon} />
                 </div>
                 <div className="flex flex-col gap-2">
                   <h3 className="font-semibold text-foreground">

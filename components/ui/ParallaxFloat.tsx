@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { m, useMotionValue, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 interface ParallaxFloatProps {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ export default function ParallaxFloat({
   const x = useTransform(mouseX, [-1, 1], [-20 * intensity, 20 * intensity]);
   const y = useTransform(mouseY, [-1, 1], [-20 * intensity, 20 * intensity]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handler = (e: MouseEvent) => {
       mouseX.set((e.clientX / window.innerWidth) * 2 - 1);
       mouseY.set((e.clientY / window.innerHeight) * 2 - 1);
@@ -38,8 +38,8 @@ export default function ParallaxFloat({
   }, [mouseX, mouseY]);
 
   return (
-    <motion.div style={{ x, y }} className={className}>
+    <m.div style={{ x, y }} className={className}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }

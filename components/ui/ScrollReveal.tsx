@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, useInView } from "framer-motion";
+import { m, useInView } from "framer-motion";
 
 type RevealDirection = "up" | "left" | "right" | "down";
 
@@ -43,7 +43,7 @@ export default function ScrollReveal({
   const initial = { opacity: 0, ...dirMap[direction] };
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={initial}
       animate={isInView ? { opacity: 1, x: 0, y: 0 } : initial}
@@ -55,6 +55,6 @@ export default function ScrollReveal({
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
