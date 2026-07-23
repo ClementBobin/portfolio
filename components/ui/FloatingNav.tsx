@@ -2,10 +2,11 @@
 
 import { m, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { DynamicLucideIcon, MoonIcon, SunIcon } from "@/components/icons";
 import { useTheme } from "@/components/ThemeProvider";
 import { useRef, useState, useEffect } from "react";
-import { useTranslations } from "@/hooks/useTranslation"
+import { useTranslations } from "@/hooks/useTranslation";
 
 interface NavItem {
   id: string;
@@ -29,8 +30,6 @@ function DockItem({
   item,
   isActive,
   mouseX,
-  index,
-  total,
 }: {
   item: NavItem;
   isActive: boolean;
@@ -53,7 +52,6 @@ function DockItem({
 
   return (
     <div className="relative flex flex-col items-center" ref={ref}>
-      {/* Tooltip */}
       <AnimatePresence>
         {hovered && (
           <m.div
@@ -86,7 +84,6 @@ function DockItem({
         </m.div>
       </Link>
 
-      {/* Active dot */}
       <m.div
         animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0 }}
         transition={{ duration: 0.2 }}
@@ -99,28 +96,27 @@ function DockItem({
 export default function FloatingNav({ items, locale, topId, altLocaleIcon }: FloatingNavProps) {
   const t = useTranslations(locale, ["common"]);
   const { theme, toggleTheme } = useTheme();
-  const [activeId, setActiveId] = useState<string>("");
+  const pathname = usePathname();
   const [visible, setVisible] = useState(true);
   const lastScrollY = useRef(0);
   const mouseX = useMotionValue(Infinity);
 
-  // Scroll spy
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActiveId(entry.target.id);
-        }
-      },
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
-    );
+  // Derive active item from pathname instead of scroll spy
+  const activeId = (() => {
+    // Strip locale prefix: "/fr/veille" → "/veille", "/fr" → "/"
+    const stripped = pathname.replace(/^\/(fr|en)/, "") || "/";
 
-    items.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, [items]);
+    // Find the most specific match (longest href that matches)
+    const match = items
+      .filter((item) => stripped === item.href || stripped.startsWith(item.href === "/" ? "/__never__" : item.href))
+      .sort((a, b) => b.href.length - a.href.length)[0];
+
+    // Home is active when on "/"
+    if (!match) {
+      return stripped === "/" ? (items.find((i) => i.href === "/")?.id ?? "") : "";
+    }
+    return match.id;
+  })();
 
   // Hide on scroll down, show on scroll up
   useEffect(() => {
@@ -149,7 +145,6 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
             onMouseMove={(e) => mouseX.set(e.clientX)}
             onMouseLeave={() => mouseX.set(Infinity)}
           >
-            {/* Nav items */}
             {items.map((item, i) => (
               <DockItem
                 key={item.id}
@@ -161,10 +156,8 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
               />
             ))}
 
-            {/* Divider */}
             <div className="mx-1 h-8 w-px mb-3 bg-border" />
 
-            {/* Locale switcher */}
             <Link
               href={`#${topId}`}
               aria-label={t(`backToTop`)}
@@ -173,7 +166,6 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
               <DynamicLucideIcon name={altLocaleIcon} />
             </Link>
 
-            {/* Theme toggle */}
             <button
               onClick={toggleTheme}
               type="button"
