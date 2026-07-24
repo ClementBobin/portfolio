@@ -9,10 +9,13 @@ import { getTranslations } from "@/hooks/useTranslation";
 import type { ContributionItem } from "@/types/contribution";
 
 async function fetchContributions(): Promise<ContributionItem[]> {
+  const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
+  if (!apiUrl) return [];
+
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/contributions`);
-    if (!res.ok) return [];
-    return res.json();
+    const res = await fetch(`${apiUrl}/contributions`);
+    if (res.ok) return await res.json();
+    return [];
   } catch {
     return [];
   }

@@ -159,7 +159,7 @@ async function fetchNamespaceClient(ns: string): Promise<TranslationNamespace> {
 
   const result: TranslationNamespace = {};
   try {
-    const res = await fetch(`/api/locales/${ns}`);
+    const res = await fetch(`/api/locales/${ns}`, { next: { revalidate: 3600 } });
     if (res.ok) Object.assign(result, await res.json());
   } catch { /* ignore */ }
 
