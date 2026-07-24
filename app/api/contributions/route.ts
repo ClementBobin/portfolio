@@ -7,7 +7,7 @@ export async function GET() {
 
   if (apiUrl) {
     try {
-      const res = await fetch(`${apiUrl}/contributions`, { next: { revalidate: 3600 } });
+      const res = await fetch(`${apiUrl}/contributions`);
       if (res.ok) return Response.json(await res.json());
     } catch { /* fall through */ }
   }
