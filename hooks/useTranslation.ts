@@ -225,33 +225,5 @@ export interface LangConfig {
   labels: Record<string, string>;
 }
 
-const FALLBACK_LANG_CONFIG: LangConfig = {
-  default: "fr",
-  available: ["fr", "en"],
-  labels: { fr: "FR", en: "EN" },
-};
-
-let cachedLangConfig: LangConfig | null = null;
-
-export const fetchLangConfig = async (): Promise<LangConfig> => {
-  if (cachedLangConfig) return cachedLangConfig;
-  try {
-    const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
-    const res = await fetch(`${apiUrl}/config/lang`, { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    cachedLangConfig = data.languages as LangConfig;
-    return cachedLangConfig;
-  } catch {
-    return FALLBACK_LANG_CONFIG;
-  }
-};
-
-export const getAvailableLocales = async (): Promise<string[]> =>
-  (await fetchLangConfig()).available;
-
-export const getDefaultLocale = async (): Promise<string> =>
-  (await fetchLangConfig()).default;
-
 /** @deprecated Use getTranslations instead */
 export const translator = async ({ ns, lng = "en-US" }: { ns: string[]; lng?: string }) => getTranslations(lng, ns);

@@ -10,7 +10,7 @@ import type { ContributionItem } from "@/types/contribution";
 
 async function fetchContributions(): Promise<ContributionItem[]> {
   try {
-    const res = await fetch(`/api/contributions`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/contributions`);
     if (!res.ok) return [];
     return res.json();
   } catch {

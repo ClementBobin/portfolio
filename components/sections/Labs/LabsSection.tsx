@@ -21,7 +21,7 @@ function resolve(value: LocalizedString, locale: string): string {
 
 async function fetchLabs(): Promise<LabItem[]> {
   try {
-    const res = await fetch(`/api/labs`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/labs`);
     if (!res.ok) return [];
     return res.json();
   } catch {
