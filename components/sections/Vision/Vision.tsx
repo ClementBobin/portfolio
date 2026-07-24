@@ -15,11 +15,11 @@ interface VisionProps {
  * @param locale - Current locale
  */
 export default async function Vision({ vision, locale }: VisionProps) {
+  if (!vision.items.length) return null;
+
   const t = await getTranslations(locale, ["portfolio"]);
   const headline = t(vision.headline)
   const subtitle = t(vision.subtitle)
-
-  if (!vision.items.length) return null;
 
   return (
     <section

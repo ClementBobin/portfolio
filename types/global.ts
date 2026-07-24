@@ -1,5 +1,5 @@
 import type { SVGProps } from 'react'
-// ─── i18n types (hook for global use) ───────────────────────
+// --- i18n types (hook for global use) -----------------------
 export type TranslationNamespace = Record<string, LocalizedString | Record<string, unknown>>;
 export type LoadedNamespaces = Record<string, TranslationNamespace>;
 

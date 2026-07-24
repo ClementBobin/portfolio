@@ -39,7 +39,7 @@ interface ContactDialogProps {
   locale: string;
 }
 
-// ─── Schema ───────────────────────────────────────────────────────────────────
+// --- Schema -------------------------------------------------------------------
 const contactSchema = z.object({
   name: z.string().min(1, "Le nom est requis"),
   email: z.string().email("Adresse email invalide"),
@@ -49,7 +49,7 @@ const contactSchema = z.object({
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
-// ─── Email card ───────────────────────────────────────────────────────────────
+// --- Email card ---------------------------------------------------------------
 
 function EmailCard({ email, locale }: { email: string, locale: string; }) {
   const [copied, setCopied] = useState(false);
@@ -89,7 +89,7 @@ function EmailCard({ email, locale }: { email: string, locale: string; }) {
   );
 }
 
-// ─── LinkedIn card ────────────────────────────────────────────────────────────
+// --- LinkedIn card ------------------------------------------------------------
 
 function LinkedInCard({ url, label }: { url: string; label: string }) {
   return (
@@ -115,7 +115,7 @@ function LinkedInCard({ url, label }: { url: string; label: string }) {
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+// --- Main component -----------------------------------------------------------
 
 export function ContactDialog({
   trigger,
@@ -169,14 +169,14 @@ export function ContactDialog({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
 
       <DialogContent className="max-w-105 gap-0 overflow-hidden rounded-2xl p-0">
-        {/* ── Header ─────────────────────────────────────────────────────── */}
+        {/* -- Header ------------------------------------------------------- */}
         <DialogHeader className="px-5 pb-1 pt-5">
           <DialogTitle className="text-base font-semibold">
             {t("title")}
           </DialogTitle>
         </DialogHeader>
 
-        {/* ── Body ───────────────────────────────────────────────────────── */}
+        {/* -- Body --------------------------------------------------------- */}
         <div className="flex flex-col gap-3 px-5 pb-5 pt-3">
           {/* Contact cards */}
           {email && <EmailCard email={email} locale={locale} />}
@@ -189,14 +189,14 @@ export function ContactDialog({
             {t("separator")}
           </FieldSeparator>
 
-          {/* ── Sent state ───────────────────────────────────────────────── */}
+          {/* -- Sent state ------------------------------------------------- */}
           {submitStatus === "sent" ? (
             <div className="rounded-xl bg-emerald-100 px-4 py-5 text-center">
               <p className="text-sm font-semibold text-emerald-800">{t("sent")}</p>
               <p className="mt-1 text-xs text-emerald-700">{t("sentDesc")}</p>
             </div>
           ) : (
-            /* ── Form ──────────────────────────────────────────────────── */
+            /* -- Form ---------------------------------------------------- */
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <FieldGroup className="flex flex-col gap-3">
 

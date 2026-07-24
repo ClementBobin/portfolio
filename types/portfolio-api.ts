@@ -5,14 +5,14 @@
 
 import type { LocalizedString } from "./global";
 
-// ─── SEO ────────────────────────────────────────────────────────────────────
+// --- SEO --------------------------------------------------------------------
 
 export interface PortfolioSeo {
   title: string;
   description: string;
 }
 
-// ─── Personal ───────────────────────────────────────────────────────────────
+// --- Personal ---------------------------------------------------------------
 
 export interface PortfolioPersonal {
   name: string;
@@ -30,7 +30,7 @@ export interface PortfolioPersonal {
   role?: LocalizedString; // e.g. "Développeur UX"
 }
 
-// ─── Contact ────────────────────────────────────────────────────────────────
+// --- Contact ----------------------------------------------------------------
 
 export type ContactType =
   | "website"
@@ -47,7 +47,7 @@ export interface ContactItem {
   href?: string;
 }
 
-// ─── Skills ─────────────────────────────────────────────────────────────────
+// --- Skills -----------------------------------------------------------------
 
 export type SkillType = "badges" | "text" | "languages";
 
@@ -62,7 +62,7 @@ export interface SkillSection {
   items: SkillItem[];
 }
 
-// ─── Strengths (horizontal timeline) ────────────────────────────────────────
+// --- Strengths (horizontal timeline) ----------------------------------------
 
 export interface StrengthItem {
   strengths: {
@@ -84,7 +84,7 @@ export interface StrengthItem {
     exampleHref?: string
   }
 }
-// ─── Experience ─────────────────────────────────────────────────────────────
+// --- Experience -------------------------------------------------------------
 
 export type WorkType = "work" | "experience";
 
@@ -112,7 +112,7 @@ export interface Experience {
   details?: ExperienceDetails;
 }
 
-// ─── Education ──────────────────────────────────────────────────────────────
+// --- Education --------------------------------------------------------------
 
 export interface Education {
   school: LocalizedString;
@@ -123,7 +123,7 @@ export interface Education {
   period: string;
 }
 
-// ─── Projects ───────────────────────────────────────────────────────────────
+// --- Projects ---------------------------------------------------------------
 
 export interface ProjectTech {
   name: string;
@@ -139,7 +139,7 @@ export interface Project {
   url?: string;
 }
 
-// ─── Hobbies / Passions ─────────────────────────────────────────────────────
+// --- Hobbies / Passions -----------------------------------------------------
 
 export interface Hobby {
   title: LocalizedString;
@@ -148,7 +148,7 @@ export interface Hobby {
   details: LocalizedString[];
 }
 
-// ─── What I Bring ────────────────────────────────────────────────────────────
+// --- What I Bring ------------------------------------------------------------
 
 export interface ValueCard {
   icon: string; // lucide icon name
@@ -157,7 +157,7 @@ export interface ValueCard {
   color?: string;
 }
 
-// ─── Highlights ──────────────────────────────────────────────────────────────
+// --- Highlights --------------------------------------------------------------
 
 export interface Highlight {
   tag?: LocalizedString[];
@@ -169,7 +169,7 @@ export interface Highlight {
   githubHref?: string;
 }
 
-// ─── Vision / Future ─────────────────────────────────────────────────────────
+// --- Vision / Future ---------------------------------------------------------
 
 export interface VisionItem {
   id: string;
@@ -185,7 +185,7 @@ export interface VisionSection {
   items: VisionItem[];
 }
 
-// ─── Recommendations ─────────────────────────────────────────────────────────
+// --- Recommendations ---------------------------------------------------------
 
 export interface RecommendationStrengths {
   label: LocalizedString;
@@ -208,7 +208,7 @@ export interface Recommendation {
   collaboration?: LocalizedString;
 }
 
-// ─── Root ────────────────────────────────────────────────────────────────────
+// --- Root --------------------------------------------------------------------
 
 export interface PortfolioData {
   seo: PortfolioSeo;

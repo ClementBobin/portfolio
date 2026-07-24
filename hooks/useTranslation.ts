@@ -10,7 +10,7 @@
  *   t(data.personal.summary)          → string  (localize { en, fr } object)
  *   t(data.seo.keywords)              → string[] (localize { en: [], fr: [] } object)
  */
-// ─── Shared helpers ───────────────────────────────────────────────────────────
+// --- Shared helpers -----------------------------------------------------------
 
 import type { LocalizedString, LocalizedArray, LoadedNamespaces, TFunction, TranslationNamespace } from "@/types/global";
 
@@ -102,7 +102,7 @@ function createTFunction(lang: string, namespaces: LoadedNamespaces): TFunction 
   return t as TFunction;
 }
 
-// ─── Server-side ──────────────────────────────────────────────────────────────
+// --- Server-side --------------------------------------------------------------
 
 async function loadLocalNamespace(ns: string): Promise<TranslationNamespace> {
   try {
@@ -149,7 +149,7 @@ export async function getTranslations(
   return createTFunction(lang, namespaces);
 }
 
-// ─── Client-side ─────────────────────────────────────────────────────────────
+// --- Client-side -------------------------------------------------------------
 
 const clientCache = new Map<string, TranslationNamespace>();
 
@@ -216,7 +216,7 @@ export function useTranslations(locale: string, ns: string[] = ["common"]): TFun
   return buildT(namespaces);
 }
 
-// ─── Language config ──────────────────────────────────────────────────────────
+// --- Language config ----------------------------------------------------------
 
 export interface LangConfig {
   default: string;

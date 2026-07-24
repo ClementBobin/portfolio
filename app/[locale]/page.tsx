@@ -20,6 +20,9 @@ export default async function PortfolioPage({ params }: PageParams) {
     vision, hobbies, strength,
   } = await fetchPortfolioData();
 
+  // console log strength data
+  console.log(strength)
+
   return (
     <>
       <main className="flex flex-col">

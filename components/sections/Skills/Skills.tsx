@@ -15,9 +15,9 @@ interface SkillsProps {
  * @param locale - Current locale
  */
 export default async function Skills({ skills, locale }: SkillsProps) {
-  const t = await getTranslations(locale, ["portfolio"]);
-
   if (!skills.length) return null;
+
+  const t = await getTranslations(locale, ["portfolio"]);
 
   return (
     <section
@@ -37,18 +37,18 @@ export default async function Skills({ skills, locale }: SkillsProps) {
 
                 {section.type === "badges" && (
                   <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-                    {section.items.map((item, i) => {
-                      return <SkillBadge key={i} name={t(item.name)} level={t(item.level)} />;
+                    {section.items.map((item) => {
+                      return <SkillBadge key={t(item.name)} name={t(item.name)} level={t(item.level)} />;
                     })}
                   </div>
                 )}
 
                 {section.type === "text" && (
                   <ul className="flex flex-wrap gap-2">
-                    {section.items.map((item, i) => {
+                    {section.items.map((item) => {
                       return (
                         <li
-                          key={i}
+                          key={t(item.name)}
                           className="rounded-full border border-border bg-card px-3 py-1 text-sm text-foreground"
                         >
                           {t(item.name)}
@@ -60,10 +60,10 @@ export default async function Skills({ skills, locale }: SkillsProps) {
 
                 {section.type === "languages" && (
                   <div className="flex flex-col gap-3">
-                    {section.items.map((item, i) => {
+                    {section.items.map((item) => {
                       const level = t(item.level)
                       return (
-                        <div key={i} className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3">
+                        <div key={t(item.name)} className="flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3">
                           <span className="font-medium text-foreground">{t(item.name)}</span>
                           {level && (
                             <span className="text-sm text-accent font-medium">{level}</span>

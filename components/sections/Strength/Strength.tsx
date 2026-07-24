@@ -27,7 +27,6 @@ export default function Strength({
   locale,
 }: StrengthProps) {
   const t = useTranslations(locale, ["portfolio"]);
-
   if (!strength.strengths.length) return null;
 
   return (
@@ -118,10 +117,6 @@ export default function Strength({
                       }}
                     >
                       {t(item.label)}
-                    </span>
-
-                    <span className="text-xs text-muted-foreground">
-                      {item.percentage}%
                     </span>
                   </div>
 

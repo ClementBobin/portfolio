@@ -32,9 +32,9 @@ export default function ValueCards({ valueCards, locale }: ValueCardsProps) {
           const color = card.color ?? "#C4922A";
 
           return (
-            <ScrollReveal key={i} delay={i * 0.08}>
+            <ScrollReveal key={t(card.title)} delay={i * 0.08}>
               <div
-                className="group flex flex-col gap-4 rounded-xl border p-6 transition-all hover:shadow-md"
+                className="group flex flex-col gap-4 rounded-xl border p-6 transition-colors hover:shadow-md"
                 style={{ borderColor: `${color}44`, backgroundColor: `${color}08` }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.backgroundColor = `${color}14`;
