@@ -10,10 +10,7 @@ import type { ContributionItem } from "@/types/contribution";
 
 async function fetchContributions(): Promise<ContributionItem[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-    console.log("Fetching contributions from:", `${baseUrl}/api/contributions`);
-    const res = await fetch(`${baseUrl}/api/contributions`);
-    console.log("Contributions fetch response:", res);
+    const res = await fetch(`/api/contributions`);
     if (!res.ok) return [];
     return res.json();
   } catch {

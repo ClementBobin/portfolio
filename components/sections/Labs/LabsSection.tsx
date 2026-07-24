@@ -21,8 +21,7 @@ function resolve(value: LocalizedString, locale: string): string {
 
 async function fetchLabs(): Promise<LabItem[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-    const res = await fetch(`${baseUrl}/api/labs`, { next: { revalidate: 3600 } });
+    const res = await fetch(`/api/labs`);
     if (!res.ok) return [];
     return res.json();
   } catch {
