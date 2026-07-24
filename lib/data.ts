@@ -231,9 +231,10 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
 
   if (apiUrl) {
     try {
-      const res = await fetch(`${apiUrl}/cv`);
+      const res = await fetch(`${apiUrl}/portfolio`);
       if (res.ok) {
         const raw = await res.json() as Record<string, unknown>;
+        console.log("[fetchPortfolioData] Raw API response:", raw); // ← add
         return {
           seo:             (raw.seo             as PortfolioData["seo"])             ?? EMPTY.seo,
           personal:        (raw.personal         as PortfolioData["personal"])        ?? EMPTY.personal,

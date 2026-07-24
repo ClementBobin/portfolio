@@ -51,13 +51,3 @@ export function useTechColors(): Map<string, TechColorEntry> {
 
   return colors;
 }
-
-/**
- * Returns the color entry for a given tech name (case-insensitive).
- */
-export function getTechColor(
-  colors: Map<string, TechColorEntry>,
-  techName: string
-): TechColorEntry | undefined {
-  return colors.get(techName.toLowerCase());
-}

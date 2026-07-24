@@ -14,7 +14,6 @@
 
 import type { LocalizedString, LocalizedArray, LoadedNamespaces, TFunction, TranslationNamespace } from "@/types/global";
 
-export const getLanguageCode = (locale?: string): string => (locale || "en").split("-")[0];
 
 function isLocalizedArray(value: unknown): value is LocalizedArray {
   return (
@@ -225,5 +224,10 @@ export interface LangConfig {
   labels: Record<string, string>;
 }
 
-/** @deprecated Use getTranslations instead */
-export const translator = async ({ ns, lng = "en-US" }: { ns: string[]; lng?: string }) => getTranslations(lng, ns);
+function getLanguageCode(locale: string) {
+  const normalized = (locale ?? "").trim().toLowerCase();
+  if (!normalized) return "en";
+
+  const code = normalized.split(/[-_]/)[0];
+  return code || "en";
+}
