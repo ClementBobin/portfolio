@@ -2,27 +2,19 @@
 import FloatingNav from "@/components/ui/FloatingNav";
 import type { PageParams } from "@/types/global";
 
-const NAV_ITEMS_FR = [
-  { id: "hero",       label: "Accueil",      href: "/",       icon: "House" },
-  { id: "contributions", label: "Contributions", href: "/contributions", icon: "HandPlatter" },
-  { id: "lab",       label: "Lab",          href: "/lab",    icon: "Sparkles" },
-  { id: "veille",     label: "Veille",       href: "/veille",  icon: "Search" },
-];
-
-const NAV_ITEMS_EN = [
-  { id: "hero",       label: "Home",         href: "/",       icon: "House"  },
-  { id: "contributions", label: "Contributions", href: "/contributions", icon: "HandPlatter" },
-  { id: "lab",       label: "Lab",          href: "/lab",    icon: "Sparkles" },
-  { id: "veille",     label: "Veille",       href: "/veille",  icon: "Search" },
+const NAV_ITEMS = [
+  { id: "hero",       label: { "fr": "Accueil", "en": "Home" },         href: "/",       icon: "House"  },
+  { id: "contributions", label: { "fr": "Contributions", "en": "Contributions" }, href: "/contributions", icon: "HandPlatter" },
+  { id: "lab",       label: { "fr": "Lab", "en": "Lab" },          href: "/lab",    icon: "Sparkles" },
+  { id: "veille",     label: { "fr": "Veille", "en": "Veille" },       href: "/veille",  icon: "Search" },
 ];
 
 export default async function Navbar({ params }: PageParams) {
   const { locale } = await params;
-  const items = locale === "fr" ? NAV_ITEMS_FR : NAV_ITEMS_EN;
 
   return (
     <FloatingNav
-      items={items}
+      items={NAV_ITEMS}
       locale={locale}
       topId="top"
       altLocaleIcon="ArrowUp"

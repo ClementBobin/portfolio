@@ -7,10 +7,11 @@ import { DynamicLucideIcon, MoonIcon, SunIcon } from "@/components/icons";
 import { useTheme } from "@/components/ThemeProvider";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "@/hooks/useTranslation";
+import type { LocalizedString } from "@/types/global";
 
 interface NavItem {
   id: string;
-  label: string;
+  label: LocalizedString;
   href: string;
   icon: string;
 }
@@ -27,16 +28,19 @@ const DOCK_SIZE_HOVERED = 64;
 const DOCK_RANGE = 80;
 
 function DockItem({
+  locale,
   item,
   isActive,
   mouseX,
 }: {
+  locale: string;
   item: NavItem;
   isActive: boolean;
   mouseX: ReturnType<typeof useMotionValue<number>>;
   index: number;
   total: number;
 }) {
+  const t = useTranslations(locale);
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -61,12 +65,12 @@ function DockItem({
             transition={{ duration: 0.15 }}
             className="absolute -top-9 whitespace-nowrap rounded-lg bg-popover px-2.5 py-1 text-xs font-medium text-popover-foreground shadow ring-1 ring-foreground/10"
           >
-            {item.label}
+            {t(item.label)}
           </m.div>
         )}
       </AnimatePresence>
 
-      <Link href={item.href} aria-label={item.label}>
+      <Link href={item.href} aria-label={t(item.label)}>
         <m.div
           style={{ width: springSize, height: springSize }}
           onMouseEnter={() => setHovered(true)}
@@ -148,6 +152,7 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
             {items.map((item, i) => (
               <DockItem
                 key={item.id}
+                locale={locale}
                 item={item}
                 isActive={activeId === item.id}
                 mouseX={mouseX}
