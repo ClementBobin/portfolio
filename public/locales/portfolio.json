@@ -67,16 +67,6 @@
         "en": "Introduction"
         }
     },
-    "experience": {
-        "work": {
-        "fr": "Expériences professionnelles",
-        "en": "Work Experience"
-        },
-        "projects": {
-        "fr": "Projets & Expériences",
-        "en": "Projects & Experience"
-        }
-    },
     "highlights": {
         "view": {
         "fr": "Voir le projet",
@@ -97,26 +87,94 @@
     },
     "projects": {
         "eyebrow": {
-        "fr": "Ce que je construis",
-        "en": "What I build"
+            "fr": "Ce que je construis",
+            "en": "Featured Work"
         },
         "title": {
-        "fr": "Projets Personnels",
-        "en": "Personal Projects"
+            "fr": "Projets Personnels",
+            "en": "Projects & Applications"
+        },
+        "subtitle": {
+            "en": "A selection of web applications, developer tools, and software solutions I have designed and deployed."
         },
         "viewProject": {
             "fr": "Voir le projet",
             "en": "View project"
         },
         "viewCode": {
-        "fr": "Voir le code",
-        "en": "View code"
+            "fr": "Voir le code",
+            "en": "View code"
         }
     },
     "contributions": {
-        "viewGithub": {
-            "fr": "Voir sur GitHub",
-            "en": "View on GitHub"
+        "eyebrow": {
+            "en": "Open Source Activity"
+        },
+        "title": {
+            "en": "GitHub Contributions & Repositories"
+        },
+        "subtitle": {
+            "en": "Tracking consistent development activity, open-source repositories, and code contributions on GitHub."
+        },
+        "follow": {
+            "en": "Follow"
+        }
+    },
+    "skills": {
+        "badge": {
+            "en": "Technical Capabilities",
+            "fr": "Compétences Techniques"
+        },
+        "title": {
+            "en": "Technical Skills & Specializations",
+            "fr": "Compétences Techniques & Spécialisations"
+        },
+        "subtitle": {
+            "en": "Organized categories of tools and languages capabilities I actively use.",
+            "fr": "Catégories organisées d'outils et de langages que j'utilise activement."
+        }
+    },
+    "about": {
+        "badge": {
+            "en": "Who I Am"
+        }
+    },
+    "experience": {
+        "badge": {
+            "en": "Journey & Education"
+        },
+        "title": {
+            "en": "Academic & Software Engineering Milestones"
+        },
+        "subtitle": {
+            "en": "Key milestones in education at Maseno University and full-stack software development."
+        }
+    },
+    "values": {
+        "title": {
+            "en": "What I Bring"
+        },
+        "subtitle": {
+            "en": "A senior developer isn't defined by years of experience, but by the ability to create value for the team, the product, and the company."
+        }
+    },
+    "vision": {
+        "badge": {
+            "en": "Current Focus & Vision"
+        },
+        "title": {
+            "en": "Active Development & Future Vision"
+        },
+        "subtitle": {
+            "en": "What I'm actively working on today, and where I am aiming to make an impact tomorrow."
+        }
+    },
+    "hobbies": {
+        "title": {
+            "en": "Hobbies & Interests"
+        },
+        "subtitle": {
+            "en": "A glimpse into my personal interests and activities outside of work."
         }
     }
 }

@@ -6,7 +6,7 @@ import About from "@/components/sections/About/About";
 import Skills from "@/components/sections/Skills/Skills";
 import Experience from "@/components/sections/Experience/Experience";
 import Projects from "@/components/sections/Projects/Projects";
-import ValueCards from "@/components/sections/ValueCards/ValueCards";
+import Philosophy from "@/components/sections/Philosophy/Philosophy";
 import Vision from "@/components/sections/Vision/Vision";
 import Hobbies from "@/components/sections/Hobbies/Hobbies";
 import Strength from "@/components/sections/Strength/Strength";
@@ -16,7 +16,7 @@ export default async function PortfolioPage({ params }: PageParams) {
   const { locale } = await params;
   const {
     personal, contact, skills, experiences,
-    education, projects, valueCards,
+    education, projects, philosophy,
     vision, hobbies, strength,
   } = await fetchPortfolioData();
 
@@ -34,8 +34,8 @@ export default async function PortfolioPage({ params }: PageParams) {
           {education.length > 0 && <Experience experiences={experiences} education={education} locale={locale} />}
           {projects.length > 0 && <Projects projects={projects} locale={locale} />}
           {strength && strength.strengths.length > 0 && <Strength strength={strength} locale={locale} />}
-          {valueCards && valueCards.length > 0 && <ValueCards valueCards={valueCards} locale={locale} />}
-          {vision && vision.items.length > 0 && <Vision vision={vision} locale={locale} />}
+          {philosophy && philosophy.cards.length > 0 && <Philosophy philosophy={philosophy} locale={locale} />}
+          {vision && vision.length > 0 && <Vision vision={vision} locale={locale} />}
           {hobbies.length > 0 && <Hobbies hobbies={hobbies} locale={locale} />}
         </Suspense>
       </main>

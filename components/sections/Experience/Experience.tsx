@@ -1,6 +1,8 @@
 import ExperienceTimeline from "./ExperienceTimeline";
 import type { Education, Experience } from "@/types/portfolio-api";
 import { getTranslations } from "@/hooks/useTranslation";
+import { SectionHeader } from "@/components/ui/SectionHeader"
+import { GraduationCap } from "lucide-react";
 
 interface ExperienceProps {
   experiences: Experience[];
@@ -30,11 +32,22 @@ export default async function Experience({
       className="mx-auto w-full max-w-5xl px-6 py-24"
       aria-label={t("section.experience")}
     >
-      <ExperienceTimeline
-        experiences={experiences}
-        education={education}
-        locale={locale}
-      />
+      <SectionHeader
+        eyebrow={
+          <>
+            <GraduationCap aria-hidden width={16} height={16} />
+            {t("skills.badge")}
+          </>
+        }
+        title={t("skills.title")}
+        subtitle={t("skills.subtitle")}
+      >
+        <ExperienceTimeline
+          experiences={experiences}
+          education={education}
+          locale={locale}
+        />
+      </SectionHeader>
     </section>
   );
 }

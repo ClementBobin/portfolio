@@ -24,14 +24,15 @@ export default async function Projects({ projects, locale }: ProjectsProps) {
         <SectionHeader
           eyebrow={t("projects.eyebrow")}
           title={t("projects.title")}
-        />
+          subtitle={t("projects.subtitle")}
+        >
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, i) => (
+              <ProjectCard key={project.id} project={project} locale={locale} index={i} />
+            ))}
+          </div>
+        </SectionHeader>
       </ScrollReveal>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project, i) => (
-          <ProjectCard key={project.id} project={project} locale={locale} index={i} />
-        ))}
-      </div>
     </section>
   );
 }

@@ -3,7 +3,7 @@
  * All optional fields: if null/undefined, the section/field is hidden.
  */
 
-import type { LocalizedString } from "./global";
+import type { LocalizedArray, LocalizedString } from "./global";
 
 // --- SEO --------------------------------------------------------------------
 
@@ -58,6 +58,8 @@ export interface SkillItem {
 
 export interface SkillSection {
   title: LocalizedString;
+  icon: string; // lucide icon name
+  color: string; // hex color
   type: SkillType;
   items: SkillItem[];
 }
@@ -66,23 +68,34 @@ export interface SkillSection {
 
 export interface StrengthItem {
   strengths: {
-    id: string
-    label: LocalizedString
-    description: LocalizedString
-    percentage: number
-  }[]
+    id: string;
+    label: LocalizedString;
+    description: LocalizedString;
+    percentage: number;
+  }[];
 
   detail?: {
-    title: LocalizedString
-    short?: LocalizedString
-    description?: LocalizedString
+    title: LocalizedString;
+    short?: LocalizedString;
+    description?: LocalizedString;
     categories?: {
-      id: string
-      title: LocalizedString
-      description: LocalizedString
-    }[]
-    exampleHref?: string
-  }
+      id: string;
+      title: LocalizedString;
+      description: LocalizedString;
+    }[];
+    exampleHref?: string;
+    // Nouveaux — pour le modal
+    example?: {
+      media?: string;              // image ou URL
+      mediaCaption?: LocalizedString;
+      quote?: LocalizedString;     // bloc texte mis en avant (fond beige)
+      categories: {               // colonne droite du modal
+        id: string;
+        title: LocalizedString;
+        description: LocalizedString;
+      }[];
+    };
+  };
 }
 // --- Experience -------------------------------------------------------------
 
@@ -94,7 +107,7 @@ export interface ExperienceTech {
 
 export interface ExperienceDetails {
   context?: LocalizedString;
-  tasks?: LocalizedString | { en: string[]; fr: string[] };
+  tasks?: LocalizedString | LocalizedArray;
   env?: LocalizedString;
 }
 
@@ -110,8 +123,10 @@ export interface Experience {
   href?: string;
   isHighlighted?: boolean;
   details?: ExperienceDetails;
+  // Nouveaux
+  media?: string;
+  tasks?: LocalizedArray;
 }
-
 // --- Education --------------------------------------------------------------
 
 export interface Education {
@@ -121,6 +136,10 @@ export interface Education {
   href?: string;
   specialty?: LocalizedString;
   period: string;
+  // Nouveaux
+  media?: string;
+  description?: LocalizedString;
+  tasks?: LocalizedArray;
 }
 
 // --- Projects ---------------------------------------------------------------
@@ -150,11 +169,23 @@ export interface Hobby {
 
 // --- What I Bring ------------------------------------------------------------
 
-export interface ValueCard {
-  icon: string; // lucide icon name
+export interface PhilosophyCard {
+  id: string;
+  icon: string;
   title: LocalizedString;
-  description: LocalizedString;
-  color?: string;
+  variant: "numbered" | "checklist";   // gauche = numbered, droite = checklist
+  description?: LocalizedString;       // intro texte (droite seulement)
+  items: {
+    title: LocalizedString;
+    description: LocalizedString;
+  }[];
+}
+
+export interface PhilosophySection {
+  eyebrow?: LocalizedString;
+  title: LocalizedString;
+  subtitle?: LocalizedString;
+  cards: PhilosophyCard[];
 }
 
 // --- Highlights --------------------------------------------------------------
@@ -174,15 +205,22 @@ export interface Highlight {
 export interface VisionItem {
   id: string;
   icon: string;
+  color: string;
   title: LocalizedString;
   description: LocalizedString;
   tags?: LocalizedString[];
-}
-
-export interface VisionSection {
-  headline?: LocalizedString;
-  subtitle?: LocalizedString;
-  items: VisionItem[];
+  // Nouveaux
+  items?: LocalizedString[];           // checklist pour la carte gauche
+  subcards?: {                          // sous-cartes pour la carte droite
+    title: LocalizedString;
+    description: LocalizedString;
+  }[];
+  cta?: {                               // bouton CTA optionnel
+    label: LocalizedString;
+    href: string;
+  };
+  eyebrow?: LocalizedString;           // label au-dessus du titre (ex: "ACTIVE SOFTWARE PROJECTS")
+  variant?: "checklist" | "subcards";  // style de la carte
 }
 
 // --- Recommendations ---------------------------------------------------------
@@ -208,6 +246,7 @@ export interface Recommendation {
   collaboration?: LocalizedString;
 }
 
+
 // --- Root --------------------------------------------------------------------
 
 export interface PortfolioData {
@@ -220,8 +259,8 @@ export interface PortfolioData {
   education: Education[];
   projects: Project[];
   hobbies: Hobby[];
-  valueCards?: ValueCard[] | null;
+  philosophy?: PhilosophySection | null;
   highlights?: Highlight[] | null;
-  vision?: VisionSection | null;
+  vision?: VisionItem[] | null;
   recommendations?: Recommendation[] | null;
 }
