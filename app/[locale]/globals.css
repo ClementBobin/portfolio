@@ -131,3 +131,9 @@
     @apply font-sans;
   }
 }
+
+.icon-badge {
+  color: var(--icon-accent);
+  background-color: color-mix(in srgb, var(--icon-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--icon-accent) 20%, transparent);
+}

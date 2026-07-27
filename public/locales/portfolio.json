@@ -136,45 +136,56 @@
     },
     "about": {
         "badge": {
-            "en": "Who I Am"
+            "en": "Who I Am",
+            "fr": "Qui je suis"
         }
     },
     "experience": {
         "badge": {
-            "en": "Journey & Education"
+            "en": "Journey & Education",
+            "fr": "Parcours & Formation"
         },
         "title": {
-            "en": "Academic & Software Engineering Milestones"
+            "en": "Academic & Software Engineering Milestones",
+            "fr": "Étapes clés de la formation et du développement logiciel"
         },
         "subtitle": {
-            "en": "Key milestones in education at Maseno University and full-stack software development."
+            "en": "Key milestones in education at Maseno University and full-stack software development.",
+            "fr": "Étapes clés dans l'éducation à l'Université de Maseno et le développement logiciel full-stack."
         }
     },
     "values": {
         "title": {
-            "en": "What I Bring"
+            "en": "What I Bring",
+            "fr": "Ce que j'apporte"
         },
         "subtitle": {
-            "en": "A senior developer isn't defined by years of experience, but by the ability to create value for the team, the product, and the company."
+            "en": "A senior developer isn't defined by years of experience, but by the ability to create value for the team, the product, and the company.",
+            "fr": "Un développeur senior n'est pas défini par le nombre d'années d'expérience, mais par la capacité à créer de la valeur pour l'équipe, le produit et l'entreprise."
         }
     },
     "vision": {
         "badge": {
-            "en": "Current Focus & Vision"
+            "en": "Current Focus & Vision",
+            "fr": "Focus Actuel & Vision"
         },
         "title": {
-            "en": "Active Development & Future Vision"
+            "en": "Active Development & Future Vision",
+            "fr": "Développement Actif & Vision Future"
         },
         "subtitle": {
-            "en": "What I'm actively working on today, and where I am aiming to make an impact tomorrow."
+            "en": "What I'm actively working on today, and where I am aiming to make an impact tomorrow.",
+            "fr": "Sur quoi je travaille activement aujourd'hui, et où je vise à avoir un impact demain."
         }
     },
     "hobbies": {
         "title": {
-            "en": "Hobbies & Interests"
+            "en": "Hobbies & Interests",
+            "fr": "Loisirs & Intéresses"
         },
         "subtitle": {
-            "en": "A glimpse into my personal interests and activities outside of work."
+            "en": "A glimpse into my personal interests and activities outside of work.",
+            "fr": "Un aperçu de mes centres d'intérêt et activités en dehors du travail."
         }
     }
 }

@@ -29,28 +29,6 @@
       "fr": "Contributions organisationnelles"
     }
   },
-  "uses": {
-    "metaTitle": {
-      "en": "Uses",
-      "fr": "Outils"
-    },
-    "metaDescription": {
-      "en": "Hardware, software and services I use every day.",
-      "fr": "Matériel, logiciels et services que j'utilise au quotidien."
-    },
-    "title": {
-      "en": "Uses",
-      "fr": "Outils"
-    },
-    "description": {
-      "en": "I often get messages asking about specific pieces of software or hardware I use. This is a living document with everything I'm using nowadays.",
-      "fr": "On me demande souvent quels logiciels ou matériels j'utilise. Voici un document vivant avec tout ce que j'utilise."
-    },
-    "error": {
-      "en": "Could not load data.",
-      "fr": "Impossible de charger les données."
-    }
-  },
   "veille": {
     "metaTitle": {
       "en": "Tech Watch",

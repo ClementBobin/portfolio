@@ -27,8 +27,11 @@ export async function VisionCard({ item, locale }: VisionCardProps) {
     <div className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 shadow-sm h-full">
       {/* Header */}
       <div className="flex items-start gap-4">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent" style={{ backgroundColor: `${color}22`, color }}>
-          <DynamicLucideIcon name={item.icon} className="size-5" />
+        <div
+          className="flex h-11 w-11 items-center justify-center rounded-xl icon-badge"
+          style={{ "--icon-accent": item.color } as React.CSSProperties}
+        >
+          <DynamicLucideIcon name={item.icon} />
         </div>
         <div className="flex flex-col gap-0.5">
           {eyebrow && (

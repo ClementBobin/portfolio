@@ -17,80 +17,12 @@ const EMPTY: PortfolioData = {
   contact: [],
   skills: [],
   strength: null,
-  // strength: {
-  //   strengths: [
-  //     {
-  //       id: "frontend",
-  //       label: {
-  //         en: "Frontend Development",
-  //         fr: "Développement Frontend",
-  //       },
-  //       description: {
-  //         en: "Building modern and accessible interfaces.",
-  //         fr: "Création d'interfaces modernes et accessibles.",
-  //       },
-  //       percentage: 95,
-  //     },
-  //     {
-  //       id: "ux",
-  //       label: {
-  //         en: "UX Thinking",
-  //         fr: "Approche UX",
-  //       },
-  //       description: {
-  //         en: "User-centered design and interaction.",
-  //         fr: "Conception centrée utilisateur.",
-  //       },
-  //       percentage: 50,
-  //     },
-  //     {
-  //       id: "teamwork",
-  //       label: {
-  //         en: "Collaboration",
-  //         fr: "Collaboration",
-  //       },
-  //       description: {
-  //         en: "Working efficiently with multidisciplinary teams.",
-  //         fr: "Travail efficace avec des équipes pluridisciplinaires.",
-  //       },
-  //       percentage: 20,
-  //     },
-  //   ],
-  //   detail: {
-  //     title: {
-  //       en: "Professional Profile",
-  //       fr: "Profil professionnel",
-  //     },
-  //     short: {
-  //       en: "Passionate about creating intuitive digital experiences.",
-  //       fr: "Passionné par la création d'expériences numériques intuitives.",
-  //     },
-  //     description: {
-  //       en: "Experienced in building scalable frontend applications with a strong focus on maintainability.",
-  //       fr: "Expérience dans le développement d'applications frontend évolutives avec un fort accent sur la maintenabilité.",
-  //     },
-  //     categories: [
-  //       {
-  //         id: "architecture",
-  //         title: {
-  //           en: "Architecture",
-  //           fr: "Architecture",
-  //         },
-  //         description: {
-  //           en: "Component-driven design.",
-  //           fr: "Conception orientée composants.",
-  //         },
-  //       },
-  //     ],
-  //     exampleHref: "https://example.com",
-  //   },
-  // },
-
   experiences: [],
   education: [],
   projects: [],
   hobbies: [],
-  valueCards: [],
+  philosophy: null,
+  highlights: null,
   vision: null,
   recommendations: []
 };
@@ -111,20 +43,17 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
         return {
           seo:             (raw.seo             as PortfolioData["seo"])             ?? EMPTY.seo,
           personal:        (raw.personal         as PortfolioData["personal"])        ?? EMPTY.personal,
-          contact:         (raw.contact          as PortfolioData["contact"])         ?? [],
-          skills:          (raw.skills           as PortfolioData["skills"])          ?? [],
-          //strength:        EMPTY.strength,
-          strength:       (raw.strength        as PortfolioData["strength"])        ?? null,
-          experiences:     (raw.experiences      as PortfolioData["experiences"])     ?? [],
-          education:       (raw.education        as PortfolioData["education"])       ?? [],
-          projects:        (raw.projects         as PortfolioData["projects"])        ?? [],
-          hobbies:         (raw.hobbies          as PortfolioData["hobbies"])         ?? [],
-          //valueCards:      EMPTY.valueCards,
-          valueCards:      (raw.valueCards       as PortfolioData["valueCards"])      ?? null,
-          //vision:          EMPTY.vision,
-          vision:          (raw.vision           as PortfolioData["vision"])          ?? null,
-          //recommendations: EMPTY.recommendations
-          recommendations: (raw.recommendations  as PortfolioData["recommendations"]) ?? null,
+          contact:         (raw.contact          as PortfolioData["contact"])         ?? EMPTY.contact,
+          skills:          (raw.skills           as PortfolioData["skills"])          ?? EMPTY.skills,
+          strength:       (raw.strength        as PortfolioData["strength"])        ?? EMPTY.strength,
+          experiences:     (raw.experiences      as PortfolioData["experiences"])     ?? EMPTY.experiences,
+          education:       (raw.education        as PortfolioData["education"])       ?? EMPTY.education,
+          projects:        (raw.projects         as PortfolioData["projects"])        ?? EMPTY.projects,
+          hobbies:         (raw.hobbies          as PortfolioData["hobbies"])         ?? EMPTY.hobbies,
+          philosophy:      (raw.philosophy       as PortfolioData["philosophy"])      ?? EMPTY.philosophy,
+          highlights:      (raw.highlights       as PortfolioData["highlights"])      ?? EMPTY.highlights,
+          vision:          (raw.vision           as PortfolioData["vision"])          ?? EMPTY.vision,
+          recommendations: (raw.recommendations  as PortfolioData["recommendations"]) ?? EMPTY.recommendations,
         };
       }
     } catch {

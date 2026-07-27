@@ -24,7 +24,7 @@ async function SkillSectionCard({
     <Card className="flex h-full flex-col">
       <CardHeader>
         <CardTitle className="flex items-center gap-3 text-base font-semibold">
-          <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border `} style={{ backgroundColor: section.color }}>
+          <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border icon-badge `} style={{ "--icon-accent": section.color } as React.CSSProperties}>
             <DynamicLucideIcon name={section.icon} size={18} />
           </span>
           {t(section.title)}
