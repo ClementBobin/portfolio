@@ -33,7 +33,7 @@ export default async function Recommendations({ recommendations, locale }: Recom
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           {recommendations.map((rec, i) => (
             <ScrollReveal key={rec.id} delay={i * 0.07}>
-              <RecommendationCard rec={rec} t={t} />
+              <RecommendationCard rec={rec} locale={locale} />
             </ScrollReveal>
           ))}
         </div>

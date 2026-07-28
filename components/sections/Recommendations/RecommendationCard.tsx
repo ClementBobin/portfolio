@@ -12,7 +12,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { Recommendation } from "@/types/portfolio-api";;
+import type { Recommendation } from "@/types/portfolio-api";
+import { useTranslations } from "@/hooks/useTranslation";
+;
 
 interface RecommendationCardProps {
   rec: Recommendation;
@@ -48,7 +50,7 @@ function LinkedInBadge({ href }: { href: string }) {
 }
 
 export function RecommendationCard({ rec, locale }: RecommendationCardProps) {
-  const t = useTranslation(locale, ["portfolio"]);
+  const t = useTranslations(locale, ["portfolio"]);
   const [open, setOpen] = useState(false);
 
   const role = t(rec.author.role);
@@ -173,7 +175,7 @@ export function RecommendationCard({ rec, locale }: RecommendationCardProps) {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
-                <Linkedin className="h-4 w-4" />
+                <LinkedInIcon className="h-4 w-4" />
                 View LinkedIn profile
               </a>
             </Button>
