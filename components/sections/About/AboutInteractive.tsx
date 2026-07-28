@@ -4,7 +4,7 @@ import Image from "next/image";
 import { CreditCard, Terminal } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { AboutTerminal } from "./AboutTerminal";
-import type { PortfolioPersonal, PortfolioData } from "@/types/portfolio-api";
+import type { PortfolioPersonal, PortfolioData } from "@/lib/types/portfolio-api";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface AboutInteractiveProps {

@@ -10,12 +10,14 @@ import Philosophy from "@/components/sections/Philosophy/Philosophy";
 import Vision from "@/components/sections/Vision/Vision";
 import Hobbies from "@/components/sections/Hobbies/Hobbies";
 import Strength from "@/components/sections/Strength/Strength";
-import type { PageParams } from "@/types/global";
+import type { PageParams } from "@/lib/types/global";
 import Recommendations from "@/components/sections/Recommendations/Recommendations";
 
 export default async function PortfolioPage({ params }: PageParams) {
-  const { locale } = await params;
-  const portfolio = await fetchPortfolioData();
+  const [{ locale }, portfolio] = await Promise.all([
+    params,
+    fetchPortfolioData(),
+  ]);
 
   return (
     <>

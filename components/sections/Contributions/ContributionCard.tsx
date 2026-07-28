@@ -10,8 +10,8 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Status, StatusIndicator, StatusLabel } from "@/components/ui/status";
-import type { ContributionItem } from "@/types/contribution";
-import { useTranslations } from "@/hooks/useTranslation";
+import type { ContributionItem } from "@/lib/types/contribution";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface ContributionCardProps {
   item: ContributionItem;
@@ -23,7 +23,22 @@ export function ContributionCard({ item, locale, onOpen }: ContributionCardProps
   const t = useTranslations(locale, ["portfolio"]);
 
   return (
-    <Card className="transition-colors hover:border-accent" onClick={onOpen}>
+    <Card
+      className="transition-colors hover:border-accent"
+      onClick={onOpen}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") {
+          onOpen();
+        }
+
+        if (event.key === " ") {
+          event.preventDefault();
+          onOpen();
+        }
+      }}
+    >
       <CardHeader>
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
@@ -85,6 +100,7 @@ export function ContributionCard({ item, locale, onOpen }: ContributionCardProps
 
       <CardFooter>
         <button
+          type="button"
           className="font-mono text-xs font-semibold text-[#7c3aed] transition-colors hover:text-[#a78bfa]"
         >
           Read Case Study →

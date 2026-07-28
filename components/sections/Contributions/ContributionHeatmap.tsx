@@ -56,7 +56,7 @@ export function ContributionHeatmap({
       <div className="overflow-x-auto">
         <div
           role="img"
-          aria-label="GitHub contribution heatmap for the past year"
+          aria-label="Sample GitHub contribution heatmap visualization using placeholder data"
           className="grid gap-0.75"
           style={{
             gridTemplateColumns: `repeat(${weeks}, minmax(10px, 1fr))`,

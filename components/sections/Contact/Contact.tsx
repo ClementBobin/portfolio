@@ -29,7 +29,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { EmailIcon, LinkedInIcon } from "@/components/icons";
-import { useTranslations } from "@/hooks/useTranslation";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface ContactDialogProps {
   trigger: ReactNode;

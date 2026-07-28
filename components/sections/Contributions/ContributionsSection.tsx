@@ -1,16 +1,31 @@
-import { getTranslations } from "@/hooks/useTranslation";
-import type { ContributionItem } from "@/types/contribution";
+import type { ContributionItem } from "@/lib/types/contribution";
 import { ContributionsSectionClient } from "./ContributionsSectionClient";
 
 async function fetchContributions(): Promise<ContributionItem[]> {
-  const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
+  const apiUrl = process.env.RESSOURCE_API_URL;
   if (!apiUrl) return [];
 
   try {
     const res = await fetch(`${apiUrl}/contributions`, {
       next: { revalidate: 3600 },
     });
-    if (res.ok) return await res.json();
+
+    if (res.ok) {
+      const raw = (await res.json()) as Partial<ContributionItem>[];
+
+      return raw.map((item) => ({
+        slug: item.slug ?? "",
+        title: item.title ?? "",
+        subtitle: item.subtitle ?? {},
+        description: item.description ?? {},
+        tags: item.tags ?? [],
+        href: item.href ?? null,
+        private: item.private ?? false,
+        status: item.status ?? {},
+        highlights: item.highlights ?? {},
+      }));
+    }
+
     return [];
   } catch {
     return [];

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import { CheckCircle2, ArrowUpRight } from "lucide-react";
-import type { VisionItem } from "@/types/portfolio-api";
-import { getTranslations } from "@/hooks/useTranslation";
+import type { VisionItem } from "@/lib/types/portfolio-api";
+import { getTranslations } from "@/hooks/getTranslations";
 
 interface VisionCardProps {
   item: VisionItem;
@@ -49,11 +49,11 @@ export async function VisionCard({ item, locale }: VisionCardProps) {
       {/* Checklist variant */}
       {variant === "checklist" && items.length > 0 && (
         <ul className="flex flex-col gap-3">
-          {items.map((item, i) => {
+          {items.map((item) => {
             // Support "**Bold:** rest" pattern
             const match = item.match(/^\*\*(.+?)\*\*[:\s]*(.*)/);
             return (
-              <li key={i} className="flex items-start gap-2.5 text-sm">
+              <li key={item} className="flex items-start gap-2.5 text-sm">
                 <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
                 <span className="text-muted-foreground">
                   {match ? (
@@ -72,9 +72,9 @@ export async function VisionCard({ item, locale }: VisionCardProps) {
       {/* Subcards variant */}
       {variant === "subcards" && subcards.length > 0 && (
         <div className="flex flex-col gap-3">
-          {subcards.map((sub, i) => (
+          {subcards.map((sub) => (
             <div
-              key={i}
+              key={sub.title}
               className="rounded-xl border border-border bg-background/50 p-4"
             >
               <p className="text-xs font-semibold text-foreground mb-1">{sub.title}</p>

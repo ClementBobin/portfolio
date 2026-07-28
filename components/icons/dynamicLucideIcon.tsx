@@ -28,11 +28,12 @@ export function DynamicLucideIcon({
   );
 }
 
-export function DynamicIcon({ iconHref, width = 24, height = 24 }: {
+export function DynamicIcon({ iconHref, alt = "", width = 24, height = 24 }: {
   iconHref?: string
+  alt?: string
   width?: number
   height?: number
 }) {
-  if (iconHref?.trim()) return <Image src={iconHref} alt={iconHref} width={width} height={height} className="mr-1" />
+  if (iconHref?.trim()) return <Image src={iconHref} alt={alt} width={width} height={height} className="mr-1" />
   return null
 }

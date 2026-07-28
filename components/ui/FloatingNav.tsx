@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { DynamicLucideIcon, MoonIcon, SunIcon } from "@/components/icons";
 import { useTheme } from "@/components/ThemeProvider";
 import { useRef, useState, useEffect } from "react";
-import { useTranslations } from "@/hooks/useTranslation";
-import type { LocalizedString } from "@/types/global";
+import { useTranslations } from "@/hooks/useTranslations";
+import type { LocalizedString } from "@/lib/types/global";
 
 interface NavItem {
   id: string;
@@ -20,8 +20,16 @@ interface FloatingNavProps {
   items: NavItem[];
   locale: string;
   topId: string;
-  altLocaleIcon: string;
+  topScrollIcon: string;
 }
+
+interface DockItemProps {
+  locale: string;
+  item: NavItem;
+  isActive: boolean;
+  mouseX: ReturnType<typeof useMotionValue<number>>;
+}
+
 
 const DOCK_SIZE = 44;
 const DOCK_SIZE_HOVERED = 64;
@@ -32,14 +40,7 @@ function DockItem({
   item,
   isActive,
   mouseX,
-}: {
-  locale: string;
-  item: NavItem;
-  isActive: boolean;
-  mouseX: ReturnType<typeof useMotionValue<number>>;
-  index: number;
-  total: number;
-}) {
+}: DockItemProps) {
   const t = useTranslations(locale);
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
@@ -97,7 +98,12 @@ function DockItem({
   );
 }
 
-export default function FloatingNav({ items, locale, topId, altLocaleIcon }: FloatingNavProps) {
+export default function FloatingNav({
+  items,
+  locale,
+  topId,
+  topScrollIcon
+}: FloatingNavProps) {
   const t = useTranslations(locale, ["common"]);
   const { theme, toggleTheme } = useTheme();
   const pathname = usePathname();
@@ -108,17 +114,25 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
   // Derive active item from pathname instead of scroll spy
   const activeId = (() => {
     // Strip locale prefix: "/fr/veille" → "/veille", "/fr" → "/"
-    const stripped = pathname.replace(/^\/(fr|en)/, "") || "/";
+    const localePrefix = new RegExp(`^/${locale}(?:/|$)`);
+    const stripped = pathname.replace(localePrefix, "") || "/";
 
     // Find the most specific match (longest href that matches)
     const match = items
-      .filter((item) => stripped === item.href || stripped.startsWith(item.href === "/" ? "/__never__" : item.href))
+      .filter(
+        (item) =>
+          stripped === item.href ||
+          stripped.startsWith(
+            item.href === "/" ? "/__never__" : item.href,
+          ),
+      )
       .sort((a, b) => b.href.length - a.href.length)[0];
 
     // Home is active when on "/"
     if (!match) {
       return stripped === "/" ? (items.find((i) => i.href === "/")?.id ?? "") : "";
     }
+
     return match.id;
   })();
 
@@ -149,15 +163,13 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
             onMouseMove={(e) => mouseX.set(e.clientX)}
             onMouseLeave={() => mouseX.set(Infinity)}
           >
-            {items.map((item, i) => (
+            {items.map((item) => (
               <DockItem
                 key={item.id}
                 locale={locale}
                 item={item}
                 isActive={activeId === item.id}
                 mouseX={mouseX}
-                index={i}
-                total={items.length}
               />
             ))}
 
@@ -168,7 +180,7 @@ export default function FloatingNav({ items, locale, topId, altLocaleIcon }: Flo
               aria-label={t(`backToTop`)}
               className="flex h-11 w-11 items-center mb-2 justify-center rounded-2xl bg-card text-xs font-semibold text-muted-foreground ring-1 ring-foreground/10 transition-colors hover:text-foreground hover:ring-accent/40"
             >
-              <DynamicLucideIcon name={altLocaleIcon} />
+              <DynamicLucideIcon name={topScrollIcon} />
             </Link>
 
             <button

@@ -2,12 +2,12 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import type { PortfolioPersonal, Experience, ContactItem } from "@/types/portfolio-api";
+import type { PortfolioPersonal, Experience, ContactItem } from "@/lib/types/portfolio-api";
 import HeroText from "./HeroText";
 import computeYears from "@/lib/utils";
 import { ChevronDownIcon } from "@/components/icons";
 import { ContactDialog } from "../Contact/Contact";
-import { useTranslations } from "@/hooks/useTranslation";
+import { useTranslations } from "@/hooks/useTranslations";
 import { Button } from "@/components/ui/button";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });

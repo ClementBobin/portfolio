@@ -21,17 +21,29 @@ export async function fetchTechColors(): Promise<Map<string, TechColorEntry>> {
 
   fetchPromise = (async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
-      if (!apiUrl) return new Map<string, TechColorEntry>();
+      const apiUrl = process.env.RESSOURCE_API_URL;
+
+      if (!apiUrl) {
+        return new Map<string, TechColorEntry>();
+      }
+
       const res = await fetch(`${apiUrl}/config/colors/tech`);
-      if (!res.ok) return new Map<string, TechColorEntry>();
-      const raw = await res.json() as Record<string, TechColorEntry>;
+
+      if (!res.ok) {
+        return new Map<string, TechColorEntry>();
+      }
+
+      const raw = (await res.json()) as Record<string, TechColorEntry>;
+
       moduleCache = new Map(
-        Object.entries(raw).map(([k, v]) => [k.toLowerCase(), v])
+        Object.entries(raw).map(([k, v]) => [k.toLowerCase(), v]),
       );
+
       return moduleCache;
     } catch {
       return new Map<string, TechColorEntry>();
+    } finally {
+      fetchPromise = null;
     }
   })();
 
@@ -40,13 +52,26 @@ export async function fetchTechColors(): Promise<Map<string, TechColorEntry>> {
 
 /**
  * Client-side hook to access tech color data.
- * Returns a Map<techName, TechColorEntry> (keys are lowercase).
+ *
+ * Returns a Map<techName, TechColorEntry> where keys are lowercase.
  */
 export function useTechColors(): Map<string, TechColorEntry> {
-  const [colors, setColors] = useState<Map<string, TechColorEntry>>(new Map());
+  const [colors, setColors] = useState<Map<string, TechColorEntry>>(
+    new Map(),
+  );
 
   useEffect(() => {
-    fetchTechColors().then(setColors);
+    let cancelled = false;
+
+    fetchTechColors().then((result) => {
+      if (!cancelled) {
+        setColors(result);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return colors;

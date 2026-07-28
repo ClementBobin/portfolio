@@ -3,10 +3,9 @@ import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { RSSFeed } from "@/components/sections/rss";
 import { FeedSkeleton } from "@/components/sections/rss/feed-skeleton";
-import { getTranslations } from "@/hooks/useTranslation";
-import type { PageParams } from "@/types/global";
+import { getTranslations } from "@/hooks/getTranslations";
+import type { PageParams } from "@/lib/types/global";
 
-const VEILLE_FEED = "https://clementbobin.github.io/obsidian/index.xml";
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const { locale } = await params;
@@ -38,7 +37,7 @@ export default async function VeillePage({ params }: PageParams) {
         {/* Feed */}
         <ScrollReveal delay={0.1}>
           <Suspense fallback={<FeedSkeleton count={8} />}>
-            <RSSFeed feedUrl={VEILLE_FEED} locale={locale} />
+            <RSSFeed feedUrl={process.env.NEXT_PUBLIC_RSS_URL} locale={locale} />
           </Suspense>
         </ScrollReveal>
       </main>

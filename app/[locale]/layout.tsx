@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { LazyMotion, domAnimation } from 'framer-motion';
+import { LazyMotion, domAnimation } from "framer-motion";
 import Navbar from "./Navbar";
 import "./globals.css";
 
@@ -13,6 +13,13 @@ export async function generateMetadata(): Promise<Metadata> {
     description: "Fullstack developer portfolio",
   };
 }
+
+/**
+ * Runs before React hydration to set the correct theme class on <html>,
+ * preventing a flash of the wrong theme. Reads localStorage first, then
+ * falls back to the OS preference. Must be a blocking script (no defer/async).
+ */
+const themeInitScript = `(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light'){if(s==='dark')document.documentElement.classList.add('dark');return;}if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark');}catch(e){}})();`;
 
 /**
  * Locale-specific layout. Applies editorial font CSS variables, ThemeProvider, and lang attribute.
@@ -31,6 +38,10 @@ export default async function LocaleLayout({
     <>
       {/* Load editorial fonts at runtime — no build-time network dependency */}
       <html lang={locale}>
+        <head>
+          {/* Blocking theme script: must run before body renders to avoid FOUC */}
+          <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        </head>
         <body>
           <ThemeProvider>
             <LazyMotion features={domAnimation}>

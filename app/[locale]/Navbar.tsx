@@ -1,6 +1,6 @@
 
 import FloatingNav from "@/components/ui/FloatingNav";
-import type { PageParams } from "@/types/global";
+import type { PageParams } from "@/lib/types/global";
 
 const NAV_ITEMS = [
   { id: "hero",       label: { "fr": "Accueil", "en": "Home" },         href: "/",       icon: "House"  },

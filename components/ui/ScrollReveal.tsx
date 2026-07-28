@@ -13,6 +13,13 @@ interface ScrollRevealProps {
   once?: boolean;
 }
 
+const DIR_MAP: Record<RevealDirection, { x?: number; y?: number }> = {
+  up: { y: 40 },
+  down: { y: -40 },
+  left: { x: 40 },
+  right: { x: -40 },
+};
+
 /**
  * Wraps children with a scroll-triggered entrance animation.
  * Uses Framer Motion's useInView for intersection-based reveal.
@@ -33,14 +40,7 @@ export default function ScrollReveal({
   const ref = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, margin: "-80px" });
 
-  const dirMap: Record<RevealDirection, { x?: number; y?: number }> = {
-    up: { y: 40 },
-    down: { y: -40 },
-    left: { x: 40 },
-    right: { x: -40 },
-  };
-
-  const initial = { opacity: 0, ...dirMap[direction] };
+  const initial = { opacity: 0, ...DIR_MAP[direction] };
 
   return (
     <m.div

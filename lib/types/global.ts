@@ -15,26 +15,6 @@ export interface TFunction {
   (key: LocalizedArray | null | undefined): string[];
 }
 
-/**
- * Type for URL object with flexible properties.
- * Used in proxy and middleware for Next.js routing.
- */
-// export interface NextUrlLike {
-//   pathname: string;
-//   search?: string;
-//   searchParams?: URLSearchParams;
-//   href?: string;
-//   origin?: string;
-//   protocol?: string;
-//   username?: string;
-//   password?: string;
-//   host?: string;
-//   hostname?: string;
-//   port?: string;
-//   hash?: string;
-//   toString(): string;
-// }
-
 export type IconProps = SVGProps<SVGSVGElement>
 export interface PageParams {
   params: Promise<{ locale: string }>;

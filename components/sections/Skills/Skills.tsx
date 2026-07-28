@@ -3,8 +3,8 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DynamicLucideIcon } from "@/components/icons";
 import SkillBadge from "./SkillBadge";
-import type { SkillSection } from "@/types/portfolio-api";
-import { getTranslations } from "@/hooks/useTranslation";
+import type { SkillSection } from "@/lib/types/portfolio-api";
+import { getTranslations } from "@/hooks/getTranslations";
 import { Wrench } from "lucide-react";
 
 interface SkillsProps {

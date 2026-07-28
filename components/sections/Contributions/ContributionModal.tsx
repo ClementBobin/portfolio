@@ -7,8 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { ContributionItem } from "@/types/contribution";
-import { useTranslations } from "@/hooks/useTranslation";
+import type { ContributionItem } from "@/lib/types/contribution";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface ContributionModalProps {
   item: ContributionItem | null;

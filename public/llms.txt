@@ -4,10 +4,10 @@
 
 ## Pages
 
-- [Home](https://portfolio-git-feat-lab-clementbobins-projects.vercel.app/en): Introduction, skills overview, personal projects, and career timeline.
-- [Contributions](https://portfolio-git-feat-lab-clementbobins-projects.vercel.app/en/contributions): Private work, client projects, and open-source contributions that cannot be fully shown publicly.
-- [Lab](https://portfolio-git-feat-lab-clementbobins-projects.vercel.app/en/lab): Interactive experiments and side projects.
-- [Veille](https://portfolio-git-feat-lab-clementbobins-projects.vercel.app/en/veille): Technology watch — curated articles and resources Clément follows.
+- [Home](https://portfolio-clement.vercel.app/en): Introduction, skills overview, personal projects, and career timeline.
+- [Contributions](https://portfolio-clement.vercel.app/en/contributions): Private work, client projects, and open-source contributions that cannot be fully shown publicly.
+- [Lab](https://portfolio-clement.vercel.app/en/lab): Interactive experiments and side projects.
+- [Veille](https://portfolio-clement.vercel.app/en/veille): Technology watch — curated articles and resources Clément follows.
 
 ## External Links
 

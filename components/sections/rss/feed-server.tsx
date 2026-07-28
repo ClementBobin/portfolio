@@ -1,7 +1,7 @@
 "use server";
 
 import { rssParser } from "@/lib/rss-parser";
-import { getTranslations } from "@/hooks/useTranslation";
+import { getTranslations } from "@/hooks/getTranslations";
 import { formatDate } from "@/lib/utils";
 import {
   Timeline,
@@ -16,12 +16,20 @@ import {
 } from "@/components/ui/timeline";
 
 interface RSSFeedServerProps {
-  feedUrl: string;
+  feedUrl?: string;
   locale?: string;
 }
 
 export async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedServerProps) {
   const t = await getTranslations(locale, ["pages"]);
+  if (!feedUrl) {
+    return (
+      <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-5 py-4">
+        <p className="font-medium text-destructive">{t("rss.noFeedUrl")}</p>
+        <p className="mt-1 text-sm text-destructive/80">{t("rss.noFeedUrlDescription")}</p>
+      </div>
+    );
+  }
   const feed = await rssParser.parseURL(feedUrl);
 
   if (feed.error) {

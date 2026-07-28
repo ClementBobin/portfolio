@@ -23,7 +23,11 @@ export function proxy(request: NextRequest) {
     l => pathname.startsWith(`/${l}/`) || pathname === `/${l}`
   )
   if (!hasLocale) {
-    return NextResponse.redirect(new URL(`/${DEFAULT_LOCALE}${pathname}`, request.url))
+    const localizedPath = pathname === "/"
+      ? `/${DEFAULT_LOCALE}`
+      : `/${DEFAULT_LOCALE}${pathname}`
+
+    return NextResponse.redirect(new URL(localizedPath, request.url))
   }
 
   return NextResponse.next()

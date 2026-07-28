@@ -12,8 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type { Recommendation } from "@/types/portfolio-api";
-import { useTranslations } from "@/hooks/useTranslation";
+import type { Recommendation } from "@/lib/types/portfolio-api";
+import { useTranslations } from "@/hooks/useTranslations";
 ;
 
 interface RecommendationCardProps {
@@ -25,7 +25,7 @@ function Avatar({ src, name }: { src?: string; name: string }) {
   return (
     <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
       {src ? (
-        <Image src={src} alt={name} fill className="object-cover" />
+        <Image src={src} alt={name} sizes="40px" fill className="object-cover" />
       ) : (
         <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-muted-foreground">
           {name.charAt(0)}
@@ -106,6 +106,7 @@ export function RecommendationCard({ rec, locale }: RecommendationCardProps) {
           {/* Show more trigger */}
           {(context || strengthsText || collaboration) && (
             <button
+              type="button"
               onClick={() => setOpen(true)}
               className="mt-1 flex w-full items-center justify-center gap-1.5 rounded-lg border border-border py-2 text-xs font-medium text-accent transition-colors hover:bg-muted"
             >

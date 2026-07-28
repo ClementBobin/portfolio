@@ -3,8 +3,8 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLinkIcon } from "@/components/icons/externalLink";
 import { CheckCircle2, Calendar, MapPin } from "lucide-react";
-import type { Education, Experience, ExperienceTech } from "@/types/portfolio-api";
-import { getTranslations } from "@/hooks/useTranslation";
+import type { Education, Experience, ExperienceTech } from "@/lib/types/portfolio-api";
+import { getTranslations } from "@/hooks/getTranslations";
 
 type TimelineCardProps =
   | { kind: "experience"; data: Experience; locale: string; isHighlighted?: boolean }

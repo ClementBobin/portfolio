@@ -1,6 +1,8 @@
-import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { NextResponse } from "next/server";
+
+export const revalidate = 3600;
 
 export async function GET(
   _req: Request,
@@ -14,7 +16,8 @@ export async function GET(
 
   try {
     const filePath = join(process.cwd(), "public", "locales", `${ns}.json`);
-    const content = readFileSync(filePath, "utf-8");
+    const content = await readFile(filePath, "utf-8");
+
     return new NextResponse(content, {
       headers: { "Content-Type": "application/json" },
     });

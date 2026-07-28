@@ -1,4 +1,4 @@
-import { getTranslations } from "@/hooks/useTranslation";
+import { getTranslations } from "@/hooks/getTranslations";
 import Link from "next/link";
 
 interface FooterProps {

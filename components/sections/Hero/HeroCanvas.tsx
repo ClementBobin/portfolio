@@ -28,6 +28,11 @@ function generateParticles(count: number): Particle[] {
 
 const PARTICLES = generateParticles(PARTICLE_COUNT);
 
+
+/**
+ * Renders the animated particle sphere background for the hero section.
+ * Uses a canvas-based animation and runs as a decorative visual layer.
+ */
 export default function HeroCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rotationRef = useRef({ x: 0, y: 0 });

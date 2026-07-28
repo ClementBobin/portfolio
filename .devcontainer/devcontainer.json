@@ -1,9 +1,9 @@
 {
   "name": "Portfolio Dev",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20-bookworm",
 
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
+    "ghcr.io/devcontainers/features/node:1.6.3": {
       "version": "20"
     }
   },
@@ -14,5 +14,5 @@
     }
   },
 
-  "postCreateCommand": "npm install"
+  "postCreateCommand": "npm ci"
 }

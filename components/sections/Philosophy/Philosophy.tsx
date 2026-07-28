@@ -1,7 +1,7 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { getTranslations } from "@/hooks/useTranslation";
-import type { PhilosophySection } from "@/types/portfolio-api";
+import { getTranslations } from "@/hooks/getTranslations";
+import type { PhilosophySection } from "@/lib/types/portfolio-api";
 import { PhilosophyCard } from "./PhilosophyCard";
 
 interface PhilosophyProps {
@@ -9,6 +9,12 @@ interface PhilosophyProps {
   locale: string;
 }
 
+/**
+ * Renders the philosophy section with localized content and cards.
+ *
+ * @param philosophy - Philosophy section data including headings and cards.
+ * @param locale - Active locale used for translations.
+ */
 export default async function Philosophy({ philosophy, locale }: PhilosophyProps) {
   if (!philosophy.cards.length) return null;
 

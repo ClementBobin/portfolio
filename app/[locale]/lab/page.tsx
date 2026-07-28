@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { LabsSection, LabsSkeleton } from "@/components/sections/Labs/LabsSection";
-import { getTranslations } from "@/hooks/useTranslation";
-import type { PageParams } from "@/types/global";
+import { getTranslations } from "@/hooks/getTranslations";
+import type { PageParams } from "@/lib/types/global";
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const { locale } = await params;

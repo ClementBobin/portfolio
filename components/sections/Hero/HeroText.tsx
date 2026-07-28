@@ -2,8 +2,8 @@
 
 import { m } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { useTranslations } from "@/hooks/useTranslation";
-import type { PortfolioPersonal } from "@/types/portfolio-api";
+import { useTranslations } from "@/hooks/useTranslations";
+import type { PortfolioPersonal } from "@/lib/types/portfolio-api";
 
 interface HeroTextProps {
   personal: PortfolioPersonal;

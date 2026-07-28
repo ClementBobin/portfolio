@@ -6,8 +6,8 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { ContributionCard } from "./ContributionCard";
 import { ContributionHeatmap } from "./ContributionHeatmap";
 import { ContributionModal } from "./ContributionModal";
-import type { ContributionItem } from "@/types/contribution";
-import { useTranslations } from "@/hooks/useTranslation";
+import type { ContributionItem } from "@/lib/types/contribution";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface ContributionsSectionClientProps {
   items: ContributionItem[];

@@ -1,6 +1,6 @@
 import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import { CheckCircle2 } from "lucide-react";
-import type { PhilosophyCard as PhilosophyCardType } from "@/types/portfolio-api";
+import type { PhilosophyCard as PhilosophyCardType } from "@/lib/types/portfolio-api";
 
 interface PhilosophyCardProps {
   card: PhilosophyCardType;

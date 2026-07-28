@@ -3,7 +3,12 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export function ContributionsSkeleton() {
   return (
-    <div className="flex flex-col gap-8">
+    <div
+      className="flex flex-col gap-8"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading contributions"
+    >
       {/* Header skeleton */}
       <div className="flex flex-col gap-3">
         <Skeleton className="h-6 w-40 rounded-full" />

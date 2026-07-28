@@ -1,4 +1,4 @@
-import type { PortfolioData } from "@/types/portfolio-api";
+import type { PortfolioData } from "@/lib/types/portfolio-api";
 
 /**
  * Safe defaults matching the PortfolioData shape.
@@ -32,7 +32,7 @@ const EMPTY: PortfolioData = {
  * Missing/null fields fall back to safe empty defaults.
  */
 export async function fetchPortfolioData(): Promise<PortfolioData> {
-  const apiUrl = process.env.NEXT_PUBLIC_RESSOURCE_API_URL;
+  const apiUrl = process.env.RESSOURCE_API_URL;
 
   if (apiUrl) {
     try {

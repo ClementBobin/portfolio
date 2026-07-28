@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { Experience } from "../types/portfolio-api";
+import { Experience } from "@/lib/types/portfolio-api";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -15,7 +15,7 @@ export default function computeYears(experiences: Experience[]): number | undefi
   let earliest = now;
   for (const exp of experiences) {
     if (exp.workType === "work") {
-      const period = exp.period.en ?? exp.period.fr;
+      const period = exp.period.en ?? exp.period.fr ?? Object.values(exp.period)[0] ?? "";
       const match = period.match(/\d{4}/);
       if (match) {
         const year = parseInt(match[0], 10);
@@ -30,6 +30,7 @@ export default function computeYears(experiences: Experience[]): number | undefi
 export function formatDate(dateString: string, locale: string = "en"): string {
   try {
     const date = new Date(dateString);
+    if (Number.isNaN(date.getTime())) return dateString;
     return date.toLocaleDateString(locale, {
       year: "numeric",
       month: "long",

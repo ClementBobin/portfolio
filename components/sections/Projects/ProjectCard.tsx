@@ -1,12 +1,11 @@
 "use client";
 
 import { m } from "framer-motion";
-import Link from "next/link";
 import Image from "next/image";
-import type { Project } from "@/types/portfolio-api";
+import type { Project } from "@/lib/types/portfolio-api";
 import { DynamicLucideIcon } from "@/components/icons";
 import { GitHubIcon } from "@/components/icons";
-import { useTranslations } from "@/hooks/useTranslation";
+import { useTranslations } from "@/hooks/useTranslations";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
@@ -16,6 +15,14 @@ interface ProjectCardProps {
   index?: number;
 }
 
+/**
+ * Displays a project card with localized content, media, technologies,
+ * and an optional external source link.
+ *
+ * @param project - Project data to render.
+ * @param locale - Active locale used for translations.
+ * @param index - Optional index used for staggered animation delay.
+ */
 export default function ProjectCard({ project, locale, index = 0 }: ProjectCardProps) {
   const t = useTranslations(locale, ["portfolio"]);
   const title = t(project.title);
@@ -29,7 +36,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
       transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="h-full"
     >
-      <Card className="group transition-all hover:shadow-lg hover:ring-accent/20">
+      <Card className="group transition-shadow hover:shadow-lg hover:ring-accent/20">
         {/* Media */}
         {project.media ? (
           <div className="relative h-44 w-full overflow-hidden rounded-t-xl bg-secondary">
@@ -81,7 +88,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
             hover:text-foreground
           ">
             {project.github && (
-              <Link
+              <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -89,7 +96,7 @@ export default function ProjectCard({ project, locale, index = 0 }: ProjectCardP
               >
                 <GitHubIcon className="size-3.5" />
                 {t("projects.viewCode")}
-              </Link>
+              </a>
             )}
           </CardFooter>
         )}

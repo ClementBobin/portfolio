@@ -25,27 +25,23 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
     <m.div
       whileHover={{ scale: 1.05, y: -2 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className="group flex flex-col items-center gap-2 rounded-xl border p-4 text-center transition-colors"
+      className="group flex flex-col items-center gap-2 rounded-xl border p-4 text-center transition-all hover:shadow-lg"
       style={{
-        backgroundColor: `${color}12`,
-        borderColor: `${color}44`,
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.backgroundColor = `${color}22`;
-        (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 24px ${color}22`;
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.backgroundColor = `${color}12`;
-        (e.currentTarget as HTMLElement).style.boxShadow = "none";
-      }}
+        "--skill-color": color,
+      } as React.CSSProperties}
     >
       <div
         className="flex h-10 w-10 items-center justify-center rounded-full pl-1"
-        style={{ backgroundColor: `${color}22`, color }}
+        style={{
+          backgroundColor: "color-mix(in srgb, var(--skill-color) 13%, transparent)",
+          color: "var(--skill-color)",
+        }}
       >
         <DynamicIcon iconHref={entry?.iconHref} />
       </div>
+
       <span className="text-sm font-medium text-foreground">{name}</span>
+
       {level && (
         <span className="text-xs text-muted-foreground">{level}</span>
       )}
