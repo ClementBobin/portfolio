@@ -188,18 +188,6 @@ export interface PhilosophySection {
   cards: PhilosophyCard[];
 }
 
-// --- Highlights --------------------------------------------------------------
-
-export interface Highlight {
-  tag?: LocalizedString[];
-  label: LocalizedString;
-  description?: LocalizedString;
-  icon?: string;
-  highlight?: boolean;
-  href?: string;
-  githubHref?: string;
-}
-
 // --- Vision / Future ---------------------------------------------------------
 
 export interface VisionItem {
@@ -260,7 +248,6 @@ export interface PortfolioData {
   projects: Project[];
   hobbies: Hobby[];
   philosophy?: PhilosophySection | null;
-  highlights?: Highlight[] | null;
   vision?: VisionItem[] | null;
   recommendations?: Recommendation[] | null;
 }

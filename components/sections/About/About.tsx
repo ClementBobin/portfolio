@@ -1,13 +1,13 @@
-import Image from "next/image";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import type { PortfolioPersonal } from "@/types/portfolio-api";
+import type { PortfolioPersonal, PortfolioData } from "@/types/portfolio-api";
 import { getTranslations } from "@/hooks/useTranslation";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Sparkles } from "lucide-react";
+import { AboutInteractive } from "./AboutInteractive";
 
 interface AboutProps {
   personal: PortfolioPersonal;
+  portfolio: PortfolioData;
   locale: string;
 }
 
@@ -18,7 +18,7 @@ interface AboutProps {
  * @param contact - Contact items
  * @param locale - Current locale
  */
-export default async function About({ personal, locale }: AboutProps) {
+export default async function About({ personal, portfolio, locale }: AboutProps) {
   const t = await getTranslations(locale, ["portfolio"]);
 
   return (
@@ -38,29 +38,7 @@ export default async function About({ personal, locale }: AboutProps) {
         <div className="grid gap-12 md:grid-cols-2 md:items-center">
           {/* Photo */}
           <ScrollReveal direction="left">
-            <div className="relative mx-auto w-64 md:w-80">
-              <div className="absolute -inset-2 rounded-2xl bg-linear-to-br from-accent/30 to-primary/20 blur-xl" />
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
-                {personal.photo ? (
-                  <AspectRatio ratio={4 / 4} className="w-full">
-                    <Image
-                      src={personal.photo}
-                      alt={personal.name}
-                      width={320}
-                      height={320}
-                      priority
-                      className="object-cover"
-                    />
-                  </AspectRatio>
-                ) : (
-                  <div className="flex h-80 items-center justify-center bg-secondary text-8xl">
-                    {personal.name.charAt(0)}
-                  </div>
-                )}
-              </div>
-              {/* Decorative corner accent */}
-              <div className="absolute -bottom-3 -right-3 h-12 w-12 rounded-full bg-accent/20 border border-accent/40" />
-            </div>
+            <AboutInteractive personal={personal} portfolio={portfolio} locale={locale} />
           </ScrollReveal>
 
           {/* Text content */}

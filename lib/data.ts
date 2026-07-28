@@ -22,7 +22,6 @@ const EMPTY: PortfolioData = {
   projects: [],
   hobbies: [],
   philosophy: null,
-  highlights: null,
   vision: null,
   recommendations: []
 };
@@ -41,17 +40,16 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
       if (res.ok) {
         const raw = await res.json() as Record<string, unknown>;
         return {
-          seo:             (raw.seo             as PortfolioData["seo"])             ?? EMPTY.seo,
+          seo:             (raw.seo              as PortfolioData["seo"])             ?? EMPTY.seo,
           personal:        (raw.personal         as PortfolioData["personal"])        ?? EMPTY.personal,
           contact:         (raw.contact          as PortfolioData["contact"])         ?? EMPTY.contact,
           skills:          (raw.skills           as PortfolioData["skills"])          ?? EMPTY.skills,
-          strength:       (raw.strength        as PortfolioData["strength"])        ?? EMPTY.strength,
+          strength:        (raw.strength         as PortfolioData["strength"])        ?? EMPTY.strength,
           experiences:     (raw.experiences      as PortfolioData["experiences"])     ?? EMPTY.experiences,
           education:       (raw.education        as PortfolioData["education"])       ?? EMPTY.education,
           projects:        (raw.projects         as PortfolioData["projects"])        ?? EMPTY.projects,
           hobbies:         (raw.hobbies          as PortfolioData["hobbies"])         ?? EMPTY.hobbies,
           philosophy:      (raw.philosophy       as PortfolioData["philosophy"])      ?? EMPTY.philosophy,
-          highlights:      (raw.highlights       as PortfolioData["highlights"])      ?? EMPTY.highlights,
           vision:          (raw.vision           as PortfolioData["vision"])          ?? EMPTY.vision,
           recommendations: (raw.recommendations  as PortfolioData["recommendations"]) ?? EMPTY.recommendations,
         };
