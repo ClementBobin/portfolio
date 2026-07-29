@@ -2,6 +2,13 @@ import * as Icons from "lucide-react";
 import { LucideProps, ShieldAlert } from "lucide-react";
 import Image from "next/image"
 
+interface DynamicIconProps {
+  iconHref?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
 export function DynamicLucideIcon({
   name = "ShieldAlert",
   size = 24,
@@ -28,12 +35,12 @@ export function DynamicLucideIcon({
   );
 }
 
-export function DynamicIcon({ iconHref, alt = "", width = 24, height = 24 }: {
-  iconHref?: string
-  alt?: string
-  width?: number
-  height?: number
-}) {
+/**
+ * Renders an image-based icon when an icon URL is provided.
+ *
+ * Returns `null` when no icon URL is available.
+ */
+export function DynamicIcon({ iconHref, alt = "", width = 24, height = 24 }: DynamicIconProps) {
   if (iconHref?.trim()) return <Image src={iconHref} alt={alt} width={width} height={height} className="mr-1" />
   return null
 }

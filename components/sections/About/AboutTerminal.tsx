@@ -204,7 +204,16 @@ function createLine(text: string, kind: Line["kind"]): Line {
 // Component
 // ---------------------------------------------------------------------------
 
-export function AboutTerminal({
+/**
+ * Renders an interactive CLI terminal UI for browsing portfolio data.
+ *
+ * Supports commands such as `help`, `bio`, `skills`, `experience`, and more,
+ * with command history navigation via the arrow keys.
+ *
+ * @param portfolio - Full portfolio data used to populate command output.
+ * @param locale    - BCP 47 locale used to resolve localised string values.
+ */
+export default function AboutTerminal({
   portfolio,
   locale,
 }: AboutTerminalProps) {
@@ -301,17 +310,11 @@ export function AboutTerminal({
   };
 
   return (
+    // Plain div — clicking anywhere focuses the input via onClick.
+    // role="button" removed to avoid nesting interactive elements.
     <div
-      role="button"
-      tabIndex={0}
       className="flex h-80 w-full flex-col overflow-hidden rounded-xl border border-border bg-[#0d1117] font-mono text-[11px]"
       onClick={() => inputRef.current?.focus()}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          inputRef.current?.focus();
-          e.preventDefault();
-        }
-      }}
     >
       <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-2">
         <span className="flex items-center gap-1.5 font-semibold text-emerald-400">

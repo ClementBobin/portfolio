@@ -22,9 +22,9 @@ export default async function Experience({
   education,
   locale,
 }: ExperienceProps) {
-  const t = await getTranslations(locale, ["portfolio"]);
-
   if (!experiences.length && !education.length) return null;
+
+  const t = await getTranslations(locale, ["portfolio"]);
 
   return (
     <section
@@ -36,11 +36,11 @@ export default async function Experience({
         eyebrow={
           <>
             <GraduationCap aria-hidden width={16} height={16} />
-            {t("skills.badge")}
+            {t("experience.badge")}
           </>
         }
-        title={t("skills.title")}
-        subtitle={t("skills.subtitle")}
+        title={t("experience.title")}
+        subtitle={t("experience.subtitle")}
       >
         <ExperienceTimeline
           experiences={experiences}

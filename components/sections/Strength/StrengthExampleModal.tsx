@@ -4,14 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import type { StrengthItem } from "@/lib/types/portfolio-api";
-import type { TFunction } from "@/lib/types/global";
+import { useTranslations } from "@/hooks/useTranslations";
 
 type Example = NonNullable<NonNullable<StrengthItem["detail"]>["example"]>;
 
 interface StrengthExampleModalProps {
   example: Example;
   label: string;
-  t: TFunction;
+  locale: string;
 }
 
 /**
@@ -19,14 +19,15 @@ interface StrengthExampleModalProps {
  * Includes optional media, quotes, and translated category details.
  *
  * @param example - Example content displayed inside the modal
- * @param label - Trigger button label
- * @param t - Translation function
+ * @param label   - Trigger button label
+ * @param locale  - BCP 47 locale used to load translations
  */
 export default function StrengthExampleModal({
   example,
   label,
-  t,
+  locale,
 }: StrengthExampleModalProps) {
+  const t = useTranslations(locale);
   const [open, setOpen] = useState(false);
 
   const categories = example.categories.map((c) => ({

@@ -27,7 +27,13 @@ export default async function PortfolioPage({ params }: PageParams) {
           <About personal={portfolio.personal} portfolio={portfolio} locale={locale} />
 
           {portfolio.skills.length > 0 && <Skills skills={portfolio.skills} locale={locale} />}
-          {portfolio.education.length > 0 && <Experience experiences={portfolio.experiences} education={portfolio.education} locale={locale} />}
+          {(portfolio.experiences.length > 0 || portfolio.education.length > 0) && (
+            <Experience
+              experiences={portfolio.experiences}
+              education={portfolio.education}
+              locale={locale}
+            />
+          )}
           {portfolio.projects.length > 0 && <Projects projects={portfolio.projects} locale={locale} />}
           {portfolio.strength && portfolio.strength.strengths.length > 0 && <Strength strength={portfolio.strength} locale={locale} />}
           {portfolio.philosophy && portfolio.philosophy.cards.length > 0 && <Philosophy philosophy={portfolio.philosophy} locale={locale} />}

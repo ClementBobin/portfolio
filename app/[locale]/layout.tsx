@@ -3,6 +3,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { LazyMotion, domAnimation } from "framer-motion";
 import Navbar from "./Navbar";
 import "./globals.css";
+import { TechColorsProvider } from "@/context/tech-colors-provider";
+import { getTechColors } from "@/lib/tech-colors";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -19,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
  * preventing a flash of the wrong theme. Reads localStorage first, then
  * falls back to the OS preference. Must be a blocking script (no defer/async).
  */
-const themeInitScript = `(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light'){if(s==='dark')document.documentElement.classList.add('dark');return;}if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark');}catch(e){}})();`;
+const THEME_INIT_SCRIPT = `(function(){try{var s=localStorage.getItem('theme');if(s==='dark'||s==='light'){if(s==='dark')document.documentElement.classList.add('dark');return;}if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark');}catch(e){}})();`;
 
 /**
  * Locale-specific layout. Applies editorial font CSS variables, ThemeProvider, and lang attribute.
@@ -32,7 +34,10 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const [{locale}, techColors] = await Promise.all([
+    params,
+    getTechColors()
+  ]);
 
   return (
     <>
@@ -40,15 +45,17 @@ export default async function LocaleLayout({
       <html lang={locale}>
         <head>
           {/* Blocking theme script: must run before body renders to avoid FOUC */}
-          <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+          <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         </head>
         <body>
           <ThemeProvider>
-            <LazyMotion features={domAnimation}>
-              <Navbar params={params} />
-              <section id="top" className="h-0 w-0" />
-              {children}
-            </LazyMotion>
+            <TechColorsProvider techColors={techColors}>
+              <LazyMotion features={domAnimation}>
+                <Navbar params={params} />
+                <section id="top" className="h-0 w-0" />
+                {children}
+              </LazyMotion>
+            </TechColorsProvider>
           </ThemeProvider>
         </body>
       </html>

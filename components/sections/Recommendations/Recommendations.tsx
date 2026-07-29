@@ -10,6 +10,13 @@ interface RecommendationsProps {
   locale: string;
 }
 
+/**
+ * Renders the Recommendations section of the portfolio as a responsive
+ * two-column card grid. Returns null when the recommendations array is empty.
+ *
+ * @param recommendations - Array of recommendation entries to display.
+ * @param locale          - BCP 47 locale used for translating section labels.
+ */
 export default async function Recommendations({ recommendations, locale }: RecommendationsProps) {
   if (!recommendations.length) return null;
   const t = await getTranslations(locale, ["portfolio"]);

@@ -9,6 +9,12 @@ const NAV_ITEMS = [
   { id: "veille",     label: { "fr": "Veille", "en": "Veille" },       href: "/veille",  icon: "Search" },
 ];
 
+/**
+ * Renders the locale-aware navigation.
+ *
+ * Uses the locale resolved from the route params to render the appropriate
+ * navigation labels and pass the locale to the floating navigation component.
+ */
 export default async function Navbar({ params }: PageParams) {
   const { locale } = await params;
 

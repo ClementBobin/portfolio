@@ -1,18 +1,27 @@
 import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import { CheckCircle2 } from "lucide-react";
 import type { PhilosophyCard as PhilosophyCardType } from "@/lib/types/portfolio-api";
+import type { TFunction } from "@/lib/types/global";
 
 interface PhilosophyCardProps {
   card: PhilosophyCardType;
-  t: (key: any) => string;
+  t: TFunction;
 }
 
-export function PhilosophyCard({ card, t }: PhilosophyCardProps) {
+/**
+ * Renders a single philosophy card with an icon header and either a numbered
+ * or checklist variant for its items.
+ *
+ * @param card - Philosophy card data including variant, icon, title, and items.
+ * @param t    - Translation function used to resolve localised string values.
+ */
+export default function PhilosophyCard({ card, t }: PhilosophyCardProps) {
   const title = t(card.title);
   const description = card.description ? t(card.description) : undefined;
   const items = card.items.map((item) => ({
     title: t(item.title),
     description: t(item.description),
+    key: String(item.title),
   }));
 
   return (
@@ -35,7 +44,7 @@ export function PhilosophyCard({ card, t }: PhilosophyCardProps) {
         <div className="flex flex-col gap-3">
           {items.map((item, i) => (
             <div
-              key={i}
+              key={item.key}
               className="rounded-xl border border-border bg-background/50 p-4"
             >
               <p className="text-xs font-semibold text-foreground font-mono mb-1.5">
@@ -52,8 +61,8 @@ export function PhilosophyCard({ card, t }: PhilosophyCardProps) {
       {/* Checklist variant */}
       {card.variant === "checklist" && (
         <ul className="flex flex-col gap-3">
-          {items.map((item, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-sm">
+          {items.map((item) => (
+            <li key={item.key} className="flex items-start gap-2.5 text-sm">
               <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden />
               <span className="text-muted-foreground leading-relaxed">
                 <span className="font-semibold text-foreground">{item.title}: </span>

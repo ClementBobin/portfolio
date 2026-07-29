@@ -9,6 +9,8 @@ const ContactSchema = z.object({
   message: z.string().trim().min(1),
 });
 
+const UPSTREAM_TIMEOUT_MS = 8_000;
+
 export async function POST(req: NextRequest) {
   const apiUrl = process.env.RESSOURCE_API_URL;
 
@@ -19,7 +21,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const parsed = ContactSchema.safeParse(await req.json());
+  let body: unknown;
+
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json(
+      { ok: false, error: "Invalid request" },
+      { status: 400 },
+    );
+  }
+
+  const parsed = ContactSchema.safeParse(body);
 
   if (!parsed.success) {
     return NextResponse.json(
@@ -28,6 +41,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
+
   try {
     const upstream = await fetch(`${apiUrl}/contact`, {
       method: "POST",
@@ -35,6 +51,7 @@ export async function POST(req: NextRequest) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(parsed.data),
+      signal: controller.signal,
     });
 
     if (!upstream.ok) {
@@ -50,5 +67,7 @@ export async function POST(req: NextRequest) {
       { ok: false, error: "Failed to forward contact request" },
       { status: 502 },
     );
+  } finally {
+    clearTimeout(timeout);
   }
 }

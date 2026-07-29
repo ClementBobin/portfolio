@@ -10,8 +10,16 @@ type TimelineCardProps =
   | { kind: "experience"; data: Experience; locale: string; isHighlighted?: boolean }
   | { kind: "education"; data: Education; locale: string; isHighlighted?: boolean };
 
-
-export async function TimelineCard({ kind, data, locale, isHighlighted }: TimelineCardProps) {
+/**
+ * Renders a single timeline entry as a card, supporting both work experience
+ * and education variants with optional media, task checklists, and tech badges.
+ *
+ * @param kind          - Discriminator controlling which data shape is rendered.
+ * @param data          - Experience or Education entry to display.
+ * @param locale        - BCP 47 locale used to resolve translated string values.
+ * @param isHighlighted - When true, applies accent border and background styling.
+ */
+export default async function TimelineCard({ kind, data, locale, isHighlighted }: TimelineCardProps) {
   const t = await getTranslations(locale, ["portfolio"]);
   const isExperience = kind === "experience";
   const exp = isExperience ? (data as Experience) : null;
@@ -36,9 +44,7 @@ export async function TimelineCard({ kind, data, locale, isHighlighted }: Timeli
     ? exp!.techs.map((tech) => (typeof tech === "string" ? tech : (tech as ExperienceTech).name))
     : [];
 
-  const typeLabel = isExperience
-    ? t(exp!.type)
-    : locale === "fr" ? "Formation" : "Education";
+  const typeLabel = isExperience ? t(exp!.type) : t("education.type");
 
   const titleHref = isExperience ? undefined : edu!.degreeHref;
 
@@ -103,7 +109,7 @@ export async function TimelineCard({ kind, data, locale, isHighlighted }: Timeli
             <h3 className="text-[15px] font-semibold text-foreground leading-snug">{title}</h3>
           )}
 
-          {subtitleHref && media ? null : subtitleHref ? (
+          {subtitleHref && !media ? (
             <Link
               href={subtitleHref}
               target="_blank"
@@ -113,9 +119,7 @@ export async function TimelineCard({ kind, data, locale, isHighlighted }: Timeli
               {subtitle}
               <ExternalLinkIcon className="size-3" />
             </Link>
-          ) : !media ? null : (
-            <span className="text-xs font-medium text-accent">{subtitle}</span>
-          )}
+          ) : null}
         </div>
 
         {/* Description */}
@@ -126,8 +130,8 @@ export async function TimelineCard({ kind, data, locale, isHighlighted }: Timeli
         {/* Tasks checklist */}
         {tasks.length > 0 && (
           <ul className="flex flex-col gap-1.5">
-            {tasks.map((task, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-foreground/80">
+            {tasks.map((task) => (
+              <li key={task} className="flex items-start gap-2 text-xs text-foreground/80">
                 <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-accent" aria-hidden />
                 <span>{task}</span>
               </li>

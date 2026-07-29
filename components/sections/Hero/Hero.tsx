@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import type { PortfolioPersonal, Experience, ContactItem } from "@/lib/types/portfolio-api";
 import HeroText from "./HeroText";
 import computeYears from "@/lib/utils";
@@ -23,10 +22,10 @@ interface HeroProps {
  * Hero section — full viewport with Three.js particle canvas.
  * Contains name, role typewriter, status badge, and decorative SVG illustrations.
  *
- * @param personal - Personal portfolio data
- * @param locale - Current locale
+ * @param personal    - Personal portfolio data
+ * @param locale      - Current locale
  * @param experiences - Work experiences (used to compute years of experience)
- * @param contact - Contact information
+ * @param contact     - Contact information
  */
 export default function Hero({ personal, locale, experiences, contact }: HeroProps) {
   const t = useTranslations(locale, ["portfolio"]);
@@ -47,18 +46,25 @@ export default function Hero({ personal, locale, experiences, contact }: HeroPro
 
         {/* CTA Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4">
-          <Link
-            href={`https://clementbobin.github.io/cv/?lang=${locale}`} // External CV link with locale param
+          <a
+            href={`https://clementbobin.github.io/cv/?lang=${locale}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:brightness-110 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg transition-colors hover:brightness-110 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             {t("hero.viewCv")}
-          </Link>
+          </a>
           <ContactDialog
-            trigger={<Button type="button" variant="outline" className="px-6 py-3 text-sm font-semibold text-primary transition-all hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label={t("hero.contact")}>
-              {t("hero.contact")}
-            </Button>}
+            trigger={
+              <Button
+                type="button"
+                variant="outline"
+                className="px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label={t("hero.contact")}
+              >
+                {t("hero.contact")}
+              </Button>
+            }
             linkedinUrl={contact.find((c) => c.type === "linkedin")?.href ?? ""}
             linkedinLabel={contact.find((c) => c.type === "linkedin")?.label ?? ""}
             locale={locale}

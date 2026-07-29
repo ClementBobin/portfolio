@@ -1,35 +1,53 @@
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton";
+import { z } from "zod";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 type LocalizedString = string | { en: string; fr: string };
 
-interface LabItem {
-  slug: string;
-  title: string;
-  description: LocalizedString;
-  tags: string[];
-  href: string;
+interface LabsSectionProps {
+  locale: string;
 }
+
+const LocalizedStringSchema = z.union([
+  z.string(),
+  z.object({ en: z.string(), fr: z.string() }),
+]);
+
+const LabItemSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  description: LocalizedStringSchema,
+  tags: z.array(z.string()),
+  href: z.string(),
+});
+
+const LabItemsSchema = z.array(LabItemSchema);
 
 function resolve(value: LocalizedString, locale: string): string {
   if (typeof value === "string") return value;
   return value[locale as keyof typeof value] ?? value.en ?? "";
 }
 
-async function fetchLabs(): Promise<LabItem[]> {
+async function fetchLabs() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/labs`);
+    const res = await fetch(`${process.env.SITE_URL}/api/labs`);
     if (!res.ok) return [];
-    return res.json();
+    const parsed = LabItemsSchema.safeParse(await res.json());
+    return parsed.success ? parsed.data : [];
   } catch {
     return [];
   }
 }
 
-export async function LabsSection({ locale }: { locale: string }) {
+/**
+ * Renders a list of lab experiment cards fetched from the labs API.
+ * Returns null when no labs are available.
+ *
+ * @param locale - BCP 47 locale used to resolve localised description strings.
+ */
+export default async function LabsSection({ locale }: LabsSectionProps) {
   const labs = await fetchLabs();
   if (!labs.length) return null;
 
@@ -39,7 +57,7 @@ export async function LabsSection({ locale }: { locale: string }) {
         <ScrollReveal key={lab.slug} delay={i * 0.05}>
           <li>
             <Link href={lab.href} className="group block">
-              <Card className="transition-all group-hover:ring-accent/40 group-hover:shadow-md">
+              <Card className="transition-shadow group-hover:ring-accent/40 group-hover:shadow-md">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold">
                     {lab.title}
@@ -61,30 +79,6 @@ export async function LabsSection({ locale }: { locale: string }) {
             </Link>
           </li>
         </ScrollReveal>
-      ))}
-    </ul>
-  );
-}
-
-export function LabsSkeleton() {
-  return (
-    <ul className="flex flex-col gap-3">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <li key={i}>
-          <Card>
-            <CardHeader>
-              <Skeleton className="h-5 w-48 rounded" />
-              <Skeleton className="h-4 w-3/4 rounded" />
-            </CardHeader>
-            <CardContent>
-              <div className="flex gap-1.5">
-                <Skeleton className="h-5 w-16 rounded-full" />
-                <Skeleton className="h-5 w-12 rounded-full" />
-                <Skeleton className="h-5 w-20 rounded-full" />
-              </div>
-            </CardContent>
-          </Card>
-        </li>
       ))}
     </ul>
   );

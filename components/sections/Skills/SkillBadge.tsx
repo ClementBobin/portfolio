@@ -25,7 +25,7 @@ export default function SkillBadge({ name, level }: SkillBadgeProps) {
     <m.div
       whileHover={{ scale: 1.05, y: -2 }}
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
-      className="group flex flex-col items-center gap-2 rounded-xl border p-4 text-center transition-all hover:shadow-lg"
+      className="group flex flex-col items-center gap-2 rounded-xl border p-4 text-center transition-shadow hover:shadow-lg"
       style={{
         "--skill-color": color,
       } as React.CSSProperties}

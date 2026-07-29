@@ -1,8 +1,6 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DynamicLucideIcon } from "@/components/icons";
-import SkillBadge from "./SkillBadge";
+import SkillSectionCard from "./SkillSectionCard";
 import type { SkillSection } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
 import { Wrench } from "lucide-react";
@@ -12,39 +10,14 @@ interface SkillsProps {
   locale: string;
 }
 
-async function SkillSectionCard({
-  section,
-  locale
-}: {
-  section: SkillSection;
-  locale: string;
-}) {
-  const t = await getTranslations(locale, ["portfolio"]);
-  return (
-    <Card className="flex h-full flex-col">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-3 text-base font-semibold">
-          <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border icon-badge `} style={{ "--icon-accent": section.color } as React.CSSProperties}>
-            <DynamicLucideIcon name={section.icon} size={18} />
-          </span>
-          {t(section.title)}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="flex flex-1 flex-col gap-3">
-        <div className="grid grid-cols-3 gap-2">
-          {section.items.map((item) => (
-            <SkillBadge
-              key={t(item.name)}
-              name={t(item.name)}
-              level={t(item.level)}
-            />
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
+/**
+ * Renders the Skills section of the portfolio, grouping skill sections by
+ * display type into a badge card grid and a flat list for text and language
+ * entries.
+ *
+ * @param skills - Array of skill sections to display.
+ * @param locale - BCP 47 locale used for translating section and item labels.
+ */
 export default async function Skills({ skills, locale }: SkillsProps) {
   if (!skills.length) return null;
 
@@ -74,7 +47,7 @@ export default async function Skills({ skills, locale }: SkillsProps) {
           {badgeSections.length > 0 && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {badgeSections.map((section, i) => (
-                <ScrollReveal key={i} delay={i * 0.07}>
+                <ScrollReveal key={String(section.title)} delay={i * 0.07}>
                   <SkillSectionCard section={section} locale={locale} />
                 </ScrollReveal>
               ))}
@@ -83,7 +56,10 @@ export default async function Skills({ skills, locale }: SkillsProps) {
 
           {/* text + language sections — flat list, original style */}
           {otherSections.map((section, i) => (
-            <ScrollReveal key={i} delay={(badgeSections.length + i) * 0.07}>
+            <ScrollReveal
+              key={String(section.title)}
+              delay={(badgeSections.length + i) * 0.07}
+            >
               <div className="flex flex-col gap-5">
                 <h3 className="text-xl font-semibold text-foreground">
                   {t(section.title)}

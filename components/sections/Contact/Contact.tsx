@@ -39,19 +39,26 @@ interface ContactDialogProps {
   locale: string;
 }
 
-// --- Schema -------------------------------------------------------------------
-const contactSchema = z.object({
-  name: z.string().min(1, "Le nom est requis"),
-  email: z.string().email("Adresse email invalide"),
-  phone: z.string().optional(),
-  message: z.string().min(10, "Le message doit contenir au moins 10 caractères"),
-});
+interface EmailCardProps {
+  email: string;
+  locale: string;
+}
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+interface LinkedInCardProps {
+  url: string;
+  label: string;
+}
+
+type ContactFormValues = {
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+};
 
 // --- Email card ---------------------------------------------------------------
 
-function EmailCard({ email, locale }: { email: string, locale: string; }) {
+function EmailCard({ email, locale }: EmailCardProps) {
   const [copied, setCopied] = useState(false);
   const t = useTranslations(locale, ["email"]);
 
@@ -91,7 +98,7 @@ function EmailCard({ email, locale }: { email: string, locale: string; }) {
 
 // --- LinkedIn card ------------------------------------------------------------
 
-function LinkedInCard({ url, label }: { url: string; label: string }) {
+function LinkedInCard({ url, label }: LinkedInCardProps) {
   return (
     <Card className="flex flex-col gap-2.5 rounded-xl p-4">
       <CardHeader className="flex items-center gap-2.5">
@@ -117,7 +124,17 @@ function LinkedInCard({ url, label }: { url: string; label: string }) {
 
 // --- Main component -----------------------------------------------------------
 
-export function ContactDialog({
+/**
+ * Renders a contact dialog with email and LinkedIn quick-links alongside
+ * a validated contact form that submits to the /api/contact route.
+ *
+ * @param trigger       - Element that opens the dialog when clicked.
+ * @param email         - Optional email address shown in the email card.
+ * @param linkedinUrl   - Optional LinkedIn profile URL.
+ * @param linkedinLabel - Display label for the LinkedIn link.
+ * @param locale        - BCP 47 locale used to load translated strings.
+ */
+export default function ContactDialog({
   trigger,
   email,
   linkedinUrl,
@@ -127,6 +144,13 @@ export function ContactDialog({
   const [open, setOpen] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"idle" | "sent" | "error">("idle");
   const t = useTranslations(locale, ["email"]);
+
+  const contactSchema = z.object({
+    name: z.string().min(1, t("validation.nameRequired")),
+    email: z.string().email(t("validation.emailInvalid")),
+    phone: z.string().optional(),
+    message: z.string().min(10, t("validation.messageMin")),
+  });
 
   const {
     register,
@@ -147,6 +171,8 @@ export function ContactDialog({
           body: JSON.stringify(data),
         });
         if (!res.ok) throw new Error("API error");
+        const body = await res.json() as { ok: boolean };
+        if (!body.ok) throw new Error("Delivery error");
         setSubmitStatus("sent");
         reset();
       } catch {
@@ -279,3 +305,5 @@ export function ContactDialog({
     </Dialog>
   );
 }
+
+export { ContactDialog };

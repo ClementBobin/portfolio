@@ -20,6 +20,30 @@ interface RSSFeedServerProps {
   locale?: string;
 }
 
+/**
+ * Strips HTML tags from a string, returning plain readable text.
+ *
+ * Used to sanitize RSS item titles and descriptions before rendering,
+ * since feed content frequently embeds inline markup or CDATA remnants.
+ *
+ * @param value - Raw string that may contain HTML tags.
+ * @returns Plain text with all tags removed.
+ */
+function stripHtml(value: string): string {
+  return value.replace(/<[^>]*>/g, "").trim();
+}
+
+/**
+ * Server component that fetches and renders an RSS feed as a timeline.
+ *
+ * Handles missing feed URL, fetch/parse errors, and empty feeds with
+ * appropriate fallback UI. Item titles and descriptions are sanitized
+ * to strip embedded HTML before rendering.
+ *
+ * @param feedUrl - URL of the RSS feed to fetch and display.
+ * @param locale  - BCP 47 locale used for date formatting and translations.
+ *                  Defaults to `"en"`.
+ */
 export async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedServerProps) {
   const t = await getTranslations(locale, ["pages"]);
   if (!feedUrl) {
@@ -52,40 +76,45 @@ export async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedServerPro
 
   return (
     <Timeline activeIndex={0}>
-      {feed.items.map((item, i) => (
-        <TimelineItem key={item.link ?? i}>
-          <TimelineDot />
-          <TimelineConnector />
-          <TimelineContent className="animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <TimelineHeader>
-              <TimelineTitle>
-                {item.link ? (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline underline-offset-4 transition-colors hover:text-accent"
-                  >
-                    {item.title}
-                  </a>
-                ) : (
-                  item.title
+      {feed.items.map((item, i) => {
+        const title = item.title ? stripHtml(item.title) : undefined;
+        const description = item.description ? stripHtml(item.description) : undefined;
+
+        return (
+          <TimelineItem key={item.link ?? i}>
+            <TimelineDot />
+            <TimelineConnector />
+            <TimelineContent className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <TimelineHeader>
+                <TimelineTitle>
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline underline-offset-4 transition-colors hover:text-accent"
+                    >
+                      {title}
+                    </a>
+                  ) : (
+                    title
+                  )}
+                </TimelineTitle>
+                {item.pubDate && (
+                  <TimelineTime dateTime={item.pubDate}>
+                    {formatDate(item.pubDate, locale)}
+                  </TimelineTime>
                 )}
-              </TimelineTitle>
-              {item.pubDate && (
-                <TimelineTime dateTime={item.pubDate}>
-                  {formatDate(item.pubDate, locale)}
-                </TimelineTime>
+              </TimelineHeader>
+              {description && (
+                <TimelineDescription className="mt-2 line-clamp-3">
+                  {description}
+                </TimelineDescription>
               )}
-            </TimelineHeader>
-            {item.description && (
-              <TimelineDescription className="mt-2 line-clamp-3">
-                {item.description}
-              </TimelineDescription>
-            )}
-          </TimelineContent>
-        </TimelineItem>
-      ))}
+            </TimelineContent>
+          </TimelineItem>
+        );
+      })}
     </Timeline>
   );
 }

@@ -10,12 +10,16 @@ import {
   TimelineTime,
 } from "@/components/ui/timeline";
 
+interface FeedSkeletonProps {
+  count?: number;
+}
+
 /**
  * Renders a loading skeleton for RSS feed items.
  *
  * @param count - Number of feed item placeholders to display.
  */
-export default function FeedSkeleton({ count = 5 }: { count?: number }) {
+export default function FeedSkeleton({ count = 5 }: FeedSkeletonProps) {
   return (
     <Timeline activeIndex={-1} className="space-y-6">
       {Array.from({ length: count }).map((_, i) => (

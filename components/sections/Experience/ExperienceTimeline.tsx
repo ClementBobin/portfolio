@@ -26,6 +26,14 @@ function parseSortKey(period: string): string {
   return years[years.length - 1];
 }
 
+/**
+ * Renders a vertically sorted timeline merging work experiences and education
+ * entries in reverse chronological order.
+ *
+ * @param experiences - Work and project experience entries to display.
+ * @param education   - Education entries to interleave with experiences.
+ * @param locale      - BCP 47 locale used to translate period and label values.
+ */
 export default async function ExperienceTimeline({
   experiences,
   education = [],
@@ -53,7 +61,7 @@ export default async function ExperienceTimeline({
         const exp = isExp ? (item.data as Experience) : null;
 
         return (
-          <TimelineItem key={isExp ? `exp-${exp!.id}` : `edu-${item.data.period}-${i}`}>
+          <TimelineItem key={isExp ? `exp-${exp!.id}` : `edu-${item.data.period}-${(item.data as Education).school}`}>
             <TimelineDot
               className={
                 isExp && exp!.isHighlighted

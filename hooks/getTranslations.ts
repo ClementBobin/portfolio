@@ -47,6 +47,8 @@ async function loadLocalNamespace(
     } catch (error) {
       console.error(`[i18n] Failed to load ${ns}:`, error);
 
+      namespaceCache.delete(ns);
+
       return {};
     }
   })();

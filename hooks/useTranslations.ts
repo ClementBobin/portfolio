@@ -21,6 +21,9 @@ const clientCache = new Map<string, TranslationNamespace>();
  * Results are stored in memory to avoid duplicate requests for the same
  * namespace during the client session.
  *
+ * Only successful responses are cached. Non-ok responses and network errors
+ * are not cached, allowing subsequent calls to retry the fetch.
+ *
  * @param ns - Namespace identifier.
  * @returns Loaded translation namespace.
  */
@@ -33,21 +36,20 @@ async function fetchNamespaceClient(
     return cached;
   }
 
-  const result: TranslationNamespace = {};
-
   try {
     const response = await fetch(`/api/locales/${ns}`);
 
     if (response.ok) {
-      Object.assign(result, await response.json());
+      const result: TranslationNamespace = await response.json();
+      clientCache.set(ns, result);
+      return result;
     }
   } catch {
     // Ignore failed client-side translation loading.
   }
 
-  clientCache.set(ns, result);
-
-  return result;
+  // Return an empty namespace without caching so the next call can retry.
+  return {};
 }
 
 /**

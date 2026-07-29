@@ -24,24 +24,17 @@ interface FloatingNavProps {
 }
 
 interface DockItemProps {
-  locale: string;
   item: NavItem;
   isActive: boolean;
   mouseX: ReturnType<typeof useMotionValue<number>>;
+  t: TFunction;
 }
-
 
 const DOCK_SIZE = 44;
 const DOCK_SIZE_HOVERED = 64;
 const DOCK_RANGE = 80;
 
-function DockItem({
-  locale,
-  item,
-  isActive,
-  mouseX,
-}: DockItemProps) {
-  const t = useTranslations(locale);
+function DockItem({ item, isActive, mouseX, t }: DockItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -166,7 +159,7 @@ export default function FloatingNav({
             {items.map((item) => (
               <DockItem
                 key={item.id}
-                locale={locale}
+                t={t}
                 item={item}
                 isActive={activeId === item.id}
                 mouseX={mouseX}

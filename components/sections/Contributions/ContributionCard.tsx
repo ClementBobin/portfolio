@@ -29,6 +29,8 @@ export function ContributionCard({ item, locale, onOpen }: ContributionCardProps
       role="button"
       tabIndex={0}
       onKeyDown={(event) => {
+        if (event.target !== event.currentTarget) return;
+
         if (event.key === "Enter") {
           onOpen();
         }

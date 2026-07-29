@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { CreditCard, Terminal } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { AboutTerminal } from "./AboutTerminal";
+import AboutTerminal from "./AboutTerminal";
 import type { PortfolioPersonal, PortfolioData } from "@/lib/types/portfolio-api";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
@@ -13,7 +13,15 @@ interface AboutInteractiveProps {
   locale: string;
 }
 
-export function AboutInteractive({ personal, portfolio, locale }: AboutInteractiveProps) {
+/**
+ * Renders the interactive About section with a tabbed interface offering a
+ * profile card view and a CLI terminal view.
+ *
+ * @param personal  - Personal data used to render the profile card (photo, name).
+ * @param portfolio - Full portfolio data passed through to the terminal view.
+ * @param locale    - BCP 47 locale forwarded to the terminal for localised output.
+ */
+export default function AboutInteractive({ personal, portfolio, locale }: AboutInteractiveProps) {
   return (
     <Tabs defaultValue="card" className="flex flex-col gap-3">
       <TabsList className="w-fit self-center font-mono text-xs">

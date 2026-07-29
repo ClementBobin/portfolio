@@ -13,12 +13,12 @@ interface HobbiesProps {
  * Hobbies section — playful grid of personal interests and passions.
  *
  * @param hobbies - Array of hobby items
- * @param locale - Current locale
+ * @param locale  - Current locale
  */
 export default async function Hobbies({ hobbies, locale }: HobbiesProps) {
-  const t = await getTranslations(locale, ["portfolio"]);
-
   if (!hobbies.length) return null;
+
+  const t = await getTranslations(locale, ["portfolio"]);
 
   return (
     <section
@@ -30,14 +30,13 @@ export default async function Hobbies({ hobbies, locale }: HobbiesProps) {
         title={t("hobbies.title")}
         subtitle={t("hobbies.subtitle")}
       >
-        <div className="grid gap-6 grid-cols-2">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
           {hobbies.map((hobby, i) => {
             const title = t(hobby.title);
-
             const details = hobby.details?.map((detail) => t(detail)) ?? [];
 
             return (
-              <ScrollReveal key={i} delay={i * 0.08}>
+              <ScrollReveal key={String(hobby.title)} delay={i * 0.08}>
                 <div className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-5 transition-shadow hover:shadow-md">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl" role="img" aria-label={title}>
@@ -50,8 +49,8 @@ export default async function Hobbies({ hobbies, locale }: HobbiesProps) {
 
                   {details.length > 0 && (
                     <ul className="flex flex-col gap-1.5">
-                      {details.map((detail, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      {details.map((detail) => (
+                        <li key={detail} className="flex items-start gap-2 text-sm text-muted-foreground">
                           <span className="mt-0.5 text-accent" aria-hidden="true">•</span>
                           {detail}
                         </li>

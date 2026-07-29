@@ -14,14 +14,23 @@ import {
 } from "@/components/ui/dialog";
 import type { Recommendation } from "@/lib/types/portfolio-api";
 import { useTranslations } from "@/hooks/useTranslations";
-;
 
 interface RecommendationCardProps {
   rec: Recommendation;
   locale: string;
 }
 
-function Avatar({ src, name }: { src?: string; name: string }) {
+interface AvatarProps {
+  src?: string;
+  name: string;
+}
+
+interface LinkedInBadgeProps {
+  href: string;
+}
+
+
+function Avatar({ src, name }: AvatarProps) {
   return (
     <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
       {src ? (
@@ -35,7 +44,7 @@ function Avatar({ src, name }: { src?: string; name: string }) {
   );
 }
 
-function LinkedInBadge({ href }: { href: string }) {
+function LinkedInBadge({ href }: LinkedInBadgeProps) {
   return (
     <a
       href={href}

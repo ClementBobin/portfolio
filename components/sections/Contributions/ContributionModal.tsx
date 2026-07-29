@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { ContributionItem } from "@/lib/types/contribution";
-import { useTranslations } from "@/hooks/useTranslations";
+import { getTranslations } from "@/hooks/getTranslations";
 
 interface ContributionModalProps {
   item: ContributionItem | null;
@@ -17,7 +17,18 @@ interface ContributionModalProps {
   locale: string;
 }
 
-function ModalSection({ label, children }: { label: string; children: React.ReactNode }) {
+interface ModalSectionProps {
+  label: string;
+  children: React.ReactNode;
+}
+
+/**
+ * Renders a labelled content block inside the contribution modal.
+ *
+ * @param label    - Section heading displayed in monospace uppercase.
+ * @param children - Section body content.
+ */
+export async function ModalSection({ label, children }: ModalSectionProps) {
   return (
     <div className="flex flex-col gap-1">
       <p className="font-mono text-xs font-semibold uppercase tracking-widest text-white/40">
@@ -28,29 +39,30 @@ function ModalSection({ label, children }: { label: string; children: React.Reac
   );
 }
 
-export function ContributionModal({
+/**
+ * Displays a detailed breakdown of a contribution item in a modal dialog.
+ *
+ * Renders the problem description, technical solution, optional highlights
+ * list, and a footer link to the repository or a private-repo indicator.
+ * Returns null when no item is provided.
+ *
+ * @param item         - Contribution item to display, or null to render nothing.
+ * @param open         - Whether the dialog is currently open.
+ * @param onOpenChange - Callback invoked when the dialog open state changes.
+ * @param locale       - BCP 47 locale used to resolve translated string values.
+ */
+export async function ContributionModal({
   item,
   open,
   onOpenChange,
   locale,
 }: ContributionModalProps) {
-  const t = useTranslations(locale, ["portfolio"]);
+  const t = await getTranslations(locale, ["portfolio"]);
   if (!item) return null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className="sm:max-w-lg"
-        showCloseButton={false}
-      >
-        {/* Close button — custom styled to match dark theme */}
-        <button
-          onClick={() => onOpenChange(false)}
-          className="absolute right-4 top-4 rounded-md border border-white/10 px-3 py-1 font-mono text-xs text-white/50 transition-colors hover:border-white/20 hover:text-white/80"
-        >
-          Close
-        </button>
-
+      <DialogContent className="sm:max-w-lg">
         <DialogHeader className="gap-3">
           <p className="font-mono text-xs font-semibold uppercase tracking-widest text-emerald-400">
             Repository Breakdown
@@ -72,8 +84,8 @@ export function ContributionModal({
           {Array.isArray(item.highlights) && item.highlights.length > 0 && (
             <ModalSection label="Key Features & Highlights">
               <ul className="flex flex-col gap-1.5">
-                {item.highlights.map((h, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-white/70">
+                {item.highlights.map((h) => (
+                  <li key={h} className="flex items-start gap-2 text-sm text-white/70">
                     <span className="mt-1.75 size-1.5 shrink-0 rounded-full bg-emerald-400" />
                     {h}
                   </li>
