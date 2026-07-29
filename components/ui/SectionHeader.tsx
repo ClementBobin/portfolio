@@ -14,7 +14,7 @@ interface SectionHeaderProps {
  * Reusable section header: eyebrow pill → h2 title → subtitle.
  * Used wherever a page section needs the standard label/title/subtitle trio.
  */
-export function SectionHeader({
+export default async function SectionHeader({
   children,
   eyebrow,
   title,

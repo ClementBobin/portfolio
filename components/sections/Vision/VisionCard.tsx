@@ -9,7 +9,7 @@ interface VisionCardProps {
   locale: string;
 }
 
-export async function VisionCard({ item, locale }: VisionCardProps) {
+export default async function VisionCard({ item, locale }: VisionCardProps) {
   const t = await getTranslations(locale, ["portfolio"]);
 
   const variant = item.variant ?? "checklist";

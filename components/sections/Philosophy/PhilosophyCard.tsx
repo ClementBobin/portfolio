@@ -15,13 +15,13 @@ interface PhilosophyCardProps {
  * @param card - Philosophy card data including variant, icon, title, and items.
  * @param t    - Translation function used to resolve localised string values.
  */
-export default function PhilosophyCard({ card, t }: PhilosophyCardProps) {
+export default async function PhilosophyCard({ card, t }: PhilosophyCardProps) {
   const title = t(card.title);
   const description = card.description ? t(card.description) : undefined;
   const items = card.items.map((item) => ({
     title: t(item.title),
     description: t(item.description),
-    key: String(item.title),
+    key: t(item.title),
   }));
 
   return (

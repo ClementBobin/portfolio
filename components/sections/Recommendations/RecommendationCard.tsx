@@ -1,6 +1,5 @@
-"use client";
+"use client"
 
-import Image from "next/image";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { LinkedInIcon } from "@/components/icons";
@@ -14,51 +13,15 @@ import {
 } from "@/components/ui/dialog";
 import type { Recommendation } from "@/lib/types/portfolio-api";
 import { useTranslations } from "@/hooks/useTranslations";
+import Avatar from "@/components/ui/Avatar";
+import LinkedInBadge from "./LinkedInBadge";
 
 interface RecommendationCardProps {
   rec: Recommendation;
   locale: string;
 }
 
-interface AvatarProps {
-  src?: string;
-  name: string;
-}
-
-interface LinkedInBadgeProps {
-  href: string;
-}
-
-
-function Avatar({ src, name }: AvatarProps) {
-  return (
-    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
-      {src ? (
-        <Image src={src} alt={name} sizes="40px" fill className="object-cover" />
-      ) : (
-        <span className="flex h-full w-full items-center justify-center text-sm font-semibold text-muted-foreground">
-          {name.charAt(0)}
-        </span>
-      )}
-    </div>
-  );
-}
-
-function LinkedInBadge({ href }: LinkedInBadgeProps) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="absolute -bottom-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#0A66C2]"
-      aria-label="LinkedIn profile"
-    >
-      <LinkedInIcon className="h-2.5 w-2.5 text-white" />
-    </a>
-  );
-}
-
-export function RecommendationCard({ rec, locale }: RecommendationCardProps) {
+export default function RecommendationCard({ rec, locale }: RecommendationCardProps) {
   const t = useTranslations(locale, ["portfolio"]);
   const [open, setOpen] = useState(false);
 

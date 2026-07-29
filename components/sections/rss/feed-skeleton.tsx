@@ -19,7 +19,7 @@ interface FeedSkeletonProps {
  *
  * @param count - Number of feed item placeholders to display.
  */
-export default function FeedSkeleton({ count = 5 }: FeedSkeletonProps) {
+export default async function FeedSkeleton({ count = 5 }: FeedSkeletonProps) {
   return (
     <Timeline activeIndex={-1} className="space-y-6">
       {Array.from({ length: count }).map((_, i) => (

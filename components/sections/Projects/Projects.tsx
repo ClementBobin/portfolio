@@ -1,7 +1,7 @@
 import ProjectCard from "./ProjectCard";
 import type { Project } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 interface ProjectsProps {

@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { RSSFeed } from "@/components/sections/rss";
-import { FeedSkeleton } from "@/components/sections/rss/feed-skeleton";
+import RSSFeed from "@/components/sections/rss";
+import FeedSkeleton from "@/components/sections/rss/feed-skeleton";
 import { getTranslations } from "@/hooks/getTranslations";
 import type { PageParams } from "@/lib/types/global";
 

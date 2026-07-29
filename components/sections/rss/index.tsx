@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { RSSFeedServer } from "./feed-server";
+import RSSFeedServer from "./feed-server";
 import FeedSkeleton from "./feed-skeleton";
 
 interface RSSFeedProps {
@@ -15,7 +15,7 @@ interface RSSFeedProps {
  * @param locale - Optional locale used for localized feed content.
  * @param skeletonCount - Number of skeleton items displayed while loading.
  */
-export default function RSSFeed({ feedUrl, locale, skeletonCount }: RSSFeedProps) {
+export default async function RSSFeed({ feedUrl, locale, skeletonCount }: RSSFeedProps) {
   return (
     <Suspense fallback={<FeedSkeleton count={skeletonCount} />}>
       <RSSFeedServer feedUrl={feedUrl} locale={locale} />

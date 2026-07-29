@@ -1,5 +1,5 @@
 import type { ContributionItem } from "@/lib/types/contribution";
-import { ContributionsSectionClient } from "./ContributionsSectionClient";
+import ContributionsSectionClient from "./ContributionsSectionClient";
 
 async function fetchContributions(): Promise<ContributionItem[]> {
   const apiUrl = process.env.RESSOURCE_API_URL;
@@ -38,7 +38,7 @@ interface ContributionsSectionProps {
   githubUrl?: string;
 }
 
-export async function ContributionsSection({
+export default async function ContributionsSection({
   locale,
   githubUsername,
   githubUrl,

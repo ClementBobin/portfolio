@@ -1,7 +1,7 @@
 import { getTranslations } from "@/hooks/getTranslations";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { RecommendationCard } from "./RecommendationCard";
+import RecommendationCard from "./RecommendationCard";
 import type { Recommendation } from "@/lib/types/portfolio-api";
 import { Users } from "lucide-react";
 

@@ -7,7 +7,7 @@ import { DynamicLucideIcon, MoonIcon, SunIcon } from "@/components/icons";
 import { useTheme } from "@/components/ThemeProvider";
 import { useRef, useState, useEffect } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
-import type { LocalizedString } from "@/lib/types/global";
+import type { LocalizedString, TFunction } from "@/lib/types/global";
 
 interface NavItem {
   id: string;

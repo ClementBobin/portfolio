@@ -1,8 +1,8 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { getTranslations } from "@/hooks/getTranslations";
 import type { PhilosophySection } from "@/lib/types/portfolio-api";
-import { PhilosophyCard } from "./PhilosophyCard";
+import PhilosophyCard from "./PhilosophyCard";
 
 interface PhilosophyProps {
   philosophy: PhilosophySection;

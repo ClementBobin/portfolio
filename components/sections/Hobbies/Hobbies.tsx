@@ -2,7 +2,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import { DynamicLucideIcon } from "@/components/icons";
 import type { Hobby } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 interface HobbiesProps {
   hobbies: Hobby[];
@@ -36,7 +36,7 @@ export default async function Hobbies({ hobbies, locale }: HobbiesProps) {
             const details = hobby.details?.map((detail) => t(detail)) ?? [];
 
             return (
-              <ScrollReveal key={String(hobby.title)} delay={i * 0.08}>
+              <ScrollReveal key={t(hobby.title)} delay={i * 0.08}>
                 <div className="group flex flex-col gap-3 rounded-xl border border-border bg-card p-5 transition-shadow hover:shadow-md">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl" role="img" aria-label={title}>

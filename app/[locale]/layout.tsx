@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import "./globals.css";
 import { TechColorsProvider } from "@/context/tech-colors-provider";
 import { getTechColors } from "@/lib/tech-colors";
+import { RscBoundaryProvider } from "@rsc-boundary/next";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -50,11 +51,13 @@ export default async function LocaleLayout({
         <body>
           <ThemeProvider>
             <TechColorsProvider techColors={techColors}>
-              <LazyMotion features={domAnimation}>
-                <Navbar params={params} />
-                <section id="top" className="h-0 w-0" />
-                {children}
-              </LazyMotion>
+              <RscBoundaryProvider>
+                <LazyMotion features={domAnimation}>
+                  <Navbar params={params} />
+                  <section id="top" className="h-0 w-0" />
+                  {children}
+                </LazyMotion>
+              </RscBoundaryProvider>
             </TechColorsProvider>
           </ThemeProvider>
         </body>

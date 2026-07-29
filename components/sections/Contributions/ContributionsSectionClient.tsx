@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { ExternalLinkIcon, GitHubIcon } from "@/components/icons"
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { ContributionCard } from "./ContributionCard";
-import { ContributionHeatmap } from "./ContributionHeatmap";
-import { ContributionModal } from "./ContributionModal";
+import ContributionCard from "./ContributionCard";
+import ContributionHeatmap from "./ContributionHeatmap";
 import type { ContributionItem } from "@/lib/types/contribution";
 import { useTranslations } from "@/hooks/useTranslations";
+import ContributionModal from "./ContributionModal";
 
 interface ContributionsSectionClientProps {
   items: ContributionItem[];
@@ -16,10 +16,10 @@ interface ContributionsSectionClientProps {
   githubUrl?: string;
 }
 
-export function ContributionsSectionClient({
+export default function ContributionsSectionClient({
   items,
   locale,
-  githubUsername = "@username",
+  githubUsername = "clementbobin",
   githubUrl = "https://github.com",
 }: ContributionsSectionClientProps) {
   const [activeItem, setActiveItem] = useState<ContributionItem | null>(null);
@@ -48,13 +48,13 @@ export function ContributionsSectionClient({
           rel="noopener noreferrer"
           className="flex shrink-0 items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10"
         >
-          {t("contributions.follow")} {githubUsername}
+          {t("contributions.follow")} @{githubUsername}
           <ExternalLinkIcon width={16} height={16} />
         </a>
       </div>
 
       {/* Heatmap */}
-      <ContributionHeatmap githubUrl={githubUrl} />
+      <ContributionHeatmap githubUrl={githubUrl} githubUsername={githubUsername} />
 
       {/* Cards grid */}
       <ul className="grid list-none grid-cols-1 gap-4 sm:grid-cols-2">

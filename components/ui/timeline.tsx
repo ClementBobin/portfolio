@@ -3,22 +3,22 @@
 import { useDirection } from "@radix-ui/react-direction";
 import { Slot } from "@radix-ui/react-slot";
 import { cva } from "class-variance-authority";
-import * as React from "react";
 import { useComposedRefs } from "@/hooks/useComposeRefs";
 import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
 import { useLazyRef } from "@/hooks/use-lazy-ref";
 import { cn } from "@/lib/utils";
+import { ComponentProps, createContext, RefObject, useCallback, useContext, useId, useMemo, useRef, useSyncExternalStore } from "react";
 
 type Direction = "ltr" | "rtl";
 type Orientation = "vertical" | "horizontal";
 type Variant = "default" | "alternate";
 type Status = "completed" | "active" | "pending";
 
-interface DivProps extends React.ComponentProps<"div"> {
+interface DivProps extends ComponentProps<"div"> {
   asChild?: boolean;
 }
 
-type ItemElement = React.ComponentRef<typeof TimelineItem>;
+type ItemElement = ComponentRef<typeof TimelineItem>;
 
 const ROOT_NAME = "Timeline";
 const ITEM_NAME = "TimelineItem";
@@ -34,7 +34,7 @@ function getItemStatus(itemIndex: number, activeIndex?: number): Status {
 }
 
 function getSortedEntries(
-  entries: [string, React.RefObject<ItemElement | null>][],
+  entries: [string, RefObject<ItemElement | null>][],
 ) {
   return entries.sort((a, b) => {
     const elementA = a[1].current;
@@ -48,21 +48,21 @@ function getSortedEntries(
 }
 
 function useStore<T>(selector: (store: Store) => T): T {
-  const store = React.useContext(StoreContext);
+  const store = useContext(StoreContext);
   if (!store) {
     throw new Error(`\`useStore\` must be used within \`${ROOT_NAME}\``);
   }
 
-  const getSnapshot = React.useCallback(
+  const getSnapshot = useCallback(
     () => selector(store),
     [store, selector],
   );
 
-  return React.useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
+  return useSyncExternalStore(store.subscribe, getSnapshot, getSnapshot);
 }
 
 interface StoreState {
-  items: Map<string, React.RefObject<ItemElement | null>>;
+  items: Map<string, RefObject<ItemElement | null>>;
 }
 
 interface Store {
@@ -71,17 +71,17 @@ interface Store {
   notify: () => void;
   onItemRegister: (
     id: string,
-    ref: React.RefObject<ItemElement | null>,
+    ref: RefObject<ItemElement | null>,
   ) => void;
   onItemUnregister: (id: string) => void;
   getNextItemStatus: (id: string, activeIndex?: number) => Status | undefined;
   getItemIndex: (id: string) => number;
 }
 
-const StoreContext = React.createContext<Store | null>(null);
+const StoreContext = createContext<Store | null>(null);
 
 function useStoreContext(consumerName: string) {
-  const context = React.useContext(StoreContext);
+  const context = useContext(StoreContext);
   if (!context) {
     throw new Error(`\`${consumerName}\` must be used within \`${ROOT_NAME}\``);
   }
@@ -95,10 +95,10 @@ interface TimelineContextValue {
   activeIndex?: number;
 }
 
-const TimelineContext = React.createContext<TimelineContextValue | null>(null);
+const TimelineContext = createContext<TimelineContextValue | null>(null);
 
 function useTimelineContext(consumerName: string) {
-  const context = React.useContext(TimelineContext);
+  const context = useContext(TimelineContext);
   if (!context) {
     throw new Error(`\`${consumerName}\` must be used within \`${ROOT_NAME}\``);
   }
@@ -172,7 +172,7 @@ function Timeline(props: TimelineProps) {
     items: new Map(),
   }));
 
-  const store = React.useMemo<Store>(() => {
+  const store = useMemo<Store>(() => {
     return {
       subscribe: (cb) => {
         listenersRef.current.add(cb);
@@ -186,7 +186,7 @@ function Timeline(props: TimelineProps) {
       },
       onItemRegister: (
         id: string,
-        ref: React.RefObject<ItemElement | null>,
+        ref: RefObject<ItemElement | null>,
       ) => {
         stateRef.current.items.set(id, ref);
         store.notify();
@@ -215,7 +215,7 @@ function Timeline(props: TimelineProps) {
     };
   }, [listenersRef, stateRef]);
 
-  const contextValue = React.useMemo<TimelineContextValue>(
+  const contextValue = useMemo<TimelineContextValue>(
     () => ({
       dir,
       orientation,
@@ -251,10 +251,10 @@ interface TimelineItemContextValue {
 }
 
 const TimelineItemContext =
-  React.createContext<TimelineItemContextValue | null>(null);
+  createContext<TimelineItemContextValue | null>(null);
 
 function useTimelineItemContext(consumerName: string) {
-  const context = React.useContext(TimelineItemContext);
+  const context = useContext(TimelineItemContext);
   if (!context) {
     throw new Error(`\`${consumerName}\` must be used within \`${ITEM_NAME}\``);
   }
@@ -319,14 +319,14 @@ function TimelineItem(props: DivProps) {
     useTimelineContext(ITEM_NAME);
   const store = useStoreContext(ITEM_NAME);
 
-  const instanceId = React.useId();
+  const instanceId = useId();
   const itemId = id ?? instanceId;
-  const itemRef = React.useRef<ItemElement | null>(null);
+  const itemRef = useRef<ItemElement | null>(null);
   const composedRef = useComposedRefs(ref, itemRef);
 
   const itemIndex = useStore((state) => state.getItemIndex(itemId));
 
-  const status = React.useMemo<Status>(() => {
+  const status = useMemo<Status>(() => {
     return getItemStatus(itemIndex, activeIndex);
   }, [activeIndex, itemIndex]);
 
@@ -339,7 +339,7 @@ function TimelineItem(props: DivProps) {
 
   const isAlternateRight = variant === "alternate" && itemIndex % 2 === 1;
 
-  const itemContextValue = React.useMemo<TimelineItemContextValue>(
+  const itemContextValue = useMemo<TimelineItemContextValue>(
     () => ({ id: itemId, status, isAlternateRight }),
     [itemId, status, isAlternateRight],
   );
@@ -677,7 +677,7 @@ function TimelineDescription(props: DivProps) {
   );
 }
 
-interface TimelineTimeProps extends React.ComponentProps<"time"> {
+interface TimelineTimeProps extends ComponentProps<"time"> {
   asChild?: boolean;
 }
 

@@ -1,7 +1,7 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { Education, Experience } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
-import { TimelineCard } from "./TimelineCard";
+import TimelineCard from "./TimelineCard";
 import {
   Timeline,
   TimelineItem,

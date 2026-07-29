@@ -1,9 +1,9 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import type { PortfolioPersonal, PortfolioData } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { Sparkles } from "lucide-react";
-import { AboutInteractive } from "./AboutInteractive";
+import AboutInteractive from "./AboutInteractive";
 
 interface AboutProps {
   personal: PortfolioPersonal;

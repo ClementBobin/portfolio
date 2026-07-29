@@ -1,7 +1,7 @@
 import ExperienceTimeline from "./ExperienceTimeline";
 import type { Education, Experience } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
-import { SectionHeader } from "@/components/ui/SectionHeader"
+import SectionHeader from "@/components/ui/SectionHeader"
 import { GraduationCap } from "lucide-react";
 
 interface ExperienceProps {

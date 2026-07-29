@@ -23,7 +23,7 @@ export default async function Navbar({ params }: PageParams) {
       items={NAV_ITEMS}
       locale={locale}
       topId="top"
-      altLocaleIcon="ArrowUp"
+      topScrollIcon="ArrowUp"
     />
   );
 }

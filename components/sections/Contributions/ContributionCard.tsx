@@ -19,7 +19,7 @@ interface ContributionCardProps {
   onOpen: () => void;
 }
 
-export function ContributionCard({ item, locale, onOpen }: ContributionCardProps) {
+export default function ContributionCard({ item, locale, onOpen }: ContributionCardProps) {
   const t = useTranslations(locale, ["portfolio"]);
 
   return (

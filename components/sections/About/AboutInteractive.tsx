@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { CreditCard, Terminal } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
@@ -21,7 +19,7 @@ interface AboutInteractiveProps {
  * @param portfolio - Full portfolio data passed through to the terminal view.
  * @param locale    - BCP 47 locale forwarded to the terminal for localised output.
  */
-export default function AboutInteractive({ personal, portfolio, locale }: AboutInteractiveProps) {
+export default async function AboutInteractive({ personal, portfolio, locale }: AboutInteractiveProps) {
   return (
     <Tabs defaultValue="card" className="flex flex-col gap-3">
       <TabsList className="w-fit self-center font-mono text-xs">

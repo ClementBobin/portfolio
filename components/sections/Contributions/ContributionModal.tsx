@@ -8,35 +8,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { ContributionItem } from "@/lib/types/contribution";
-import { getTranslations } from "@/hooks/getTranslations";
+import { useTranslations } from "@/hooks/useTranslations";
+import ModalSection from "./ModalSection";
 
 interface ContributionModalProps {
   item: ContributionItem | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   locale: string;
-}
-
-interface ModalSectionProps {
-  label: string;
-  children: React.ReactNode;
-}
-
-/**
- * Renders a labelled content block inside the contribution modal.
- *
- * @param label    - Section heading displayed in monospace uppercase.
- * @param children - Section body content.
- */
-export async function ModalSection({ label, children }: ModalSectionProps) {
-  return (
-    <div className="flex flex-col gap-1">
-      <p className="font-mono text-xs font-semibold uppercase tracking-widest text-white/40">
-        {label}
-      </p>
-      {children}
-    </div>
-  );
 }
 
 /**
@@ -51,13 +30,13 @@ export async function ModalSection({ label, children }: ModalSectionProps) {
  * @param onOpenChange - Callback invoked when the dialog open state changes.
  * @param locale       - BCP 47 locale used to resolve translated string values.
  */
-export async function ContributionModal({
+export default function ContributionModal({
   item,
   open,
   onOpenChange,
   locale,
 }: ContributionModalProps) {
-  const t = await getTranslations(locale, ["portfolio"]);
+  const t = useTranslations(locale, ["portfolio"]);
   if (!item) return null;
 
   return (

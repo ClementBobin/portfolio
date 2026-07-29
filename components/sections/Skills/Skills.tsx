@@ -1,5 +1,5 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 import SkillSectionCard from "./SkillSectionCard";
 import type { SkillSection } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
@@ -47,7 +47,7 @@ export default async function Skills({ skills, locale }: SkillsProps) {
           {badgeSections.length > 0 && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {badgeSections.map((section, i) => (
-                <ScrollReveal key={String(section.title)} delay={i * 0.07}>
+                <ScrollReveal key={t(section.title)} delay={i * 0.07}>
                   <SkillSectionCard section={section} locale={locale} />
                 </ScrollReveal>
               ))}
@@ -57,7 +57,7 @@ export default async function Skills({ skills, locale }: SkillsProps) {
           {/* text + language sections — flat list, original style */}
           {otherSections.map((section, i) => (
             <ScrollReveal
-              key={String(section.title)}
+              key={t(section.title)}
               delay={(badgeSections.length + i) * 0.07}
             >
               <div className="flex flex-col gap-5">

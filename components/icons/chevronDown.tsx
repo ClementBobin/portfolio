@@ -1,4 +1,4 @@
-import { IconProps } from "@/types/global";
+import { IconProps } from "@/lib/types/global";
 
 export function ChevronDownIcon(props: IconProps) {
   return (

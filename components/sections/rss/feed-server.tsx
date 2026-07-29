@@ -1,5 +1,3 @@
-"use server";
-
 import { rssParser } from "@/lib/rss-parser";
 import { getTranslations } from "@/hooks/getTranslations";
 import { formatDate } from "@/lib/utils";
@@ -44,7 +42,7 @@ function stripHtml(value: string): string {
  * @param locale  - BCP 47 locale used for date formatting and translations.
  *                  Defaults to `"en"`.
  */
-export async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedServerProps) {
+export default async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedServerProps) {
   const t = await getTranslations(locale, ["pages"]);
   if (!feedUrl) {
     return (

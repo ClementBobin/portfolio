@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export function ContributionsSkeleton() {
+export default async function ContributionsSkeleton() {
   return (
     <div
       className="flex flex-col gap-8"

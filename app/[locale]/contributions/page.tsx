@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { ContributionsSection, ContributionsSkeleton } from "@/components/sections/Contributions";
 import type { PageParams } from "@/lib/types/global";
 import { getTranslations } from "@/hooks/getTranslations";
+import ContributionsSection from "@/components/sections/Contributions/ContributionsSection";
+import ContributionsSkeleton from "@/components/sections/Contributions/ContributionsSkeleton";
 
 export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const { locale } = await params;
@@ -21,7 +22,7 @@ export default async function ContributionsPage({ params }: PageParams) {
       <Suspense fallback={<ContributionsSkeleton />}>
         <ContributionsSection
           locale={locale}
-          githubUsername="@clementbobin"
+          githubUsername="clementbobin"
           githubUrl="https://github.com/clementbobin"
         />
       </Suspense>

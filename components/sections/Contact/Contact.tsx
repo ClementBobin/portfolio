@@ -4,7 +4,7 @@ import { useState, useCallback, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { ExternalLink, Copy, Check, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -19,17 +19,12 @@ import {
   FieldLabel,
   FieldSeparator,
 } from "@/components/ui/field";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { EmailIcon, LinkedInIcon } from "@/components/icons";
 import { useTranslations } from "@/hooks/useTranslations";
+import LinkedInCard from "./LinkedInCard";
+import EmailCard from "./EmailCard";
 
 interface ContactDialogProps {
   trigger: ReactNode;
@@ -39,90 +34,12 @@ interface ContactDialogProps {
   locale: string;
 }
 
-interface EmailCardProps {
-  email: string;
-  locale: string;
-}
-
-interface LinkedInCardProps {
-  url: string;
-  label: string;
-}
-
 type ContactFormValues = {
   name: string;
   email: string;
   phone?: string;
   message: string;
 };
-
-// --- Email card ---------------------------------------------------------------
-
-function EmailCard({ email, locale }: EmailCardProps) {
-  const [copied, setCopied] = useState(false);
-  const t = useTranslations(locale, ["email"]);
-
-  const copy = useCallback(async () => {
-    await navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [email]);
-
-  return (
-    <Card className="flex flex-col gap-2.5 rounded-xl p-4">
-      <CardHeader className="flex items-center gap-2.5">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
-          <EmailIcon width={15} height={15} />
-        </span>
-        <CardTitle className="text-sm font-medium">{t("contact.mail")}</CardTitle>
-      </CardHeader>
-      <CardContent className="flex items-center justify-between gap-3">
-        <span className="truncate text-[13px] text-foreground">{email}</span>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={copy}
-          className="h-7 shrink-0 rounded-lg border-stone-200 px-3 text-xs font-medium hover:bg-stone-50"
-        >
-          {copied ? (
-            <><Check size={11} className="mr-1" />{t("contact.copied")}</>
-          ) : (
-            <><Copy size={11} className="mr-1" />{t("contact.copy")}</>
-          )}
-        </Button>
-      </CardContent>
-    </Card>
-  );
-}
-
-// --- LinkedIn card ------------------------------------------------------------
-
-function LinkedInCard({ url, label }: LinkedInCardProps) {
-  return (
-    <Card className="flex flex-col gap-2.5 rounded-xl p-4">
-      <CardHeader className="flex items-center gap-2.5">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
-          <LinkedInIcon width={15} height={15} />
-        </span>
-        <CardTitle>LinkedIn</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-[13px] font-medium transition-colors hover:bg-stone-50"
-        >
-          {label}
-          <ExternalLink size={11} />
-        </a>
-      </CardContent>
-    </Card>
-  );
-}
-
-// --- Main component -----------------------------------------------------------
 
 /**
  * Renders a contact dialog with email and LinkedIn quick-links alongside

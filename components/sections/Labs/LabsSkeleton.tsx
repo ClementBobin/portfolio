@@ -4,7 +4,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 /**
  * Renders a placeholder skeleton list while lab experiment data is loading.
  */
-export default function LabsSkeleton() {
+export default async function LabsSkeleton() {
   return (
     <ul className="flex flex-col gap-3">
       {Array.from({ length: 5 }).map((_, i) => (

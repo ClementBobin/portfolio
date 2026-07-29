@@ -1,12 +1,12 @@
 "use client";
 
-import * as React from "react";
 import { m, useInView } from "framer-motion";
+import { type ReactNode, useRef } from "react";
 
 type RevealDirection = "up" | "left" | "right" | "down";
 
 interface ScrollRevealProps {
-  children: React.ReactNode;
+  children: ReactNode;
   direction?: RevealDirection;
   delay?: number;
   className?: string;
@@ -37,7 +37,7 @@ export default function ScrollReveal({
   className,
   once = true,
 }: ScrollRevealProps) {
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once, margin: "-80px" });
 
   const initial = { opacity: 0, ...DIR_MAP[direction] };

@@ -3,8 +3,7 @@ import { z } from "zod";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-type LocalizedString = string | { en: string; fr: string };
+import { getTranslations } from "@/hooks/getTranslations";
 
 interface LabsSectionProps {
   locale: string;
@@ -25,11 +24,6 @@ const LabItemSchema = z.object({
 
 const LabItemsSchema = z.array(LabItemSchema);
 
-function resolve(value: LocalizedString, locale: string): string {
-  if (typeof value === "string") return value;
-  return value[locale as keyof typeof value] ?? value.en ?? "";
-}
-
 async function fetchLabs() {
   try {
     const res = await fetch(`${process.env.SITE_URL}/api/labs`);
@@ -48,7 +42,10 @@ async function fetchLabs() {
  * @param locale - BCP 47 locale used to resolve localised description strings.
  */
 export default async function LabsSection({ locale }: LabsSectionProps) {
-  const labs = await fetchLabs();
+  const [t, labs] = await Promise.all([
+    getTranslations(locale, ["pages"]),
+    fetchLabs(),
+  ]);
   if (!labs.length) return null;
 
   return (
@@ -62,7 +59,7 @@ export default async function LabsSection({ locale }: LabsSectionProps) {
                   <CardTitle className="text-lg font-semibold">
                     {lab.title}
                   </CardTitle>
-                  <CardDescription>{resolve(lab.description, locale)}</CardDescription>
+                  <CardDescription>{t(lab.description)}</CardDescription>
                 </CardHeader>
                 {lab.tags.length > 0 && (
                   <CardContent>

@@ -1,8 +1,8 @@
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { SectionHeader } from "@/components/ui/SectionHeader";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { getTranslations } from "@/hooks/getTranslations";
 import type { VisionItem } from "@/lib/types/portfolio-api";
-import { VisionCard } from "./VisionCard";
+import VisionCard from "./VisionCard";
 import { Target } from "lucide-react";
 
 interface VisionProps {
