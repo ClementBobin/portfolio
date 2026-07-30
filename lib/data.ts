@@ -37,6 +37,7 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
   if (apiUrl) {
     try {
       const res = await fetch(`${apiUrl}/portfolio`);
+      console.log(res);
       if (res.ok) {
         const raw = await res.json() as Record<string, unknown>;
         return {
