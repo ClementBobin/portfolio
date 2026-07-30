@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "doctor": "npx react-doctor@latest"
+    "doctor": "npx react-doctor@latest --verbose"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
