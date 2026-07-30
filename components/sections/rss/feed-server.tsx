@@ -83,16 +83,12 @@ export default async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedS
 
   return (
     <Timeline activeIndex={0}>
-      {feed.items.map((item, i) => {
+      {feed.items.map((item) => {
         const title = item.title ? stripHtml(item.title) : undefined;
         const description = item.description ? stripHtml(item.description) : undefined;
 
-        // Prefer a stable identity from the feed; fall back to the URL-derived
-        // slug, then the link itself, and only use index as a last resort.
-        const key = item.guid ?? item.link ?? `rss-item-${i}`;
-
         return (
-          <TimelineItem key={key}>
+          <TimelineItem key={item.guid ?? item.link}>
             <TimelineDot />
             <TimelineConnector />
             <TimelineContent className="animate-in fade-in slide-in-from-bottom-2 duration-300">
