@@ -1,0 +1,28 @@
+{
+  "footer": {
+    "madeWith": {
+      "fr": "Fait avec ☕ et passion",
+      "en": "Made with ☕ and passion"
+    },
+    "copyright": {
+      "fr": "© {{year}} Clément BOBIN. Tous droits réservés.",
+      "en": "© {{year}} Clément BOBIN. All rights reserved."
+    }
+  },
+  "altLocale": {
+    "fr": "en",
+    "en": "fr"
+  },
+  "switchLanguage": {
+    "fr": "English",
+    "en": "Français"
+  },
+  "toggleTheme": {
+    "fr": "Changer de thème",
+    "en": "Toggle theme"
+  },
+  "backToTop": {
+    "fr": "Retour en haut",
+    "en": "Back to top"
+  }
+}

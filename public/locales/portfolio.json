@@ -1,0 +1,191 @@
+{
+    "section": {
+        "about": {
+        "fr": "À propos",
+        "en": "About"
+        },
+        "skills": {
+        "fr": "Compétences",
+        "en": "Skills"
+        },
+        "experience": {
+        "fr": "Expériences",
+        "en": "Experience"
+        },
+        "education": {
+        "fr": "Formation",
+        "en": "Education"
+        },
+        "highlights": {
+        "fr": "Points forts",
+        "en": "Highlights"
+        },
+        "projects": {
+        "fr": "Projets",
+        "en": "Projects"
+        },
+        "strengths": {
+        "fr": "Mes atouts",
+        "en": "Strengths"
+        },
+        "values": {
+        "fr": "Ce que j'apporte",
+        "en": "What I Bring"
+        },
+        "vision": {
+        "fr": "Vision & Objectifs",
+        "en": "Vision & Goals"
+        },
+        "hobbies": {
+        "fr": "Centres d'intérêt",
+        "en": "Hobbies & Interests"
+        }
+    },
+    "hero": {
+        "greeting": {
+        "fr": "Salut, je suis",
+        "en": "Hi, I'm"
+        },
+        "developer": {
+        "fr": "Développeur",
+        "en": "Developer"
+        },
+        "experience": {
+        "fr": "{{n}} ans d'expérience",
+        "en": "{{n}} years of experience"
+        },
+        "viewCv": {
+        "fr": "Voir mon CV",
+        "en": "View my CV"
+        },
+        "contact": {
+        "fr": "Me contacter",
+        "en": "Contact me"
+        },
+        "intro": {
+        "fr": "Présentation",
+        "en": "Introduction"
+        }
+    },
+    "highlights": {
+        "view": {
+        "fr": "Voir le projet",
+        "en": "View project"
+        },
+        "eyebrow": {
+        "fr": "Ce que j'ai réalisé",
+        "en": "What I've done"
+        },
+        "title": {
+        "fr": "Highlights",
+        "en": "Highlights"
+        },
+        "code": {
+        "fr": "Voir le code",
+        "en": "View code"
+        }
+    },
+    "projects": {
+        "eyebrow": {
+            "fr": "Ce que je construis",
+            "en": "Featured Work"
+        },
+        "title": {
+            "fr": "Projets Personnels",
+            "en": "Projects & Applications"
+        },
+        "subtitle": {
+            "en": "A selection of web applications, developer tools, and software solutions I have designed and deployed."
+        },
+        "viewProject": {
+            "fr": "Voir le projet",
+            "en": "View project"
+        },
+        "viewCode": {
+            "fr": "Voir le code",
+            "en": "View code"
+        }
+    },
+    "contributions": {
+        "eyebrow": {
+            "en": "Open Source Activity"
+        },
+        "title": {
+            "en": "GitHub Contributions & Repositories"
+        },
+        "subtitle": {
+            "en": "Tracking consistent development activity, open-source repositories, and code contributions on GitHub."
+        },
+        "follow": {
+            "en": "Follow"
+        }
+    },
+    "skills": {
+        "badge": {
+            "en": "Technical Capabilities",
+            "fr": "Compétences Techniques"
+        },
+        "title": {
+            "en": "Technical Skills & Specializations",
+            "fr": "Compétences Techniques & Spécialisations"
+        },
+        "subtitle": {
+            "en": "Organized categories of tools and languages capabilities I actively use.",
+            "fr": "Catégories organisées d'outils et de langages que j'utilise activement."
+        }
+    },
+    "about": {
+        "badge": {
+            "en": "Who I Am",
+            "fr": "Qui je suis"
+        }
+    },
+    "experience": {
+        "badge": {
+            "en": "Journey & Education",
+            "fr": "Parcours & Formation"
+        },
+        "title": {
+            "en": "Academic & Software Engineering Milestones",
+            "fr": "Étapes clés de la formation et du développement logiciel"
+        },
+        "subtitle": {
+            "en": "Key milestones in education at Maseno University and full-stack software development.",
+            "fr": "Étapes clés dans l'éducation à l'Université de Maseno et le développement logiciel full-stack."
+        }
+    },
+    "values": {
+        "title": {
+            "en": "What I Bring",
+            "fr": "Ce que j'apporte"
+        },
+        "subtitle": {
+            "en": "A senior developer isn't defined by years of experience, but by the ability to create value for the team, the product, and the company.",
+            "fr": "Un développeur senior n'est pas défini par le nombre d'années d'expérience, mais par la capacité à créer de la valeur pour l'équipe, le produit et l'entreprise."
+        }
+    },
+    "vision": {
+        "badge": {
+            "en": "Current Focus & Vision",
+            "fr": "Focus Actuel & Vision"
+        },
+        "title": {
+            "en": "Active Development & Future Vision",
+            "fr": "Développement Actif & Vision Future"
+        },
+        "subtitle": {
+            "en": "What I'm actively working on today, and where I am aiming to make an impact tomorrow.",
+            "fr": "Sur quoi je travaille activement aujourd'hui, et où je vise à avoir un impact demain."
+        }
+    },
+    "hobbies": {
+        "title": {
+            "en": "Hobbies & Interests",
+            "fr": "Loisirs et centres d’intérêt"
+        },
+        "subtitle": {
+            "en": "A glimpse into my personal interests and activities outside of work.",
+            "fr": "Un aperçu de mes centres d'intérêt et activités en dehors du travail."
+        }
+    }
+}

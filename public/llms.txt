@@ -1,0 +1,30 @@
+# Clément BOBIN — Portfolio
+
+> Fullstack developer portfolio. Clément BOBIN is a French fullstack developer (currently alternant at ACTEMIUM Dijon) with skills spanning frontend, backend, DevOps, and mobile development. This site showcases his projects, contributions, tech watch, and experiments.
+
+## Pages
+
+- [Home](https://portfolio-clement.vercel.app/en): Introduction, skills overview, personal projects, and career timeline.
+- [Contributions](https://portfolio-clement.vercel.app/en/contributions): Private work, client projects, and open-source contributions that cannot be fully shown publicly.
+- [Lab](https://portfolio-clement.vercel.app/en/lab): Interactive experiments and side projects.
+- [Veille](https://portfolio-clement.vercel.app/en/veille): Technology watch — curated articles and resources Clément follows.
+
+## External Links
+
+- [CV (French)](https://clementbobin.github.io/cv/?lang=fr): Clément's curriculum vitae.
+- [GitHub — flakeHypr](https://github.com/ClementBobin/flakeHypr): Personal Nix Flake configuration managing Linux system and dotfiles.
+- [GitHub — Obsidian](https://github.com/ClementBobin/obsidian): Structured personal knowledge base written in Markdown and published as a browsable site.
+- [GitHub — Tock UI](https://github.com/DiiageCUCDB/tockApplicationCRA): Cross-platform desktop time-tracking app built with Rust, Tauri, and React.
+- [DIIAGE](https://diiage.cucdb.fr/): School where Clément is currently enrolled in a Bachelor in IT Project Coordination (2025–2026).
+- [ACTEMIUM Dijon](https://www.actemium.fr/implantations/actemium-dijon/presentation/): Current employer (apprenticeship, Sep 2025–present).
+
+## About
+
+Clément BOBIN is a future fullstack developer who enjoys analyzing problems, designing appropriate architectures, and building robust solutions — from API to UI, including deployment and automation.
+
+**Frontend:** React, TypeScript, ASP.NET
+**Backend:** Node.js, Python, PHP, .NET
+**Databases:** MongoDB, SQL, Neon, Prisma
+**Mobile:** Kotlin
+**Tools:** Docker, Linux, Nix, JetBrains IDEs, Azure
+**Practices:** Agile/Scrum, TDD, Code Review, CI/CD

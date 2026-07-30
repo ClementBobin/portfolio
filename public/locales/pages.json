@@ -1,0 +1,134 @@
+{
+  "projects": {
+    "metaTitle": {
+      "en": "Projects",
+      "fr": "Projets"
+    },
+    "metaDescription": {
+      "en": "A chronological view of all my open-source repos and contributions.",
+      "fr": "Vue chronologique de tous mes dépôts open source et contributions."
+    },
+    "status": {
+      "en": "Open source",
+      "fr": "Open source"
+    },
+    "title": {
+      "en": "Projects",
+      "fr": "Projets"
+    },
+    "description": {
+      "en": "A chronological view of everything I have shipped — personal repos and organization contributions, grouped by creation date.",
+      "fr": "Vue chronologique de tout ce que j'ai livré — dépôts personnels et contributions organisationnelles, regroupés par date de création."
+    },
+    "personal": {
+      "en": "Personal projects",
+      "fr": "Projets personnels"
+    },
+    "org": {
+      "en": "Organization contributions",
+      "fr": "Contributions organisationnelles"
+    }
+  },
+  "veille": {
+    "metaTitle": {
+      "en": "Tech Watch",
+      "fr": "Veille Technologique"
+    },
+    "metaDescription": {
+      "en": "My tech watch — curated articles, tools and resources I follow.",
+      "fr": "Ma veille technologique — articles, outils et ressources que je suis."
+    },
+    "status": {
+      "en": "Live feed",
+      "fr": "Flux en direct"
+    },
+    "title": {
+      "en": "Tech Watch",
+      "fr": "Veille Technologique"
+    },
+    "description": {
+      "en": "Curated articles, tools and resources from my Obsidian notes feed.",
+      "fr": "Articles, outils et ressources sélectionnés depuis mon flux de notes Obsidian."
+    }
+  },
+  "rss": {
+    "error": {
+      "en": "Failed to load feed",
+      "fr": "Échec du chargement du flux"
+    },
+    "noItems": {
+      "en": "No articles found",
+      "fr": "Aucun article trouvé"
+    },
+    "noItemsDescription": {
+      "en": "The feed is empty or unavailable.",
+      "fr": "Le flux est vide ou indisponible."
+    }
+  },
+  "labs": {
+    "metaTitle": {
+      "en": "Labs",
+      "fr": "Labs"
+    },
+    "metaDescription": {
+      "en": "Experiments and interactive projects.",
+      "fr": "Expérimentations et projets interactifs."
+    },
+    "title": {
+      "en": "Labs",
+      "fr": "Labs"
+    },
+    "description": {
+      "en": "Experiments and interactive projects",
+      "fr": "Expérimentations et projets interactifs"
+    }
+  },
+  "contributions": {
+    "metaTitle": {
+      "en": "Contributions",
+      "fr": "Contributions"
+    },
+    "metaDescription": {
+      "en": "Private projects and open-source contributions I have built.",
+      "fr": "Projets privés et contributions open-source que j'ai réalisés."
+    },
+    "title": {
+      "en": "Contributions",
+      "fr": "Contributions"
+    },
+    "description": {
+      "en": "Projects I have built that I cannot fully showcase — private work, client projects, and open-source libraries.",
+      "fr": "Projets que j'ai réalisés mais que je ne peux pas pleinement montrer — travaux privés, projets clients et bibliothèques open-source."
+    }
+  },
+  "showcase": {
+    "metaTitle": {
+      "en": "Showcase",
+      "fr": "Vitrine"
+    },
+    "metaDescription": {
+      "en": "A curated selection of projects I am proud of.",
+      "fr": "Une sélection de projets dont je suis fier."
+    },
+    "title": {
+      "en": "Showcase",
+      "fr": "Vitrine"
+    },
+    "description": {
+      "en": "A curated selection of projects I have built.",
+      "fr": "Une sélection de projets que j'ai réalisés."
+    },
+    "status": {
+      "en": "Selected work",
+      "fr": "Travaux sélectionnés"
+    },
+    "viewProject": {
+      "en": "View project",
+      "fr": "Voir le projet"
+    },
+    "viewCode": {
+      "en": "View code",
+      "fr": "Voir le code"
+    }
+  }
+}
