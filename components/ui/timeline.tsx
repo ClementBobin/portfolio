@@ -7,7 +7,7 @@ import { useComposedRefs } from "@/hooks/useComposeRefs";
 import { useIsomorphicLayoutEffect } from "@/hooks/use-isomorphic-layout-effect";
 import { useLazyRef } from "@/hooks/use-lazy-ref";
 import { cn } from "@/lib/utils";
-import { ComponentProps, createContext, RefObject, useCallback, useContext, useId, useMemo, useRef, useSyncExternalStore } from "react";
+import { ComponentProps, ComponentRef, createContext, RefObject, useCallback, useContext, useId, useMemo, useRef, useSyncExternalStore } from "react";
 
 type Direction = "ltr" | "rtl";
 type Orientation = "vertical" | "horizontal";
