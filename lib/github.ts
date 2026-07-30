@@ -48,9 +48,10 @@ export async function fetchGitHubContributions(
 
     const data: ApiResponse = await response.json()
 
-    const entries: ActivityEntry[] = data.contributions
-      .filter((c) => c.count > 0)
-      .map((c) => ({ date: c.date, count: c.count }))
+    const entries: ActivityEntry[] = []
+    for (const c of data.contributions) {
+      if (c.count > 0) entries.push({ date: c.date, count: c.count })
+    }
 
     const total = Object.values(data.total).reduce((sum, n) => sum + n, 0)
 
