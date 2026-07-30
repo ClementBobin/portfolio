@@ -34,31 +34,58 @@ const EMPTY: PortfolioData = {
 export async function fetchPortfolioData(): Promise<PortfolioData> {
   const apiUrl = process.env.RESSOURCE_API_URL;
 
-  if (apiUrl) {
-    try {
-      const res = await fetch(`${apiUrl}/portfolio`);
-      console.log(res);
-      if (res.ok) {
-        const raw = await res.json() as Record<string, unknown>;
-        return {
-          seo:             (raw.seo              as PortfolioData["seo"])             ?? EMPTY.seo,
-          personal:        (raw.personal         as PortfolioData["personal"])        ?? EMPTY.personal,
-          contact:         (raw.contact          as PortfolioData["contact"])         ?? EMPTY.contact,
-          skills:          (raw.skills           as PortfolioData["skills"])          ?? EMPTY.skills,
-          strength:        (raw.strength         as PortfolioData["strength"])        ?? EMPTY.strength,
-          experiences:     (raw.experiences      as PortfolioData["experiences"])     ?? EMPTY.experiences,
-          education:       (raw.education        as PortfolioData["education"])       ?? EMPTY.education,
-          projects:        (raw.projects         as PortfolioData["projects"])        ?? EMPTY.projects,
-          hobbies:         (raw.hobbies          as PortfolioData["hobbies"])         ?? EMPTY.hobbies,
-          philosophy:      (raw.philosophy       as PortfolioData["philosophy"])      ?? EMPTY.philosophy,
-          vision:          (raw.vision           as PortfolioData["vision"])          ?? EMPTY.vision,
-          recommendations: (raw.recommendations  as PortfolioData["recommendations"]) ?? EMPTY.recommendations,
-        };
-      }
-    } catch {
-      /* fall through to empty defaults */
-    }
+  console.log("[portfolio] RESSOURCE_API_URL =", apiUrl ?? "(not set)");
+
+  if (!apiUrl) {
+    console.warn("[portfolio] No API URL configured — returning empty defaults");
+    return EMPTY;
   }
 
-  return EMPTY;
+  let res: Response;
+  try {
+    res = await fetch(`${apiUrl}/portfolio`, { cache: "no-store" });
+  } catch (err) {
+    console.error("[portfolio] Network error:", err);
+    return EMPTY;
+  }
+
+  if (!res.ok) {
+    const body = await res.text().catch(() => "(unreadable)");
+    console.error(
+      `[portfolio] HTTP ${res.status} ${res.statusText} from ${apiUrl}/portfolio\nBody: ${body}`
+    );
+    return EMPTY;
+  }
+
+  let raw: Record<string, unknown>;
+  try {
+    raw = (await res.json()) as Record<string, unknown>;
+  } catch (err) {
+    console.error("[portfolio] Failed to parse JSON:", err);
+    return EMPTY;
+  }
+
+  console.log("[portfolio] Keys received:", Object.keys(raw));
+
+  const missingKeys = (Object.keys(EMPTY) as (keyof PortfolioData)[]).filter(
+    (k) => !(k in raw)
+  );
+  if (missingKeys.length > 0) {
+    console.warn("[portfolio] Missing keys in response:", missingKeys);
+  }
+
+  return {
+    seo:             (raw.seo             as PortfolioData["seo"])             ?? EMPTY.seo,
+    personal:        (raw.personal        as PortfolioData["personal"])        ?? EMPTY.personal,
+    contact:         (raw.contact         as PortfolioData["contact"])         ?? EMPTY.contact,
+    skills:          (raw.skills          as PortfolioData["skills"])          ?? EMPTY.skills,
+    strength:        (raw.strength        as PortfolioData["strength"])        ?? EMPTY.strength,
+    experiences:     (raw.experiences     as PortfolioData["experiences"])     ?? EMPTY.experiences,
+    education:       (raw.education       as PortfolioData["education"])       ?? EMPTY.education,
+    projects:        (raw.projects        as PortfolioData["projects"])        ?? EMPTY.projects,
+    hobbies:         (raw.hobbies         as PortfolioData["hobbies"])         ?? EMPTY.hobbies,
+    philosophy:      (raw.philosophy      as PortfolioData["philosophy"])      ?? EMPTY.philosophy,
+    vision:          (raw.vision          as PortfolioData["vision"])          ?? EMPTY.vision,
+    recommendations: (raw.recommendations as PortfolioData["recommendations"]) ?? EMPTY.recommendations,
+  };
 }
