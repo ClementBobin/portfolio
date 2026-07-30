@@ -1,4 +1,4 @@
-import { Ref, RefCallback, useCallback } from "react";
+import { Ref, RefCallback, useCallback, useLayoutEffect, useRef } from "react";
 
 type PossibleRef<T> = Ref<T> | undefined;
 
@@ -55,8 +55,38 @@ function composeRefs<T>(...refs: PossibleRef<T>[]): RefCallback<T> {
  * Accepts callback refs and RefObject(s)
  */
 function useComposedRefs<T>(...refs: PossibleRef<T>[]): RefCallback<T> {
-  // eslint-disable-next-line react-hooks/use-memo
-  return useCallback(composeRefs(...refs), refs);
+  const refsRef = useRef(refs);
+
+  // useLayoutEffect runs synchronously after DOM mutations and before paint,
+  // so refsRef.current is always up to date before any ref callback fires.
+  useLayoutEffect(() => {
+    refsRef.current = refs;
+  });
+
+  return useCallback((node: T) => {
+    let hasCleanup = false;
+    const currentRefs = refsRef.current;
+    const cleanups = currentRefs.map((ref) => {
+      const cleanup = setRef(ref, node);
+      if (!hasCleanup && typeof cleanup === "function") {
+        hasCleanup = true;
+      }
+      return cleanup;
+    });
+
+    if (hasCleanup) {
+      return () => {
+        for (let i = 0; i < cleanups.length; i++) {
+          const cleanup = cleanups[i];
+          if (typeof cleanup === "function") {
+            cleanup();
+          } else {
+            setRef(currentRefs[i], null);
+          }
+        }
+      };
+    }
+  }, []);
 }
 
 export { composeRefs, useComposedRefs };
