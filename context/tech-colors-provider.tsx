@@ -1,16 +1,9 @@
 "use client";
 
-import { createContext, useMemo } from "react";
+import { useMemo } from "react";
+import { TechColorsContext, type TechColorEntry } from "./TechColorsContext";
 
-export interface TechColorEntry {
-  color: string;
-  icon: string;
-  iconHref?: string;
-}
-
-export const TechColorsContext = createContext<
-  Map<string, TechColorEntry> | null
->(null);
+export type { TechColorEntry };
 
 export function TechColorsProvider({
   techColors,

@@ -310,12 +310,7 @@ export default function AboutTerminal({
   };
 
   return (
-    // Plain div — clicking anywhere focuses the input via onClick.
-    // role="button" removed to avoid nesting interactive elements.
-    <div
-      className="flex h-80 w-full flex-col overflow-hidden rounded-xl border border-border bg-[#0d1117] font-mono text-[11px]"
-      onClick={() => inputRef.current?.focus()}
-    >
+    <div className="flex h-80 w-full flex-col overflow-hidden rounded-xl border border-border bg-[#0d1117] font-mono text-[11px]">
       <div className="flex shrink-0 items-center justify-between border-b border-border px-4 py-2">
         <span className="flex items-center gap-1.5 font-semibold text-emerald-400">
           <Terminal size={12} aria-hidden />
@@ -358,12 +353,16 @@ export default function AboutTerminal({
         ))}
       </div>
 
+      {/* The label's htmlFor association makes the entire bottom bar
+          a native click-to-focus target — no onClick handler needed. */}
       <div className="flex shrink-0 items-center gap-2 border-t border-border px-4 py-2.5">
-        <label htmlFor="terminal-input" className="sr-only">
-          Terminal command input
+        <label
+          htmlFor="terminal-input"
+          className="flex cursor-text items-center gap-2 font-bold text-emerald-400"
+        >
+          <span className="sr-only">Terminal command input</span>
+          <span aria-hidden>$</span>
         </label>
-
-        <span className="font-bold text-emerald-400">$</span>
 
         <input
           id="terminal-input"

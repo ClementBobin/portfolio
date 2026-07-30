@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import type {
   LoadedNamespaces,
@@ -71,7 +71,17 @@ export function useTranslations(
   ns: string[] = ["common"],
 ): TFunction {
   const lang = getLanguageCode(locale);
+
+  // Stable string key derived from the ns array. Avoids treating a new
+  // array literal with the same contents as a changed dependency.
   const cacheKey = ns.join(",");
+
+  // Keep the current ns list accessible inside the effect without making
+  // the array itself a dependency (it's recreated every render by callers).
+  const nsRef = useRef(ns);
+  useEffect(() => {
+    nsRef.current = ns;
+  });
 
   const buildT = useCallback(
     (loaded: LoadedNamespaces) => createTFunction(lang, loaded),
@@ -92,24 +102,31 @@ export function useTranslations(
   useEffect(() => {
     let cancelled = false;
 
-    Promise.all(ns.map(fetchNamespaceClient)).then((results) => {
-      if (cancelled) {
-        return;
-      }
+    // Snapshot the namespace list that corresponds to this cacheKey so the
+    // async continuation always maps results to the correct names, even if
+    // the ref has been updated by the time the Promise resolves.
+    const names = nsRef.current.slice();
+
+    async function load() {
+      const results = await Promise.all(names.map(fetchNamespaceClient));
+
+      if (cancelled) return;
 
       const loaded: LoadedNamespaces = {};
 
-      ns.forEach((name, index) => {
-        loaded[name] = results[index];
-      });
+      for (let i = 0; i < names.length; i++) {
+        loaded[names[i]] = results[i];
+      }
 
       setNamespaces(loaded);
-    });
+    }
+
+    load();
 
     return () => {
       cancelled = true;
     };
-  }, [cacheKey]);
+  }, [cacheKey]); // cacheKey is the stable proxy for the ns array
 
   return buildT(namespaces);
 }

@@ -3,6 +3,7 @@ import { XMLParser } from "fast-xml-parser";
 interface RSSItem {
   title: string;
   link: string;
+  guid?: string;
   description?: string;
   pubDate?: string;
   author?: string;
@@ -95,6 +96,8 @@ class RSSParser {
         items: items.map((item: any) => ({
           title: item.title || "",
           link: item.link || "",
+          // guid may be a plain string or an object like { "#text": "...", isPermaLink: true }
+          guid: typeof item.guid === "object" ? item.guid["#text"] : item.guid,
           description: item.description,
           pubDate: item.pubDate,
           author: item.author || item["dc:creator"],
@@ -124,6 +127,8 @@ class RSSParser {
           return {
             title: entry.title || "",
             link: link || "",
+            // Atom uses <id> as the stable identifier, equivalent to RSS guid
+            guid: entry.id,
             description: entry.summary || entry.content,
             pubDate: entry.published || entry.updated,
             author:

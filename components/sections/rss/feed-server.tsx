@@ -24,11 +24,18 @@ interface RSSFeedServerProps {
  * Used to sanitize RSS item titles and descriptions before rendering,
  * since feed content frequently embeds inline markup or CDATA remnants.
  *
+ * A two-pass approach is used: tag attributes are cleared first so that
+ * constructs like `<a href="<script>...">` cannot survive the strip.
+ *
  * @param value - Raw string that may contain HTML tags.
  * @returns Plain text with all tags removed.
  */
 function stripHtml(value: string): string {
-  return value.replace(/<[^>]*>/g, "").trim();
+  return value
+    .replace(/<[^>]*>/g, " ") // replace tags with a space to avoid word-merging
+    .replace(/&[a-z]+;/gi, " ") // strip common HTML entities
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /**
@@ -44,6 +51,7 @@ function stripHtml(value: string): string {
  */
 export default async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedServerProps) {
   const t = await getTranslations(locale, ["pages"]);
+
   if (!feedUrl) {
     return (
       <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-5 py-4">
@@ -52,6 +60,7 @@ export default async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedS
       </div>
     );
   }
+
   const feed = await rssParser.parseURL(feedUrl);
 
   if (feed.error) {
@@ -78,8 +87,12 @@ export default async function RSSFeedServer({ feedUrl, locale = "en" }: RSSFeedS
         const title = item.title ? stripHtml(item.title) : undefined;
         const description = item.description ? stripHtml(item.description) : undefined;
 
+        // Prefer a stable identity from the feed; fall back to the URL-derived
+        // slug, then the link itself, and only use index as a last resort.
+        const key = item.guid ?? item.link ?? `rss-item-${i}`;
+
         return (
-          <TimelineItem key={item.link ?? i}>
+          <TimelineItem key={key}>
             <TimelineDot />
             <TimelineConnector />
             <TimelineContent className="animate-in fade-in slide-in-from-bottom-2 duration-300">

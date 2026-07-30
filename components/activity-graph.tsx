@@ -140,7 +140,7 @@ function getMonthLabels(
 
     if (key !== lastKey) {
       months.push({
-        label: firstDay.date.toLocaleString("en-US", { month: "short" }),
+        label: firstDay.date.toLocaleString("en-US", { month: "short", timeZone: "UTC" }),
         offset: w * (blockSize + GAP),
       })
       lastKey = key
@@ -156,6 +156,7 @@ function formatDate(date: Date): string {
     month: "short",
     day: "numeric",
     year: "numeric",
+    timeZone: "UTC",
   })
 }
 

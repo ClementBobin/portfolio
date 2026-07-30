@@ -2,7 +2,6 @@ import type { StrengthItem } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
 import StrengthExampleModal from "./StrengthExampleModal";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { ActivityGraph } from "@/components/activity-graph"
 
 interface StrengthProps {
   strength: StrengthItem;
@@ -17,9 +16,9 @@ function getStrengthColor(value: number) {
 }
 
 export default async function Strength({ strength, locale }: StrengthProps) {
+  if (!strength.strengths.length) return null;
   const t = await getTranslations(locale, ["portfolio"]);
 
-  if (!strength.strengths.length) return null;
 
   const example = strength.detail?.example;
 
@@ -87,7 +86,7 @@ export default async function Strength({ strength, locale }: StrengthProps) {
           <StrengthExampleModal
             example={example}
             label={t(strength.detail!.short!) ?? "See a real example"}
-            t={t}
+            locale={locale}
           />
         )}
       </ScrollReveal>
