@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { TechColorsContext } from "@/context/tech-colors-provider";
+import { TechColorsContext } from "@/context/TechColorsContext";
 
 export function useTechColors() {
   const colors = useContext(TechColorsContext);
