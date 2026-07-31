@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
+import AnimatedSectionTitle from "./AnimatedSectionTitle";
 
 interface SectionHeaderProps {
   /** Content inside the pill — typically an icon + label string */
@@ -8,6 +9,8 @@ interface SectionHeaderProps {
   title?: ReactNode;
   subtitle?: ReactNode;
   className?: string;
+  /** When true, animates the title with WordsStagger (only works when title is a plain string) */
+  animateTitle?: boolean;
 }
 
 /**
@@ -20,6 +23,7 @@ export default async function SectionHeader({
   title,
   subtitle,
   className,
+  animateTitle = true,
 }: SectionHeaderProps) {
   return (
     <div className="flex flex-col gap-16">
@@ -30,7 +34,11 @@ export default async function SectionHeader({
           </span>
         )}
         {title && (
-          <h2 className="text-4xl font-bold tracking-tight">{title}</h2>
+          animateTitle && typeof title === "string" ? (
+            <AnimatedSectionTitle title={title} />
+          ) : (
+            <h2 className="text-4xl font-bold tracking-tight">{title}</h2>
+          )
         )}
         {subtitle && (
           <p className="max-w-lg leading-relaxed text-muted-foreground">{subtitle}</p>

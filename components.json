@@ -23,6 +23,7 @@
   },
   "registries": {
     "@diceui": "https://diceui.com/r/{name}.json",
-    "@jalco": "https://ui.justinlevine.me/r/{name}.json"
+    "@jalco": "https://ui.justinlevine.me/r/{name}.json",
+    "@spell": "https://spell.sh/r/{name}.json"
   }
 }

@@ -187,5 +187,11 @@
             "en": "A glimpse into my personal interests and activities outside of work.",
             "fr": "Un aperçu de mes centres d'intérêt et activités en dehors du travail."
         }
+    },
+    "education": {
+        "type": {
+            "fr": "Formation",
+            "en": "Education"
+        }
     }
 }
