@@ -43,7 +43,7 @@ export async function fetchPortfolioData(): Promise<PortfolioData> {
 
   let res: Response;
   try {
-    res = await fetch(`${apiUrl}/portfolio`, { cache: "no-store" });
+    res = await fetch(`${apiUrl}/portfolio/get`, { cache: "no-store" });
   } catch (err) {
     console.error("[portfolio] Network error:", err);
     return EMPTY;
