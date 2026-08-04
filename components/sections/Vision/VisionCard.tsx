@@ -3,6 +3,7 @@ import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import { CheckCircle2, ArrowUpRight } from "lucide-react";
 import type { VisionItem } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
+import { HighlightedText } from "@/components/ui/highlighted-text";
 
 interface VisionCardProps {
   item: VisionItem;
@@ -39,7 +40,12 @@ export default async function VisionCard({ item, locale }: VisionCardProps) {
               {eyebrow}
             </span>
           )}
-          <h3 className="text-lg font-bold text-foreground leading-tight">{title}</h3>
+          <h3 className="text-lg font-bold text-foreground leading-tight">
+            {title.split(" ").slice(0, -1).join(" ")}{" "}
+            <HighlightedText from="left" inView once delay={0.15}>
+              {title.split(" ").at(-1) ?? title}
+            </HighlightedText>
+          </h3>
         </div>
       </div>
 

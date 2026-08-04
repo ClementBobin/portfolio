@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { ExternalLinkIcon, GitHubIcon } from "@/components/icons"
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import ContributionCard from "./ContributionCard";
@@ -24,6 +24,14 @@ export default function ContributionsSectionClient({
 }: ContributionsSectionClientProps) {
   const [activeItem, setActiveItem] = useState<ContributionItem | null>(null);
   const t = useTranslations(locale, ["portfolio"]);
+
+    const handleOpen = useCallback((item: ContributionItem) => {
+    setActiveItem(item);
+  }, []);
+
+  const handleOpenChange = useCallback((open: boolean) => {
+    if (!open) setActiveItem(null);
+  }, []);
 
   return (
     <div className="flex flex-col gap-8">
@@ -64,7 +72,7 @@ export default function ContributionsSectionClient({
               <ContributionCard
                 item={item}
                 locale={locale}
-                onOpen={() => setActiveItem(item)}
+                onOpen={handleOpen}
               />
             </li>
           </ScrollReveal>
@@ -75,7 +83,7 @@ export default function ContributionsSectionClient({
       <ContributionModal
         item={activeItem}
         open={activeItem !== null}
-        onOpenChange={(open) => { if (!open) setActiveItem(null); }}
+        onOpenChange={handleOpenChange}
         locale={locale}
       />
     </div>

@@ -2,6 +2,7 @@ import { DynamicLucideIcon } from "@/components/icons/dynamicLucideIcon";
 import { CheckCircle2 } from "lucide-react";
 import type { PhilosophyCard as PhilosophyCardType } from "@/lib/types/portfolio-api";
 import type { TFunction } from "@/lib/types/global";
+import { HighlightedText } from "@/components/ui/highlighted-text";
 
 interface PhilosophyCardProps {
   card: PhilosophyCardType;
@@ -31,7 +32,12 @@ export default async function PhilosophyCard({ card, t }: PhilosophyCardProps) {
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent">
           <DynamicLucideIcon name={card.icon} className="size-5" />
         </div>
-        <h3 className="text-lg font-bold text-foreground">{title}</h3>
+        <h3 className="text-lg font-bold text-foreground">
+          {title.split(" ").slice(0, -1).join(" ")}{" "}
+          <HighlightedText from="bottom" inView once delay={0.1}>
+            {title.split(" ").at(-1) ?? title}
+          </HighlightedText>
+        </h3>
       </div>
 
       {/* Optional intro description (checklist variant) */}

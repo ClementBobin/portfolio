@@ -2,7 +2,7 @@
 
 import { use } from "react";
 import { GitBranch } from "lucide-react";
-import { ActivityGraph } from "@/components/activity-graph";
+import { ActivityGraph } from "@/components/ui/activity-graph";
 import { fetchGitHubContributions } from "@/lib/github";
 
 // Created once when the module loads — survives re-renders and Suspense cycles

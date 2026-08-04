@@ -1,3 +1,5 @@
+"use client"
+
 import { LinkedInIcon } from "@/components/icons";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ExternalLink } from "lucide-react";
@@ -8,7 +10,7 @@ interface LinkedInCardProps {
   label: string;
 }
 
-export default async function LinkedInCard({ url, label }: LinkedInCardProps) {
+export default function LinkedInCard({ url, label }: LinkedInCardProps) {
   return (
     <Card className="flex flex-col gap-2.5 rounded-xl p-4">
       <CardHeader className="flex items-center gap-2.5">

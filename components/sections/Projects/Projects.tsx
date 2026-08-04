@@ -10,7 +10,8 @@ interface ProjectsProps {
 }
 
 /**
- * Renders the projects portfolio section with localized headings and project cards.
+ * Renders the projects portfolio section with localized headings and
+ * PerspectiveBook project cards.
  *
  * @param projects - List of projects to display.
  * @param locale - Active locale used for translations.
@@ -32,7 +33,8 @@ export default async function Projects({ projects, locale }: ProjectsProps) {
           title={t("projects.title")}
           subtitle={t("projects.subtitle")}
         >
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Flex wrap: book cards look great as a shelf */}
+          <div className="flex flex-wrap gap-8 justify-center sm:justify-start">
             {projects.map((project, i) => (
               <ProjectCard
                 key={project.id}

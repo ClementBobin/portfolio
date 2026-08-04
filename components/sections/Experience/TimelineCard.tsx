@@ -5,6 +5,7 @@ import { ExternalLinkIcon } from "@/components/icons/externalLink";
 import { CheckCircle2, Calendar, MapPin } from "lucide-react";
 import type { Education, Experience, ExperienceTech } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
+import { SpecialText } from "@/components/ui/special-text";
 
 type TimelineCardProps =
   | { kind: "experience"; data: Experience; locale: string; isHighlighted?: boolean }
@@ -102,11 +103,17 @@ export default async function TimelineCard({ kind, data, locale, isHighlighted }
               rel="noopener noreferrer"
               className="inline-flex items-start gap-1 text-[15px] font-semibold text-foreground hover:text-accent transition-colors"
             >
-              {title}
+              <SpecialText inView once speed={18} delay={0.05}>
+                {title}
+              </SpecialText>
               <ExternalLinkIcon className="mt-1 size-3 shrink-0" />
             </Link>
           ) : (
-            <h3 className="text-[15px] font-semibold text-foreground leading-snug">{title}</h3>
+            <h3 className="text-[15px] font-semibold text-foreground leading-snug">
+              <SpecialText inView once speed={18} delay={0.05}>
+                {title}
+              </SpecialText>
+            </h3>
           )}
 
           {subtitleHref && !media ? (

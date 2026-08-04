@@ -2,6 +2,7 @@ import type { StrengthItem } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
 import StrengthExampleModal from "./StrengthExampleModal";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { RandomizedText } from "@/components/ui/randomized-text";
 
 interface StrengthProps {
   strength: StrengthItem;
@@ -25,12 +26,14 @@ export default async function Strength({ strength, locale }: StrengthProps) {
   return (
     <section
       id="strengths"
-      className="mx-auto w-full max-w-5xl px-6 py-24"
+      className="relative mx-auto w-full max-w-5xl px-6 py-24 overflow-hidden"
       aria-label={t("section.strengths")}
     >
       <ScrollReveal>
         <h2 className="mb-16 text-center text-4xl font-bold text-foreground">
-          {t("section.strengths")}
+          <RandomizedText split="chars" inView once delay={0.1}>
+            {t("section.strengths")}
+          </RandomizedText>
         </h2>
       </ScrollReveal>
 

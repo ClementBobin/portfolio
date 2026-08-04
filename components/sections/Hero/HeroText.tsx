@@ -1,9 +1,11 @@
 "use client";
 
-import { m } from "framer-motion";
-import type { Variants } from "framer-motion";
 import { useTranslations } from "@/hooks/useTranslations";
 import type { PortfolioPersonal } from "@/lib/types/portfolio-api";
+import { BlurReveal } from "@/components/ui/blur-reveal";
+import { GradientWaveText } from "@/components/ui/gradient-wave-text";
+import { m } from "framer-motion";
+import { Signature } from "@/components/ui/signature";
 
 interface HeroTextProps {
   personal: PortfolioPersonal;
@@ -11,24 +13,8 @@ interface HeroTextProps {
   yearsExperience?: number;
 }
 
-const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.3 },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
-};
-
 /**
- * Animated hero text with typewriter effect for roles.
- * Name animates in with staggered entrance animation.
+ * Animated hero text using BlurReveal for entrance and GradientWaveText for the role.
  *
  * @param personal        - Personal portfolio data
  * @param locale          - Current locale
@@ -42,47 +28,53 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
   const developerLabel = t("hero.developer");
 
   return (
-    <m.div
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-      className="flex flex-col items-center gap-4 text-center"
-    >
-      {/* Greeting */}
-      <m.p
-        variants={itemVariants}
+    <div className="flex flex-col items-center gap-4 text-center">
+      {/* Greeting — blur reveal */}
+      <BlurReveal
+        as="p"
+        delay={0.1}
         className="text-lg italic text-muted-foreground"
       >
         {greeting}
-      </m.p>
+      </BlurReveal>
 
-      {/* Name */}
-      <m.h1
-        variants={itemVariants}
-        className="text-5xl font-bold italic leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl"
-      >
-        {personal.name}
-      </m.h1>
-
+      {/* Name — blur reveal with bold display treatment */}
+      <Signature
+        text={personal.name}
+        inView={true}
+        once={true}
+        color="#c4922a"
+        fontSize={32}
+        duration={1.5}
+        className="font-bold text-4xl md:text-5xl h-12 md:h-16"
+        delay={0.35}
+      />
       {/* Years of experience */}
       {expText && (
-        <m.p variants={itemVariants} className="text-sm text-muted-foreground">
+        <m.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="text-sm text-muted-foreground"
+        >
           {expText}
         </m.p>
       )}
 
-      {/* Role */}
+      {/* Role — gradient wave */}
       <m.div
-        variants={itemVariants}
-        className="flex items-center gap-2 text-2xl font-medium text-foreground md:text-3xl"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+        className="flex items-center gap-2 text-2xl font-medium md:text-3xl"
       >
-        <span
-          className="text-accent"
-          style={{ fontSize: "1.2em" }}
+        <GradientWaveText
+          customColors={["#c4922a", "#e8b84b", "#f5d78a", "#e0a83a", "#c4922a"]}
+          speed={4}
         >
           {developerLabel}
-        </span>
+        </GradientWaveText>
       </m.div>
-    </m.div>
+    </div>
   );
 }

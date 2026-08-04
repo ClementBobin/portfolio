@@ -4,6 +4,7 @@ import { getTranslations } from "@/hooks/getTranslations";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { Sparkles } from "lucide-react";
 import AboutInteractive from "./AboutInteractive";
+import { RandomizedText } from "@/components/ui/randomized-text";
 
 interface AboutProps {
   personal: PortfolioPersonal;
@@ -44,9 +45,9 @@ export default async function About({ personal, portfolio, locale }: AboutProps)
           {/* Text content */}
           <ScrollReveal direction="right">
             <div className="flex flex-col gap-6">
-              <p className="text-lg leading-relaxed text-foreground/90">
+              <RandomizedText split="chars" className="text-lg leading-relaxed text-foreground/90" inView>
                 {t(personal.summary)}
-              </p>
+              </RandomizedText>
             </div>
           </ScrollReveal>
         </div>

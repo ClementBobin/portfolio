@@ -9,26 +9,28 @@ interface LabsSectionProps {
   locale: string;
 }
 
-const LocalizedStringSchema = z.union([
-  z.string(),
-  z.object({ en: z.string(), fr: z.string() }),
-]);
+const LocalizedStringSchema = z.object({
+  en: z.string(),
+  fr: z.string(),
+});
 
 const LabItemSchema = z.object({
   slug: z.string(),
-  title: z.string(),
+  title: LocalizedStringSchema,
   description: LocalizedStringSchema,
   tags: z.array(z.string()),
-  href: z.string(),
+  href: z.string().nullable(),
+  type: z.enum(["embedded", "external"]),
 });
 
 const LabItemsSchema = z.array(LabItemSchema);
 
 async function fetchLabs() {
   try {
-    const res = await fetch(`${process.env.SITE_URL}/api/labs`);
+    const res = await fetch(`${process.env.SITE_URL}`);
     if (!res.ok) return [];
-    const parsed = LabItemsSchema.safeParse(await res.json());
+    const json = await res.json();
+    const parsed = LabItemsSchema.safeParse(json);
     return parsed.success ? parsed.data : [];
   } catch {
     return [];
@@ -50,23 +52,31 @@ export default async function LabsSection({ locale }: LabsSectionProps) {
 
   return (
     <ul className="flex flex-col gap-3">
-      {labs.map((lab, i) => (
+    {labs.map((lab, i) => {
+      const href =
+        lab.type === "external" && lab.href
+          ? lab.href
+          : `/${locale}/experiments/${lab.slug}`;
+
+      return (
         <ScrollReveal key={lab.slug} delay={i * 0.05}>
           <li>
-            <Link href={lab.href} className="group block">
+            <Link href={href} className="group block">
               <Card className="transition-shadow group-hover:ring-accent/40 group-hover:shadow-md">
                 <CardHeader>
                   <CardTitle className="text-lg font-semibold">
-                    {lab.title}
+                    {t(lab.title)}
                   </CardTitle>
-                  <CardDescription>{t(lab.description)}</CardDescription>
+                  <CardDescription>
+                    {t(lab.description)}
+                  </CardDescription>
                 </CardHeader>
                 {lab.tags.length > 0 && (
                   <CardContent>
                     <div className="flex flex-wrap gap-1.5">
                       {lab.tags.map((tag) => (
                         <Badge key={tag} variant="outline">
-                          {tag}
+                          {t(tag)}
                         </Badge>
                       ))}
                     </div>
@@ -76,7 +86,8 @@ export default async function LabsSection({ locale }: LabsSectionProps) {
             </Link>
           </li>
         </ScrollReveal>
-      ))}
+      );
+    })}
     </ul>
   );
 }
