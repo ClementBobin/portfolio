@@ -13,9 +13,7 @@ interface AnimatedSectionTitleProps {
 export default function AnimatedSectionTitle({ title }: AnimatedSectionTitleProps) {
   return (
     <WordsStagger
-      as="h2"
       stagger={0.05}
-      duration={0.55}
       delay={0.1}
       className="text-4xl font-bold tracking-tight"
     >
