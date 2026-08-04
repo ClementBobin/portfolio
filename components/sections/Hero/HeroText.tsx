@@ -5,6 +5,7 @@ import type { PortfolioPersonal } from "@/lib/types/portfolio-api";
 import { BlurReveal } from "@/components/ui/blur-reveal";
 import { GradientWaveText } from "@/components/ui/gradient-wave-text";
 import { m } from "framer-motion";
+import { Signature } from "@/components/ui/signature";
 
 interface HeroTextProps {
   personal: PortfolioPersonal;
@@ -32,24 +33,22 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
       <BlurReveal
         as="p"
         delay={0.1}
-        speedReveal={1.2}
-        speedSegment={0.45}
         className="text-lg italic text-muted-foreground"
       >
         {greeting}
       </BlurReveal>
 
       {/* Name — blur reveal with bold display treatment */}
-      <BlurReveal
-        as="h1"
+      <Signature
+        text={personal.name}
+        inView={true}
+        once={true}
+        color="#c4922a"
+        fontSize={32}
+        duration={1.5}
+        className="font-bold text-4xl md:text-5xl h-12 md:h-16"
         delay={0.35}
-        speedReveal={1.0}
-        speedSegment={0.55}
-        className="text-5xl font-bold italic leading-tight tracking-tight text-foreground md:text-7xl lg:text-8xl"
-      >
-        {personal.name}
-      </BlurReveal>
-
+      />
       {/* Years of experience */}
       {expText && (
         <m.p
@@ -70,10 +69,8 @@ export default function HeroText({ personal, locale, yearsExperience }: HeroText
         className="flex items-center gap-2 text-2xl font-medium md:text-3xl"
       >
         <GradientWaveText
-          as="span"
-          colors={["#c4922a", "#e8b84b", "#f5d78a", "#e0a83a", "#c4922a"]}
+          customColors={["#c4922a", "#e8b84b", "#f5d78a", "#e0a83a", "#c4922a"]}
           speed={4}
-          style={{ fontSize: "1.1em", fontWeight: 600 }}
         >
           {developerLabel}
         </GradientWaveText>

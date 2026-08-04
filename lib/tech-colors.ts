@@ -16,7 +16,7 @@ export async function getTechColors(): Promise<
   }
 
   try {
-    const res = await fetch(`${apiUrl}/config/colors/tech`, {
+    const res = await fetch(`${apiUrl}/config/techColors`, {
       next: {
         revalidate: 3600,
       },

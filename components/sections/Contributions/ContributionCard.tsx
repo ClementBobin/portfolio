@@ -16,7 +16,7 @@ import { useTranslations } from "@/hooks/useTranslations";
 interface ContributionCardProps {
   item: ContributionItem;
   locale: string;
-  onOpen: () => void;
+  onOpen: (item: ContributionItem) => void;
 }
 
 export default function ContributionCard({ item, locale, onOpen }: ContributionCardProps) {
@@ -25,21 +25,9 @@ export default function ContributionCard({ item, locale, onOpen }: ContributionC
   return (
     <Card
       className="transition-colors hover:border-accent"
-      onClick={onOpen}
+      onClick={() => onOpen(item)}
       role="button"
       tabIndex={0}
-      onKeyDown={(event) => {
-        if (event.target !== event.currentTarget) return;
-
-        if (event.key === "Enter") {
-          onOpen();
-        }
-
-        if (event.key === " ") {
-          event.preventDefault();
-          onOpen();
-        }
-      }}
     >
       <CardHeader>
         <div className="flex items-start justify-between gap-2">

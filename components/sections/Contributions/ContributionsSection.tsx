@@ -6,7 +6,7 @@ async function fetchContributions(): Promise<ContributionItem[]> {
   if (!apiUrl) return [];
 
   try {
-    const res = await fetch(`${apiUrl}/contributions`, {
+    const res = await fetch(`${apiUrl}/contributions/list`, {
       next: { revalidate: 3600 },
     });
 

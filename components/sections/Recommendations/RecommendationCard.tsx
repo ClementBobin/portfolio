@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { LinkedInIcon } from "@/components/icons";
+import { SlideUpText } from "@/components/ui/slide-up-text";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,7 +52,9 @@ export default function RecommendationCard({ rec, locale }: RecommendationCardPr
 
           {/* Excerpt */}
           <p className="flex-1 text-sm italic leading-relaxed text-foreground/80">
-            {excerpt}
+            <SlideUpText split="words" stagger={0.03} delay={0.05} inView once>
+              {excerpt}
+            </SlideUpText>
           </p>
 
           {/* Author */}

@@ -29,9 +29,10 @@ export default async function Skills({ skills, locale }: SkillsProps) {
   return (
     <section
       id="skills"
-      className="mx-auto w-full max-w-5xl px-6 py-24"
+      className="relative mx-auto w-full max-w-5xl px-6 py-24 overflow-hidden"
       aria-label={t("section.skills")}
     >
+      {/* Subtle rotating particle sphere — barely visible accent */}
       <SectionHeader
         eyebrow={
           <>

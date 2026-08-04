@@ -3,6 +3,7 @@ import { DynamicLucideIcon } from "@/components/icons";
 import type { Hobby } from "@/lib/types/portfolio-api";
 import { getTranslations } from "@/hooks/getTranslations";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { SlideUpText } from "@/components/ui/slide-up-text";
 
 interface HobbiesProps {
   hobbies: Hobby[];
@@ -43,7 +44,9 @@ export default async function Hobbies({ hobbies, locale }: HobbiesProps) {
                       <DynamicLucideIcon name={hobby.icon} />
                     </span>
                     <h3 className="text-lg font-semibold text-foreground">
-                      {title}
+                      <SlideUpText split="chars" stagger={0.03} delay={i * 0.08} inView once>
+                        {title}
+                      </SlideUpText>
                     </h3>
                   </div>
 

@@ -8,6 +8,7 @@ import { ChevronDownIcon } from "@/components/icons";
 import { ContactDialog } from "../Contact/Contact";
 import { useTranslations } from "@/hooks/useTranslations";
 import { Button } from "@/components/ui/button";
+import { ShimmerText } from "@/components/ui/shimmer-text";
 
 const HeroCanvas = dynamic(() => import("./HeroCanvas"), { ssr: false });
 
@@ -62,7 +63,9 @@ export default function Hero({ personal, locale, experiences, contact }: HeroPro
                 className="px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label={t("hero.contact")}
               >
-                {t("hero.contact")}
+                <ShimmerText duration={3} delay={2}>
+                  {t("hero.contact")}
+                </ShimmerText>
               </Button>
             }
             linkedinUrl={contact.find((c) => c.type === "linkedin")?.href ?? ""}
