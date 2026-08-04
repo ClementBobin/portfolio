@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 const ContactSchema = z.object({
   name: z.string().trim().min(1),
   email: z.string().trim().email(),
-  subject: z.string().trim().min(1),
   message: z.string().trim().min(1),
 });
 
@@ -45,7 +44,7 @@ export async function POST(req: NextRequest) {
   const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
 
   try {
-    const upstream = await fetch(`${apiUrl}/contact`, {
+    const upstream = await fetch(`${apiUrl}/contact/send`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
