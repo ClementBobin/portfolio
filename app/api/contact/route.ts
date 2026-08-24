@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(parsed.data),
+      body: JSON.stringify({ ...parsed.data, template: "portfolio" }),
       signal: controller.signal,
     });
 
