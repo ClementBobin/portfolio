@@ -9,7 +9,7 @@ import Projects from "@/components/sections/Projects/Projects";
 import Philosophy from "@/components/sections/Philosophy/Philosophy";
 import Vision from "@/components/sections/Vision/Vision";
 import Hobbies from "@/components/sections/Hobbies/Hobbies";
-import Strength from "@/components/sections/Strength/Strength";
+// import Strength from "@/components/sections/Strength/Strength";
 import type { PageParams } from "@/lib/types/global";
 import Recommendations from "@/components/sections/Recommendations/Recommendations";
 
@@ -35,7 +35,7 @@ export default async function PortfolioPage({ params }: PageParams) {
             />
           )}
           {portfolio.projects.length > 0 && <Projects projects={portfolio.projects} locale={locale} />}
-          {portfolio.strength && portfolio.strength.strengths.length > 0 && <Strength strength={portfolio.strength} locale={locale} />}
+          {/* {portfolio.strength && portfolio.strength.strengths.length > 0 && <Strength strength={portfolio.strength} locale={locale} />} */}
           {portfolio.philosophy && portfolio.philosophy.cards.length > 0 && <Philosophy philosophy={portfolio.philosophy} locale={locale} />}
           {portfolio.vision && portfolio.vision.length > 0 && <Vision vision={portfolio.vision} locale={locale} />}
           {portfolio.hobbies.length > 0 && <Hobbies hobbies={portfolio.hobbies} locale={locale} />}
