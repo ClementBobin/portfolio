@@ -21,7 +21,7 @@ const sections = [
       },
       {
         subtitle: "Données de l'appareil",
-        text: "Nous collectons des informations techniques limitées (version de l'OS, identifiant d'installation) uniquement pour assurer le bon fonctionnement de l'application et diagnostiquer d'éventuels problèmes.",
+        text: "Nous ne collectons pas de données personnelles sensibles. Cependant, des informations techniques anonymisées (type d'appareil, version de l'application, erreurs) peuvent être demandées à des fins de diagnostic et d'amélioration du service.",
       },
     ],
   },
@@ -49,11 +49,11 @@ const sections = [
     content: [
       {
         subtitle: "Au sein du club",
-        text: "Les informations nécessaires à la coordination (nom, disponibilités, affectations) sont visibles par les administrateurs du club et, pour les informations qui les concernent, par les autres membres du staff.",
+        text: "Les informations nécessaires à la coordination (nom, disponibilités d'un match, affectations à un match) sont visibles par les membres du club.",
       },
       {
         subtitle: "Prestataires techniques",
-        text: "Nous faisons appel à des prestataires de confiance (hébergement, notifications push) qui accèdent aux données dans le seul but de fournir ces services techniques, et sont soumis à des obligations contractuelles de confidentialité.",
+        text: "Nous ne faisons appel à aucun prestataire externe pour le traitement de vos données. L'application est hébergée sur des serveurs sécurisés et nous gérons directement l'ensemble des données.",
       },
       {
         subtitle: "Obligations légales",
