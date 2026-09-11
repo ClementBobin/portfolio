@@ -7,7 +7,7 @@ async function fetchContributions(): Promise<ContributionItem[]> {
 
   try {
     const res = await fetch(`${apiUrl}/contributions/list`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 3600, tags: ['contributions'] },
     });
 
     if (res.ok) {
